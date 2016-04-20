@@ -1,7 +1,7 @@
 {
   "name": "Octopeer Github Data Collector",
   "manifest_version": 2,
-  "version": "0.1",
+  "version": "0.1.0",
   "description": "This extension collects data while the user reviews Pull Requests.",
   "permissions": [
     "activeTab", "tabs", "https://github.com/"
