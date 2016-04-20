@@ -4,7 +4,17 @@ module.exports = function(config) {
         basePath: './src/octopeer-github',
         frameworks: ['qunit'],
         files: ["main/*.js", "test/*.js"],
-        reporters: ['progress'],
+        reporters: ['progress', 'coverage'],
+        coverageReporter: {
+            type: 'html',
+            dir: '../../coverage/'
+        },
+
+        preprocessors: {
+            // source files, that you wanna generate coverage for
+            // do not include tests or libraries
+            'main/*.js': ['coverage']
+        },
 
         browsers: ['Chrome', 'ChromeCanary'],
         customLaunchers: {
