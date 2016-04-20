@@ -1,0 +1,14 @@
+{
+  "name": "octopeer-github",
+  "version": "0.1.0",
+  "description": "This extension collects data while the user reviews Pull Requests.",
+  "scripts": {
+    "test": "karma start karma.config.js --single-run --browsers Firefox",
+    "testLocal": "karma start karma.config.js --single-run"
+  },
+  "devDependencies": {
+    "karma": "^0.13.22",
+    "karma-qunit": "^0.1.9",
+    "qunitjs": "^1.23.1"
+  }
+}
