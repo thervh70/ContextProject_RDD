@@ -6,6 +6,10 @@
   "permissions": [
     "activeTab", "tabs", "https://github.com/"
   ],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
   "content_scripts": [
     {
       "matches": ["https://github.com/*"],
