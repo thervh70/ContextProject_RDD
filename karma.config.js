@@ -1,4 +1,4 @@
-// karma.conf.js
+// karma.config.js
 module.exports = function(config) {
     var configuration = {
         basePath: './src/octopeer-github',

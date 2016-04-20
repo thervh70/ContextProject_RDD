@@ -1,3 +1,5 @@
+"use strict";
+
 class Derp {
     constructor(height, width) {
         this.height = height;
