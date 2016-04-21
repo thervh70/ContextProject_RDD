@@ -1,8 +1,11 @@
+# WebStorm machine-dependent configuration files
 .idea/dictionaries/
-.idea/workspace.xml
-.idea/jsLibraryMappings.xml
 .idea/libraries/
 .idea/Git.iml
+.idea/jsLibraryMappings.xml
+.idea/workspace.xml
+
+# project-wide ignored files
 node_modules/
 coverage/
 build/
