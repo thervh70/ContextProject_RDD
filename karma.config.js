@@ -13,7 +13,7 @@ module.exports = function(config) {
         preprocessors: {
             // source files, that you wanna generate coverage for
             // do not include tests or libraries
-            'src/octopeer-github/main/*.ts': ['coverage']
+            'build/main.js': ['coverage']
         },
 
         browsers: ['Chrome', 'ChromeCanary'],
