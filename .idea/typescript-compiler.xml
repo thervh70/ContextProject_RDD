@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="TypeScriptCompiler">
+    <option name="isCompilerEnabled" value="true" />
+    <option name="typeScriptCompilerParams" value="--project" />
+    <option name="outDirectory" value="C:\Users\Maarten\Dropbox\Study\TI2806_Context_Project\Git\build" />
+    <option name="useConfig" value="true" />
+  </component>
+</project>

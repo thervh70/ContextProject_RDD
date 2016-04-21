@@ -3,13 +3,14 @@
   "version": "0.1.0",
   "description": "This extension collects data while the user reviews Pull Requests.",
   "scripts": {
-    "test": "karma start karma.config.js --single-run --browsers Chrome"
+    "test": "karma start karma.config.js --single-run --browsers Chrome",
+    "tsc": "tsc --p tsconfig.main.json && tsc --p tsconfig.test.json"
   },
   "devDependencies": {
+    "jasmine": "^2.4.1",
     "karma": "^0.13.22",
     "karma-chrome-launcher": "^0.2.3",
     "karma-coverage": "^0.5.5",
-    "karma-qunit": "^0.1.9",
-    "qunitjs": "^1.23.1"
+    "karma-jasmine": "^0.3.8"
   }
 }
