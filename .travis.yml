@@ -9,6 +9,7 @@ cache:
   directories:
   - .autoconf
   - $HOME/.m2
+  - node_modules
 
 addons:
   apt:
