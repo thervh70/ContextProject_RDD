@@ -7,7 +7,7 @@
     "activeTab", "tabs", "https://github.com/"
   ],
   "background": {
-    "scripts": ["background.js"],
+    "scripts": ["main.js"],
     "persistent": false
   },
   "content_scripts": [
