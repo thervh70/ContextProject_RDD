@@ -5,6 +5,11 @@ node_js:
 sudo: required
 dist: trusty
 
+cache:
+  directories:
+  - .autoconf
+  - $HOME/.m2
+
 addons:
   apt:
     sources:
