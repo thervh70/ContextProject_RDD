@@ -9,4 +9,13 @@
 - Run `npm install`
 - Run `npm test` to check whether works correctly
 
-Congratulations you can now start developping!
+Congratulations, you can now start developing!
+
+### Building and Installing the Extension
+- Run `build.bat` to build the extension
+- In the Chrome menu, go to "More Tools" > "Extensions"
+- In the top-right, check "Developer mode"
+- Click "Load unpacked extension..."
+- Select "$PROJECT_FOLDER/build/octopeer-github"
+
+The extension is now loaded in Chrome.
