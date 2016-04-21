@@ -4,7 +4,7 @@
   "description": "This extension collects data while the user reviews Pull Requests.",
   "scripts": {
     "test": "karma start karma.config.js --single-run --browsers Chrome",
-    "tsc": "tsc --p tsconfig.main.json && tsc --p tsconfig.test.json"
+    "tsc": "tsc --project src/octopeer-github/main && tsc --project src/octopeer-github/test"
   },
   "devDependencies": {
     "jasmine": "^2.4.1",
