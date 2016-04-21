@@ -1,4 +1,7 @@
 .idea/dictionaries/
 .idea/workspace.xml
+.idea/jsLibraryMappings.xml
+.idea/libaries/
+.idea/Git.iml
 node_modules/
 coverage/
