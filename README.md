@@ -12,7 +12,8 @@
 Congratulations, you can now start developing!
 
 ### Building and Installing the Extension
-- Run `build.bat` to build the extension
+- Run `build.sh` to build the extension
+  - `build.sh clean` empties the build directory before building
 - In the Chrome menu, go to "More Tools" > "Extensions"
 - In the top-right, check "Developer mode"
 - Click "Load unpacked extension..."
