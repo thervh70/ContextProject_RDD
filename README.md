@@ -2,6 +2,12 @@
 [![Stories in Ready](https://badge.waffle.io/thervh70/ContextProject_RDD.png?label=ready&title=Ready)](http://waffle.io/thervh70/ContextProject_RDD)
 [![Build Status](https://travis-ci.org/thervh70/ContextProject_RDD.svg?branch=master)](https://travis-ci.org/thervh70/ContextProject_RDD)
 
+### Documents
+- Definition of Done (https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Definition_of_Done.pdf)
+- Sprint backlog 1 (https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Sprint_Backlog1.pdf)
+
+All documents can in general be found in the doc folder.
+
 ### Setup
 - Download [WebStorm](https://www.jetbrains.com/webstorm/)
 - Download [Nodejs](https://nodejs.org/en/download/)
