@@ -15,4 +15,4 @@ The Sprint Plan will be graded when you turn in the retorspective this Friday (A
 * Well done and keep it up
 * Adding a table with the total effort assigned per person is a good check if you split the tasks evenly (both for you and me)
 
-BTW: `[name](link)` is how you can avoid large urls on your README
+BTW: `[name](link)` is how you can avoid large urls on your README (please do so for the deliverables)
