@@ -1,4 +1,4 @@
-///<reference path="jasmine.d.ts"/>
+///<reference path="../../../DefinitelyTyped/jasmine/jasmine.d.ts"/>
 ///<reference path="../main/main.ts"/>
 
 describe("A suite", function() {
