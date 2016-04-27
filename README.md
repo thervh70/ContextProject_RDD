@@ -3,8 +3,8 @@
 [![Build Status](https://travis-ci.org/thervh70/ContextProject_RDD.svg?branch=master)](https://travis-ci.org/thervh70/ContextProject_RDD)
 
 ### Documents
-- Definition of Done (https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Definition_of_Done.pdf)
-- Sprint backlog 1 (https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Sprint_Backlog1.pdf)
+- [Definition of Done](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Definition_of_Done.pdf)
+- [Sprint backlog 1](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Sprint_Backlog1.pdf)
 
 All documents can in general be found in the doc folder.
 
