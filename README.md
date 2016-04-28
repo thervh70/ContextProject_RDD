@@ -6,7 +6,8 @@
 - Definition of Done (https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Definition_of_Done.pdf)
 - Sprint backlog 1 (https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Sprint_Backlog1.pdf)
 
-- [Product Vision](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Product%20Vision%20Document.pdf)
+- [Product Vision](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Product_Vision_Document.pdf)
+- [Product Planning](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Product_Planning_Document.pdf)
 
 All documents can in general be found in the doc folder.
 
