@@ -7,6 +7,8 @@
 - [Sprint backlog 1](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Sprint_Backlog1.pdf)
 
 - Research Documents:
+  - [Frameworks](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/research/Research_Frameworks.pdf)
+  - [IDE](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/research/Research_IDE.pdf)
   - [Static Analysis Tools](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/research/Research_Static_Analysis_Tools.pdf)
 
 - [Product Vision](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Product_Vision_Document.pdf)
