@@ -13,6 +13,7 @@
 
 - [Product Vision](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Product_Vision_Document.pdf)
 - [Product Planning](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Product_Planning_Document.pdf)
+- [Architecture Design Document](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Architecture_Design_Document.pdf)
 
 
 All documents can in general be found in the doc folder.
