@@ -4,7 +4,11 @@
 
 ### Documents
 - [Definition of Done](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Definition_of_Done.pdf)
-- [Sprint backlog 1](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Sprint_Backlog1.pdf)
+- Sprint backlogs:
+  - [1](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Sprint_Backlog1.pdf)
+  - [2](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Sprint_Backlog2.pdf)
+- Sprint retrospectives:
+  - [1](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/SprintRetrospective-1.pdf)
 
 - Research Documents:
   - [Frameworks](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/research/Research_Frameworks.pdf)
