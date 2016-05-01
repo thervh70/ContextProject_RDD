@@ -17,3 +17,6 @@ echo "Transpiling TypeScript..."
 npm run-script tsc > /dev/null && cp build/main.js build/octopeer-github/main.js
 cursor_up
 echo "Transpiled TypeScript"
+
+cp node_modules/jquery/dist/jquery.min.js build/octopeer-github/jquery.min.js
+echo "Copied dependencies"

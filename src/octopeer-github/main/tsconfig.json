@@ -8,5 +8,9 @@
     "preserveConstEnums": true,
     "outFile": "../../../build/main.js",
     "sourceMap": true
-  }
+  },
+  "exclude": [
+    "../../../node_modules",
+    "../../../DefinitelyTyped"
+  ]
 }
