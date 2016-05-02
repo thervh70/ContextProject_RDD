@@ -1,7 +1,7 @@
 |      |            |
 |------|------------|
 |Group | Rubber Duck Debuggers |
-|Assignment|Sprint Plan 1|
+|Assignment|Product Planning Draft|
 |Date|02/05/16|
 |TA|Bastiaan Reijm|
 
@@ -49,6 +49,11 @@ Feedback for the product planning draft.
 
 * As a developer I want to start developing the system in a systematic way So that I’m sure that I won’t forget important things while developing
 	* Quite a tongue twister
+
+* User stories of know­how acquisition
+	* How will your user learn how to use Octopeer
+	
+* Will the product crash silently or alert the user that something went wrong, assume your system isn't perfect
 	
 ##Definition of Done
 
