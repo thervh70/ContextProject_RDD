@@ -23,15 +23,15 @@ class DatabaseAdapter {
         $.ajax(`${this.url}api/events/`, {
                 type: "POST",
                 dataType: "json",
-                data: JSON.stringify({
+                data: {
                     "started_at": start.toJSON(),
                     "duration": duration,
-                    "session": `http://localhost:8000/api/sessions/${this._session}/`,
-                    "event_type": `http://localhost:8000/api/event-types/${eventType}/`
-                })
+                    "session": `${this.url}api/sessions/${this._session}/`,
+                    "event_type": `${this.url}api/event-types/${eventType}/`
+                }
             })
             .done(success)
-            .fail(function(jqXHR, status) {console.log(`Call failed :( ${status} ${jqXHR}`)}).done();
+            .fail(function(jqXHR, status) {console.log(`Call failed, status: ${status}`); console.log(jqXHR);}).done();
     }
 
 }
