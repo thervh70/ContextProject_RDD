@@ -31,6 +31,7 @@ All documents can in general be found in the doc folder.
 - Run `npm test` to check whether works correctly
 
 Congratulations, you can now start developing!
+
 The next section will continue with applying Static Analysis Tools to WebStorm.
 
 ### Tooling (SAT)
@@ -42,11 +43,14 @@ Installing and activating TSLint:
 - Go to 'Languages & Frameworks' and click on 'Node.js and NPM'.
 - For the 'Packages' area that shows up, click '+'.
 - In the 'Available Packages' dialog box that opens, select the 'tslint' package and click 'Install package'.
+
 You've now installed TSLint.
 - Open the Settings / Preferences Dialog again by following the given first step above.
 - Go to 'Languages & Frameworks' and click on 'TypeScript' and then on 'TSLint'.
 - In the area that shows up, select the 'Enable' check box.
+
 The default settings within this enabled area are sufficient, so apply the changes and close the window.
+
 You've now activated TSLint.
 
 ### Building and Installing the Extension
