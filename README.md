@@ -26,6 +26,7 @@ All documents can in general be found in the doc folder.
 - Download [WebStorm](https://www.jetbrains.com/webstorm/)
 - Download [Nodejs](https://nodejs.org/en/download/)
 - Use WebStorm (or Git knowledge) to clone the repo to a local folder
+  - To also clone the submodule "DefinitelyTyped", use `git submodule update --init`
 - Run `npm install`
 - Run `npm test` to check whether works correctly
 
