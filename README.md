@@ -36,16 +36,13 @@ The next section will continue with applying Static Analysis Tools to WebStorm.
 
 ### Tooling (SAT)
 **Installing and activating TSLint:**
+- Run 'npm install -g tslint'.
+
+You've now installed TSLint.
 - Within WebStorm, open the Settings / Preferences Dialog by
   - (for Windows and Linux) clicking on the 'File' tab and then 'Settings'.
   - (for OS X) clicking on the 'WebStorm' tab and then 'Preferences'.
   - the shortcut: ctrl + alt + s.
-- Go to 'Languages & Frameworks' and click on 'Node.js and NPM'.
-- For the 'Packages' area that shows up, click '+'.
-- In the 'Available Packages' dialog box that opens, select the 'tslint' package and click 'Install package'.
-
-You've now installed TSLint.
-- Open the Settings / Preferences Dialog again by following the given first step above.
 - Go to 'Languages & Frameworks' and click on 'TypeScript' and then on 'TSLint'.
 - In the area that shows up, select the 'Enable' check box.
 
