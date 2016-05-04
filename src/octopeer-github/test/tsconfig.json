@@ -9,12 +9,5 @@
     "outFile": "../../../build/test.js",
     "target": "es5",
     "sourceMap": true
-  },
-  "filesGlob": [
-    "**/*.ts",
-    "!node_modules/**"
-  ],
-  "files": [
-    "../../../typings/main.d.ts"
-  ]
+  }
 }
