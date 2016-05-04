@@ -1,19 +1,7 @@
-class Derp {
+let databaseAdapterInterfaceImplementer: DatabaseAdapterInterface;
+let buttonSelecter: ElementSelectionBehaviour;
+let buttonClickedLogging: ElementEventBinding;
 
-    public height: number;
-    public width: number;
-
-    constructor(height: number, width: number) {
-        this.height = height;
-        this.width = width;
-    }
-    
-    public getHeight() {
-        return this.height;
-    }
-}
-
-var lolDerp = new Derp(42, 41);
-console.log(lolDerp.width * 5);
-
-console.log("Started Octopeer");
+databaseAdapterInterfaceImplementer = new DatabaseConsoleLogOnly();
+buttonSelecter = new SelectButtonsElementSelectionBehaviour(databaseAdapterInterfaceImplementer);
+buttonClickedLogging = new ClickElementEventBinding(buttonSelecter);
