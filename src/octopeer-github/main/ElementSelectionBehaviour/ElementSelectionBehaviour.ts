@@ -2,6 +2,7 @@
  * Created by Youri on 03/05/2016.
  */
 type ElementID = number;
+type EventHandler = (eventObject: JQueryEventObject) => void;
 
 /**
  * The element selection behaviour.
@@ -19,10 +20,7 @@ interface ElementSelectionBehaviour {
     getElements(): JQuery;
 
     /**
-     * Binds the event handler into the context of the selected element.
-     * @param eventHandler the event handler to context-binding.
-     * @param context the context in which the function needs to be evaluated.
-     * @returns {EventHandler} The event handler in the given context.
+     * Handle the event.
      */
-    putIntoContext(eventHandler: EventHandler, context: JQuery): EventHandler;
+    getCallback(): EventHandler;
 }

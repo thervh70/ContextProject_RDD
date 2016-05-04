@@ -25,13 +25,9 @@ class SelectButtonsElementSelectionBehaviour implements ElementSelectionBehaviou
         return $(this.elementDsc);
     };
 
-    /**
-     * Binds the event handler into the context of the selected element.
-     * @param eventHandler the event handler to context-binding.
-     * @param context the context in which the function needs to be evaluated.
-     * @returns {EventHandler} The event handler in the given context.
-     */
-    public putIntoContext(eventHandler: EventHandler, context: JQuery) {
-        return eventHandler;
+    public getCallback() {
+        return (function(eventObject: JQueryEventObject) {
+            
+        });
     }
 }
