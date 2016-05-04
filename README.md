@@ -36,9 +36,7 @@ The next section will continue with applying Static Analysis Tools to WebStorm.
 
 ### Tooling (SAT)
 **Installing and activating TSLint:**
-- Run 'npm install -g tslint'.
-
-You've now installed TSLint.
+- Run `npm install -g tslint`.
 - Within WebStorm, open the Settings / Preferences Dialog by
   - (for Windows and Linux) clicking on the 'File' tab and then 'Settings'.
   - (for OS X) clicking on the 'WebStorm' tab and then 'Preferences'.
@@ -52,12 +50,10 @@ You've now activated TSLint.
 
 
 **Installing and using MaDGe (dependency tool):**
-- Run 'npm install madge' (library)
-- Run 'npm -g install madge' (command-line tool)
-
-You've now installed MaDGe.
-- Run 'madge' for using MaDGe (it will return all options)
-- Run (for example) 'madge -f amd -c ./src' for checking circular dependencies within the source code.
+- Run `npm install madge` (library)
+- Run `npm -g install madge` (command-line tool)
+- Run `madge` for using MaDGe (it will return all options)
+- Run (for example) `madge -f amd -c ./src` for checking circular dependencies within the source code.
 - (Optional) GraphViz can be used for visualizing the results.
 
 More examples can be found [here](https://github.com/pahen/madge).
