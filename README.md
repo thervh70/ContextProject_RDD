@@ -53,6 +53,17 @@ The default settings within this enabled area are sufficient, so apply the chang
 
 You've now activated TSLint.
 
+
+Installing MaDGe (dependency tool) and using it:
+- Run 'npm install madge' (library)
+- Run 'npm -g install madge' (command-line tool)
+You've now installed MaDGe.
+- Run 'madge' for using MaDGe (it will return all options)
+- Run (for example) 'madge -f amd -c ./src' for checking circular dependencies within the source code.
+- (Optional) GraphViz can be used for visualizing the results.
+
+More examples can be found [here](https://github.com/pahen/madge).
+
 ### Building and Installing the Extension
 - Run `build.sh` to build the extension
   - `build.sh clean` empties the build directory before building
