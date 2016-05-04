@@ -3,6 +3,7 @@
  */
 /// <reference path="../../../../DefinitelyTyped/jquery/jquery.d.ts"/>
 type EventID = number;
+type EventHandler = (eventObject: JQueryEventObject) => void;
 
 interface ElementEventBindingBehaviour {
     getElementId(): ElementID;
