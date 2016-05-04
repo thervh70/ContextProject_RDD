@@ -7,13 +7,4 @@ type EventID = number;
 /**
  * ElementEventBinding dictates on what events the callback should be called.
  */
-interface ElementEventBinding {
-    /**
-     * Get the ElementID
-     */
-    getElementID(): ElementID;
-    /**
-     * Get the EventID
-     */
-    getEventID(): EventID;
-}
+interface ElementEventBinding {}
