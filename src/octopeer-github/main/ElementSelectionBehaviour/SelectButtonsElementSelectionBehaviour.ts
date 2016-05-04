@@ -10,6 +10,12 @@ class SelectButtonsElementSelectionBehaviour implements ElementSelectionBehaviou
     private elementID: ElementID  = 1;
 
     /**
+     * Creates a SelectButtonsElementSelectionBehaviour object.
+     * @param database the database to push to.
+     */
+    public constructor(private database: DatabaseAdapterInterface) {}
+
+    /**
      * Get the elementID for buttons
      * @returns {ElementID} ElementID for buttons
      */
