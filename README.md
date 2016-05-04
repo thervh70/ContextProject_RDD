@@ -62,3 +62,7 @@ You've now activated TSLint.
 - Select "$PROJECT_FOLDER/build/octopeer-github"
 
 The extension is now loaded in Chrome.
+
+### Adding new type definitions for dependencies
+ - For every new dependency, run `typings install --ambient --save <package-name>`
+ - The type definitons should now automatically be included via the TypeScript configuration files

@@ -1,5 +1,4 @@
-///<reference path="../../../DefinitelyTyped/jasmine/jasmine.d.ts"/>
-///<reference path="../main/main.ts"/>
+/// <reference path="../main/main.ts"/>
 
 describe("A suite", function() {
     it("contains spec with an expectation", function() {
