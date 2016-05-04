@@ -12,28 +12,11 @@ class ClickElementEventBinding implements ElementEventBinding {
     /**
      * Constructor, creates the object and adds the event handler to the elements selected by the elementSelectionBehaviour.
      * @param elementSelectionBehaviour dictates what elements are selected.
-     * @param eventHandler the callback when this event fires on the selected objects.
      */
-    constructor(private elementSelectionBehaviour: ElementSelectionBehaviour, eventHandler: EventHandler) {
+    constructor(private elementSelectionBehaviour: ElementSelectionBehaviour) {
         elementSelectionBehaviour.getElements().on(
             this.eventType,
-            eventHandler
+            this.elementSelectionBehaviour.getCallback(this.eventID)
         );
-    }
-
-    /**
-     * Get the EventID of the event. Corrosopndents with the ID in the database.
-     * @returns {EventID} the EventID of the event.
-     */
-    public getEventID() {
-        return this.eventID;
-    }
-
-    /**
-     * Get the elementID of the selected elements
-     * * @returns {ElementID} get the ElementID.
-     */
-    public getElementID() {
-        return this.elementSelectionBehaviour.getElementId();
     }
 }
