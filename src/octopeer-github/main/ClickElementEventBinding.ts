@@ -5,7 +5,7 @@
 /**
  * Class for adding click events.
  */
-class ClickElementEventBindingBehaviour implements ElementEventBindingBehaviour {
+class ClickElementEventBinding implements ElementEventBinding {
     private eventType: string = "click";
     private eventID: EventID   = 1;
 

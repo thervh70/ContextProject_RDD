@@ -6,7 +6,7 @@ type EventHandler = (eventObject: JQueryEventObject) => void;
 
 /**
  * The element selection behaviour.
- * this is used by the tracker and ElementEventBindingBehaviour
+ * this is used by the tracker and ElementEventBinding
  */
 interface ElementSelectionBehaviour {
     /**
