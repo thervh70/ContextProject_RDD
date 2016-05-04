@@ -6,7 +6,7 @@
  * Class for selecting buttons.
  */
 class SelectButtonsElementSelectionBehaviour implements ElementSelectionBehaviour {
-    private elementDsc: string = ".button";
+    private elementDsc: string = ".btn";
     private elementID: ElementID  = 1;
 
     /**
