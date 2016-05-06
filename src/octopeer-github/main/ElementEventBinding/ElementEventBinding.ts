@@ -7,4 +7,11 @@ type EventID = number;
 /**
  * ElementEventBinding dictates on what events the callback should be called.
  */
-interface ElementEventBinding {}
+interface ElementEventBinding {
+
+    /**
+     * Creates a ElementEventBinding object.
+     * @param elementSelectionBehaviour the ELement selection behaviour to use.
+     */
+    new (elementSelectionBehaviour: ElementSelectionBehaviour): ElementEventBinding;
+}
