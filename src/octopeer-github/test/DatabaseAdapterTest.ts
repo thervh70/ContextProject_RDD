@@ -6,7 +6,7 @@ describe("A DatabaseAdapter", function() {
     beforeEach(function() {
         jasmine.Ajax.install();
 
-        adapter = new DatabaseAdapter("http://localhost:8000");
+        adapter = new DatabaseAdapter("http://localhost:8000", 1, 1);
         jasmine.Ajax.requests.mostRecent().respondWith({
             contentType: "text/json",
             responseText: '{"url":"http://localhost:8000/api/users/42/","username":"Travis"}',
@@ -19,7 +19,13 @@ describe("A DatabaseAdapter", function() {
         jasmine.Ajax.uninstall();
     });
 
-    it("correctly saves the url with trailing slash", function() {
+    it("correctly adds a trailing slash to the url", function() {
+        delete adapter;
+        adapter = new DatabaseAdapter("http://localhost:8000/", 1, 1);
+        expect(adapter.url).toBe("http://localhost:8000/");
+    });
+
+    it("should not add a trailing slash to the url when it is already there", function() {
         expect(adapter.url).toBe("http://localhost:8000/");
     });
 
