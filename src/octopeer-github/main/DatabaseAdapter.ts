@@ -37,7 +37,7 @@ class DatabaseAdapter {
     }
 
     get isInitialized(): boolean {
-        return this._session != -1;
+        return this._session !== -1;
     }
 
     get session(): number {
