@@ -9,6 +9,13 @@ type EventHandler = (eventObject: JQueryEventObject) => void;
  * this is used by the tracker and ElementEventBinding
  */
 interface ElementSelectionBehaviour {
+
+    /**
+     * Creates a ElementSelectionBehaviour object.
+     * @param database the database to push to.
+     */
+    new (database: DatabaseAdaptable): ElementSelectionBehaviour;
+
     /**
      * Get the elementID corresponding with the database elementID.
      */
