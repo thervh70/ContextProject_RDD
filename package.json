@@ -1,23 +1,27 @@
 {
   "name": "octopeer-github",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "description": "This extension collects data while the user reviews Pull Requests.",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/thervh70/ContextProject_RDD"
+    "type": "git",
+    "url": "https://github.com/thervh70/ContextProject_RDD"
   },
   "license": "none",
-
   "scripts": {
     "test": "karma start karma.config.js --single-run --browsers Chrome",
     "tsc": "tsc --project src/octopeer-github/main && tsc --project src/octopeer-github/test"
   },
   "devDependencies": {
     "jasmine": "^2.4.1",
+    "jasmine-ajax": "^3.2.0",
+    "jasmine-jquery": "^2.1.1",
+    "jquery": "^2.2.3",
     "karma": "^0.13.22",
     "karma-chrome-launcher": "^0.2.3",
     "karma-coverage": "^0.5.5",
     "karma-jasmine": "^0.3.8",
-    "typescript": "^1.8.10"
+    "tslint": "^3.9.0",
+    "typescript": "^1.8.10",
+    "typings": "^0.8.1"
   }
 }
