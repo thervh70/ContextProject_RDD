@@ -41,9 +41,10 @@ class SelectButtonsElementSelectionBehaviour implements ElementSelectionBehaviou
      * @returns {function(JQueryEventObject)} an EventHandler to handle the event on the selected objects.
      */
     public getCallback(eventID: EventID) {
+        const self = this;
         return (function(eventObject: JQueryEventObject) {
             // TODO: check when the new Date is triggered.
-            this.database.log(this.getElementId(), eventID, new Date(), 0);
+            self.database.log(self.getElementId(), eventID, new Date(), 0);
         });
     }
 }
