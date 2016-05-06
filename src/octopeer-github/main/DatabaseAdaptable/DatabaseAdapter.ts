@@ -1,6 +1,7 @@
 /**
  * This class connects to the RESTful API made by Aaron.
  */
+
 class DatabaseAdapter implements DatabaseAdaptable {
 
     private _session: number = -1;
@@ -64,7 +65,7 @@ class DatabaseAdapter implements DatabaseAdaptable {
      */
     public log(elementType: number, eventType: number,
                start: Date, duration: number,
-               success: JQueryPromiseCallback<any>, failure: JQueryPromiseCallback<any>): void {
+               success: Callback, failure: Callback): void {
         const self = this;
         if (!this.isInitialized) {
             console.log("[WARN] The database has not been initialized yet!");
@@ -97,10 +98,14 @@ class DatabaseAdapter implements DatabaseAdaptable {
      * @param success       Callback, which is called once the call has succeeded.
      * @param failure       Callback, which is called once the call has failed.
      */
-    public logWLine(elementType: number, eventType: number,
-                    fileName: string, lineNumber: number,
-                    start: Date, duration: number,
-                    success: JQueryPromiseCallback<any>, failure: JQueryPromiseCallback<any>): void {
+    public logWLine(elementType: number,
+                    eventType: number,
+                    fileName: string,
+                    lineNumber: number,
+                    start: Date,
+                    duration: number,
+                    success: Callback,
+                    failure: Callback): void {
         this.log(elementType, eventType, start, duration, success, failure);
     }
 
