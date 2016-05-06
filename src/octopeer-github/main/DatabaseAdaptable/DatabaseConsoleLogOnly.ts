@@ -7,8 +7,8 @@
 class DatabaseConsoleLogOnly implements DatabaseAdaptable {
     /**
      * File invariant logging.
-     * @param elementID elementid
-     * @param eventID eventid
+     * @param elementID elementID
+     * @param eventID eventID
      * @param start start
      * @param duration duration
      */
@@ -23,20 +23,20 @@ class DatabaseConsoleLogOnly implements DatabaseAdaptable {
 
     /**
      * File identifying logging.
-     * @param elementID elementid
-     * @param eventID eventid
+     * @param elementID elementID
+     * @param eventID eventID
      * @param filename filename
-     * @param linenumber linenumber
+     * @param lineNumber lineNumber
      * @param start start
      * @param duration duration
      */
-    public logWLine(elementID: ElementID, eventID: EventID, filename: FileName, linenumber: LineNumber, start: Date, duration: Duration) {
+    public logWLine(elementID: ElementID, eventID: EventID, filename: FileName, lineNumber: LineNumber, start: Date, duration: Duration) {
         console.log({
             duration: duration,
             elementID: elementID,
             eventID: eventID,
             filename: filename,
-            linenumber: linenumber,
+            lineNumber: lineNumber,
             start: start,
         });
     }

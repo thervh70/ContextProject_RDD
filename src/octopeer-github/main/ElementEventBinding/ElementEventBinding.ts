@@ -10,13 +10,13 @@ type EventID = number;
 interface ElementEventBinding {}
 
 /**
- * Makes it so we can instatiate by classname, for reference see:
+ * Makes it so we can instantiate by class name, for reference see:
  * http://stackoverflow.com/questions/13407036/how-does-typescript-interfaces-with-construct-signatures-work
  */
 interface ElementEventBindingCreatable {
     /**
      * Creates a ElementEventBinding object.
-     * @param elementSelectionBehaviour the ELement selection behaviour to use.
+     * @param elementSelectionBehaviour the Element selection behaviour to use.
      */
     new (elementSelectionBehaviour: ElementSelectionBehaviour): ElementEventBinding;
 }
