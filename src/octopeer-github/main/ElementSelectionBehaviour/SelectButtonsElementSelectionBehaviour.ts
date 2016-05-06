@@ -13,7 +13,7 @@ class SelectButtonsElementSelectionBehaviour implements ElementSelectionBehaviou
      * Creates a SelectButtonsElementSelectionBehaviour object.
      * @param database the database to push to.
      */
-    public constructor(private database: DatabaseAdapterInterface) {}
+    public constructor(private database: DatabaseAdaptable) {}
 
     /**
      * Get the elementID for buttons
@@ -38,7 +38,7 @@ class SelectButtonsElementSelectionBehaviour implements ElementSelectionBehaviou
      */
     public getCallback(eventID: EventID) {
         return (function(eventObject: JQueryEventObject) {
-            // TODO: check when the new Date is triggerd.
+            // TODO: check when the new Date is triggered.
             this.database.log(this.getElementId(), eventID, new Date(), 0);
         });
     }

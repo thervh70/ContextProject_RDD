@@ -4,7 +4,7 @@
 /**
  * Semi-mock class for being able to check implementation completeness
  */
-class DatabaseConsoleLogOnly implements DatabaseAdapterInterface {
+class DatabaseConsoleLogOnly implements DatabaseAdaptable {
     /**
      * File invariant logging.
      * @param elementID elementid
