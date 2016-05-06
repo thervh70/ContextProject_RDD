@@ -26,11 +26,36 @@ All documents can in general be found in the doc folder.
 - Download [WebStorm](https://www.jetbrains.com/webstorm/)
 - Download [Nodejs](https://nodejs.org/en/download/)
 - Use WebStorm (or Git knowledge) to clone the repo to a local folder
-  - To also clone the submodule "DefinitelyTyped", use `git submodule update --init`
 - Run `npm install`
 - Run `npm test` to check whether works correctly
 
 Congratulations, you can now start developing!
+
+The next section will continue with applying Static Analysis Tools to WebStorm.
+
+### Tooling (SAT)
+**Installing and activating TSLint:**
+- Run `npm install -g tslint`.
+- Within WebStorm, open the Settings / Preferences Dialog by
+  - (for Windows and Linux) clicking on the 'File' tab and then 'Settings'.
+  - (for OS X) clicking on the 'WebStorm' tab and then 'Preferences'.
+  - the shortcut: ctrl + alt + s.
+- Go to 'Languages & Frameworks' and click on 'TypeScript' and then on 'TSLint'.
+- In the area that shows up, select the 'Enable' check box.
+
+The default settings within this enabled area are sufficient, so apply the changes and close the window.
+
+You've now activated TSLint.
+
+
+**Installing and using MaDGe (dependency tool):**
+- Run `npm install madge` (library)
+- Run `npm -g install madge` (command-line tool)
+- Run `madge` for using MaDGe (it will return all options)
+- Run (for example) `madge -f amd -c ./src` for checking circular dependencies within the source code.
+- (Optional) GraphViz can be used for visualizing the results.
+
+More examples can be found [here](https://github.com/pahen/madge).
 
 ### Building and Installing the Extension
 - Run `build.sh` to build the extension
@@ -41,3 +66,7 @@ Congratulations, you can now start developing!
 - Select "$PROJECT_FOLDER/build/octopeer-github"
 
 The extension is now loaded in Chrome.
+
+### Adding new type definitions for dependencies
+ - For every new dependency, run `typings install --ambient --save <package-name>`
+ - The type definitons should now automatically be included via the TypeScript configuration files
