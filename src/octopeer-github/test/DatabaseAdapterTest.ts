@@ -58,7 +58,7 @@ describe("A DatabaseAdapter", function() {
             status: 201,
         });
 
-        expect(consoleSpy).toHaveBeenCalledTimes(3);
+        expect(consoleSpy).toHaveBeenCalledTimes(2);
         expect(consoleSpy.calls.all()[0].args[0]).toBe("Sent out AJAX request: ");
         expect(consoleSpy.calls.all()[1].args[0]).toBe("Call success, status: success");
     });
