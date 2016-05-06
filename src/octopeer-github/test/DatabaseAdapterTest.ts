@@ -52,6 +52,23 @@ describe("A DatabaseAdapter", function() {
         expect(spyFunc.calls.mostRecent().args[0]).toEqual({success: true});
     });
 
+    it("cannot post to the API when not initialized", function() {
+        delete adapter;
+        adapter = new DatabaseAdapter("http://localhost:8000", 1, 1);
+
+        const spyFunc = jasmine.createSpy("success");
+
+        adapter.post(1, new Date(), 100, spyFunc);
+
+        jasmine.Ajax.requests.mostRecent().respondWith({
+            contentType: "text/json",
+            responseText: JSON.stringify({success: false}),
+            status: 400,
+        });
+
+        expect(spyFunc).not.toHaveBeenCalled();
+    });
+
     it("can be set to debug mode", function() {
         const consoleSpy = spyOn(console, "log");
 

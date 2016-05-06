@@ -61,6 +61,10 @@ class DatabaseAdapter {
      */
     public post(eventType: number, start: Date, duration: number, success: JQueryPromiseCallback<any>): void {
         const self = this;
+        if (!this.isInitialized) {
+            console.log("[WARN] The database has not been initialized yet!");
+            return;
+        }
         const ajax = $.ajax(`${this.url}api/events/`, self.createPostData(eventType, start, duration))
             .done(function(data, status, jqXHR) {
                 if (self._debug) {
