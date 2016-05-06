@@ -1,19 +1,6 @@
-class Derp {
-
-    public height: number;
-    public width: number;
-
-    constructor(height: number, width: number) {
-        this.height = height;
-        this.width = width;
-    }
-
-    public getHeight() {
-        return this.height;
-    }
-}
-
-const lolDerp = new Derp(42, 41);
-console.log(lolDerp.width * 5);
-
-console.log("Started Octopeer");
+const adapter = new DatabaseAdapter("http://localhost:8000", 1, 1);
+adapter.log(1, 1, new Date(), 100, function() {
+    console.log("yay!");
+}, function() {
+    console.log("awwh...");
+});
