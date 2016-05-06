@@ -1,3 +1,5 @@
+/// <reference path="../ElementEventBinding/ElementEventBinding.ts"/>
+
 /**
  * Created by Youri on 04/05/2016.
  */
