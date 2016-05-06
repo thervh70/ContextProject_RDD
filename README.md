@@ -10,6 +10,7 @@
   - [3](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Sprint_Backlog3.pdf)
 - Sprint retrospectives:
   - [1](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/SprintRetrospective-1.pdf)
+  - [2](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/SprintRetrospective-2.pdf)
 
 - Research Documents:
   - [Frameworks](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/research/Research_Frameworks.pdf)
