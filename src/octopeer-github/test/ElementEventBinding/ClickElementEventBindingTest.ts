@@ -1,25 +1,23 @@
+/// <reference path="../../main/ElementEventBinding/ClickElementEventBinding.ts"/>
 /// <reference path="../../main/ElementSelectionBehaviour/SelectButtonsElementSelectionBehaviour.ts"/>
 /// <reference path="../../main/DatabaseAdaptable/DatabaseConsoleLogOnly.ts"/>
 
-describe("An ElementSelector that selects Buttons", function() {
+describe("An EventBinder that binds Click events", function() {
     let selector: ElementSelectionBehaviour;
     let database: DatabaseAdaptable;
     let logSpy: jasmine.Spy;
 
-    beforeEach(function() {
+    beforeEach(function () {
         setFixtures("<div><button id='bt1' class='btn'></button><button id='bt2' class='btn2'></button></div>");
         database = new DatabaseConsoleLogOnly();
         selector = new SelectButtonsElementSelectionBehaviour(database);
         logSpy = spyOn(database, "log");
     });
 
-    it("should select buttons", function () {
-        expect(selector.getElements().length).toBe(1);
-    });
-
-    it("has a callback that should log to the database", function () {
-        const mockedClick = $.Event("click");
-        selector.getCallback(1)(mockedClick);
-        expect(logSpy).toHaveBeenCalled();
+    it("should be bound to the right type of buttons", function() {
+        const binder = new ClickElementEventBinding(selector);
+        $(".btn").click();
+        expect(logSpy).toHaveBeenCalledTimes(1);
+        delete binder;
     });
 });
