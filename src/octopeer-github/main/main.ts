@@ -1,6 +1,15 @@
-const adapter = new DatabaseAdapter("http://localhost:8000", 1, 1);
-adapter.log(1, 1, new Date(), 100, function() {
-    console.log("yay!");
-}, function() {
-    console.log("awwh...");
-});
+/// <reference path="DatabaseAdaptable/DatabaseAdaptable.ts"/>
+/// <reference path="DatabaseAdaptable/DatabaseConsoleLogOnly.ts"/>
+/// <reference path="ElementSelectionBehaviour/ElementSelectionBehaviour.ts"/>
+/// <reference path="ElementSelectionBehaviour/ButtonsElementSelectionBehaviour.ts"/>
+/// <reference path="ElementEventBinding/ElementEventBinding.ts"/>
+/// <reference path="ElementEventBinding/ClickElementEventBinding.ts"/>
+
+let databaseAdapterInterfaceImplementer: DatabaseAdaptable;
+let buttonSelector: ElementSelectionBehaviour;
+let buttonClickedLogging: ElementEventBinding;
+
+databaseAdapterInterfaceImplementer = new DatabaseConsoleLogOnly();
+buttonSelector = new ButtonsElementSelectionBehaviour(databaseAdapterInterfaceImplementer);
+buttonClickedLogging = new ClickElementEventBinding(buttonSelector);
+

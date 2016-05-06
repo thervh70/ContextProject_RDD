@@ -1,4 +1,4 @@
-///<reference path="../main/DatabaseAdapter.ts"/>
+///<reference path="../../main/DatabaseAdaptable/DatabaseAdapter.ts"/>
 
 describe("A DatabaseAdapter", function() {
     let adapter: DatabaseAdapter;
@@ -40,7 +40,7 @@ describe("A DatabaseAdapter", function() {
     it("can post to the API", function() {
         const spyFunc = jasmine.createSpy("success");
 
-        adapter.log(1, 1, new Date(), 100, spyFunc, function() {return; });
+        adapter.log(1, 1, new Date(), 100, spyFunc, EMPTY_CALLBACK);
 
         jasmine.Ajax.requests.mostRecent().respondWith({
             contentType: "text/json",
@@ -58,7 +58,7 @@ describe("A DatabaseAdapter", function() {
 
         const spyFunc = jasmine.createSpy("success");
 
-        adapter.log(1, 1, new Date(), 100, spyFunc, function() {return; });
+        adapter.log(1, 1, new Date(), 100, spyFunc, EMPTY_CALLBACK);
 
         jasmine.Ajax.requests.mostRecent().respondWith({
             contentType: "text/json",
@@ -74,7 +74,7 @@ describe("A DatabaseAdapter", function() {
 
         adapter.setDebug();
 
-        adapter.log(1, 1, new Date(), 100, function(data) {return data; }, function() {return; });
+        adapter.log(1, 1, new Date(), 100, EMPTY_CALLBACK, EMPTY_CALLBACK);
         jasmine.Ajax.requests.mostRecent().respondWith({
             contentType: "text/json",
             responseText: JSON.stringify({success: true}),

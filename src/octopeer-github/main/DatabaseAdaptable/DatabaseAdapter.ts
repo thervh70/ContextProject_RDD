@@ -1,7 +1,8 @@
 /**
  * This class connects to the RESTful API made by Aaron.
  */
-class DatabaseAdapter {
+
+class DatabaseAdapter implements DatabaseAdaptable {
 
     private _session: number = -1;
 
@@ -62,8 +63,9 @@ class DatabaseAdapter {
      * @param success       Callback, which is called once the call has succeeded.
      * @param failure       Callback, which is called once the call has failed.
      */
-    public log(elementType: number, eventType: number, start: Date, duration: number,
-               success: JQueryPromiseCallback<any>, failure: JQueryPromiseCallback<any>): void {
+    public log(elementType: number, eventType: number,
+               start: Date, duration: number,
+               success: Callback, failure: Callback): void {
         const self = this;
         if (!this.isInitialized) {
             console.log("[WARN] The database has not been initialized yet!");
@@ -85,9 +87,25 @@ class DatabaseAdapter {
         }
     }
 
-    public logWLine(elementType: number, eventType: number, start: Date, duration: number,
-                    fileName: string, lineNumber: number,
-                    success: JQueryPromiseCallback<any>, failure: JQueryPromiseCallback<any>): void {
+    /**
+     * Post an event to the database, including a filename and line number.
+     * @param elementType   Should equal an existing ElementType ID in the database.
+     * @param eventType     Should equal an existing EventType ID in the database.
+     * @param fileName      The file name of the location where the event triggered.
+     * @param lineNumber    The line number of the location where the event triggered.
+     * @param start         Date when the event started.
+     * @param duration      How long the event lasted, in ms.
+     * @param success       Callback, which is called once the call has succeeded.
+     * @param failure       Callback, which is called once the call has failed.
+     */
+    public logWLine(elementType: number,
+                    eventType: number,
+                    fileName: string,
+                    lineNumber: number,
+                    start: Date,
+                    duration: number,
+                    success: Callback,
+                    failure: Callback): void {
         this.log(elementType, eventType, start, duration, success, failure);
     }
 
