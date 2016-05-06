@@ -40,7 +40,7 @@ describe("A DatabaseAdapter", function() {
     it("can post to the API", function() {
         const spyFunc = jasmine.createSpy("success");
 
-        adapter.post(1, new Date(), 100, spyFunc);
+        adapter.log(1, 1, new Date(), 100, spyFunc, function() {return; });
 
         jasmine.Ajax.requests.mostRecent().respondWith({
             contentType: "text/json",
@@ -58,7 +58,7 @@ describe("A DatabaseAdapter", function() {
 
         const spyFunc = jasmine.createSpy("success");
 
-        adapter.post(1, new Date(), 100, spyFunc);
+        adapter.log(1, 1, new Date(), 100, spyFunc, function() {return; });
 
         jasmine.Ajax.requests.mostRecent().respondWith({
             contentType: "text/json",
@@ -74,7 +74,7 @@ describe("A DatabaseAdapter", function() {
 
         adapter.setDebug();
 
-        adapter.post(1, new Date(), 100, function(data) {return data; });
+        adapter.log(1, 1, new Date(), 100, function(data) {return data; }, function() {return; });
         jasmine.Ajax.requests.mostRecent().respondWith({
             contentType: "text/json",
             responseText: JSON.stringify({success: true}),

@@ -52,14 +52,18 @@ class DatabaseAdapter {
         this._debug = d;
     }
 
+    // TODO The database does not support elementType yet.
     /**
      * Post an event to the database.
-     * @param eventType Should equal an existing EventType ID in the database.
-     * @param start     Date when the event started.
-     * @param duration  How long the event lasted, in ms.
-     * @param success   Callback, which is called once the call has succeeded.
+     * @param elementType   Should equal an existing ElementType ID in the database.
+     * @param eventType     Should equal an existing EventType ID in the database.
+     * @param start         Date when the event started.
+     * @param duration      How long the event lasted, in ms.
+     * @param success       Callback, which is called once the call has succeeded.
+     * @param failure       Callback, which is called once the call has failed.
      */
-    public post(eventType: number, start: Date, duration: number, success: JQueryPromiseCallback<any>): void {
+    public log(elementType: number, eventType: number, start: Date, duration: number,
+               success: JQueryPromiseCallback<any>, failure: JQueryPromiseCallback<any>): void {
         const self = this;
         if (!this.isInitialized) {
             console.log("[WARN] The database has not been initialized yet!");
@@ -74,10 +78,17 @@ class DatabaseAdapter {
             })
             .fail(function(jqXHR, status) {
                 console.log(`[WARN] Call failed, status: ${status}`, jqXHR);
+                failure(jqXHR, status);
             });
         if (self._debug) {
             console.log("Sent out AJAX request: ", ajax);
         }
+    }
+
+    public logWLine(elementType: number, eventType: number, start: Date, duration: number,
+                    fileName: string, lineNumber: number,
+                    success: JQueryPromiseCallback<any>, failure: JQueryPromiseCallback<any>): void {
+        this.log(elementType, eventType, start, duration, success, failure);
     }
 
     /**
