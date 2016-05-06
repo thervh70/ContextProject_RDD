@@ -3,7 +3,12 @@ module.exports = function(config) {
     var configuration = {
         basePath: '.',
         frameworks: ['jasmine'],
-        files: ["build/*.js"],
+        files: [
+            "node_modules/jquery/dist/jquery.min.js",
+            "node_modules/jasmine-ajax/lib/mock-ajax.js",
+            "node_modules/jasmine-jquery/lib/jasmine-jquery.js",
+            "build/*.js"
+        ],
         reporters: ['progress', 'coverage'],
         coverageReporter: {
             type: 'html',
