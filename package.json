@@ -9,7 +9,7 @@
   "license": "none",
   "scripts": {
     "test": "karma start karma.config.js --single-run --browsers Chrome",
-    "tsc": "tsc --target ES5 --project src/octopeer-github/main && tsc --target ES5 --project src/octopeer-github/test"
+    "tsc": "tsc --project src/octopeer-github/main && tsc --project src/octopeer-github/test"
   },
   "devDependencies": {
     "jasmine": "^2.4.1",
