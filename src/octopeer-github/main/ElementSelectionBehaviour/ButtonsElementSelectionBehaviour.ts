@@ -9,12 +9,12 @@
 /**
  * Class for selecting buttons.
  */
-class SelectButtonsElementSelectionBehaviour implements ElementSelectionBehaviour {
+class ButtonsElementSelectionBehaviour implements ElementSelectionBehaviour {
     private elementDsc: string = ".btn";
     private elementID: ElementID  = 1;
 
     /**
-     * Creates a SelectButtonsElementSelectionBehaviour object.
+     * Creates a ButtonsElementSelectionBehaviour object.
      * @param database the database to push to.
      */
     public constructor(private database: DatabaseAdaptable) {}
