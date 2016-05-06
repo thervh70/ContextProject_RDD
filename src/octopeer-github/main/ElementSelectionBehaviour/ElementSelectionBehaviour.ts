@@ -9,13 +9,6 @@ type EventHandler = (eventObject: JQueryEventObject) => void;
  * this is used by the tracker and ElementEventBinding
  */
 interface ElementSelectionBehaviour {
-
-    /**
-     * Creates a ElementSelectionBehaviour object.
-     * @param database the database to push to.
-     */
-    new (database: DatabaseAdaptable): ElementSelectionBehaviour;
-
     /**
      * Get the elementID corresponding with the database elementID.
      */
@@ -30,4 +23,17 @@ interface ElementSelectionBehaviour {
      * Handle the event.
      */
     getCallback(eventID: number): EventHandler;
+}
+
+
+/**
+ * Makes it so we can instatiate by classname, for reference see:
+ * http://stackoverflow.com/questions/13407036/how-does-typescript-interfaces-with-construct-signatures-work
+ */
+interface ElementSelectionBehaviourCreatable {
+    /**
+     * Creates a ElementSelectionBehaviour object.
+     * @param database the database to push to.
+     */
+    new (database: DatabaseAdaptable): ElementSelectionBehaviour;
 }
