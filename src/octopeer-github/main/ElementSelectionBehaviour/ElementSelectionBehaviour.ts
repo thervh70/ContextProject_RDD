@@ -21,7 +21,7 @@ interface ElementSelectionBehaviour {
     /**
      * Handle the event.
      */
-    getCallback(eventID: number): EventHandler;
+    getCallback(eventID: EventID): EventHandler;
 }
 
 
