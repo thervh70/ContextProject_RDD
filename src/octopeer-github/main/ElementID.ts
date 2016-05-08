@@ -15,7 +15,7 @@ class ElementID {
      * get the value of the element ID.
      * @returns {number}
      */
-    get getElementID() {
+    public getElementID(): number {
         return this.elementID;
     }
 }
