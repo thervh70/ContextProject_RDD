@@ -53,6 +53,7 @@ describe("A DatabaseAdapter", function() {
     });
 
     it("cannot post to the API when not initialized", function() {
+        spyOn(console, "log"); // suppress console warnings
         delete adapter;
         adapter = new DatabaseAdapter("http://localhost:8000", 1, 1);
 
