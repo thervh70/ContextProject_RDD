@@ -1,6 +1,7 @@
 /// <reference path="ElementSelectionBehaviour.ts"/>
 /// <reference path="../DatabaseAdaptable/DatabaseAdaptable.ts"/>
 /// <reference path="../ElementEventBinding/ElementEventBinding.ts"/>
+/// <reference path="../../../../typings/main/ambient/jquery/index.d.ts"/>
 
 /**
  * Created by Youri on 03/05/2016.
