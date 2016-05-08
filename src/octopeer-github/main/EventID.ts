@@ -15,7 +15,7 @@ class EventID {
      * get the value of the element ID.
      * @returns {number}
      */
-    get getEventID() {
+    public getEventID(): number {
         return this.eventID;
     }
 }
