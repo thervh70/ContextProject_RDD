@@ -9,7 +9,9 @@
   "license": "none",
   "scripts": {
     "test": "karma start karma.config.js --single-run --browsers Chrome",
-    "tsc": "tsc --project src/octopeer-github/main && tsc --project src/octopeer-github/test"
+    "travis": "npm run-script tslint && npm run-script tsc && npm test",
+    "tsc": "tsc --project src/octopeer-github/main && tsc --project src/octopeer-github/test",
+    "tslint": "tslint -c tslint.json src/**/*.ts"
   },
   "devDependencies": {
     "jasmine": "^2.4.1",
