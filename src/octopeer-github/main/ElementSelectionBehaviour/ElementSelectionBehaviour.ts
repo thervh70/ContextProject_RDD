@@ -1,7 +1,6 @@
 /**
  * Created by Youri on 03/05/2016.
  */
-type ElementID = number;
 type EventHandler = (eventObject: JQueryEventObject) => void;
 
 /**
