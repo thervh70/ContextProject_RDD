@@ -14,7 +14,7 @@ interface ElementSelectionBehaviour {
     getElementId(): ElementID;
 
     /**
-     * Retieve the elements this behaviour selects from the dom tree.
+     * Retrieve the elements this behaviour selects from the dom tree.
      */
     getElements(): JQuery;
 
