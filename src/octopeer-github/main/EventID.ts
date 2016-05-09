@@ -2,7 +2,7 @@
  * Created by Youri on 08/05/2016.
  */
 /**
- * Class to hold elementID's so they can be a semanticaly different datatype.
+ * Class to hold eventID's so they can be a semantically different data type.
  */
 class EventID {
     /**

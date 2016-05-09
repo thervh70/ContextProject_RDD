@@ -58,8 +58,8 @@ class DatabaseAdapter implements DatabaseAdaptable {
     // TODO The database does not support elementType yet.
     /**
      * Post an event to the database.
-     * @param elementType   Should equal an existing ElementType ID in the database.
-     * @param eventType     Should equal an existing EventType ID in the database.
+     * @param elementID     Given ElementID.
+     * @param eventID       Given EventID.
      * @param start         Date when the event started.
      * @param duration      How long the event lasted, in ms.
      * @param success       Callback, which is called once the call has succeeded.

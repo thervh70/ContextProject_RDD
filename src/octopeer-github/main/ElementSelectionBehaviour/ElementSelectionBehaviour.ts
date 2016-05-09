@@ -26,7 +26,7 @@ interface ElementSelectionBehaviour {
 
 
 /**
- * Makes it so we can instatiate by classname, for reference see:
+ * Makes it so we can instantiate by class name, for reference see:
  * http://stackoverflow.com/questions/13407036/how-does-typescript-interfaces-with-construct-signatures-work
  */
 interface ElementSelectionBehaviourCreatable {

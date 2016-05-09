@@ -2,7 +2,7 @@
  * Created by Youri on 08/05/2016.
  */
 /**
- * Class to hold elementID's so they can be a semanticaly different datatype.
+ * Class to hold elementID's so they can be a semantically different data type.
  */
 class ElementID {
     /**
@@ -12,7 +12,7 @@ class ElementID {
     constructor(private elementID: number) {}
 
     /**
-     * get the value of the element ID.
+     * Get the value of the element ID.
      * @returns {number}
      */
     public getElementID(): number {
