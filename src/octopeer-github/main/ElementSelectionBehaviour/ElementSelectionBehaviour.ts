@@ -1,7 +1,6 @@
 /**
  * Created by Youri on 03/05/2016.
  */
-type ElementID = number;
 type EventHandler = (eventObject: JQueryEventObject) => void;
 
 /**
@@ -15,19 +14,19 @@ interface ElementSelectionBehaviour {
     getElementId(): ElementID;
 
     /**
-     * Retieve the elements this behaviour selects from the dom tree.
+     * Retrieve the elements this behaviour selects from the dom tree.
      */
     getElements(): JQuery;
 
     /**
      * Handle the event.
      */
-    getCallback(eventID: number): EventHandler;
+    getCallback(eventID: EventID): EventHandler;
 }
 
 
 /**
- * Makes it so we can instatiate by classname, for reference see:
+ * Makes it so we can instantiate by class name, for reference see:
  * http://stackoverflow.com/questions/13407036/how-does-typescript-interfaces-with-construct-signatures-work
  */
 interface ElementSelectionBehaviourCreatable {

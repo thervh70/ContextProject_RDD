@@ -1,3 +1,5 @@
+/// <reference path="../Types/ElementID.ts"/>
+/// <reference path="../Types/EventID.ts"/>
 /**
  * This class connects to the RESTful API made by Aaron.
  */
@@ -56,14 +58,14 @@ class DatabaseAdapter implements DatabaseAdaptable {
     // TODO The database does not support elementType yet.
     /**
      * Post an event to the database.
-     * @param elementType   Should equal an existing ElementType ID in the database.
-     * @param eventType     Should equal an existing EventType ID in the database.
+     * @param elementID     Given ElementID.
+     * @param eventID       Given EventID.
      * @param start         Date when the event started.
      * @param duration      How long the event lasted, in ms.
      * @param success       Callback, which is called once the call has succeeded.
      * @param failure       Callback, which is called once the call has failed.
      */
-    public log(elementType: number, eventType: number,
+    public log(elementID: ElementID, eventID: EventID,
                start: Date, duration: number,
                success: Callback, failure: Callback): void {
         const self = this;
@@ -71,7 +73,7 @@ class DatabaseAdapter implements DatabaseAdaptable {
             console.log("[WARN] The database has not been initialized yet!");
             return;
         }
-        const ajax = $.ajax(`${this.url}api/events/`, self.createPostData(eventType, start, duration))
+        const ajax = $.ajax(`${this.url}api/events/`, self.createPostData(eventID, start, duration))
             .done(function(data, status, jqXHR) {
                 if (self._debug) {
                     console.log(`Call success, status: ${status}`, jqXHR);
@@ -98,8 +100,8 @@ class DatabaseAdapter implements DatabaseAdaptable {
      * @param success       Callback, which is called once the call has succeeded.
      * @param failure       Callback, which is called once the call has failed.
      */
-    public logWLine(elementType: number,
-                    eventType: number,
+    public logWLine(elementType: ElementID,
+                    eventType: EventID,
                     fileName: string,
                     lineNumber: number,
                     start: Date,
@@ -128,12 +130,12 @@ class DatabaseAdapter implements DatabaseAdaptable {
      * @param duration                  How long the event lasted, in ms.
      * @returns {JQueryAjaxSettings}    A Settings Object that can be used in an AJAX request.
      */
-    private createPostData(eventType: number, start: Date, duration: number) {
+    private createPostData(eventType: EventID, start: Date, duration: number) {
         return this.createJSONPost({
             "started_at": start.toJSON(),
             "duration": duration,
             "session": `${this.url}api/sessions/${this._session}/`,
-            "event_type": `${this.url}api/event-types/${eventType}/`,
+            "event_type": `${this.url}api/event-types/${eventType.getEventID()}/`,
         });
     }
 

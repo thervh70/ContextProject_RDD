@@ -7,7 +7,7 @@
  */
 class ClickElementEventBinding implements ElementEventBinding {
     private eventType: string = "click";
-    private eventID: EventID   = 1;
+    private eventID: EventID  = new EventID(1);
 
     /**
      * Constructor, creates the object and adds the event handler to the elements selected by the elementSelectionBehaviour.
