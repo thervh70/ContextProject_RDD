@@ -19,7 +19,7 @@ describe("An ElementSelector that selects Buttons", function() {
 
     it("has a callback that should log to the database", function () {
         const mockedClick = $.Event("click");
-        selector.getCallback(1)(mockedClick);
+        selector.getCallback(new EventID(1))(mockedClick);
         expect(logSpy).toHaveBeenCalled();
     });
 });
