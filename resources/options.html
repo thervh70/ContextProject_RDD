@@ -1,8 +1,69 @@
 <!DOCTYPE html>
 <html>
-<head><title>Octopeer Settings</title></head>
+<head>
+    <title>Octopeer Settings</title>
+</head>
 <body>
 
-<script src="options.ts"></script>
+<h1>
+    Octopeer Settings
+</h1>
+
+<h2>
+    Welcome to the personal settings of Octopeer.
+</h2>
+<h3>
+    Please check whether all of the following settings apply to you.
+</h3>
+
+<h4>
+    General
+</h4>
+<p title = 'General'>
+    <label><input type="checkbox" id="logging" checked>
+    I accept Octopeer to log data from me while reviewing pull requests on GitHub.
+    </label>
+</p>
+
+<h4>
+    Privacy
+</h4>
+<p title = 'Privacy'>
+    The following data can be tracked from me, while I'm reviewing pull requests on GitHub:
+<br><label>
+    <input type="checkbox" id="tabs" checked>
+    other active tabs that are used.
+    <br> <input type="checkbox" id="comments" checked>
+    the comments that I add to a pull request.
+    <br> <input type="checkbox" id="other_comments" checked>
+    the comments of my peers that have been added to a pull request.
+    <br> <input type="checkbox" id="hover" checked>
+    what part of a page I'm focusing on (in terms of text hovering, selection, etc.).
+</label>
+</p>
+
+<h4>
+    Security
+</h4>
+<p title = 'Security'>
+    If you allow Octopeer to log data from you, it will store this data and process it. <br>
+    Would you like Octopeer to take the following security measures?
+    <br><label> <input type="checkbox" id="hash" checked>
+    Encrypt possible sensitive personal data.
+</label>
+</p>
+
+<h4>
+    Hints
+</h4>
+<p title = 'Hints'>
+    The goal of Octopeer is to allow you to improve your pull request behavior. This is done in terms of hints. <br>
+    Would you like Octopeer to deliver the hints in the following way?
+    <br><label><input type="checkbox" id="something">
+    ...
+</label>
+</p>
+
+    <script src="options.js"></script>
 </body>
 </html>
