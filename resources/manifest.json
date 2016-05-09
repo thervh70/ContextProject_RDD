@@ -4,6 +4,7 @@
   "version": "0.3.0",
   "description": "This extension collects data while the user reviews Pull Requests.",
   "author": "Rubber Duck Debuggers",
+  "options_page": "options.html",
 
   "icons": {
     "16": "icon16.png",
