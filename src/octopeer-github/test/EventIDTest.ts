@@ -8,6 +8,6 @@ describe("An Idenfifier for an event", function() {
 
     it("should return the value of instantiation", function () {
         eventID = new EventID(numericalValueforEventID);
-        expect(eventID.getEventID).toBe(numericalValueforEventID);
+        expect(eventID.getEventID()).toBe(numericalValueforEventID);
     });
 });
