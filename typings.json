@@ -1,8 +1,13 @@
 {
   "ambientDependencies": {
+    "chrome": "github:DefinitelyTyped/DefinitelyTyped/chrome/chrome.d.ts#b332be4e133ae75c915c8dd2f4b1fe9ac4a45aa4",
+    "es6-promise": "registry:dt/es6-promise#0.0.0+20160423074304",
+    "filesystem": "github:DefinitelyTyped/DefinitelyTyped/filesystem/filesystem.d.ts#b332be4e133ae75c915c8dd2f4b1fe9ac4a45aa4",
+    "filewriter": "github:DefinitelyTyped/DefinitelyTyped/filewriter/filewriter.d.ts#b332be4e133ae75c915c8dd2f4b1fe9ac4a45aa4",
     "jasmine": "registry:dt/jasmine#2.2.0+20160412134438",
     "jasmine-ajax": "registry:dt/jasmine-ajax#3.1.1+20160317120654",
     "jasmine-jquery": "registry:dt/jasmine-jquery#0.0.0+20160317120654",
-    "jquery": "registry:dt/jquery#1.10.0+20160417213236"
+    "jquery": "registry:dt/jquery#1.10.0+20160417213236",
+    "webrtc": "github:DefinitelyTyped/DefinitelyTyped/webrtc/MediaStream.d.ts#b332be4e133ae75c915c8dd2f4b1fe9ac4a45aa4"
   }
 }

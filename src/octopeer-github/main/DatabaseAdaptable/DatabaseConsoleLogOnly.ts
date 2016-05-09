@@ -2,7 +2,7 @@
  * Created by Youri on 04/05/2016.
  */
 /**
- * Semi-mock class for being able to check implementation completeness
+ * Semi-mock class for being able to check implementation completeness.
  */
 class DatabaseConsoleLogOnly implements DatabaseAdaptable {
     /**
