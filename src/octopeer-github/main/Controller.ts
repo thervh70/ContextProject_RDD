@@ -18,9 +18,10 @@ class Controller {
         ButtonsElementSelectionBehaviour,
     ];
 
-    public constructor() {
+    public start() {
         this.database = new DatabaseConsoleLogOnly(); // ("https://localhost:8000", 1, 1);
         this.hookToDOM();
+        return this;
     }
 
     private hookToDOM() {
