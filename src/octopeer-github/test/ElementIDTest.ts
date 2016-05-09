@@ -8,6 +8,6 @@ describe("An Idenfifier for an element", function() {
 
     it("should return the value of instantiation", function () {
         elementID = new ElementID(numericalValueforElementID);
-        expect(elementID.getElementID).toBe(numericalValueforElementID);
+        expect(elementID.getElementID()).toBe(numericalValueforElementID);
     });
 });
