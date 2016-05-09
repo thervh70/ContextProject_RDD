@@ -6,24 +6,31 @@
 /// <reference path="ElementEventBinding/ElementEventBinding.ts"/>
 /// <reference path="ElementEventBinding/ClickElementEventBinding.ts"/>
 
+/**
+ * The Controller hooks the event handlers to the DOM-tree.
+ */
 class Controller {
 
     private database: DatabaseAdaptable;
 
+    /** List of ElementEventBindings that should be matched with ElementSelectors */
     private elementEventBindingList = [
         ClickElementEventBinding,
     ];
 
+    /** List of ElementSelectors that should be matched with ElementEventBindings */
     private elementSelectionBindingList = [
         ButtonsElementSelectionBehaviour,
     ];
 
+    /** Starts the Controller. After calling this, all event handlers are hooked to the DOM-tree. */
     public start() {
         this.database = new DatabaseConsoleLogOnly(); // ("https://localhost:8000", 1, 1);
         this.hookToDOM();
         return this;
     }
 
+    /** Hook the product of ElementBindings and ElementSelectors to the DOM-tree. */
     private hookToDOM() {
         let elementEventBinding: ElementEventBindingCreatable;
         let elementSelectionBinding: ElementSelectionBehaviourCreatable;
