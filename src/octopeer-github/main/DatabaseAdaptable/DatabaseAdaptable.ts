@@ -1,6 +1,6 @@
 /// <reference path="../ElementEventBinding/ElementEventBinding.ts"/>
-/// <reference path="../ElementID.ts"/>
-/// <reference path="../EventID.ts"/>
+/// <reference path="../Types/ElementID.ts"/>
+/// <reference path="../Types/EventID.ts"/>
 
 /**
  * Created by Youri on 04/05/2016.
