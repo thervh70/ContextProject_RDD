@@ -18,15 +18,17 @@ addons:
     packages:
       - google-chrome-stable
 
+# Commands that fail in before_script will error the build
 before_script:
   - export CHROME_BIN=chromium-browser
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
-  - npm run-script tsc
+  - npm run-script tslint   # Check on style errors before transpiling
+  - npm run-script tsc      # Transpile
 
+# Commands that fail in script will fail the build
 script:
-  - tslint src/**/*.ts
-  - npm test
+  - npm test                # Run the tests
 
 notifications:
   email: false
