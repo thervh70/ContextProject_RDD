@@ -1,5 +1,3 @@
 $(document).ready(function() {
-    let controller = new Controller();
-    console.log(controller); // suppress unused
+    new Controller().start();
 });
-console.log(document);
