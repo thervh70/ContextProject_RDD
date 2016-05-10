@@ -20,8 +20,9 @@
     General
 </h4>
 <p title = 'General'>
-    <label><input type="checkbox" id="logging" checked>
-    I accept Octopeer to log data from me while reviewing pull requests on GitHub.
+    <label>
+        <input type="checkbox" id="logging" checked>
+        I accept Octopeer to log data from me while reviewing pull requests on GitHub.
     </label>
 </p>
 
@@ -30,16 +31,19 @@
 </h4>
 <p title = 'Privacy'>
     The following data can be tracked from me, while I'm reviewing pull requests on GitHub:
-<br><label>
-    <input type="checkbox" id="tabs" checked>
-    other active tabs that are used.
-    <br> <input type="checkbox" id="comments" checked>
-    the comments that I add to a pull request.
-    <br> <input type="checkbox" id="other_comments" checked>
-    the comments of my peers that have been added to a pull request.
-    <br> <input type="checkbox" id="hover" checked>
-    what part of a page I'm focusing on (in terms of text hovering, selection, etc.).
-</label>
+    <label>
+        <br> <input type="checkbox" id="tabs" checked>
+        other active tabs that are used.
+    </label> <label>
+        <br> <input type="checkbox" id="comments" checked>
+        the comments that I add to a pull request.
+    </label> <label>
+        <br> <input type="checkbox" id="other_comments" checked>
+        the comments of my peers that have been added to a pull request.
+    </label> <label>
+        <br> <input type="checkbox" id="hover" checked>
+        what part of a page I'm focusing on (in terms of text hovering, selection, etc.).
+    </label>
 </p>
 
 <h4>
@@ -48,13 +52,16 @@
 <p title = 'Security'>
     If you allow Octopeer to log data from you, it will store this data and process it. <br>
     Would you like Octopeer to take the following security measures?
-    <br><label> <input type="checkbox" id="username" checked>
-    Encrypt your username.
-    <br> <input type="checkbox" id="repo" checked>
-    Encrypt the names of repositories you're working in.
-    <br> <input type="checkbox" id="file" checked>
-    Encrypt the names of the files you're working on.
-</label>
+    <label>
+        <br> <input type="checkbox" id="username" checked>
+        Encrypt your username.
+    </label> <label>
+        <br> <input type="checkbox" id="repo" checked>
+        Encrypt the names of repositories you're working in.
+    </label> <label>
+        <br> <input type="checkbox" id="file" checked>
+        Encrypt the names of the files you're working on.
+    </label>
 </p>
 
 <h4>
@@ -63,9 +70,10 @@
 <p title = 'Hints'>
     The goal of Octopeer is to allow you to improve your pull request behavior. This is done in terms of hints. <br>
     Would you like Octopeer to deliver the hints in the following way?
-    <br><label><input type="checkbox" id="something">
+    <label>
+        <br><input type="checkbox" id="something">
     ...
-</label>
+    </label>
 </p>
 
 <div id="status"></div>
