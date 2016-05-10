@@ -6,7 +6,7 @@
   "author": "Rubber Duck Debuggers",
 
   "icons": {
-    "16": "icon_large_error.png",
+    "16": "icon_large.png",
     "19": "icon_large_green.png",
     "48": "icon_large.png",
     "128": "icon_large.png"
@@ -20,7 +20,7 @@
     "activeTab", "storage", "tabs", "https://github.com/"
   ],
   "content_scripts": [ {
-    "js": [ "jquery.min.js", "main.js" ],
+    "js": [ "jquery.min.js", "main.js", "materialize.min.js" ],
     "matches": [ "https://github.com/*" ],
     "run_at": "document_start"
   } ]
