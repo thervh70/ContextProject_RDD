@@ -8,7 +8,7 @@
 #Feedback
 Feedback for the product planning.
 
-Total:
+Total: 8.4
 
 |                | Score |
 |----------------|-------|
