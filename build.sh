@@ -19,4 +19,5 @@ cursor_up
 echo "Transpiled TypeScript"
 
 cp node_modules/jquery/dist/jquery.min.js build/octopeer-github/jquery.min.js
+cp node_modules/materialize-css/dist/js/materialize.min.js build/octopeer-github/materialize.min.js
 echo "Copied dependencies"

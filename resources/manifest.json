@@ -19,7 +19,7 @@
     "activeTab", "storage", "tabs", "https://github.com/"
   ],
   "content_scripts": [ {
-    "js": [ "jquery.min.js", "main.js" ],
+    "js": [ "jquery.min.js", "main.js", "materialize.min.js" ],
     "matches": [ "https://github.com/*" ],
     "run_at": "document_start"
   } ]
