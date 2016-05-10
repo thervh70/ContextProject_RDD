@@ -4,6 +4,7 @@
  */
 
 // Saves options to chrome.storage.
+// A message will confirm this to the user.
 function save_options() {
     var logging = document.getElementById('logging').checked;
     var tabs = document.getElementById('tabs').checked;
@@ -32,7 +33,7 @@ function save_options() {
 }
 
 // Restores the states of the checkboxes, using the preferences stored in chrome.storage.
-function restore_options() {
+function restore_options_state() {
     chrome.storage.sync.get({
         // Default values
         loggingEnabled: true,
@@ -56,6 +57,40 @@ function restore_options() {
     });
 }
 
-document.addEventListener('DOMContentLoaded', restore_options);
-document.getElementById('save').addEventListener('click',
-    save_options);
+// Restores the availability of the checkboxes, using the logging value which is stored in chrome.storage.
+function restore_options_availability() {
+    chrome.storage.sync.get({
+        // Default value
+        loggingEnabled: true
+    }, function(items) {
+        // The availability depends on the value of the logging checkbox state.
+        document.getElementById('tabs').disabled = document.getElementById('comments').disabled =
+            document.getElementById('peer_comments').disabled = document.getElementById('focus').disabled =
+                document.getElementById('username').disabled = document.getElementById('repo').disabled =
+                    document.getElementById('file').disabled = !items.loggingEnabled;
+    });
+}
+
+// Disables the (sub)options when the user doesn't want Octopeer to log data and
+// enables the (sub)options when the user does.
+// A message will confirm this action to the user.
+function switch_options() {
+    var logging = document.getElementById('logging').checked;
+    if (logging) {
+        Materialize.toast("Logging has been enabled.",2000);
+    } else {
+        Materialize.toast("Logging has been disabled.", 2000);
+    }
+    document.getElementById('tabs').disabled = !document.getElementById('tabs').disabled;
+    document.getElementById('comments').disabled = !document.getElementById('comments').disabled;
+    document.getElementById('peer_comments').disabled = !document.getElementById('peer_comments').disabled;
+    document.getElementById('focus').disabled = !document.getElementById('focus').disabled;
+    document.getElementById('username').disabled = !document.getElementById('username').disabled;
+    document.getElementById('repo').disabled = !document.getElementById('repo').disabled;
+    document.getElementById('file').disabled = !document.getElementById('file').disabled;
+}
+
+document.addEventListener('DOMContentLoaded', restore_options_state);
+document.addEventListener('DOMContentLoaded', restore_options_availability);
+document.getElementById('save').addEventListener('click', save_options);
+document.getElementById('logging').addEventListener('click', switch_options);
