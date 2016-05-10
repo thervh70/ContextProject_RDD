@@ -15,11 +15,10 @@ function save_options() {
 // Restores select box and checkbox state using the preferences
 // stored in chrome.storage.
 function restore_options() {
-    // Use default value color = 'red' and likesColor = true.
     chrome.storage.sync.get({
         loggingEnabled: true
     }, function(items) {
-        document.getElementById('logging').value = items.loggingEnabled;
+        document.getElementById('logging').checked = items.loggingEnabled;
     });
 }
 document.addEventListener('DOMContentLoaded', restore_options);
