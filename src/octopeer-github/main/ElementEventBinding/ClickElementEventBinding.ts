@@ -5,7 +5,7 @@
 /**
  * Class for adding click events.
  */
-class ClickElementEventBinding implements ElementEventBinding {
+class ClickElementEventBinding extends ClickingElementEventBinding {
     public eventType: string = "click";
     public eventID: EventID  = new EventID(1);
 
@@ -14,6 +14,7 @@ class ClickElementEventBinding implements ElementEventBinding {
      * @param elementSelectionBehaviour dictates what elements are selected.
      */
     constructor(private elementSelectionBehaviour: ElementSelectionBehaviour) {
+        super();
         elementSelectionBehaviour.getElements().on(
             this.eventType,
             this.elementSelectionBehaviour.getCallback(this.eventID)

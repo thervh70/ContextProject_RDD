@@ -16,5 +16,5 @@ interface ElementEventBindingCreatable {
      * Creates a ElementEventBinding object.
      * @param elementSelectionBehaviour the Element selection behaviour to use.
      */
-    new (elementSelectionBehaviour: ElementSelectionBehaviour): ElementEventBinding;
+    // new (elementSelectionBehaviour: ElementSelectionBehaviour): ElementEventBinding;
 }
