@@ -7,7 +7,7 @@ class MergePRButtonElementSelectionBehaviour extends ButtonElementSelectionBehav
      * The description of the element, used to determine the element in the DOM-tree
      * @type {string}
      */
-    public elementDsc: string = ".js-merge-branch-action";
+    public elementDsc: string = ".btn";
 
     /**
      * The ID of the Element

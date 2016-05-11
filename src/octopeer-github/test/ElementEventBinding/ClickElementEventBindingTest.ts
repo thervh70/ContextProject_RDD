@@ -1,5 +1,6 @@
 /// <reference path="../../main/ElementEventBinding/ClickElementEventBinding.ts"/>
-/// <reference path="../../main/ElementSelectionBehaviour/ButtonsElementSelectionBehaviour.ts"/>
+/// <reference path="../../main/ElementSelectionBehaviour/ButtonElementSelectionBehaviour/ButtonElementSelectionBehaviour.ts"/>
+/// <reference path="../../main/ElementSelectionBehaviour/ButtonElementSelectionBehaviour/MergePRButtonElementSelectionBehaviour.ts"/>
 /// <reference path="../../main/DatabaseAdaptable/DatabaseConsoleLogOnly.ts"/>
 
 describe("An EventBinder that binds Click events", function() {
@@ -10,7 +11,7 @@ describe("An EventBinder that binds Click events", function() {
     beforeEach(function () {
         setFixtures("<div><button id='bt1' class='btn'></button><button id='bt2' class='btn2'></button></div>");
         database = new DatabaseConsoleLogOnly();
-        selector = new ButtonsElementSelectionBehaviour(database);
+        selector = new MergePRButtonElementSelectionBehaviour(database);
         logSpy = spyOn(database, "log");
     });
 

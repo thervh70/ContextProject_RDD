@@ -2,7 +2,7 @@
 /// <reference path="DatabaseAdaptable/DatabaseAdapter.ts"/>
 /// <reference path="DatabaseAdaptable/DatabaseConsoleLogOnly.ts"/>
 /// <reference path="ElementSelectionBehaviour/ElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/ButtonsElementSelectionBehaviour.ts"/>
+/// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/ButtonElementSelectionBehaviour.ts"/>
 /// <reference path="ElementEventBinding/ElementEventBinding.ts"/>
 /// <reference path="ElementEventBinding/ClickingElementEventBinding.ts"/>
 /// <reference path="ElementEventBinding/ClickElementEventBinding.ts"/>
@@ -21,7 +21,7 @@ class Controller {
 
     /** List of ElementSelectors that should be matched with ElementEventBindings */
     private elementSelectionBindingList = [
-        ButtonsElementSelectionBehaviour,
+        ButtonElementSelectionBehaviour,
     ];
 
     /** Starts the Controller. After calling this, all event handlers are hooked to the DOM-tree. */

@@ -1,7 +1,10 @@
+/// <reference path="../ElementSelectionBehaviour.ts"/>
+/// <reference path="../../DatabaseAdaptable/DatabaseAdaptable.ts"/>
+/// <reference path="../../ElementEventBinding/ElementEventBinding.ts"/>
 /**
  * Created by Mathias on 2016-05-11.
  */
-abstract class MiscellaneousElementSelectionBehaviour implements ElementSelectionBehaviour {
+class NameElementSelectionBehaviour implements ElementSelectionBehaviour {
 
     public elementDsc: string;
     public elementID: ElementID;

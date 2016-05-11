@@ -1,7 +1,11 @@
+/// <reference path="../ElementSelectionBehaviour.ts"/>
+/// <reference path="../../DatabaseAdaptable/DatabaseAdaptable.ts"/>
+/// <reference path="../../ElementEventBinding/ElementEventBinding.ts"/>
 /**
  * Created by Mathias on 2016-05-11.
+ * Class for selecting buttons.
  */
-abstract class SettingElementSelectionBehaviour implements ElementSelectionBehaviour {
+class ButtonElementSelectionBehaviour implements ElementSelectionBehaviour {
 
     public elementDsc: string;
     public elementID: ElementID;
