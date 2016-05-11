@@ -13,5 +13,5 @@ class LabelSettingElementSelectionBehaviour extends SettingElementSelectionBehav
      * The ID of the Element
      * @type {ElementID}
      */
-    public elementID: ElementID = new ElementID(21);
+    public elementID: ElementID = new ElementID(401);
 }

@@ -13,5 +13,5 @@ class MilestoneSettingElementSelectionBehaviour extends SettingElementSelectionB
      * The ID of the Element
      * @type {ElementID}
      */
-    public elementID: ElementID = new ElementID(22);
+    public elementID: ElementID = new ElementID(402);
 }

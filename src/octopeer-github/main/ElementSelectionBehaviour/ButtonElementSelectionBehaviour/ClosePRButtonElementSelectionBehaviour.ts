@@ -13,5 +13,5 @@ class ClosePRButtonElementSelectionBehaviour extends ButtonElementSelectionBehav
      * The ID of the Element
      * @type {ElementID}
      */
-    public elementID: ElementID = new ElementID(2);
+    public elementID: ElementID = new ElementID(102);
 }

@@ -4,7 +4,7 @@
 
 class KeystrokeElementEventBinding implements ElementEventBinding {
     public eventType: string = "keystroke";
-    public eventID: EventID  = new EventID(2);
+    public eventID: EventID  = new EventID(102);
 
     /**
      * Constructor, creates the object and adds the event handler to the elements selected by the elementSelectionBehaviour.

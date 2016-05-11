@@ -13,5 +13,5 @@ class LockConversationSettingElementSelectionBehaviour extends SettingElementSel
      * The ID of the Element
      * @type {ElementID}
      */
-    public elementID: ElementID = new ElementID(25);
+    public elementID: ElementID = new ElementID(405);
 }

@@ -3,7 +3,7 @@
  */
 class StopWatchingPRElementEventBinding implements ElementEventBinding {
     public eventType: string = "stopwatchingPR";
-    public eventID: EventID  = new EventID(8);
+    public eventID: EventID  = new EventID(108);
 
     /**
      * Constructor, creates the object and adds the event handler to the elements selected by the elementSelectionBehaviour.

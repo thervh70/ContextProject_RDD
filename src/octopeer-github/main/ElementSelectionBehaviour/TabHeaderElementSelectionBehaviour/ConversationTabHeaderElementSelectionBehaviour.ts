@@ -13,5 +13,5 @@ class ConversationTabHeaderElementSelectionBehaviour extends TabHeaderElementSel
      * The ID of the Element
      * @type {ElementID}
      */
-    public elementID: ElementID = new ElementID(13);
+    public elementID: ElementID = new ElementID(201);
 }

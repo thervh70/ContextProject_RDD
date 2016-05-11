@@ -13,5 +13,5 @@ class CancelEditPRNameButtonElementSelectionBehaviour extends ButtonElementSelec
      * The ID of the Element
      * @type {ElementID}
      */
-    public elementID: ElementID = new ElementID(8);
+    public elementID: ElementID = new ElementID(108);
 }

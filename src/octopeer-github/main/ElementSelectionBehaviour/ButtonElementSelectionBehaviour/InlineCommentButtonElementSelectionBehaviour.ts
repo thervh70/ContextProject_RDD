@@ -13,5 +13,5 @@ class InlineCommentButtonElementSelectionBehaviour extends ButtonElementSelectio
      * The ID of the Element
      * @type {ElementID}
      */
-    public elementID: ElementID = new ElementID(5);
+    public elementID: ElementID = new ElementID(105);
 }

@@ -13,5 +13,5 @@ class CommitHashcodeNameElementSelectionBehaviour extends NameElementSelectionBe
      * The ID of the Element
      * @type {ElementID}
      */
-    public elementID: ElementID = new ElementID(16);
+    public elementID: ElementID = new ElementID(301);
 }

@@ -13,5 +13,5 @@ class SaveEditPRNameButtonElementSelectionBehaviour extends ButtonElementSelecti
      * The ID of the Element
      * @type {ElementID}
      */
-    public elementID: ElementID = new ElementID(7);
+    public elementID: ElementID = new ElementID(107);
 }

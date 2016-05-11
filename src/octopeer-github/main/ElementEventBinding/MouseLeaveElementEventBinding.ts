@@ -3,7 +3,7 @@
  */
 class MouseLeaveElementEventBinding implements ElementEventBinding {
     public eventType: string = "mouseleave";
-    public eventID: EventID  = new EventID(4);
+    public eventID: EventID  = new EventID(104);
 
     /**
      * Constructor, creates the object and adds the event handler to the elements selected by the elementSelectionBehaviour.

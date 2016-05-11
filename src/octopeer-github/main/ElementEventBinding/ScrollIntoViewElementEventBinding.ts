@@ -3,7 +3,7 @@
  */
 class ScrollIntoViewElementEventBinding implements ElementEventBinding {
     public eventType: string = "scrollintoview";
-    public eventID: EventID  = new EventID(5);
+    public eventID: EventID  = new EventID(105);
 
     /**
      * Constructor, creates the object and adds the event handler to the elements selected by the elementSelectionBehaviour.

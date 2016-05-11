@@ -13,5 +13,5 @@ class PRParticipantNameElementSelectionBehaviour extends NameElementSelectionBeh
      * The ID of the Element
      * @type {ElementID}
      */
-    public elementID: ElementID = new ElementID(19);
+    public elementID: ElementID = new ElementID(304);
 }

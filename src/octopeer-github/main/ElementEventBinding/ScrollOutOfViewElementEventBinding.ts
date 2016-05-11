@@ -3,7 +3,7 @@
  */
 class ScrollOutOfViewElementEventBinding implements ElementEventBinding {
     public eventType: string = "scrolloutofview";
-    public eventID: EventID  = new EventID(6);
+    public eventID: EventID  = new EventID(106);
 
     /**
      * Constructor, creates the object and adds the event handler to the elements selected by the elementSelectionBehaviour.

@@ -13,5 +13,5 @@ class CommentButtonElementSelectionBehaviour extends ButtonElementSelectionBehav
      * The ID of the Element
      * @type {ElementID}
      */
-    public elementID: ElementID = new ElementID(4);
+    public elementID: ElementID = new ElementID(104);
 }

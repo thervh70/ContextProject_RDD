@@ -13,5 +13,5 @@ class CommitMessageNameElementSelectionBehaviour extends NameElementSelectionBeh
      * The ID of the Element
      * @type {ElementID}
      */
-    public elementID: ElementID = new ElementID(17);
+    public elementID: ElementID = new ElementID(302);
 }

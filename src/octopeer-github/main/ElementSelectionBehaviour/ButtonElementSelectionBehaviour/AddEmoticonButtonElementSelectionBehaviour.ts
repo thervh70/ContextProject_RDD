@@ -15,5 +15,5 @@ class AddEmoticonButtonElementSelectionBehaviour extends ButtonElementSelectionB
      * The ID of the Element
      * @type {ElementID}
      */
-    public elementID: ElementID = new ElementID(10);
+    public elementID: ElementID = new ElementID(110);
 }

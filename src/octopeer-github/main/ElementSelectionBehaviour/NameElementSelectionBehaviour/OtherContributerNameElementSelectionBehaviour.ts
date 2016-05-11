@@ -13,5 +13,5 @@ class OtherContributerNameElementSelectionBehaviour extends NameElementSelection
      * The ID of the Element
      * @type {ElementID}
      */
-    public elementID: ElementID = new ElementID(20);
+    public elementID: ElementID = new ElementID(305);
 }
