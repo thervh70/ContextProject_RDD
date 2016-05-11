@@ -1,13 +1,9 @@
 /**
- * Created by Youri on 04/05/2016.
+ * Created by Mathias on 2016-05-11.
  */
-
-/**
- * Class for adding click events.
- */
-class ClickElementEventBinding implements ElementEventBinding {
-    public eventType: string = "click";
-    public eventID: EventID  = new EventID(1);
+class ScrollIntoViewElementEventBinding implements ElementEventBinding {
+    public eventType: string = "scrollintoview";
+    public eventID: EventID  = new EventID(5);
 
     /**
      * Constructor, creates the object and adds the event handler to the elements selected by the elementSelectionBehaviour.
