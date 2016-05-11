@@ -1,5 +1,6 @@
 /**
  * Created by Mathias on 2016-05-11.
+ * Class for selections the AddEmoticonButton
  */
 class AddEmoticonButtonElementSelectionBehaviour extends ButtonElementSelectionBehaviour {
 

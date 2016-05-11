@@ -1,5 +1,6 @@
 /**
  * Created by Mathias on 2016-05-11.
+ * Class to create StopWatchingPR events
  */
 class StopWatchingPRElementEventBinding implements ElementEventBinding {
     public eventType: string = "stopwatchingPR";

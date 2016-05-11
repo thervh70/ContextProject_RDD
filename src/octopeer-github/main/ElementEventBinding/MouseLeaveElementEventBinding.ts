@@ -1,5 +1,6 @@
 /**
  * Created by Mathias on 2016-05-11.
+ * Class to create MouseLeave events
  */
 class MouseLeaveElementEventBinding implements ElementEventBinding {
     public eventType: string = "mouseleave";

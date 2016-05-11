@@ -1,5 +1,6 @@
 /**
  * Created by Mathias on 2016-05-11.
+ * Class for selecting the ClosePR button
  */
 class ClosePRButtonElementSelectionBehaviour extends ButtonElementSelectionBehaviour {
 

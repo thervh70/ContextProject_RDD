@@ -1,5 +1,6 @@
 /**
  * Created by Mathias on 2016-05-11.
+ * Class to create StartWatchingPR events
  */
 class StartWatchingPRElementEventBinding implements ElementEventBinding {
     public eventType: string = "startwatchingPR";

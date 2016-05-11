@@ -1,5 +1,6 @@
 /**
  * Created by Mathias on 2016-05-11.
+ * Class for selecting the Cancel button
  */
 class CancelButtonElementSelectionBehaviour extends ButtonElementSelectionBehaviour {
 

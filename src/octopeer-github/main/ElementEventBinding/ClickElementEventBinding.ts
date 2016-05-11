@@ -1,9 +1,6 @@
 /// <reference path="../ElementSelectionBehaviour/ElementSelectionBehaviour.ts"/>
 /**
  * Created by Youri on 04/05/2016.
- */
-
-/**
  * Class for adding click events.
  */
 class ClickElementEventBinding implements ElementEventBinding {
