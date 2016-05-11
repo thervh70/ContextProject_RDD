@@ -11,6 +11,7 @@
  */
 class Controller {
 
+    public status: Status;
     private database: DatabaseAdaptable;
 
     /** List of ElementEventBindings that should be matched with ElementSelectors */
@@ -26,6 +27,8 @@ class Controller {
     /** Starts the Controller. After calling this, all event handlers are hooked to the DOM-tree. */
     public start() {
         this.database = new DatabaseConsoleLogOnly(); // ("https://localhost:8000", 1, 1);
+        this.status = new Status();
+        this.status.off();
         this.hookToDOM();
         return this;
     }
