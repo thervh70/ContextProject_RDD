@@ -10,8 +10,8 @@
  * Class for selecting buttons.
  */
 class ButtonsElementSelectionBehaviour implements ElementSelectionBehaviour {
-    private elementDsc: string = ".btn";
-    private elementID: ElementID = new ElementID(1);
+    public elementDsc: string = ".btn";
+    public elementID: ElementID = new ElementID(1);
 
     /**
      * Creates a ButtonsElementSelectionBehaviour object.
