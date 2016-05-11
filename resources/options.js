@@ -3,17 +3,22 @@
  * Contains necessary functions for the Settings page of Octopeer.
  */
 
+// Helper function; simplifies the calls to specific document e-L-ements.
+function l(id) {
+    return document.getElementById(id)
+}
+
 // Saves options to chrome.storage.
 // A message will confirm this to the user.
 function save_options() {
-    var logging = document.getElementById('logging').checked;
-    var tabs = document.getElementById('tabs').checked;
-    var comments = document.getElementById('comments').checked;
-    var peer_comments = document.getElementById('peer_comments').checked;
-    var focus = document.getElementById('focus').checked;
-    var username = document.getElementById('username').checked;
-    var repo = document.getElementById('repo').checked;
-    var file = document.getElementById('file').checked;
+    var logging = l('logging').checked;
+    var tabs = l('tabs').checked;
+    var comments = l('comments').checked;
+    var peer_comments = l('peer_comments').checked;
+    var focus = l('focus').checked;
+    var username = l('username').checked;
+    var repo = l('repo').checked;
+    var file = l('file').checked;
     chrome.storage.sync.set({
         // General
         loggingEnabled: logging,
@@ -46,14 +51,14 @@ function restore_options_state() {
         hashFile: false
     }, function(items) {
         // Saved values from the chrome.storage
-        document.getElementById('logging').checked = items.loggingEnabled;
-        document.getElementById('tabs').checked = items.trackTabs;
-        document.getElementById('comments').checked = items.trackComments;
-        document.getElementById('peer_comments').checked = items.trackPeerComments;
-        document.getElementById('focus').checked = items.trackFocus;
-        document.getElementById('username').checked = items.hashUsername;
-        document.getElementById('repo').checked = items.hashRepo;
-        document.getElementById('file').checked = items.hashFile;
+        l('logging').checked = items.loggingEnabled;
+        l('tabs').checked = items.trackTabs;
+        l('comments').checked = items.trackComments;
+        l('peer_comments').checked = items.trackPeerComments;
+        l('focus').checked = items.trackFocus;
+        l('username').checked = items.hashUsername;
+        l('repo').checked = items.hashRepo;
+        l('file').checked = items.hashFile;
     });
 }
 
@@ -64,10 +69,10 @@ function restore_options_availability() {
         loggingEnabled: true
     }, function(items) {
         // The availability depends on the value of the logging checkbox state.
-        document.getElementById('tabs').disabled = document.getElementById('comments').disabled =
-            document.getElementById('peer_comments').disabled = document.getElementById('focus').disabled =
-                document.getElementById('username').disabled = document.getElementById('repo').disabled =
-                    document.getElementById('file').disabled = !items.loggingEnabled;
+        l('tabs').disabled = l('comments').disabled =
+            l('peer_comments').disabled = l('focus').disabled =
+                l('username').disabled = l('repo').disabled =
+                    l('file').disabled = !items.loggingEnabled;
     });
 }
 
@@ -75,22 +80,22 @@ function restore_options_availability() {
 // enables the (sub)options when the user does.
 // A message will confirm this action to the user.
 function switch_options() {
-    var logging = document.getElementById('logging').checked;
+    var logging = l('logging').checked;
     if (logging) {
         Materialize.toast("Logging has been enabled.",2000);
     } else {
         Materialize.toast("Logging has been disabled.", 2000);
     }
-    document.getElementById('tabs').disabled = !document.getElementById('tabs').disabled;
-    document.getElementById('comments').disabled = !document.getElementById('comments').disabled;
-    document.getElementById('peer_comments').disabled = !document.getElementById('peer_comments').disabled;
-    document.getElementById('focus').disabled = !document.getElementById('focus').disabled;
-    document.getElementById('username').disabled = !document.getElementById('username').disabled;
-    document.getElementById('repo').disabled = !document.getElementById('repo').disabled;
-    document.getElementById('file').disabled = !document.getElementById('file').disabled;
+    l('tabs').disabled = !l('tabs').disabled;
+    l('comments').disabled = !l('comments').disabled;
+    l('peer_comments').disabled = !l('peer_comments').disabled;
+    l('focus').disabled = !l('focus').disabled;
+    l('username').disabled = !l('username').disabled;
+    l('repo').disabled = !l('repo').disabled;
+    l('file').disabled = !l('file').disabled;
 }
 
 document.addEventListener('DOMContentLoaded', restore_options_state);
 document.addEventListener('DOMContentLoaded', restore_options_availability);
-document.getElementById('save').addEventListener('click', save_options);
-document.getElementById('logging').addEventListener('click', switch_options);
+l('save').addEventListener('click', save_options);
+l('logging').addEventListener('click', switch_options);
