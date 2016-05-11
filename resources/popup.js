@@ -2,10 +2,12 @@ $(document).ready( function () {
     var off = "Octopeer is turned off.";
     var running = "Octopeer is running.";
     var error = "Octopeer has chrashed!";
+    var standby = "Octopeer is standby.";
     
     var icon_running = "icon_large_green.png";
     var icon_error = "icon_large_error.png";
     var icon_off = "icon_large.png";
+    var icon_standby = "icon_large_standby.png";
     
     function switch_icon() {
         chrome.storage.sync.get("status", function (res) {
@@ -19,6 +21,10 @@ $(document).ready( function () {
                     set_storage(-1);
                     break;
                 case -1:
+                    set_popup(standby,icon_standby);
+                    set_storage(2);
+                    break;
+                case 2:
                     set_popup(off,icon_off);
                     set_storage(0);
                     break;
@@ -38,6 +44,9 @@ $(document).ready( function () {
                     break;
                 case -1:
                     set_popup(error,icon_error);
+                    break;
+                case 2:
+                    set_popup(standby,icon_standby);
                     break;
             }
     

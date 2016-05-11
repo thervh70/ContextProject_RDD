@@ -31,4 +31,13 @@ class Status {
             status: 0,
         });
     }
+
+    /**
+     * Set the standby status.
+     */
+    public standby() {
+        chrome.storage.sync.set({
+            status: 2,
+        });
+    }
 }
