@@ -20,7 +20,7 @@ class ButtonElementSelectionBehaviour implements ElementSelectionBehaviour {
      * Get the elementID for buttons
      * @returns {ElementID} ElementID for buttons
      */
-    public getElementId() {
+    public getElementID() {
         return this.elementID;
     }
 
@@ -41,7 +41,7 @@ class ButtonElementSelectionBehaviour implements ElementSelectionBehaviour {
         const self = this;
         return (function(eventObject: JQueryEventObject) {
             // TODO: check when the new Date is triggered.
-            self.database.log(self.getElementId(), eventID, new Date(), 0,
+            self.database.log(self.getElementID(), eventID, new Date(), 0,
                 EMPTY_CALLBACK, EMPTY_CALLBACK);
         });
     }
