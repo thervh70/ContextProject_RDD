@@ -4,7 +4,15 @@
  * ElementEventBinding dictates on what events the callback should be called.
  */
 interface ElementEventBinding {
+
+    /**
+     * The type of the Event
+     */
     eventType: string;
+
+    /**
+     * The ID of the Event
+     */
     eventID: EventID;
 }
 
