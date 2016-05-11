@@ -6,16 +6,33 @@ abstract class ButtonElementSelectionBehaviour implements ElementSelectionBehavi
     public elementDsc: string;
     public elementID: ElementID;
 
+    /**
+     * Creates a ButtonsElementSelectionBehaviour object.
+     * @param database the database to push to.
+     */
     public constructor(private database: DatabaseAdaptable) {}
 
+    /**
+     * Get the elementID for buttons
+     * @returns {ElementID} ElementID for buttons
+     */
     public getElementId() {
         return this.elementID;
     }
 
+    /**
+     * Get the buttons.
+     * @returns {JQuery} button elements.
+     */
     public getElements() {
         return $(this.elementDsc);
     }
 
+    /**
+     * Get a callback to bind to the event.
+     * @param eventID the id of the event.
+     * @returns {function(JQueryEventObject)} an EventHandler to handle the event on the selected objects.
+     */
     public getCallback(eventID: EventID) {
         const self = this;
         return (function(eventObject: JQueryEventObject) {

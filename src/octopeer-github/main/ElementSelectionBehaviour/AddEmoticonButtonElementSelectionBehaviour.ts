@@ -1,7 +1,7 @@
 /**
  * Created by Mathias on 2016-05-11.
  */
-class MergePRButtonElementSelectionBehaviour extends ButtonElementSelectionBehaviour {
+class AddEmoticonButtonElementSelectionBehaviour extends ButtonElementSelectionBehaviour {
 
     /**
      * The description of the element, used to determine the element in the DOM-tree
@@ -9,9 +9,11 @@ class MergePRButtonElementSelectionBehaviour extends ButtonElementSelectionBehav
      */
     public elementDsc: string = ".js-merge-branch-action";
 
+    public tst: number = 0;
+
     /**
      * The ID of the Element
      * @type {ElementID}
      */
-    public elementID: ElementID = new ElementID(1);
+    public elementID: ElementID = new ElementID(10);
 }

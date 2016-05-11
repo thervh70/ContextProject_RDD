@@ -1,17 +1,10 @@
-/// <reference path="ElementSelectionBehaviour.ts"/>
-/// <reference path="../DatabaseAdaptable/DatabaseAdaptable.ts"/>
-/// <reference path="../ElementEventBinding/ElementEventBinding.ts"/>
-
 /**
- * Created by Youri on 03/05/2016.
+ * Created by Mathias on 2016-05-11.
  */
+abstract class SettingElementSelectionBehaviour implements ElementSelectionBehaviour {
 
-/**
- * Class for selecting buttons.
- */
-class ButtonsElementSelectionBehaviour implements ElementSelectionBehaviour {
-    public elementDsc: string = ".btn";
-    public elementID: ElementID = new ElementID(1);
+    public elementDsc: string;
+    public elementID: ElementID;
 
     /**
      * Creates a ButtonsElementSelectionBehaviour object.
@@ -25,7 +18,7 @@ class ButtonsElementSelectionBehaviour implements ElementSelectionBehaviour {
      */
     public getElementId() {
         return this.elementID;
-    };
+    }
 
     /**
      * Get the buttons.
@@ -33,13 +26,13 @@ class ButtonsElementSelectionBehaviour implements ElementSelectionBehaviour {
      */
     public getElements() {
         return $(this.elementDsc);
-    };
+    }
 
-        /**
-         * Get a callback to bind to the event.
-         * @param eventID the id of the event.
-         * @returns {function(JQueryEventObject)} an EventHandler to handle the event on the selected objects.
-         */
+    /**
+     * Get a callback to bind to the event.
+     * @param eventID the id of the event.
+     * @returns {function(JQueryEventObject)} an EventHandler to handle the event on the selected objects.
+     */
     public getCallback(eventID: EventID) {
         const self = this;
         return (function(eventObject: JQueryEventObject) {
