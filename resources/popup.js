@@ -1,55 +1,29 @@
 $(document).ready( function () {
-    var off = "Octopeer is turned off.";
-    var running = "Octopeer is running.";
-    var error = "Octopeer has chrashed!";
-    var standby = "Octopeer is standby.";
-    
-    var icon_running = "icon_large_green.png";
-    var icon_error = "icon_large_error.png";
-    var icon_off = "icon_large.png";
-    var icon_standby = "icon_large_standby.png";
-    
-    function switch_icon() {
+    var text = [
+        "Octopeer has chrashed!",
+        "Octopeer is running.",
+        "Octopeer is turned off.",
+        "Octopeer is standby."
+    ];
+
+    var icon = [
+        "icon_large_error.png",
+        "icon_large_green.png",
+        "icon_large.png",
+        "icon_large_standby.png"
+    ];
+
+    function toggle_status() {
         chrome.storage.sync.get("status", function (res) {
-            switch (res.status) {
-                case 0:
-                    set_popup(running,icon_running);
-                    set_storage(1);
-                    break;
-                case 1:
-                    set_popup(error,icon_error);
-                    set_storage(-1);
-                    break;
-                case -1:
-                    set_popup(standby,icon_standby);
-                    set_storage(2);
-                    break;
-                case 2:
-                    set_popup(off,icon_off);
-                    set_storage(0);
-                    break;
-            }
-    
+            var count = (res.status + 1) % text.length;
+            set_popup(text[count],icon[count]);
+            set_storage(count);
         });
     }
     
-    function read_icon() {
+    function read_status() {
         chrome.storage.sync.get("status", function (res) {
-            switch (res.status) {
-                case 0:
-                    set_popup(off,icon_off);
-                    break;
-                case 1:
-                    set_popup(running,icon_running);
-                    break;
-                case -1:
-                    set_popup(error,icon_error);
-                    break;
-                case 2:
-                    set_popup(standby,icon_standby);
-                    break;
-            }
-    
+            set_popup(text[res.status],icon[res.status])
         });
     }
     
@@ -64,6 +38,6 @@ $(document).ready( function () {
         $('#status_image').attr("src", icon_string);
     }
     
-    document.addEventListener('DOMContentLoaded', read_icon());
-    document.getElementById('status_toggle').addEventListener('click',switch_icon);
+    document.addEventListener('DOMContentLoaded', read_status());
+    document.getElementById('status_toggle').addEventListener('click',toggle_status);
 });
