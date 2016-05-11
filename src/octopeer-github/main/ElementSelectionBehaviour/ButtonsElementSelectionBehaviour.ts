@@ -9,7 +9,7 @@
 /**
  * Class for selecting buttons.
  */
-abstract class ButtonsElementSelectionBehaviour implements ElementSelectionBehaviour {
+class ButtonsElementSelectionBehaviour implements ElementSelectionBehaviour {
     private elementDsc: string = ".btn";
     private elementID: ElementID = new ElementID(1);
 

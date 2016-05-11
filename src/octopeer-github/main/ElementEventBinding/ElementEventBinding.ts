@@ -1,3 +1,4 @@
+
 /**
  * Created by Youri on 03/05/2016.
  * ElementEventBinding dictates on what events the callback should be called.
@@ -16,5 +17,5 @@ interface ElementEventBindingCreatable {
      * Creates a ElementEventBinding object.
      * @param elementSelectionBehaviour the Element selection behaviour to use.
      */
-    // new (elementSelectionBehaviour: ElementSelectionBehaviour): ElementEventBinding;
+    new (elementSelectionBehaviour: ElementSelectionBehaviour): ElementEventBinding;
 }

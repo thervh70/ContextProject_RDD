@@ -4,6 +4,7 @@
 /// <reference path="ElementSelectionBehaviour/ElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/ButtonsElementSelectionBehaviour.ts"/>
 /// <reference path="ElementEventBinding/ElementEventBinding.ts"/>
+/// <reference path="ElementEventBinding/ClickingElementEventBinding.ts"/>
 /// <reference path="ElementEventBinding/ClickElementEventBinding.ts"/>
 
 /**
