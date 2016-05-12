@@ -7,10 +7,10 @@ $(document).ready(function () {
     ];
 
     var icon = [
-        "icon_large_error.png",
-        "icon_large_green.png",
-        "icon_large.png",
-        "icon_large_standby.png"
+        "icon_error.png",
+        "icon_running.png",
+        "icon_off.png",
+        "icon_standby.png"
     ];
 
     function read_status() {
