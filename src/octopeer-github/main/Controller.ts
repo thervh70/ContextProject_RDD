@@ -14,24 +14,33 @@ class Controller {
 
     private database: DatabaseAdaptable;
 
-    /** List of ElementEventBindings that should be matched with ElementSelectors */
+    /**
+     * List of ElementEventBindings that should be matched with ElementSelectors
+     */
     private elementEventBindingList = [
         ClickElementEventBinding,
     ];
 
-    /** List of ElementSelectors that should be matched with ElementEventBindings */
+    /**
+     * List of ElementSelectors that should be matched with ElementEventBindings
+     */
     private elementSelectionBindingList = [
         ButtonsElementSelectionBehaviour,
     ];
 
-    /** Starts the Controller. After calling this, all event handlers are hooked to the DOM-tree. */
+    /**
+     * Starts the Controller. After calling this, all event handlers are hooked to the DOM-tree.
+     */
     public start() {
         this.database = new ConsoleLogDatabaseAdapter(); // ("https://localhost:8000", 1, 1);
         this.connectToContentScript();
         return this;
     }
 
-    /** Hook the product of ElementBindings and ElementSelectors to the DOM-tree. */
+    /**
+     * Hook the product of ElementBindings and ElementSelectors to the DOM-tree.
+     * @param database   the database that should be used when logging.
+     */
     public hookToDOM(database = this.database) {
         let elementEventBinding: ElementEventBindingCreatable;
         let elementSelectionBinding: ElementSelectionBehaviourCreatable;

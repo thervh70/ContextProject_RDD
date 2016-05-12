@@ -13,10 +13,16 @@ type Callback = JQueryPromiseCallback<any>;
 const EMPTY_CALLBACK = function() {return; };
 EMPTY_CALLBACK(); // suppress TSLint unused-variable, because it is used elsewhere
 
+/**
+ * A DatabaseAdaptable should implement a `post` method that posts to any database.
+ */
 interface DatabaseAdaptable {
     post(data: EventObject, success: Callback, failure: Callback): void;
 }
 
+/**
+ * An EventObject contains the data that should be posted to a Database.
+ */
 interface EventObject {
     elementID: ElementID;
     eventID: EventID;
@@ -26,6 +32,9 @@ interface EventObject {
     lineNumber?: LineNumber;
 }
 
+/**
+ * A short-hand method to create an EventObject.
+ */
 function EventObject(elementID: ElementID, eventID: EventID,
     start: Date, duration: Duration,
     filename?: FileName, lineNumber?: LineNumber): EventObject {
