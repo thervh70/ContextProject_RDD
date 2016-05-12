@@ -33,7 +33,7 @@ function save_options() {
         hashFile: file
         // Hints
     }, function() {
-        Materialize.toast("Settings saved!",2000);
+        Materialize.toast("Settings saved!", 2000);
     });
 }
 
@@ -82,7 +82,7 @@ function restore_options_availability() {
 function switch_options() {
     var logging = l('logging').checked;
     if (logging) {
-        Materialize.toast("Logging has been enabled.",2000);
+        Materialize.toast("Logging has been enabled.", 2000);
     } else {
         Materialize.toast("Logging has been disabled.", 2000);
     }
@@ -97,5 +97,9 @@ function switch_options() {
 
 document.addEventListener('DOMContentLoaded', restore_options_state);
 document.addEventListener('DOMContentLoaded', restore_options_availability);
-l('save').addEventListener('click', save_options);
-l('logging').addEventListener('click', switch_options);
+
+// Will execute once the page DOM is ready.
+$(document).ready(function() {
+    l('save').addEventListener('click', save_options);
+    l('logging').addEventListener('click', switch_options);
+});
