@@ -5,7 +5,7 @@
 
 // Helper function; simplifies the calls to specific document e-L-ements.
 function l(id) {
-    return document.getElementById(id)
+    return $('#'+id)[0]
 }
 
 // Saves options to chrome.storage.
