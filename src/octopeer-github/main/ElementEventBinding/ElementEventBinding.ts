@@ -7,12 +7,12 @@ interface ElementEventBinding {
     /**
      * The type of the Event
      */
-    eventType: string;
+    getEventType(): string;
 
     /**
      * The ID of the Event
      */
-    eventID: EventID;
+    getEventID(): EventID;
 }
 
 /**

@@ -5,14 +5,12 @@
 class AssigneeSettingElementSelectionBehaviour extends SettingElementSelectionBehaviour {
 
     /**
-     * The description of the element, used to determine the element in the DOM-tree
-     * @type {string}
+     * Constructor of this class.
+     * @param database The database that is used to store the Elements.
      */
-    public elementDsc: string = ".js-merge-branch-action";
-
-    /**
-     * The ID of the Element
-     * @type {ElementID}
-     */
-    public elementID: ElementID = new ElementID(403);
+    public constructor(database: DatabaseAdaptable) {
+        super(database);
+        this.elementDsc = "[placeholder]";
+        this.elementID = new ElementID(403);
+    }
 }

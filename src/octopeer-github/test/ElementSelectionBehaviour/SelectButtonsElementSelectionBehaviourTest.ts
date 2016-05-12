@@ -7,7 +7,7 @@ describe("An ElementSelector that selects Buttons", function() {
     let logSpy: jasmine.Spy;
 
     beforeEach(function() {
-        setFixtures("<div><button id='bt1' class='btn'></button><button id='bt2' class='btn2'></button></div>");
+        setFixtures("<div><button id='bt1' class='testplaceholder'></button><button id='bt2' class='btn2'></button></div>");
         database = new DatabaseConsoleLogOnly();
         selector = new MergePRButtonElementSelectionBehaviour(database);
         logSpy = spyOn(database, "log");

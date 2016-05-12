@@ -9,11 +9,11 @@ abstract class SettingElementSelectionBehaviour implements ElementSelectionBehav
     /**
      * The description of the Element
      */
-    public elementDsc: string;
+    protected elementDsc: string;
     /**
      * The ID of the Element
      */
-    public elementID: ElementID;
+    protected elementID: ElementID;
 
     /**
      * Creates a ButtonsElementSelectionBehaviour object.

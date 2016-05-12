@@ -9,7 +9,7 @@ describe("An EventBinder that binds Click events", function() {
     let logSpy: jasmine.Spy;
 
     beforeEach(function () {
-        setFixtures("<div><button id='bt1' class='btn'></button><button id='bt2' class='btn2'></button></div>");
+        setFixtures("<div><button id='bt1' class='testplaceholder'></button><button id='bt2' class='btn2'></button></div>");
         database = new DatabaseConsoleLogOnly();
         selector = new MergePRButtonElementSelectionBehaviour(database);
         logSpy = spyOn(database, "log");
@@ -17,7 +17,7 @@ describe("An EventBinder that binds Click events", function() {
 
     it("should be bound to the right type of buttons", function() {
         const binder = new ClickElementEventBinding(selector);
-        $(".btn").click();
+        $(".testplaceholder").click();
         expect(logSpy).toHaveBeenCalledTimes(1);
         delete binder;
     });

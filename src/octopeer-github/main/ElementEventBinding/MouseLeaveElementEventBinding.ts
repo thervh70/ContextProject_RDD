@@ -7,11 +7,27 @@ class MouseLeaveElementEventBinding implements ElementEventBinding {
     /**
      * The type of the Event
      */
-    public eventType: string = "mouseleave";
+    private eventType: string = "mouseleave";
     /**
      * The ID of the Event
      */
-    public eventID: EventID  = new EventID(104);
+    private eventID: EventID  = new EventID(104);
+
+    /**
+     * Getter for the EventType
+     * @returns {string}
+     */
+    public getEventType(): string {
+        return this.eventType;
+    }
+
+    /**
+     * Getter for the EventID
+     * @returns {EventID}
+     */
+    public getEventID(): EventID {
+        return this.eventID;
+    }
 
     /**
      * Constructor, creates the object and adds the event handler to the elements selected by the elementSelectionBehaviour.
