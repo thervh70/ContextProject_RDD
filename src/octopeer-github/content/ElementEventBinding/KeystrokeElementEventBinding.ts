@@ -35,7 +35,9 @@ class KeystrokeElementEventBinding implements ElementEventBinding {
      * @param elementSelectionBehaviour dictates what elements are selected.
      */
     constructor(private elementSelectionBehaviour: ElementSelectionBehaviour) {
-        elementSelectionBehaviour.getElements().on(
+        const elements = elementSelectionBehaviour.getElements();
+        elements.off(this.eventType);
+        elements.on(
             this.eventType,
             this.elementSelectionBehaviour.getCallback(this.eventID)
         );
