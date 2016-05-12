@@ -1,3 +1,4 @@
+// TODO Should this be monitored? How should this be monitored? Not part of js events.
 /**
  * Created by Mathias on 2016-05-11.
  * Class to create ScrollIntoView events
