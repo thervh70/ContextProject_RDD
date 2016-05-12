@@ -1,17 +1,19 @@
-/// <reference path="ElementSelectionBehaviour.ts"/>
-/// <reference path="../DatabaseAdaptable/DatabaseAdaptable.ts"/>
-/// <reference path="../ElementEventBinding/ElementEventBinding.ts"/>
-
+/// <reference path="../ElementSelectionBehaviour.ts"/>
+/// <reference path="../../DatabaseAdaptable/DatabaseAdaptable.ts"/>
+/// <reference path="../../ElementEventBinding/ElementEventBinding.ts"/>
 /**
- * Created by Youri on 03/05/2016.
+ * Created by Mathias on 2016-05-11.
  */
+abstract class TabHeaderElementSelectionBehaviour implements ElementSelectionBehaviour {
 
-/**
- * Class for selecting buttons.
- */
-class ButtonsElementSelectionBehaviour implements ElementSelectionBehaviour {
-    private elementDsc: string = ".btn";
-    private elementID: ElementID = new ElementID(1);
+    /**
+     * The description of the Element
+     */
+    protected elementDsc: string;
+    /**
+     * The ID of the Element
+     */
+    protected elementID: ElementID;
 
     /**
      * Creates a ButtonsElementSelectionBehaviour object.
@@ -23,9 +25,9 @@ class ButtonsElementSelectionBehaviour implements ElementSelectionBehaviour {
      * Get the elementID for buttons
      * @returns {ElementID} ElementID for buttons
      */
-    public getElementId() {
+    public getElementID() {
         return this.elementID;
-    };
+    }
 
     /**
      * Get the buttons.
@@ -33,7 +35,7 @@ class ButtonsElementSelectionBehaviour implements ElementSelectionBehaviour {
      */
     public getElements() {
         return $(this.elementDsc);
-    };
+    }
 
     /**
      * Get a callback to bind to the event.
@@ -44,7 +46,7 @@ class ButtonsElementSelectionBehaviour implements ElementSelectionBehaviour {
         const self = this;
         return (function(eventObject: JQueryEventObject) {
             // TODO: check when the new Date is triggered.
-            self.database.log(self.getElementId(), eventID, new Date(), 0,
+            self.database.log(self.getElementID(), eventID, new Date(), 0,
                 EMPTY_CALLBACK, EMPTY_CALLBACK);
         });
     }

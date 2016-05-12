@@ -1,5 +1,8 @@
 /// <reference path="../Types/ElementID.ts"/>
 /// <reference path="../Types/EventID.ts"/>
+/// <reference path="../ElementSelectionBehaviour/ElementSelectionBehaviour.ts"/>
+/// <reference path="../DatabaseAdaptable/DatabaseAdaptable.ts"/>
+/// <reference path="../ElementEventBinding/ElementEventBinding.ts"/>
 /**
  * This class connects to the RESTful API made by Aaron.
  */
