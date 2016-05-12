@@ -8,10 +8,11 @@ type EventHandler = (eventObject: JQueryEventObject) => void;
  * this is used by the tracker and ElementEventBinding
  */
 interface ElementSelectionBehaviour {
+
     /**
      * Get the elementID corresponding with the database elementID.
      */
-    getElementId(): ElementID;
+    getElementID(): ElementID;
 
     /**
      * Retrieve the elements this behaviour selects from the dom tree.
