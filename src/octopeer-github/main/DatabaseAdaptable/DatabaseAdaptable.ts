@@ -1,3 +1,7 @@
+/// <reference path="../../content/ElementEventBinding/ElementEventBinding.ts"/>
+/// <reference path="../../content/Types/ElementID.ts"/>
+/// <reference path="../../content/Types/EventID.ts"/>
+
 /**
  * Created by Youri on 04/05/2016.
  */
