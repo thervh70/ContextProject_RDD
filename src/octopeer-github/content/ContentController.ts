@@ -45,7 +45,7 @@ class ContentController {
             if (request.hookToDom) {
                 self.hookToDOM({
                     post: function (data: EventObject, success: Callback, failure: Callback) {
-                        chrome.runtime.sendMessage(data);
+                        chrome.runtime.sendMessage(JSON.stringify(data));
                         success();
                     },
                 });

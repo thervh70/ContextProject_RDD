@@ -40,7 +40,7 @@ class MainController {
         });
         // When a tab sends a message, log it to the Database
         chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
-            self.database.post(message, function() {
+            self.database.post(JSON.parse(message), function() {
                 console.log("[Database] Successfully logged to database: ", message);
             }, function() {
                 console.log("[WARN] Log to database of following object failed: ", message);

@@ -18,7 +18,7 @@
     "activeTab", "storage", "tabs", "https://github.com/"
   ],
   "background": {
-    "scripts": ["main.js"],
+    "scripts": ["jquery.min.js", "main.js"],
     "persistent": false
   },
   "content_scripts": [ {
