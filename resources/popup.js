@@ -14,7 +14,7 @@ $(document).ready(function () {
     ];
 
     function read_status() {
-        chrome.storage.sync.get("status", function (res) {
+        chrome.storage.local.get("status", function (res) {
             set_popup(res.status);
         });
     }

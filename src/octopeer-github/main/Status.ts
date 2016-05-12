@@ -48,7 +48,7 @@ class Status {
             "icon_large_standby.png",
         ];
 
-        chrome.storage.sync.set({
+        chrome.storage.local.set({
             status: status,
         });
         chrome.runtime.sendMessage({status: status});
