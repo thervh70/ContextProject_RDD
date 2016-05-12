@@ -6,101 +6,101 @@
  * Class from which user settings can be retrieved.
  * These settings have been maintained by the front-end.
  */
-class Settings {
-    private logging: Boolean;
-    private tabs: Boolean;
-    private comments: Boolean;
-    private peer_comments: Boolean;
-    private focus: Boolean;
-    private username: Boolean;
-    private repo: Boolean;
-    private file: Boolean;
+namespace Settings {
+    let logging: Boolean;
+    let tabs: Boolean;
+    let comments: Boolean;
+    let peer_comments: Boolean;
+    let focus: Boolean;
+    let username: Boolean;
+    let repo: Boolean;
+    let file: Boolean;
 
     /**
      * Gets the logging preference, from the chrome storage.
      * @returns {Boolean}
      */
-    public getLogging() {
+    export function getLogging() {
         chrome.storage.sync.get("loggingEnabled", function (obj) {
             this.logging = obj;
         });
-        return this.logging;
+        return logging;
     }
 
     /**
      * Gets the tab tracking preference, from the chrome storage.
      * @returns {Boolean}
      */
-    public getTabs() {
+    export function getTabs() {
         chrome.storage.sync.get("trackTabs", function (obj) {
             this.tabs = obj;
         });
-        return this.tabs;
+        return tabs;
     }
 
     /**
      * Gets the comment tracking preference, from the chrome storage.
      * @returns {Boolean}
      */
-    public getComments() {
+    export function getComments() {
         chrome.storage.sync.get("trackComments", function (obj) {
             this.comments = obj;
         });
-        return this.comments;
+        return comments;
     }
 
     /**
      * Gets the peer comments tracking preference, from the chrome storage.
      * @returns {Boolean}
      */
-    public getPeerComments() {
+    export function getPeerComments() {
         chrome.storage.sync.get("trackPeerComments", function (obj) {
             this.peer_comments = obj;
         });
-        return this.peer_comments;
+        return peer_comments;
     }
 
     /**
      * Gets the focus tracking preference, from the chrome storage.
      * @returns {Boolean}
      */
-    public getFocus() {
+    export function getFocus() {
         chrome.storage.sync.get("trackFocus", function (obj) {
             this.focus = obj;
         });
-        return this.focus;
+        return focus;
     }
 
     /**
      * Gets the username encryption preference, from the chrome storage.
      * @returns {Boolean}
      */
-    public getUsername() {
+    export function getUsername() {
         chrome.storage.sync.get("hashUsername", function (obj) {
             this.username = obj;
         });
-        return this.username;
+        return username;
     }
 
     /**
      * Gets the repository encryption preference, from the chrome storage.
      * @returns {Boolean}
      */
-    public getRepo() {
+    export function getRepo() {
         chrome.storage.sync.get("hashRepo", function (obj) {
             this.repo = obj;
         });
-        return this.repo;
+        return repo;
     }
 
     /**
      * Gets the file encryption preference, from the chrome storage.
      * @returns {Boolean}
      */
-    public getFile() {
+    export function getFile() {
         chrome.storage.sync.get("hashFile", function (obj) {
             this.file = obj;
         });
-        return this.file;
+        return file;
     }
 }
