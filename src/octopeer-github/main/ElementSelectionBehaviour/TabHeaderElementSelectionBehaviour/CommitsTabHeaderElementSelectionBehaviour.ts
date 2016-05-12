@@ -1,3 +1,4 @@
+/// <reference path="TabHeaderElementSelectionBehaviour.ts"/>
 /**
  * Created by Mathias on 2016-05-11.
  * Class for selecting the Commits tab header
