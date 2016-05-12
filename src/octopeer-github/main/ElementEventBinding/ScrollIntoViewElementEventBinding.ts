@@ -4,7 +4,14 @@
  * Class to create ScrollIntoView events
  */
 class ScrollIntoViewElementEventBinding implements ElementEventBinding {
+
+    /**
+     * The type of the Event
+     */
     public eventType: string = "scrollintoview";
+    /**
+     * The ID of the Event
+     */
     public eventID: EventID  = new EventID(105);
 
     /**

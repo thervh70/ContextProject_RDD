@@ -7,7 +7,13 @@
  */
 class ButtonElementSelectionBehaviour implements ElementSelectionBehaviour {
 
+    /**
+     * The description of the Element
+     */
     public elementDsc: string;
+    /**
+     * The ID of the Element
+     */
     public elementID: ElementID;
 
     /**

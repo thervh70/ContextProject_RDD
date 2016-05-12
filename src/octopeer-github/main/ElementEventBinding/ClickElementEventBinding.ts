@@ -4,7 +4,14 @@
  * Class for adding click events.
  */
 class ClickElementEventBinding implements ElementEventBinding {
+
+    /**
+     * The type of the Event
+     */
     public eventType: string = "click";
+    /**
+     * The ID of the Event
+     */
     public eventID: EventID  = new EventID(101);
 
     /**

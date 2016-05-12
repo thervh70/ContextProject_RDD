@@ -10,8 +10,6 @@ class AddEmoticonButtonElementSelectionBehaviour extends ButtonElementSelectionB
      */
     public elementDsc: string = ".js-merge-branch-action";
 
-    public tst: number = 0;
-
     /**
      * The ID of the Element
      * @type {ElementID}

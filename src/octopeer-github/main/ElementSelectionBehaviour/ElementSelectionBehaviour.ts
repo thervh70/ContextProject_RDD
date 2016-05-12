@@ -9,7 +9,13 @@ type EventHandler = (eventObject: JQueryEventObject) => void;
  */
 interface ElementSelectionBehaviour {
 
+    /**
+     * The ID of the Element
+     */
     elementID: ElementID;
+    /**
+     * The description of the Element
+     */
     elementDsc: string;
     /**
      * Get the elementID corresponding with the database elementID.

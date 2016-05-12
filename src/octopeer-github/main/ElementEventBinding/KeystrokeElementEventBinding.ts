@@ -4,7 +4,14 @@
  */
 
 class KeystrokeElementEventBinding implements ElementEventBinding {
+
+    /**
+     * The type of the Event
+     */
     public eventType: string = "keystroke";
+    /**
+     * The ID of the Event
+     */
     public eventID: EventID  = new EventID(102);
 
     /**

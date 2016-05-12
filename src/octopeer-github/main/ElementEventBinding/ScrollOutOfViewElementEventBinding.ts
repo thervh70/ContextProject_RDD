@@ -4,7 +4,14 @@
  * Class to create ScrollOutOfView events
  */
 class ScrollOutOfViewElementEventBinding implements ElementEventBinding {
+
+    /**
+     * The type of the Event
+     */
     public eventType: string = "scrolloutofview";
+    /**
+     * The ID of the Event
+     */
     public eventID: EventID  = new EventID(106);
 
     /**

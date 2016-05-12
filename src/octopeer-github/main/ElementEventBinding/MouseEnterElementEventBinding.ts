@@ -3,7 +3,14 @@
  * Class to enter MouseEnter events
  */
 class MouseEnterElementEventBinding implements ElementEventBinding {
+
+    /**
+     * The type of the Event
+     */
     public eventType: string = "mouseenter";
+    /**
+     * The ID of the Event
+     */
     public eventID: EventID  = new EventID(103);
 
     /**
