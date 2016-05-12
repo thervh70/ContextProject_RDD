@@ -13,31 +13,23 @@ $(document).ready(function () {
         "icon_large_standby.png"
     ];
 
-    function toggle_status() {
-        chrome.storage.sync.get("status", function (res) {
-            var count = (res.status + 1) % text.length;
-            set_popup(text[count], icon[count]);
-            set_storage(count);
-        });
-    }
-
     function read_status() {
         chrome.storage.sync.get("status", function (res) {
-            set_popup(text[res.status], icon[res.status])
+            set_popup(res.status);
         });
     }
 
-    function set_storage(int) {
-        chrome.storage.sync.set({
-            status: int
-        });
-    }
-
-    function set_popup(string, icon_string) {
-        $('#status_text').html(string);
-        $('#status_image').attr("src", icon_string);
+    function set_popup(status) {
+        $("#status_text").html(text[status]);
+        $("#status_image").attr("src", icon[status]);
     }
 
     document.addEventListener('DOMContentLoaded', read_status);
-    document.getElementById('status_toggle').addEventListener('click', toggle_status);
+
+    chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+        if (message.status !== undefined) {
+            set_popup(message.status);
+        }
+        sendResponse({});
+    })
 });
