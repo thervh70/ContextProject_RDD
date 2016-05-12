@@ -42,16 +42,23 @@ class Status {
      */
     public set(status: StatusCode) {
         const icon = [
-            "icon_large_error.png",
-            "icon_large_green.png",
-            "icon_large.png",
-            "icon_large_standby.png",
+            "icon_error.png",
+            "icon_running.png",
+            "icon_off.png",
+            "icon_standby.png",
+        ];
+
+        const text = [
+            "Octopeer has crashed!",
+            "Octopeer is running.",
+            "Octopeer is turned off.",
+            "Octopeer is standby.",
         ];
 
         chrome.storage.local.set({
             status: status,
         });
-        chrome.runtime.sendMessage({status: status});
+        chrome.runtime.sendMessage({line: text[status], path: icon[status]});
         chrome.browserAction.setIcon({path: icon[status]}, function() {
             if (chrome.runtime.lastError) {
                 console.log(chrome.runtime.lastError.message);

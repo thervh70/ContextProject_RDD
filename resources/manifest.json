@@ -8,13 +8,13 @@
 
   "icons": {
     "16": "icon_off.png",
-    "19": "icon_off.png",
     "48": "icon_off.png",
     "128": "icon_off.png"
   },
 
   "browser_action": {
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_icon": "icon_off.png"
   },
 
   "permissions": [
