@@ -105,7 +105,7 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
             "started_at": eventData.start.toJSON(),
             "duration": eventData.duration,
             "session": `${this.url}api/sessions/${this._session}/`,
-            "event_type": `${this.url}api/event-types/${eventData.eventID.getEventID()}/`,
+            "event_type": `${this.url}api/event-types/${eventData.eventID}/`,
         });
     }
 

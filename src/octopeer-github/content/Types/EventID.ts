@@ -18,4 +18,11 @@ class EventID {
     public getEventID(): number {
         return this.eventID;
     }
+
+    /**
+     * @returns {string} A string containing only the eventID.
+     */
+    public toString(): string {
+        return `${this.eventID}`;
+    }
 }

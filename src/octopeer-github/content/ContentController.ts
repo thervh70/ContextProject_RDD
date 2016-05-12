@@ -45,7 +45,10 @@ class ContentController {
             if (request.hookToDom) {
                 self.hookToDOM({
                     post: function (data: EventObject, success: Callback, failure: Callback) {
-                        chrome.runtime.sendMessage(JSON.stringify(data));
+                        let postData: any = data;
+                        postData.elementID = (<ElementID>data.elementID).getElementID();
+                        postData.eventID = (<EventID>data.eventID).getEventID();
+                        chrome.runtime.sendMessage(JSON.stringify(postData));
                         success();
                     },
                 });
