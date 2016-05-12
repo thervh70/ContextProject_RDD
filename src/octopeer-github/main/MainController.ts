@@ -51,7 +51,7 @@ class MainController {
     }
 
     /**
-     * Only sends a message to a tab if they contain the correct URL.
+     * Only sends a message to a tab if it contains the correct URL.
      * 'Correct' format:  http[s]//[...]github.com/(owner)/(repo)/pull/(pr-no)[/...]
      * @param tab   the Tab to check for
      */
