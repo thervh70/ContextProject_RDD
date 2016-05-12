@@ -11,7 +11,7 @@
     "postinstall": "npm install -g typings && typings install",
     "test": "karma start karma.config.js --single-run --browsers Chrome",
     "travis": "npm run-script tslint && npm run-script tsc && npm test",
-    "tsc": "tsc --project src/octopeer-github/main && tsc --project src/octopeer-github/test",
+    "tsc": "tsc --project src/octopeer-github/main && tsc --project src/octopeer-github/content && tsc --project src/octopeer-github/test",
     "tslint": "tslint -c tslint.json src/**/*.ts"
   },
   "devDependencies": {

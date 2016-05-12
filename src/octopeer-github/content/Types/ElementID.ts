@@ -18,4 +18,11 @@ class ElementID {
     public getElementID(): number {
         return this.elementID;
     }
+
+    /**
+     * @returns {string} A string containing only the elementID.
+     */
+    public toString(): string {
+        return `${this.elementID}`;
+    }
 }

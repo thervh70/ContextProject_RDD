@@ -1,17 +1,18 @@
 /**
  * Created by Mathias on 2016-05-11.
- * Class to enter MouseEnter events
+ * Class to add Keystroke events
  */
-class MouseEnterElementEventBinding implements ElementEventBinding {
+
+class KeystrokeElementEventBinding implements ElementEventBinding {
 
     /**
      * The type of the Event
      */
-    private eventType: string = "mouseenter";
+    private eventType: string = "keystroke";
     /**
      * The ID of the Event
      */
-    private eventID: EventID  = new EventID(202);
+    private eventID: EventID  = new EventID(101);
 
     /**
      * Getter for the EventType
@@ -34,7 +35,9 @@ class MouseEnterElementEventBinding implements ElementEventBinding {
      * @param elementSelectionBehaviour dictates what elements are selected.
      */
     constructor(private elementSelectionBehaviour: ElementSelectionBehaviour) {
-        elementSelectionBehaviour.getElements().on(
+        const elements = elementSelectionBehaviour.getElements();
+        elements.off(this.eventType);
+        elements.on(
             this.eventType,
             this.elementSelectionBehaviour.getCallback(this.eventID)
         );

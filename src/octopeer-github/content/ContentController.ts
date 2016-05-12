@@ -1,6 +1,3 @@
-/// <reference path="DatabaseAdaptable/DatabaseAdaptable.ts"/>
-/// <reference path="DatabaseAdaptable/DatabaseAdapter.ts"/>
-/// <reference path="DatabaseAdaptable/DatabaseConsoleLogOnly.ts"/>
 /// <reference path="ElementEventBinding/ElementEventBinding.ts"/>
 /// <reference path="ElementEventBinding/ClickElementEventBinding.ts"/>
 /// <reference path="ElementEventBinding/KeystrokeElementEventBinding.ts"/>
@@ -42,13 +39,13 @@
 /// <reference path="ElementSelectionBehaviour/TabHeaderElementSelectionBehaviour/FilesChangedTabHeaderElementSelectionBehaviour.ts"/>
 
 /**
- * The Controller hooks the event handlers to the DOM-tree.
+ * The ContentController hooks the event handlers to the DOM-tree.
  */
-class Controller {
+class ContentController {
 
-    private database: DatabaseAdaptable;
-
-    /** List of ElementEventBindings that should be matched with ElementSelectors */
+    /**
+     * List of ElementEventBindings that should be matched with ElementSelectors
+     */
     private elementEventBindingList = [
         ClickElementEventBinding,
         KeystrokeElementEventBinding,
@@ -58,7 +55,9 @@ class Controller {
         ScrollOutOfViewElementEventBinding,
     ];
 
-    /** List of ElementSelectors that should be matched with ElementEventBindings */
+    /**
+     * List of ElementSelectors that should be matched with ElementEventBindings
+     */
     private elementSelectionBindingList = [
         AddEmoticonButtonElementSelectionBehaviour,
         CancelEditPRNameButtonElementSelectionBehaviour,
@@ -88,22 +87,60 @@ class Controller {
         FilesChangedTabHeaderElementSelectionBehaviour,
     ];
 
-    /** Starts the Controller. After calling this, all event handlers are hooked to the DOM-tree. */
+    /**
+     * An inner singleton class that implements DatabaseAdaptable in order to send messages to the background page.
+     * @type {MessageSendDatabaseAdapter}
+     */
+    private messageSendDatabaseAdapter = new (class MessageSendDatabaseAdapter implements DatabaseAdaptable {
+        public post(data: EventObject, success: Callback, failure: Callback) {
+            let postData: any = data;
+            postData.elementID = (<ElementID>data.elementID).getElementID();
+            postData.eventID = (<EventID>data.eventID).getEventID();
+            chrome.runtime.sendMessage(JSON.stringify(postData));
+            success();
+        }
+    })();
+
+    /**
+     * Starts the ContentController. After calling this, all event handlers are hooked to the DOM-tree.
+     * @return this
+     */
     public start() {
-        this.database = new DatabaseConsoleLogOnly(); // ("https://localhost:8000", 1, 1);
-        this.hookToDOM();
+        this.connectToBackgroundPage();
         return this;
     }
 
-    /** Hook the product of ElementBindings and ElementSelectors to the DOM-tree. */
-    private hookToDOM() {
+    /**
+     * Set up all event handlers in the Chrome API.
+     */
+    private connectToBackgroundPage() {
+        const self = this;
+        if (chrome.runtime.onMessage.hasListeners()) {
+            return;
+        }
+
+        chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+            if (request.hookToDom) {
+                self.hookToDOM(self.messageSendDatabaseAdapter);
+                sendResponse(`hooked to DOM (${location.href})`);
+            } else {
+                sendResponse(`did nothing (${location.href})`);
+            }
+        });
+    }
+
+    /**
+     * Hook the product of ElementBindings and ElementSelectors to the DOM-tree.
+     * @param database   the database that should be used when logging.
+     */
+    private hookToDOM(database: DatabaseAdaptable) {
         let elementEventBinding: ElementEventBindingCreatable;
         let elementSelectionBinding: ElementSelectionBehaviourCreatable;
         let elementEventBindingHolder: ElementEventBinding;
         let elementSelectionBindingHolder: ElementSelectionBehaviour;
 
         for (elementSelectionBinding of this.elementSelectionBindingList) {
-            elementSelectionBindingHolder = new elementSelectionBinding(this.database);
+            elementSelectionBindingHolder = new elementSelectionBinding(database);
 
             for (elementEventBinding of this.elementEventBindingList) {
                 elementEventBindingHolder = new elementEventBinding(elementSelectionBindingHolder);

@@ -1,18 +1,17 @@
-// TODO Should this be monitored? How should this be monitored? Not part of js events.
 /**
  * Created by Mathias on 2016-05-11.
- * Class to create ScrollIntoView events
+ * Class to enter MouseEnter events
  */
-class ScrollIntoViewElementEventBinding implements ElementEventBinding {
+class MouseEnterElementEventBinding implements ElementEventBinding {
 
     /**
      * The type of the Event
      */
-    private eventType: string = "scrollintoview";
+    private eventType: string = "mouseenter";
     /**
      * The ID of the Event
      */
-    private eventID: EventID  = new EventID(301);
+    private eventID: EventID  = new EventID(202);
 
     /**
      * Getter for the EventType
@@ -35,7 +34,9 @@ class ScrollIntoViewElementEventBinding implements ElementEventBinding {
      * @param elementSelectionBehaviour dictates what elements are selected.
      */
     constructor(private elementSelectionBehaviour: ElementSelectionBehaviour) {
-        elementSelectionBehaviour.getElements().on(
+        const elements = elementSelectionBehaviour.getElements();
+        elements.off(this.eventType);
+        elements.on(
             this.eventType,
             this.elementSelectionBehaviour.getCallback(this.eventID)
         );

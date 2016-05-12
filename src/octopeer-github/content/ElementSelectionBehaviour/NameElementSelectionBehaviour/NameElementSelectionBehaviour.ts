@@ -1,10 +1,9 @@
 /// <reference path="../ElementSelectionBehaviour.ts"/>
-/// <reference path="../../DatabaseAdaptable/DatabaseAdaptable.ts"/>
 /// <reference path="../../ElementEventBinding/ElementEventBinding.ts"/>
 /**
  * Created by Mathias on 2016-05-11.
  */
-abstract class TabHeaderElementSelectionBehaviour implements ElementSelectionBehaviour {
+abstract class NameElementSelectionBehaviour implements ElementSelectionBehaviour {
 
     /**
      * The description of the Element
@@ -46,7 +45,7 @@ abstract class TabHeaderElementSelectionBehaviour implements ElementSelectionBeh
         const self = this;
         return (function(eventObject: JQueryEventObject) {
             // TODO: check when the new Date is triggered.
-            self.database.log(self.getElementID(), eventID, new Date(), 0,
+            self.database.post(EventObject(self.getElementID(), eventID, new Date(), 0),
                 EMPTY_CALLBACK, EMPTY_CALLBACK);
         });
     }
