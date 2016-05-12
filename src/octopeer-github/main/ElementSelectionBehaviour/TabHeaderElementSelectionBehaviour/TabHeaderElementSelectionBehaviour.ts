@@ -4,7 +4,7 @@
 /**
  * Created by Mathias on 2016-05-11.
  */
-class TabHeaderElementSelectionBehaviour implements ElementSelectionBehaviour {
+abstract class TabHeaderElementSelectionBehaviour implements ElementSelectionBehaviour {
 
     /**
      * The description of the Element

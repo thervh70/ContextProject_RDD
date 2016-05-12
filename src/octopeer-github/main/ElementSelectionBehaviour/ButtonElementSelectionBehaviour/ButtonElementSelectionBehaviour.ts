@@ -5,7 +5,7 @@
  * Created by Mathias on 2016-05-11.
  * Class for selecting buttons.
  */
-class ButtonElementSelectionBehaviour implements ElementSelectionBehaviour {
+abstract class ButtonElementSelectionBehaviour implements ElementSelectionBehaviour {
 
     /**
      * The description of the Element

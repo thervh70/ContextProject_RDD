@@ -4,7 +4,7 @@
 /**
  * Created by Mathias on 2016-05-11.
  */
-class MiscellaneousElementSelectionBehaviour implements ElementSelectionBehaviour {
+abstract class MiscellaneousElementSelectionBehaviour implements ElementSelectionBehaviour {
 
     /**
      * The description of the Element

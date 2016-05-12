@@ -4,7 +4,7 @@
 /**
  * Created by Mathias on 2016-05-11.
  */
-class NameElementSelectionBehaviour implements ElementSelectionBehaviour {
+abstract class NameElementSelectionBehaviour implements ElementSelectionBehaviour {
 
     /**
      * The description of the Element

@@ -20,7 +20,8 @@ class Controller {
 
     /** List of ElementSelectors that should be matched with ElementEventBindings */
     private elementSelectionBindingList = [
-        ButtonElementSelectionBehaviour,
+        MergePRButtonElementSelectionBehaviour,
+        FilesChangedTabHeaderElementSelectionBehaviour,
     ];
 
     /** Starts the Controller. After calling this, all event handlers are hooked to the DOM-tree. */
