@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Octopeer</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" >
+
+    <script src="jquery.min.js"></script>
+    <script src="materialize.min.js"></script>
+    <script src="options.js"></script>
+</head>
+<body>
+
+<nav>
+    <div class="nav-wrapper lime">
+        <div class="brand-logo center" style="height: auto; width: auto;">
+            <a>Octopeer</a>
+        </div>
+
+        <ul id="nav-mobile" class="right hide-on-small-only">
+            <li class="active"><a href="options.html">Options</a></li>
+            <li><a href="">About</a></li>
+        </ul>
+
+        <!--Insert side navbar-->
+    </div>
+</nav>
+
+<div class="container">
+    <p class="flow-text" style="text-align: center;">
+        Welcome to the personal settings of Octopeer. <br>
+        Please check whether all of the following settings apply to you.
+    </p>
+
+    <div class="row">
+    <div class="col s12 m6">
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">General</span> <br>
+                <input type="checkbox" id="logging" checked>
+                <label for="logging">I accept Octopeer to log data from me while reviewing pull requests on GitHub.</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="col s12 m6">
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">Privacy</span> <br>
+                <p style="font-family: Roboto,sans-serif; font-size:11pt">
+                The following data can be tracked from me, while I'm reviewing pull requests on GitHub:
+                </p>
+                <ul>
+                    <li>
+                        <input type="checkbox" id="tabs" checked>
+                        <label for="tabs">other active tabs that are used.</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="comments" checked>
+                        <label for="comments"> the comments that I add to a pull request. </label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="peer_comments" checked>
+                        <label for="peer_comments"> the comments of my peers that have been added to a pull request. </label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="focus" checked>
+                        <label for="focus"> what part of a page I'm focusing on (in terms of text hovering, selection, etc.). </label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col s12 m6">
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">Security</span> <br>
+                <p style="font-family: Roboto,sans-serif; font-size:11pt">
+                If you allow Octopeer to log data from you, it will store this data and process it.
+                Would you like Octopeer to take the following security measures?
+                </p>
+                <ul>
+                    <li>
+                        <input type="checkbox" id="username" checked>
+                        <label for="username"> Encrypt your username. </label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="repo" checked>
+                        <label for="repo"> Encrypt the names of repositories you're working in. </label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="file">
+                        <label for="file"> Encrypt the names of the files you're working on. </label>
+                     </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col s12 m6">
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">Hints</span> <br>
+                <p style="font-family: Roboto,sans-serif; font-size:11pt">
+                    The goal of Octopeer is to allow you to improve your pull request behavior. This is done in terms of hints.
+                    Would you like Octopeer to deliver the hints in the following way?
+                </p>
+                <ul>
+                    <li>
+                        <input type="checkbox" id="something" disabled checked>
+                        <label for="something">...</label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+    <!--Div used for status update-->
+    <div id="status"></div>
+
+    <button class="btn waves-effect lime waves-light" type="submit" id="save">
+        <div>
+            <a style="font-family: Roboto,sans-serif; font-size:11pt; color:white">Submit</a>
+            <i class="material-icons right">send</i>
+        </div>
+    </button>
+</div>
+</body>
+</html>

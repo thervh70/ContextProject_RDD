@@ -1,4 +1,6 @@
-/// <reference path="../ElementEventBinding/ElementEventBinding.ts"/>
+/// <reference path="../../content/ElementEventBinding/ElementEventBinding.ts"/>
+/// <reference path="../../content/Types/ElementID.ts"/>
+/// <reference path="../../content/Types/EventID.ts"/>
 
 /**
  * Created by Youri on 04/05/2016.
@@ -9,16 +11,44 @@ type LineNumber = number;
 type Callback = JQueryPromiseCallback<any>;
 
 const EMPTY_CALLBACK = function() {return; };
-EMPTY_CALLBACK(); // suppress TSLint unused-variable
+EMPTY_CALLBACK(); // suppress TSLint unused-variable, because it is used elsewhere
 
+/**
+ * A DatabaseAdaptable should implement a `post` method that posts to any database.
+ * @param eventData     The data to post to the database.
+ * @param success       Callback, which is called once the call has succeeded.
+ * @param failure       Callback, which is called once the call has failed.
+ */
 interface DatabaseAdaptable {
-
-    log(elementID: ElementID, eventID: EventID,
-        start: Date, duration: Duration,
-        success: Callback, failure: Callback): void;
-
-    logWLine(elementID: ElementID, eventID: EventID,
-             filename: FileName, linenumber: LineNumber,
-             start: Date, duration: Duration,
-             success: Callback, failure: Callback): void;
+    post(eventData: EventObject, success: Callback, failure: Callback): void;
 }
+
+/**
+ * An EventObject contains the data that should be posted to a Database.
+ */
+interface EventObject {
+    elementID: ElementID;
+    eventID: EventID;
+    start: Date;
+    duration: Duration;
+    filename?: FileName;
+    lineNumber?: LineNumber;
+}
+
+/**
+ * A short-hand method to create an EventObject.
+ */
+function EventObject(elementID: ElementID, eventID: EventID,
+    start: Date, duration: Duration,
+    filename?: FileName, lineNumber?: LineNumber): EventObject {
+    return {
+        duration: duration,
+        elementID: elementID,
+        eventID: eventID,
+        filename: filename,
+        lineNumber: lineNumber,
+        start: start,
+    };
+}
+// suppress TSLint unused-variable, because it is used elsewhere
+EventObject(new ElementID(0), new EventID(0), new Date(), 0);
