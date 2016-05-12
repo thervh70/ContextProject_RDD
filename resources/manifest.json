@@ -7,10 +7,10 @@
   "options_page": "options.html",
 
   "icons": {
-    "16": "icon_large.png",
-    "19": "icon_large.png",
-    "48": "icon_large.png",
-    "128": "icon_large.png"
+    "16": "icon_off.png",
+    "19": "icon_off.png",
+    "48": "icon_off.png",
+    "128": "icon_off.png"
   },
 
   "browser_action": {
