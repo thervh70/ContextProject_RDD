@@ -3,7 +3,7 @@
  * Created by Mathias on 2016-05-11.
  * Class for selecting the Comment button
  */
-class CommentButtonElementSelectionBehaviour extends ButtonElementSelectionBehaviour {
+class CommentInlineCommentButtonElementSelectionBehaviour extends ButtonElementSelectionBehaviour {
 
     /**
      * Constructor of this class.
