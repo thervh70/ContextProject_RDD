@@ -55,25 +55,19 @@ class DatabaseAdapter implements DatabaseAdaptable {
         this._debug = d;
     }
 
-    // TODO The database does not support elementType yet.
     /**
      * Post an event to the database.
-     * @param elementID     Given ElementID.
-     * @param eventID       Given EventID.
-     * @param start         Date when the event started.
-     * @param duration      How long the event lasted, in ms.
+     * @param eventData     The data to log to the database.
      * @param success       Callback, which is called once the call has succeeded.
      * @param failure       Callback, which is called once the call has failed.
      */
-    public log(elementID: ElementID, eventID: EventID,
-               start: Date, duration: number,
-               success: Callback, failure: Callback): void {
+    public log(eventData: EventObject, success: Callback, failure: Callback): void {
         const self = this;
         if (!this.isInitialized) {
             console.log("[WARN] The database has not been initialized yet!");
             return;
         }
-        const ajax = $.ajax(`${this.url}api/events/`, self.createPostData(eventID, start, duration))
+        const ajax = $.ajax(`${this.url}api/events/`, self.createPostData(eventData))
             .done(function(data, status, jqXHR) {
                 if (self._debug) {
                     console.log(`Call success, status: ${status}`, jqXHR);
@@ -90,28 +84,6 @@ class DatabaseAdapter implements DatabaseAdaptable {
     }
 
     /**
-     * Post an event to the database, including a filename and line number.
-     * @param elementType   Should equal an existing ElementType ID in the database.
-     * @param eventType     Should equal an existing EventType ID in the database.
-     * @param fileName      The file name of the location where the event triggered.
-     * @param lineNumber    The line number of the location where the event triggered.
-     * @param start         Date when the event started.
-     * @param duration      How long the event lasted, in ms.
-     * @param success       Callback, which is called once the call has succeeded.
-     * @param failure       Callback, which is called once the call has failed.
-     */
-    public logWLine(elementType: ElementID,
-                    eventType: EventID,
-                    fileName: string,
-                    lineNumber: number,
-                    start: Date,
-                    duration: number,
-                    success: Callback,
-                    failure: Callback): void {
-        this.log(elementType, eventType, start, duration, success, failure);
-    }
-
-    /**
      * Creates a Settings Object that can be used in an AJAX request when posting a new session.
      * @returns {JQueryAjaxSettings}    A Settings Object that can be used in an AJAX request.
      */
@@ -125,17 +97,15 @@ class DatabaseAdapter implements DatabaseAdaptable {
 
     /**
      * Creates a Settings Object that can be used in an AJAX request when posting an event.
-     * @param eventType                 Should equal an existing EventType ID in the database.
-     * @param start                     Date when the event started.
-     * @param duration                  How long the event lasted, in ms.
+     * @param eventData                 The data to log to the database.
      * @returns {JQueryAjaxSettings}    A Settings Object that can be used in an AJAX request.
      */
-    private createPostData(eventType: EventID, start: Date, duration: number) {
+    private createPostData(eventData: EventObject) {
         return this.createJSONPost({
-            "started_at": start.toJSON(),
-            "duration": duration,
+            "started_at": eventData.start.toJSON(),
+            "duration": eventData.duration,
             "session": `${this.url}api/sessions/${this._session}/`,
-            "event_type": `${this.url}api/event-types/${eventType.getEventID()}/`,
+            "event_type": `${this.url}api/event-types/${eventData.eventID.getEventID()}/`,
         });
     }
 
