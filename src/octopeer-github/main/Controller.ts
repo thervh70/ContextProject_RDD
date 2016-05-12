@@ -48,7 +48,8 @@ class Controller {
 
     private connectToContentScript() {
         const self = this;
-        let urlFormat = /https?:\/\/.*github\.com\/(.+)\/(.+)\/pull\/(.+).*/;
+        // format:       http[s]//[...]github.com/<owner>/<repo>/pull/<pr-no>[/...]
+        let urlFormat = /https?:\/\/.*github\.com\/(.+)\/(.+)\/pull\/([^\/]+)\/?.*/;
         // Whenever a tab updates, send a message to re-hook to DOM
         chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
             if (changeInfo.url && urlFormat.test(changeInfo.url)) {
