@@ -88,6 +88,20 @@ class ContentController {
     ];
 
     /**
+     * An inner singleton class that implements DatabaseAdaptable in order to send messages to the background page.
+     * @type {MessageSendDatabaseAdapter}
+     */
+    private messageSendDatabaseAdapter = new (class MessageSendDatabaseAdapter implements DatabaseAdaptable {
+        public post(data: EventObject, success: Callback, failure: Callback) {
+            let postData: any = data;
+            postData.elementID = (<ElementID>data.elementID).getElementID();
+            postData.eventID = (<EventID>data.eventID).getEventID();
+            chrome.runtime.sendMessage(JSON.stringify(postData));
+            success();
+        }
+    })();
+
+    /**
      * Starts the ContentController. After calling this, all event handlers are hooked to the DOM-tree.
      * @return this
      */
@@ -107,15 +121,7 @@ class ContentController {
 
         chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
             if (request.hookToDom) {
-                self.hookToDOM({
-                    post: function (data: EventObject, success: Callback, failure: Callback) {
-                        let postData: any = data;
-                        postData.elementID = (<ElementID>data.elementID).getElementID();
-                        postData.eventID = (<EventID>data.eventID).getEventID();
-                        chrome.runtime.sendMessage(JSON.stringify(postData));
-                        success();
-                    },
-                });
+                self.hookToDOM(self.messageSendDatabaseAdapter);
                 sendResponse(`hooked to DOM (${location.href})`);
             } else {
                 sendResponse(`did nothing (${location.href})`);

@@ -52,11 +52,11 @@ class MainController {
 
     /**
      * Only sends a message to a tab if they contain the correct URL.
+     * 'Correct' format:  http[s]//[...]github.com/(owner)/(repo)/pull/(pr-no)[/...]
      * @param tab   the Tab to check for
      */
     private testAndSend(tab: Tab) {
         const url = tab.url;
-        // format:         http[s]//[...]github.com/(owner)/(repo)/pull/(pr-no)[/...]
         const urlFormat = /https?:\/\/.*github\.com\/(.+)\/(.+)\/pull\/([^\/]+)\/?.*/;
         if (urlFormat.test(url)) {
             let urlInfo = urlFormat.exec(url);
