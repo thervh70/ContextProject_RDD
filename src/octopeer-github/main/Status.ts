@@ -53,7 +53,7 @@ class Status {
             "icon_tiny_running.png",
             "icon_tiny_off.png",
             "icon_tiny_standby.png",
-        ]
+        ];
 
         const text = [
             "Octopeer has crashed!",
