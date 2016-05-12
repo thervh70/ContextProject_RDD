@@ -9,7 +9,7 @@ describe("An EventBinder that binds Click events", function() {
     let logSpy: jasmine.Spy;
 
     beforeEach(function () {
-        setFixtures("<div><button id='bt1' class='testplaceholder'></button><button id='bt2' class='btn2'></button></div>");
+        setFixtures("<div><button id='bt1' class='js-merge-branch-action'></button><button id='bt2' class='btn2'></button></div>");
         database = new ConsoleLogDatabaseAdapter();
         selector = new MergePRButtonElementSelectionBehaviour(database);
         logSpy = spyOn(database, "post");

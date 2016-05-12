@@ -11,7 +11,7 @@ class MilestoneSettingElementSelectionBehaviour extends SettingElementSelectionB
      */
     public constructor(database: DatabaseAdaptable) {
         super(database);
-        this.elementDsc = "[placeholder]";
+        this.elementDsc = "#partial-discussion-sidebar button[data-hotkey=m]";
         this.elementID = new ElementID(402);
     }
 }

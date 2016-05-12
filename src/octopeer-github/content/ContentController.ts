@@ -13,12 +13,13 @@
 /// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/CheckDetailButtonElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/ClosePRButtonElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/CommentInlineCommentButtonElementSelectionBehaviour.ts"/>
+/// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/CommentPRButtonElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/EditCommentButtonElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/EditPRNameButtonElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/InlineCommentButtonElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/MergePRButtonElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/SaveEditPRNameButtonElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/ShowChecksButtonElementSelectionBehaviour.ts"/>
+/// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/ShowChecksToggleButtonElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/MiscellaneousElementSelectionBehaviour/MiscellaneousElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/MiscellaneousElementSelectionBehaviour/DateMiscellaneousElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/NameElementSelectionBehaviour/NameElementSelectionBehaviour.ts"/>
@@ -65,12 +66,13 @@ class ContentController {
         CheckDetailButtonElementSelectionBehaviour,
         ClosePRButtonElementSelectionBehaviour,
         CommentInlineCommentButtonElementSelectionBehaviour,
+        CommentPRButtonElementSelectionBehaviour,
         EditCommentButtonElementSelectionBehaviour,
         EditPRNameButtonElementSelectionBehaviour,
         InlineCommentButtonElementSelectionBehaviour,
         MergePRButtonElementSelectionBehaviour,
         SaveEditPRNameButtonElementSelectionBehaviour,
-        ShowChecksButtonElementSelectionBehaviour,
+        ShowChecksToggleButtonElementSelectionBehaviour,
         DateMiscellaneousElementSelectionBehaviour,
         CommitHashcodeNameElementSelectionBehaviour,
         CommitMessageNameElementSelectionBehaviour,

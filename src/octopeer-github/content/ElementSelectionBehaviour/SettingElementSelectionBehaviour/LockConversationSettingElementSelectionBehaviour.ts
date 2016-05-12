@@ -11,7 +11,7 @@ class LockConversationSettingElementSelectionBehaviour extends SettingElementSel
      */
     public constructor(database: DatabaseAdaptable) {
         super(database);
-        this.elementDsc = "[placeholder]";
+        this.elementDsc = "#partial-discussion-sidebar a:has(svg.octicon-lock)";
         this.elementID = new ElementID(405);
     }
 }

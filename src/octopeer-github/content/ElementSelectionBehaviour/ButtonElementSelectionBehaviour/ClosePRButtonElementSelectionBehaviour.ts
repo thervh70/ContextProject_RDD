@@ -11,7 +11,7 @@ class ClosePRButtonElementSelectionBehaviour extends ButtonElementSelectionBehav
      */
     public constructor(database: DatabaseAdaptable) {
         super(database);
-        this.elementDsc = "[placeholder]";
+        this.elementDsc = ".js-comment-and-button";
         this.elementID = new ElementID(102);
     }
 }

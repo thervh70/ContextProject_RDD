@@ -11,7 +11,7 @@ class UnsubscribeSettingElementSelectionBehaviour extends SettingElementSelectio
      */
     public constructor(database: DatabaseAdaptable) {
         super(database);
-        this.elementDsc = "[placeholder]";
+        this.elementDsc = "#partial-discussion-sidebar button:has(svg.octicon-mute)";
         this.elementID = new ElementID(404);
     }
 }

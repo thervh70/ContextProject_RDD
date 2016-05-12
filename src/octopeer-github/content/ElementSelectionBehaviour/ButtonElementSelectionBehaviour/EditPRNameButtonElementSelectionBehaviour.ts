@@ -11,7 +11,7 @@ class EditPRNameButtonElementSelectionBehaviour extends ButtonElementSelectionBe
      */
     public constructor(database: DatabaseAdaptable) {
         super(database);
-        this.elementDsc = "[placeholder]";
+        this.elementDsc = ".gh-header-actions button";
         this.elementID = new ElementID(106);
     }
 }

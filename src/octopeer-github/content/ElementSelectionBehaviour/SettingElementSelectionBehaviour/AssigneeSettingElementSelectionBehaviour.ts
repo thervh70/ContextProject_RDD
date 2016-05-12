@@ -11,7 +11,7 @@ class AssigneeSettingElementSelectionBehaviour extends SettingElementSelectionBe
      */
     public constructor(database: DatabaseAdaptable) {
         super(database);
-        this.elementDsc = "[placeholder]";
+        this.elementDsc = "#partial-discussion-sidebar button[data-hotkey=a]";
         this.elementID = new ElementID(403);
     }
 }

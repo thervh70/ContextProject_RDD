@@ -11,7 +11,7 @@ class DateMiscellaneousElementSelectionBehaviour extends MiscellaneousElementSel
      */
     public constructor(database: DatabaseAdaptable) {
         super(database);
-        this.elementDsc = "[placeholder]";
+        this.elementDsc = "relative-time";
         this.elementID = new ElementID(501);
     }
 }

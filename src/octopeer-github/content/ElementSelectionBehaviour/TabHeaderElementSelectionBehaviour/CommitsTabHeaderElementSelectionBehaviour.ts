@@ -11,7 +11,7 @@ class CommitsTabHeaderElementSelectionBehaviour extends TabHeaderElementSelectio
      */
     public constructor(database: DatabaseAdaptable) {
         super(database);
-        this.elementDsc = "[placeholder]";
+        this.elementDsc = ".tabnav-tabs a:has(> svg.octicon-git-commit)";
         this.elementID = new ElementID(202);
     }
 }

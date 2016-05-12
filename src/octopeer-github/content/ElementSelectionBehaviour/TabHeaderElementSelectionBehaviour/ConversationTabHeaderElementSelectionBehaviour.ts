@@ -11,7 +11,7 @@ class ConversationTabHeaderElementSelectionBehaviour extends TabHeaderElementSel
      */
     public constructor(database: DatabaseAdaptable) {
         super(database);
-        this.elementDsc = "[placeholder]";
+        this.elementDsc = ".tabnav-tabs a:has(> svg.octicon-comment-discussion)";
         this.elementID = new ElementID(201);
     }
 }

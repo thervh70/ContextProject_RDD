@@ -11,7 +11,7 @@ class AddEmoticonButtonElementSelectionBehaviour extends ButtonElementSelectionB
      */
     public constructor(database: DatabaseAdaptable) {
         super(database);
-        this.elementDsc = "[placeholder]";
+        this.elementDsc = ".timeline-comment-actions button:has(svg.octicon-smiley)";
         this.elementID = new ElementID(110);
     }
 }
