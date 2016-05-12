@@ -1,18 +1,17 @@
-/// <reference path="../ElementSelectionBehaviour/ElementSelectionBehaviour.ts"/>
 /**
- * Created by Youri on 04/05/2016.
- * Class for adding click events.
+ * Created by Mathias on 2016-05-11.
+ * Class to enter MouseEnter events
  */
-class ClickElementEventBinding implements ElementEventBinding {
+class MouseEnterElementEventBinding implements ElementEventBinding {
 
     /**
      * The type of the Event
      */
-    private eventType: string = "click";
+    private eventType: string = "mouseenter";
     /**
      * The ID of the Event
      */
-    private eventID: EventID  = new EventID(201);
+    private eventID: EventID  = new EventID(202);
 
     /**
      * Getter for the EventType

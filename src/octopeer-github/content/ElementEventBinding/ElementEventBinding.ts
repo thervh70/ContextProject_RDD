@@ -4,7 +4,18 @@
  * Created by Youri on 03/05/2016.
  * ElementEventBinding dictates on what events the callback should be called.
  */
-interface ElementEventBinding {}
+interface ElementEventBinding {
+
+    /**
+     * The type of the Event
+     */
+    getEventType(): string;
+
+    /**
+     * The ID of the Event
+     */
+    getEventID(): EventID;
+}
 
 /**
  * Makes it so we can instantiate by class name, for reference see:

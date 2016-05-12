@@ -1,18 +1,18 @@
-/// <reference path="../ElementSelectionBehaviour/ElementSelectionBehaviour.ts"/>
 /**
- * Created by Youri on 04/05/2016.
- * Class for adding click events.
+ * Created by Mathias on 2016-05-11.
+ * Class to add Keystroke events
  */
-class ClickElementEventBinding implements ElementEventBinding {
+
+class KeystrokeElementEventBinding implements ElementEventBinding {
 
     /**
      * The type of the Event
      */
-    private eventType: string = "click";
+    private eventType: string = "keystroke";
     /**
      * The ID of the Event
      */
-    private eventID: EventID  = new EventID(201);
+    private eventID: EventID  = new EventID(101);
 
     /**
      * Getter for the EventType

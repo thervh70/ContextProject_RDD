@@ -1,18 +1,18 @@
-/// <reference path="../ElementSelectionBehaviour/ElementSelectionBehaviour.ts"/>
+// TODO Should this be monitored? How should this be monitored? Not part of js events.
 /**
- * Created by Youri on 04/05/2016.
- * Class for adding click events.
+ * Created by Mathias on 2016-05-11.
+ * Class to create ScrollIntoView events
  */
-class ClickElementEventBinding implements ElementEventBinding {
+class ScrollIntoViewElementEventBinding implements ElementEventBinding {
 
     /**
      * The type of the Event
      */
-    private eventType: string = "click";
+    private eventType: string = "scrollintoview";
     /**
      * The ID of the Event
      */
-    private eventID: EventID  = new EventID(201);
+    private eventID: EventID  = new EventID(301);
 
     /**
      * Getter for the EventType
