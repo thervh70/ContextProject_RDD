@@ -48,6 +48,13 @@ class Status {
             "icon_standby.png",
         ];
 
+        const tiny = [
+            "icon_tiny_error.png",
+            "icon_tiny_running.png",
+            "icon_tiny_off.png",
+            "icon_tiny_standby.png",
+        ]
+
         const text = [
             "Octopeer has crashed!",
             "Octopeer is running.",
@@ -58,8 +65,9 @@ class Status {
         chrome.storage.local.set({
             status: status,
         });
+
         chrome.runtime.sendMessage({line: text[status], path: icon[status]});
-        chrome.browserAction.setIcon({path: icon[status]}, function() {
+        chrome.browserAction.setIcon({path: tiny[status]}, function() {
             if (chrome.runtime.lastError) {
                 console.log(chrome.runtime.lastError.message);
             }
