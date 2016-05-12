@@ -1,6 +1,6 @@
 /// <reference path="DatabaseAdaptable/DatabaseAdaptable.ts"/>
-/// <reference path="DatabaseAdaptable/DatabaseAdapter.ts"/>
-/// <reference path="DatabaseAdaptable/DatabaseConsoleLogOnly.ts"/>
+/// <reference path="DatabaseAdaptable/RESTApiDatabaseAdapter.ts"/>
+/// <reference path="DatabaseAdaptable/ConsoleLogDatabaseAdapter.ts"/>
 /// <reference path="ElementSelectionBehaviour/ElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/ButtonsElementSelectionBehaviour.ts"/>
 /// <reference path="ElementEventBinding/ElementEventBinding.ts"/>
@@ -25,7 +25,7 @@ class Controller {
 
     /** Starts the Controller. After calling this, all event handlers are hooked to the DOM-tree. */
     public start() {
-        this.database = new DatabaseConsoleLogOnly(); // ("https://localhost:8000", 1, 1);
+        this.database = new ConsoleLogDatabaseAdapter(); // ("https://localhost:8000", 1, 1);
         this.connectToContentScript();
         return this;
     }
@@ -64,7 +64,7 @@ class Controller {
             }
         });
         chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
-            self.database.log(message, function() {
+            self.database.post(message, function() {
                 console.log("Successfully logged to database: ", message);
             }, function() {
                 console.log("[WARN] Log to database of following object failed: ", message);

@@ -1,6 +1,6 @@
 /// <reference path="../../main/ElementEventBinding/ClickElementEventBinding.ts"/>
 /// <reference path="../../main/ElementSelectionBehaviour/ButtonsElementSelectionBehaviour.ts"/>
-/// <reference path="../../main/DatabaseAdaptable/DatabaseConsoleLogOnly.ts"/>
+/// <reference path="../../main/DatabaseAdaptable/ConsoleLogDatabaseAdapter.ts"/>
 
 describe("An EventBinder that binds Click events", function() {
     let selector: ElementSelectionBehaviour;
@@ -9,9 +9,9 @@ describe("An EventBinder that binds Click events", function() {
 
     beforeEach(function () {
         setFixtures("<div><button id='bt1' class='btn'></button><button id='bt2' class='btn2'></button></div>");
-        database = new DatabaseConsoleLogOnly();
+        database = new ConsoleLogDatabaseAdapter();
         selector = new ButtonsElementSelectionBehaviour(database);
-        logSpy = spyOn(database, "log");
+        logSpy = spyOn(database, "post");
     });
 
     it("should be bound to the right type of buttons", function() {

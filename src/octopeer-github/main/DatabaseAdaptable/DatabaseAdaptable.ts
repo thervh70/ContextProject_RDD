@@ -14,7 +14,7 @@ const EMPTY_CALLBACK = function() {return; };
 EMPTY_CALLBACK(); // suppress TSLint unused-variable, because it is used elsewhere
 
 interface DatabaseAdaptable {
-    log(data: EventObject, success: Callback, failure: Callback): void;
+    post(data: EventObject, success: Callback, failure: Callback): void;
 }
 
 interface EventObject {

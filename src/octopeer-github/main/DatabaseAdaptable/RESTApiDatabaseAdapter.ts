@@ -4,13 +4,13 @@
  * This class connects to the RESTful API made by Aaron.
  */
 
-class DatabaseAdapter implements DatabaseAdaptable {
+class RESTApiDatabaseAdapter implements DatabaseAdaptable {
 
     private _session: number = -1;
 
     // TODO The PR id and UserID should be get from the context
     /**
-     * Constructs the DatabaseAdapter
+     * Constructs the RESTApiDatabaseAdapter
      * @param _url              The URL to connect to, on this address the server should be running.
      * @param _user             The ID of the User in the database.
      * @param _pr               The ID of the PR in the database.
@@ -57,11 +57,11 @@ class DatabaseAdapter implements DatabaseAdaptable {
 
     /**
      * Post an event to the database.
-     * @param eventData     The data to log to the database.
+     * @param eventData     The data to post to the database.
      * @param success       Callback, which is called once the call has succeeded.
      * @param failure       Callback, which is called once the call has failed.
      */
-    public log(eventData: EventObject, success: Callback, failure: Callback): void {
+    public post(eventData: EventObject, success: Callback, failure: Callback): void {
         const self = this;
         if (!this.isInitialized) {
             console.log("[WARN] The database has not been initialized yet!");
@@ -97,7 +97,7 @@ class DatabaseAdapter implements DatabaseAdaptable {
 
     /**
      * Creates a Settings Object that can be used in an AJAX request when posting an event.
-     * @param eventData                 The data to log to the database.
+     * @param eventData                 The data to post to the database.
      * @returns {JQueryAjaxSettings}    A Settings Object that can be used in an AJAX request.
      */
     private createPostData(eventData: EventObject) {

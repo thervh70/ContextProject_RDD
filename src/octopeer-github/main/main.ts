@@ -9,7 +9,7 @@ if (inExtension) {
         console.log(request, sender);
         if (request.hookToDom) {
             new Controller().hookToDOM({
-                log: function(data: EventObject, success: Callback, failure: Callback) {
+                post: function(data: EventObject, success: Callback, failure: Callback) {
                     chrome.runtime.sendMessage(data);
                     success();
                 },

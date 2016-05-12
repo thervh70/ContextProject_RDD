@@ -44,7 +44,7 @@ class ButtonsElementSelectionBehaviour implements ElementSelectionBehaviour {
         const self = this;
         return (function(eventObject: JQueryEventObject) {
             // TODO: check when the new Date is triggered.
-            self.database.log(EventObject(self.getElementId(), eventID, new Date(), 0),
+            self.database.post(EventObject(self.getElementId(), eventID, new Date(), 0),
                 EMPTY_CALLBACK, EMPTY_CALLBACK);
         });
     }

@@ -4,12 +4,12 @@
 /**
  * Semi-mock class for being able to check implementation completeness.
  */
-class DatabaseConsoleLogOnly implements DatabaseAdaptable {
+class ConsoleLogDatabaseAdapter implements DatabaseAdaptable {
 
     /**
      * @param eventData The data to log to the console.
      */
-    public log(eventData: EventObject) {
+    public post(eventData: EventObject) {
         console.log(eventData);
     }
 
