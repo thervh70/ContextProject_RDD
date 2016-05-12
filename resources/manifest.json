@@ -4,6 +4,7 @@
   "version": "0.3.0",
   "description": "This extension collects data while the user reviews Pull Requests.",
   "author": "Rubber Duck Debuggers",
+  "options_page": "options.html",
 
   "icons": {
     "16": "icon16.png",
@@ -22,7 +23,7 @@
     "persistent": false
   },
   "content_scripts": [ {
-    "js": [ "jquery.min.js", "content.js" ],
+    "js": [ "jquery.min.js", "content.js", "materialize.min.js" ],
     "matches": [ "https://github.com/*" ],
     "run_at": "document_start"
   } ]
