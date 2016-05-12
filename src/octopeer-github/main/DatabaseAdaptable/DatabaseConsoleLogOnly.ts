@@ -7,7 +7,7 @@
 class DatabaseConsoleLogOnly implements DatabaseAdaptable {
 
     /**
-     * @param eventData The data to log to the database.
+     * @param eventData The data to log to the console.
      */
     public log(eventData: EventObject) {
         console.log(eventData);

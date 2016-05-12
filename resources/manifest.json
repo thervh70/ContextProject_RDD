@@ -17,6 +17,10 @@
   "permissions": [
     "activeTab", "storage", "tabs", "https://github.com/"
   ],
+  "background": {
+    "scripts": ["jquery.min.js", "main.js"],
+    "persistent": false
+  },
   "content_scripts": [ {
     "js": [ "jquery.min.js", "main.js" ],
     "matches": [ "https://github.com/*" ],
