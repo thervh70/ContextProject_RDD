@@ -3,7 +3,7 @@
  * Class for selecting the EditComment button
  */
 class EditCommentButtonElementSelectionBehaviour extends ButtonElementSelectionBehaviour {
-    
+
     /**
      * The description of the element, used to determine the element in the DOM-tree
      * @type {string}
