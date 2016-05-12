@@ -20,8 +20,12 @@
   "permissions": [
     "activeTab", "storage", "tabs", "https://github.com/"
   ],
+  "background": {
+    "scripts": ["jquery.min.js", "main.js"],
+    "persistent": false
+  },
   "content_scripts": [ {
-    "js": [ "jquery.min.js", "main.js", "materialize.min.js" ],
+    "js": [ "jquery.min.js", "content.js", "materialize.min.js" ],
     "matches": [ "https://github.com/*" ],
     "run_at": "document_start"
   } ]

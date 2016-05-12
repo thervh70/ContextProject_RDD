@@ -1,5 +1,7 @@
+#!/usr/bin/env bash
+
 function cursor_up {
-    echo -ne "\033[1A\033[K" 
+    echo -ne "\033[1A\033[K"
 }
 
 if [ "$1" == "clean" ]; then
@@ -14,7 +16,7 @@ cp -u resources/* build/octopeer-github
 echo "Copied resources"
 
 echo "Transpiling TypeScript..."
-npm run-script tsc > /dev/null && cp build/main.js build/octopeer-github/main.js
+npm run-script tsc > /dev/null && cp build/main.js build/octopeer-github/main.js && cp build/content.js build/octopeer-github/content.js
 cursor_up
 echo "Transpiled TypeScript"
 

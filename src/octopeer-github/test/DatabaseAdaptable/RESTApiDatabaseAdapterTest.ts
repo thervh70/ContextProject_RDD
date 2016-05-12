@@ -1,14 +1,15 @@
-///<reference path="../../main/DatabaseAdaptable/DatabaseAdapter.ts"/>
+///<reference path="../../main/DatabaseAdaptable/DatabaseAdaptable.ts"/>
+///<reference path="../../main/DatabaseAdaptable/RESTApiDatabaseAdapter.ts"/>
 const defaultEventID = new EventID(1);
 const defaultElementID = new ElementID(1);
 
-describe("A DatabaseAdapter", function() {
-    let adapter: DatabaseAdapter;
+describe("A RESTApiDatabaseAdapter", function() {
+    let adapter: RESTApiDatabaseAdapter;
 
     beforeEach(function() {
         jasmine.Ajax.install();
 
-        adapter = new DatabaseAdapter("http://localhost:8000", 1, 1);
+        adapter = new RESTApiDatabaseAdapter("http://localhost:8000", 1, 1);
         jasmine.Ajax.requests.mostRecent().respondWith({
             contentType: "text/json",
             responseText: '{"url":"http://localhost:8000/api/users/42/","username":"Travis"}',
@@ -23,7 +24,7 @@ describe("A DatabaseAdapter", function() {
 
     it("correctly adds a trailing slash to the url", function() {
         delete adapter;
-        adapter = new DatabaseAdapter("http://localhost:8000/", 1, 1);
+        adapter = new RESTApiDatabaseAdapter("http://localhost:8000/", 1, 1);
         expect(adapter.url).toBe("http://localhost:8000/");
     });
 
@@ -42,7 +43,7 @@ describe("A DatabaseAdapter", function() {
     it("can post to the API", function() {
         const spyFunc = jasmine.createSpy("success");
 
-        adapter.log(defaultElementID, defaultEventID, new Date(), 100, spyFunc, EMPTY_CALLBACK);
+        adapter.post(EventObject(defaultElementID, defaultEventID, new Date(), 100), spyFunc, EMPTY_CALLBACK);
 
         jasmine.Ajax.requests.mostRecent().respondWith({
             contentType: "text/json",
@@ -57,11 +58,11 @@ describe("A DatabaseAdapter", function() {
     it("cannot post to the API when not initialized", function() {
         spyOn(console, "log"); // suppress console warnings
         delete adapter;
-        adapter = new DatabaseAdapter("http://localhost:8000", 1, 1);
+        adapter = new RESTApiDatabaseAdapter("http://localhost:8000", 1, 1);
 
         const spyFunc = jasmine.createSpy("success");
 
-        adapter.log(defaultElementID, defaultEventID, new Date(), 100, spyFunc, EMPTY_CALLBACK);
+        adapter.post(EventObject(defaultElementID, defaultEventID, new Date(), 100), spyFunc, EMPTY_CALLBACK);
 
         jasmine.Ajax.requests.mostRecent().respondWith({
             contentType: "text/json",
@@ -77,7 +78,7 @@ describe("A DatabaseAdapter", function() {
 
         adapter.setDebug();
 
-        adapter.log(defaultElementID, defaultEventID, new Date(), 100, EMPTY_CALLBACK, EMPTY_CALLBACK);
+        adapter.post(EventObject(defaultElementID, defaultEventID, new Date(), 100), EMPTY_CALLBACK, EMPTY_CALLBACK);
         jasmine.Ajax.requests.mostRecent().respondWith({
             contentType: "text/json",
             responseText: JSON.stringify({success: true}),
