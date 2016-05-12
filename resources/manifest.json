@@ -18,11 +18,11 @@
     "activeTab", "storage", "tabs", "https://github.com/"
   ],
   "background": {
-    "scripts": ["jquery.min.js", "main.js"],
+    "scripts": ["main.js"],
     "persistent": false
   },
   "content_scripts": [ {
-    "js": [ "jquery.min.js", "main.js" ],
+    "js": [ "jquery.min.js", "content.js" ],
     "matches": [ "https://github.com/*" ],
     "run_at": "document_start"
   } ]

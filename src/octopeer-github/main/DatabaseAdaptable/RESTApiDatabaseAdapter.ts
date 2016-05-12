@@ -1,5 +1,5 @@
-/// <reference path="../Types/ElementID.ts"/>
-/// <reference path="../Types/EventID.ts"/>
+/// <reference path="../../content/Types/ElementID.ts"/>
+/// <reference path="../../content/Types/EventID.ts"/>
 /**
  * This class connects to the RESTful API made by Aaron.
  */

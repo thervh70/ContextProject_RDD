@@ -1,5 +1,5 @@
 /// <reference path="ElementSelectionBehaviour.ts"/>
-/// <reference path="../DatabaseAdaptable/DatabaseAdaptable.ts"/>
+/// <reference path="../../main/DatabaseAdaptable/DatabaseAdaptable.ts"/>
 /// <reference path="../ElementEventBinding/ElementEventBinding.ts"/>
 
 /**

@@ -1,5 +1,6 @@
-/// <reference path="../../main/ElementEventBinding/ClickElementEventBinding.ts"/>
-/// <reference path="../../main/ElementSelectionBehaviour/ButtonsElementSelectionBehaviour.ts"/>
+/// <reference path="../../content/ElementEventBinding/ClickElementEventBinding.ts"/>
+/// <reference path="../../content/ElementSelectionBehaviour/ButtonsElementSelectionBehaviour.ts"/>
+/// <reference path="../../main/DatabaseAdaptable/DatabaseAdaptable.ts"/>
 /// <reference path="../../main/DatabaseAdaptable/ConsoleLogDatabaseAdapter.ts"/>
 
 describe("An EventBinder that binds Click events", function() {

@@ -1,59 +1,23 @@
 /// <reference path="DatabaseAdaptable/DatabaseAdaptable.ts"/>
 /// <reference path="DatabaseAdaptable/RESTApiDatabaseAdapter.ts"/>
 /// <reference path="DatabaseAdaptable/ConsoleLogDatabaseAdapter.ts"/>
-/// <reference path="ElementSelectionBehaviour/ElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/ButtonsElementSelectionBehaviour.ts"/>
-/// <reference path="ElementEventBinding/ElementEventBinding.ts"/>
-/// <reference path="ElementEventBinding/ClickElementEventBinding.ts"/>
 
 import Tab = chrome.tabs.Tab;
 /**
- * The Controller hooks the event handlers to the DOM-tree.
+ * The MainController hooks the event handlers to the DOM-tree.
  */
-class Controller {
+class MainController {
 
     private database: DatabaseAdaptable;
 
     /**
-     * List of ElementEventBindings that should be matched with ElementSelectors
-     */
-    private elementEventBindingList = [
-        ClickElementEventBinding,
-    ];
-
-    /**
-     * List of ElementSelectors that should be matched with ElementEventBindings
-     */
-    private elementSelectionBindingList = [
-        ButtonsElementSelectionBehaviour,
-    ];
-
-    /**
-     * Starts the Controller. After calling this, all event handlers are hooked to the DOM-tree.
+     * Starts the MainController. After calling this, all event handlers are hooked to the DOM-tree.
+     * @return this
      */
     public start() {
         this.database = new ConsoleLogDatabaseAdapter(); // ("https://localhost:8000", 1, 1);
         this.connectToContentScript();
         return this;
-    }
-
-    /**
-     * Hook the product of ElementBindings and ElementSelectors to the DOM-tree.
-     * @param database   the database that should be used when logging.
-     */
-    public hookToDOM(database = this.database) {
-        let elementEventBinding: ElementEventBindingCreatable;
-        let elementSelectionBinding: ElementSelectionBehaviourCreatable;
-        let elementEventBindingHolder: ElementEventBinding;
-        let elementSelectionBindingHolder: ElementSelectionBehaviour;
-
-        for (elementSelectionBinding of this.elementSelectionBindingList) {
-            elementSelectionBindingHolder = new elementSelectionBinding(database);
-
-            for (elementEventBinding of this.elementEventBindingList) {
-                elementEventBindingHolder = new elementEventBinding(elementSelectionBindingHolder);
-            }
-        }
     }
 
     /**

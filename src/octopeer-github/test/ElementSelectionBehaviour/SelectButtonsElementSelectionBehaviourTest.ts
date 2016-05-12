@@ -1,4 +1,5 @@
-/// <reference path="../../main/ElementSelectionBehaviour/ButtonsElementSelectionBehaviour.ts"/>
+/// <reference path="../../content/ElementSelectionBehaviour/ButtonsElementSelectionBehaviour.ts"/>
+/// <reference path="../../main/DatabaseAdaptable/DatabaseAdaptable.ts"/>
 /// <reference path="../../main/DatabaseAdaptable/ConsoleLogDatabaseAdapter.ts"/>
 
 describe("An ElementSelector that selects Buttons", function() {

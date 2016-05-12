@@ -1,4 +1,4 @@
 $(document).ready(function() {
-    const controller = new MainController();
+    const controller = new ContentController();
     controller.start();
 });
