@@ -122,12 +122,17 @@ class ContentController {
         }
 
         chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-            if (request.hookToDom) {
-                self.hookToDOM(self.messageSendDatabaseAdapter);
-                sendResponse(`hooked to DOM (${location.href})`);
-            } else {
+            if (!request.hookToDom) {
                 sendResponse(`did nothing (${location.href})`);
+                return;
             }
+            try {
+                self.hookToDOM(self.messageSendDatabaseAdapter);
+            } catch (e) {
+                sendResponse(`has errored (${location.href})\n[ERR] ${e}`);
+                return;
+            }
+            sendResponse(`hooked to DOM (${location.href})`);
         });
     }
 
