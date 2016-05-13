@@ -128,6 +128,9 @@ class ContentController {
             }
             try {
                 self.hookToDOM(self.messageSendDatabaseAdapter);
+                $("body").click(function() {
+                    self.hookToDOM(self.messageSendDatabaseAdapter);
+                });
             } catch (e) {
                 sendResponse(`has errored (${location.href})\n[ERR] ${e}`);
                 return;
