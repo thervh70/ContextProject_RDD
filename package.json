@@ -23,6 +23,7 @@
     "karma-chrome-launcher": "^0.2.3",
     "karma-coverage": "^0.5.5",
     "karma-jasmine": "^0.3.8",
+    "materialize-css": "^0.97.6",
     "tslint": "^3.9.0",
     "typescript": "^1.8.10",
     "typings": "^0.8.1"

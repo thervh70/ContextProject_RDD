@@ -72,3 +72,6 @@ The extension is now loaded in Chrome.
 ### Adding new type definitions for dependencies
  - For every new dependency, run `typings install --ambient --save <package-name>`
  - The type definitons should now automatically be included via the TypeScript configuration files
+
+### Acknowledgments
+We would like to thank [PixelKit](http://pixelkit.com/) for allowing us to use and modify the lightbulb icon

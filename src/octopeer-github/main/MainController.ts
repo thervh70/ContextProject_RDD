@@ -8,6 +8,7 @@ import Tab = chrome.tabs.Tab;
  */
 class MainController {
 
+    public status: Status;
     private database: DatabaseAdaptable;
 
     /**
@@ -16,6 +17,8 @@ class MainController {
      */
     public start() {
         this.database = new ConsoleLogDatabaseAdapter(); // ("https://localhost:8000", 1, 1);
+        this.status = new Status();
+        this.status.off();
         this.connectToContentScript();
         return this;
     }
@@ -40,6 +43,9 @@ class MainController {
         });
         // When a tab sends a message, log it to the Database
         chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+            if (!sender.tab) {
+                return; // Only continue if message is sent from a content script
+            }
             self.database.post(JSON.parse(message), function() {
                 console.log("[Database] Successfully logged to database: ", message);
             }, function() {
@@ -47,6 +53,12 @@ class MainController {
                 console.log("[WARN] Original sender: ", sender);
             });
             sendResponse({});
+        });
+        chrome.alarms.create({periodInMinutes: 0.02});
+        let i = 0;
+        chrome.alarms.onAlarm.addListener(function() {
+            i = (i + 1) % 4;
+            self.status.set(i);
         });
     }
 
