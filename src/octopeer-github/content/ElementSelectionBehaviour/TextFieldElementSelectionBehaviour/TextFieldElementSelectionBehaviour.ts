@@ -1,5 +1,6 @@
 /// <reference path="../ElementSelectionBehaviour.ts"/>
 /**
+ * Abstract class for selection of textfield elements.
  * Created by Mathias on 2016-05-11.
  */
 abstract class TextFieldElementSelectionBehaviour implements ElementSelectionBehaviour {

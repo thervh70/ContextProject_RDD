@@ -1,9 +1,6 @@
 /// <reference path="TextFieldElementSelectionBehaviour.ts"/>
 /**
  * Created by Mathias on 2016-05-13.
- */
-/**
- * Created by Mathias on 2016-05-13.
  * Class for selecting the Comment textfield
  */
 class CommentTextFieldElementSelectionBehaviour extends TextFieldElementSelectionBehaviour {
