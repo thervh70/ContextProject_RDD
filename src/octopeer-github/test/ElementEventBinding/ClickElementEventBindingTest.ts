@@ -1,6 +1,7 @@
-/// <reference path="../../main/ElementEventBinding/ClickElementEventBinding.ts"/>
-/// <reference path="../../main/ElementSelectionBehaviour/ButtonsElementSelectionBehaviour.ts"/>
-/// <reference path="../../main/DatabaseAdaptable/DatabaseConsoleLogOnly.ts"/>
+/// <reference path="../../main/DatabaseAdaptable/DatabaseAdaptable.ts"/>
+/// <reference path="../../main/DatabaseAdaptable/ConsoleLogDatabaseAdapter.ts"/>
+/// <reference path="../../content/ElementEventBinding/ClickElementEventBinding.ts"/>\
+/// <reference path="../../content/ElementSelectionBehaviour/ButtonElementSelectionBehaviour/MergePRButtonElementSelectionBehaviour.ts"/>
 
 describe("An EventBinder that binds Click events", function() {
     let selector: ElementSelectionBehaviour;
@@ -8,15 +9,15 @@ describe("An EventBinder that binds Click events", function() {
     let logSpy: jasmine.Spy;
 
     beforeEach(function () {
-        setFixtures("<div><button id='bt1' class='btn'></button><button id='bt2' class='btn2'></button></div>");
-        database = new DatabaseConsoleLogOnly();
-        selector = new ButtonsElementSelectionBehaviour(database);
-        logSpy = spyOn(database, "log");
+        setFixtures("<div><button id='bt1' class='js-merge-branch-action'></button><button id='bt2' class='btn2'></button></div>");
+        database = new ConsoleLogDatabaseAdapter();
+        selector = new MergePRButtonElementSelectionBehaviour(database);
+        logSpy = spyOn(database, "post");
     });
 
     it("should be bound to the right type of buttons", function() {
         const binder = new ClickElementEventBinding(selector);
-        $(".btn").click();
+        $(".js-merge-branch-action").click();
         expect(logSpy).toHaveBeenCalledTimes(1);
         delete binder;
     });

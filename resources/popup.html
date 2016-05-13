@@ -1,8 +1,47 @@
 <html>
 <head>
     <title>OctoPeer popup</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" >
+
+    <script src="jquery.min.js"></script>
+    <script src="materialize.min.js"></script>
+
+    <script src="popup.js"></script>
 </head>
-<body>
-Welcome to OctoPeer!
-</body>
+    <body style="min-width: 250px; min-height: 300px;">
+
+    <nav>
+        <div class="nav-wrapper lime">
+            <a class="brand-logo center">Octopeer</a>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <div class="row">
+        <p id="status_text" class="flow-text col s12" style="text-align: center; margin-bottom: 0px;">
+            Octopeer is running!
+        </p>
+        </div>
+
+        <div class="row">
+            <img id="status_image" class="col s12" src="img/icon/icon_running.png">
+        </div>
+
+        <div class="row">
+            <div class="col s6">
+                <a class="btn waves-effect lime waves-light" href="options.html" target="_blank">
+                    Options
+                    <i class="material-icons right">settings</i>
+                </a>
+            </div>
+            <div class="col s6">
+                <a id="status_toggle" class="btn waves-effect lime waves-light" href="#">Toggle</a>
+            </div>
+        </div>
+    </div>
+
+    </body>
 </html>

@@ -8,8 +8,11 @@
   },
   "license": "none",
   "scripts": {
+    "postinstall": "npm install -g typings && typings install",
     "test": "karma start karma.config.js --single-run --browsers Chrome",
-    "tsc": "tsc --project src/octopeer-github/main && tsc --project src/octopeer-github/test"
+    "travis": "npm run-script tslint && npm run-script tsc && npm test",
+    "tsc": "tsc --project src/octopeer-github/main && tsc --project src/octopeer-github/content && tsc --project src/octopeer-github/test",
+    "tslint": "tslint -c tslint.json src/**/*.ts"
   },
   "devDependencies": {
     "jasmine": "^2.4.1",
@@ -20,6 +23,7 @@
     "karma-chrome-launcher": "^0.2.3",
     "karma-coverage": "^0.5.5",
     "karma-jasmine": "^0.3.8",
+    "materialize-css": "^0.97.6",
     "tslint": "^3.9.0",
     "typescript": "^1.8.10",
     "typings": "^0.8.1"
