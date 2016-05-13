@@ -42,17 +42,17 @@ class Status {
      */
     public set(status: StatusCode) {
         const icon = [
-            "icon_error.png",
-            "icon_running.png",
-            "icon_off.png",
-            "icon_standby.png",
+            "img/icon/icon_error.png",
+            "img/icon/icon_running.png",
+            "img/icon/icon_off.png",
+            "img/icon/icon_standby.png",
         ];
 
         const tiny = [
-            "icon_tiny_error.png",
-            "icon_tiny_running.png",
-            "icon_tiny_off.png",
-            "icon_tiny_standby.png",
+            "img/icon/icon_error19.png",
+            "img/icon/icon_running19.png",
+            "img/icon/icon_off19.png",
+            "img/icon/icon_standby19.png",
         ];
 
         const text = [
