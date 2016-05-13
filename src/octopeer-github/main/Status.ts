@@ -74,6 +74,7 @@ class Status {
     }
 
     /**
+     * Gets the correct status icon based on StatusCode and size.
      * @param status        the StatusCode to get the icon for.
      * @param size          the size of the icon file (if it does not exist, it returns the largest icon).
      * @returns {string}    the relative icon path from the root of the extension.
