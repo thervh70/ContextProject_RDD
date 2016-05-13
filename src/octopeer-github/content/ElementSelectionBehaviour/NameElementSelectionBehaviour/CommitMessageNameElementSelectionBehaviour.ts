@@ -11,7 +11,7 @@ class CommitMessageNameElementSelectionBehaviour extends NameElementSelectionBeh
      */
     public constructor(database: DatabaseAdaptable) {
         super(database);
-        this.elementDsc = "[placeholder]";
+        this.elementDsc = ".commit-message a";
         this.elementID = new ElementID(302);
     }
 }

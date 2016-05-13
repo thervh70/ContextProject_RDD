@@ -11,7 +11,7 @@ class CommitHashcodeNameElementSelectionBehaviour extends NameElementSelectionBe
      */
     public constructor(database: DatabaseAdaptable) {
         super(database);
-        this.elementDsc = "[placeholder]";
+        this.elementDsc = ".commit-id";
         this.elementID = new ElementID(301);
     }
 }

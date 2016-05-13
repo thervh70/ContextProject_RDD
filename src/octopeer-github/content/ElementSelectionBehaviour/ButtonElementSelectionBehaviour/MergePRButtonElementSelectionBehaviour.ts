@@ -11,7 +11,7 @@ class MergePRButtonElementSelectionBehaviour extends ButtonElementSelectionBehav
      */
     public constructor(database: DatabaseAdaptable) {
         super(database);
-        this.elementDsc = ".testplaceholder";
+        this.elementDsc = ".js-merge-branch-action";
         this.elementID = new ElementID(101);
     }
 }

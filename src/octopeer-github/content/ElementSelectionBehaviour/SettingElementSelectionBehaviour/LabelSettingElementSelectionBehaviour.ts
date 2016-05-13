@@ -11,7 +11,7 @@ class LabelSettingElementSelectionBehaviour extends SettingElementSelectionBehav
      */
     public constructor(database: DatabaseAdaptable) {
         super(database);
-        this.elementDsc = "[placeholder]";
+        this.elementDsc = "#partial-discussion-sidebar button[data-hotkey=l]";
         this.elementID = new ElementID(401);
     }
 }

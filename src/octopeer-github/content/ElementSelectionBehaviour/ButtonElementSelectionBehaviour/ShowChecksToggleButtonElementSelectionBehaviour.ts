@@ -3,7 +3,7 @@
  * Created by Mathias on 2016-05-11.
  * Class for selecting the ShowChecks button
  */
-class ShowChecksButtonElementSelectionBehaviour extends ButtonElementSelectionBehaviour {
+class ShowChecksToggleButtonElementSelectionBehaviour extends ButtonElementSelectionBehaviour {
 
     /**
      * Constructor of this class.
@@ -11,7 +11,7 @@ class ShowChecksButtonElementSelectionBehaviour extends ButtonElementSelectionBe
      */
     public constructor(database: DatabaseAdaptable) {
         super(database);
-        this.elementDsc = "[placeholder]";
+        this.elementDsc = ".merge-pr button.js-details-target:has(span)";
         this.elementID = new ElementID(111);
     }
 }

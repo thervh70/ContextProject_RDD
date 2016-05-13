@@ -11,7 +11,7 @@ class InlineCommentButtonElementSelectionBehaviour extends ButtonElementSelectio
      */
     public constructor(database: DatabaseAdaptable) {
         super(database);
-        this.elementDsc = "[placeholder]";
+        this.elementDsc = ".add-line-comment";
         this.elementID = new ElementID(105);
     }
 }

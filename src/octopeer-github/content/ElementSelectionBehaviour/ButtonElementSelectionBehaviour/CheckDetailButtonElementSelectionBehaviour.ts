@@ -11,7 +11,7 @@ class CheckDetailButtonElementSelectionBehaviour extends ButtonElementSelectionB
      */
     public constructor(database: DatabaseAdaptable) {
         super(database);
-        this.elementDsc = "[placeholder]";
+        this.elementDsc = ".merge-pr .build-status-details";
         this.elementID = new ElementID(112);
     }
 }

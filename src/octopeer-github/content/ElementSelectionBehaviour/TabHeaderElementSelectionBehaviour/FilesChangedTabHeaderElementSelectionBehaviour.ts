@@ -11,7 +11,7 @@ class FilesChangedTabHeaderElementSelectionBehaviour extends TabHeaderElementSel
      */
     public constructor(database: DatabaseAdaptable) {
         super(database);
-        this.elementDsc = "[placeholder]";
+        this.elementDsc = ".tabnav-tabs a:has(> svg.octicon-diff)";
         this.elementID = new ElementID(203);
     }
 }

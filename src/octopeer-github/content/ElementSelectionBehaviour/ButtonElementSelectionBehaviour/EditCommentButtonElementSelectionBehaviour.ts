@@ -11,7 +11,7 @@ class EditCommentButtonElementSelectionBehaviour extends ButtonElementSelectionB
      */
     public constructor(database: DatabaseAdaptable) {
         super(database);
-        this.elementDsc = "[placeholder]";
+        this.elementDsc = ".timeline-comment-actions button:has(svg.octicon-pencil)";
         this.elementID = new ElementID(109);
     }
 }

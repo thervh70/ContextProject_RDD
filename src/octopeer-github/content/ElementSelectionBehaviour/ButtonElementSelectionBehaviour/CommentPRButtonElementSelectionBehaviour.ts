@@ -1,9 +1,9 @@
 /// <reference path="ButtonElementSelectionBehaviour.ts"/>
 /**
- * Created by Mathias on 2016-05-11.
+ * Created by Mathias on 2016-05-13.
  * Class for selecting the ClosePR button
  */
-class ClosePRButtonElementSelectionBehaviour extends ButtonElementSelectionBehaviour {
+class CommentPRButtonElementSelectionBehaviour extends ButtonElementSelectionBehaviour {
 
     /**
      * Constructor of this class.
@@ -11,7 +11,7 @@ class ClosePRButtonElementSelectionBehaviour extends ButtonElementSelectionBehav
      */
     public constructor(database: DatabaseAdaptable) {
         super(database);
-        this.elementDsc = ".js-comment-and-button";
-        this.elementID = new ElementID(102);
+        this.elementDsc = ".timeline-comment button.btn-primary";
+        this.elementID = new ElementID(113);
     }
 }

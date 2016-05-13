@@ -11,7 +11,7 @@ class CancelInlineCommentButtonElementSelectionBehaviour extends ButtonElementSe
      */
     public constructor(database: DatabaseAdaptable) {
         super(database);
-        this.elementDsc = "[placeholder]";
+        this.elementDsc = ".js-hide-inline-comment-form";
         this.elementID = new ElementID(103);
     }
 }

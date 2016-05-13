@@ -11,7 +11,7 @@ class OtherContributerNameElementSelectionBehaviour extends NameElementSelection
      */
     public constructor(database: DatabaseAdaptable) {
         super(database);
-        this.elementDsc = "[placeholder]";
+        this.elementDsc = "teststss";
         this.elementID = new ElementID(305);
     }
 }
