@@ -1,8 +1,9 @@
+/// <reference path="TextFieldElementSelectionBehaviour.ts"/>
 /**
  * Created by Mathias on 2016-05-13.
  * Class for selecting the InlineComment textfield
  */
-class InlineCommentTextFieldElementSelectionBehaviour extends TabHeaderElementSelectionBehaviour {
+class InlineCommentTextFieldElementSelectionBehaviour extends TextFieldElementSelectionBehaviour {
 
     /**
      * Constructor of this class.

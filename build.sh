@@ -12,7 +12,7 @@ if [ ! -d "build/octopeer-github" ]; then
     mkdir build/octopeer-github
 fi
 
-cp -u resources/* build/octopeer-github
+cp -u -r resources/* build/octopeer-github
 echo "Copied resources"
 
 echo "Transpiling TypeScript..."
