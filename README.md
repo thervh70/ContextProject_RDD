@@ -74,4 +74,4 @@ The extension is now loaded in Chrome.
  - The type definitons should now automatically be included via the TypeScript configuration files
 
 ### Acknowledgments
-We would like to thank [PixelKit](http://pixelkit.com/) for allowing us to use and modify the lightbulb icon
+We would like to thank [PixelKit](http://pixelkit.com/) for allowing us to use and modify the lightbulb icon. It was release with the [CC Attribution 4.0](http://creativecommons.org/licenses/by/4.0/) licencse.
