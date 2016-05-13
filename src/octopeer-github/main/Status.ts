@@ -4,9 +4,33 @@
  * There are 4 flags: 0 (error), 1 (running), 2 (off) and 3 (standby).
  */
 
-enum StatusCode {ERROR, RUNNING, OFF, STANDBY};
+enum StatusCode {ERROR, RUNNING, OFF, STANDBY}
 
 class Status {
+
+    /**
+     * Status.NAME: the internal names of the enum StatusCode.
+     */
+    public static get NAME() {
+        return [
+            "error",
+            "running",
+            "off",
+            "standby",
+        ];
+    }
+
+    /**
+     * Status.MESSAGE: the message strings of the enum StatusCode.
+     */
+    public static get MESSAGE() {
+        return [
+            "Octopeer has crashed!",
+            "Octopeer is running.",
+            "Octopeer is turned off.",
+            "Octopeer is standby.",
+        ];
+    }
 
     /**
      * Set the error status.
@@ -41,36 +65,27 @@ class Status {
      * @param status
      */
     public set(status: StatusCode) {
-        const icon = [
-            "img/icon/icon_error.png",
-            "img/icon/icon_running.png",
-            "img/icon/icon_off.png",
-            "img/icon/icon_standby.png",
-        ];
-
-        const tiny = [
-            "img/icon/icon_error19.png",
-            "img/icon/icon_running19.png",
-            "img/icon/icon_off19.png",
-            "img/icon/icon_standby19.png",
-        ];
-
-        const text = [
-            "Octopeer has crashed!",
-            "Octopeer is running.",
-            "Octopeer is turned off.",
-            "Octopeer is standby.",
-        ];
-
         chrome.storage.local.set({
             status: status,
         });
 
-        chrome.runtime.sendMessage({line: text[status], path: icon[status]});
-        chrome.browserAction.setIcon({path: tiny[status]}, function() {
-            if (chrome.runtime.lastError) {
-                console.log(chrome.runtime.lastError.message);
-            }
-        });
+        chrome.runtime.sendMessage({line: Status.MESSAGE[status], path: this.getIcon(status)});
+        chrome.browserAction.setIcon({path: this.getIcon(status, 19)});
+    }
+
+    /**
+     * @param status        the StatusCode to get the icon for.
+     * @param size          the size of the icon file (if it does not exist, it returns the largest icon).
+     * @returns {string}    the relative icon path from the root of the extension.
+     */
+    public getIcon(status = StatusCode.OFF, size = 0) {
+        let sizeString = "";
+        switch (size) {
+            case 19: // can have multiple (valid) cases later, like 16, 38, 48 or 128
+                sizeString = `${size}`;
+                break;
+            default: break;
+        }
+        return `img/icon/icon_${Status.NAME[status]}${sizeString}.png`;
     }
 }
