@@ -17,7 +17,7 @@ describe("An EventBinder that binds Click events", function() {
 
     it("should be bound to the right type of buttons", function() {
         const binder = new ClickElementEventBinding(selector);
-        $(".testplaceholder").click();
+        $(".js-merge-branch-action").click();
         expect(logSpy).toHaveBeenCalledTimes(1);
         delete binder;
     });
