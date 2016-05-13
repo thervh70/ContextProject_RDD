@@ -11,7 +11,7 @@ class CommentInlineCommentButtonElementSelectionBehaviour extends ButtonElementS
      */
     public constructor(database: DatabaseAdaptable) {
         super(database);
-        this.elementDsc = ".inline-comment-form button[type=submit]:not([disabled])";
+        this.elementDsc = ".js-inline-comment-form button[type=submit]:not([disabled])";
         this.elementID = new ElementID(104);
     }
 }

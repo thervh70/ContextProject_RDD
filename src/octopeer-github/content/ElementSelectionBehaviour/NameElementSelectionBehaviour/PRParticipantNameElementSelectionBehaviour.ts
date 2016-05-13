@@ -11,7 +11,7 @@ class PRParticipantNameElementSelectionBehaviour extends NameElementSelectionBeh
      */
     public constructor(database: DatabaseAdaptable) {
         super(database);
-        this.elementDsc = "[placeholder]";
+        this.elementDsc = "testttt";
         this.elementID = new ElementID(304);
     }
 }
