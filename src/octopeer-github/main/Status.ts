@@ -75,18 +75,17 @@ class Status {
 
     /**
      * Gets the correct status icon based on StatusCode and size.
+     * Chrome resizes all icons except for the one in the toolbar.
+     * That is why we added an extra case.
      * @param status        the StatusCode to get the icon for.
      * @param size          the size of the icon file (if it does not exist, it returns the largest icon).
      * @returns {string}    the relative icon path from the root of the extension.
      */
     public getIcon(status = StatusCode.OFF, size = 0) {
         let sizeString = "";
-        switch (size) {
-            case 19: // can have multiple (valid) cases later, like 16, 38, 48 or 128
-                sizeString = `${size}`;
-                break;
-            default: break;
+        if (size === 19) {
+            sizeString = `${size}`;
         }
-        return `img/icon/icon_${Status.NAME[status]}${sizeString}.png`;
+        return `img/icon/${Status.NAME[status]}${sizeString}.png`;
     }
 }
