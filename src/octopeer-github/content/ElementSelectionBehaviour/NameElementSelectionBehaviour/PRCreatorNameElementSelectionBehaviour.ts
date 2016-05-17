@@ -1,9 +1,9 @@
-/// <reference path="NameElementSelectionBehaviour.ts"/>
+/// <reference path="../AbstractElementSelectionBehaviour.ts"/>
 /**
  * Created by Mathias on 2016-05-11.
  * Class for selecting the PRCreator name
  */
-class PRCreatorNameElementSelectionBehaviour extends NameElementSelectionBehaviour {
+class PRCreatorNameElementSelectionBehaviour extends AbstractElementSelectionBehaviour {
 
     /**
      * Constructor of this class.

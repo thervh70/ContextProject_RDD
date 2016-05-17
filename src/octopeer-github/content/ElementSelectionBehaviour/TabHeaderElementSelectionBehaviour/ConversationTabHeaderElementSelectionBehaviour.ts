@@ -1,9 +1,9 @@
-/// <reference path="TabHeaderElementSelectionBehaviour.ts"/>
+/// <reference path="../AbstractElementSelectionBehaviour.ts"/>
 /**
  * Created by Mathias on 2016-05-11.
  * Class for selecting the Conversation tab header
  */
-class ConversationTabHeaderElementSelectionBehaviour extends TabHeaderElementSelectionBehaviour {
+class ConversationTabHeaderElementSelectionBehaviour extends AbstractElementSelectionBehaviour {
 
     /**
      * Constructor of this class.

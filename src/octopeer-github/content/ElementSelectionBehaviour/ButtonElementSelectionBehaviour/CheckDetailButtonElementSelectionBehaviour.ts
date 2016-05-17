@@ -1,9 +1,9 @@
-/// <reference path="ButtonElementSelectionBehaviour.ts"/>
+/// <reference path="../AbstractElementSelectionBehaviour.ts"/>
 /**
  * Created by Mathias on 2016-05-11.
  * Class for selecting the CheckDetail button
  */
-class CheckDetailButtonElementSelectionBehaviour extends ButtonElementSelectionBehaviour {
+class CheckDetailButtonElementSelectionBehaviour extends AbstractElementSelectionBehaviour {
 
     /**
      * Constructor of this class.

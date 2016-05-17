@@ -1,9 +1,9 @@
-/// <reference path="MiscellaneousElementSelectionBehaviour.ts"/>
+/// <reference path="../AbstractElementSelectionBehaviour.ts"/>
 /**
  * Created by Mathias on 2016-05-11.
  * Class for selecting the Date
  */
-class DateMiscellaneousElementSelectionBehaviour extends MiscellaneousElementSelectionBehaviour {
+class DateMiscellaneousElementSelectionBehaviour extends AbstractElementSelectionBehaviour {
 
     /**
      * Constructor of this class.

@@ -1,9 +1,9 @@
-/// <reference path="ButtonElementSelectionBehaviour.ts"/>
+/// <reference path="../AbstractElementSelectionBehaviour.ts"/>
 /**
  * Created by Mathias on 2016-05-11.
  * Class for selecting the Cancel button
  */
-class CancelInlineCommentButtonElementSelectionBehaviour extends ButtonElementSelectionBehaviour {
+class CancelInlineCommentButtonElementSelectionBehaviour extends AbstractElementSelectionBehaviour {
 
     /**
      * Constructor of this class.

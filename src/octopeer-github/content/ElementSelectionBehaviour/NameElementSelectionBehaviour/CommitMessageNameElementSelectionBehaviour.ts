@@ -1,9 +1,9 @@
-/// <reference path="NameElementSelectionBehaviour.ts"/>
+/// <reference path="../AbstractElementSelectionBehaviour.ts"/>
 /**
  * Created by Mathias on 2016-05-11.
  * Class for selecting the CommitMessage name
  */
-class CommitMessageNameElementSelectionBehaviour extends NameElementSelectionBehaviour {
+class CommitMessageNameElementSelectionBehaviour extends AbstractElementSelectionBehaviour {
 
     /**
      * Constructor of this class.

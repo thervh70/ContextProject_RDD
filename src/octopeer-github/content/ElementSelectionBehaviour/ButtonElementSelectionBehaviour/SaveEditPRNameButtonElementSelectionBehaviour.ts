@@ -3,7 +3,7 @@
  * Created by Mathias on 2016-05-11.
  * Class for selecting the SaveEditPRName button
  */
-class SaveEditPRNameButtonElementSelectionBehaviour extends ButtonElementSelectionBehaviour {
+class SaveEditPRNameButtonElementSelectionBehaviour extends AbstractElementSelectionBehaviour {
 
     /**
      * Constructor of this class.

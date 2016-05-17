@@ -1,9 +1,9 @@
-/// <reference path="SettingElementSelectionBehaviour.ts"/>
+/// <reference path="../AbstractElementSelectionBehaviour.ts"/>
 /**
  * Created by Mathias on 2016-05-11.
  * Class for selecting the Assignee setting
  */
-class AssigneeSettingElementSelectionBehaviour extends SettingElementSelectionBehaviour {
+class AssigneeSettingElementSelectionBehaviour extends AbstractElementSelectionBehaviour {
 
     /**
      * Constructor of this class.

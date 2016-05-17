@@ -1,9 +1,9 @@
-/// <reference path="ButtonElementSelectionBehaviour.ts"/>
+/// <reference path="../AbstractElementSelectionBehaviour.ts"/>
 /**
  * Created by Mathias on 2016-05-11.
  * Class for selections the AddEmoticonButton
  */
-class AddEmoticonButtonElementSelectionBehaviour extends ButtonElementSelectionBehaviour {
+class AddEmoticonButtonElementSelectionBehaviour extends AbstractElementSelectionBehaviour {
 
     /**
      * Constructor of this class.

@@ -1,9 +1,9 @@
-/// <reference path="SettingElementSelectionBehaviour.ts"/>
+/// <reference path="../AbstractElementSelectionBehaviour.ts"/>
 /**
  * Created by Mathias on 2016-05-11.
  * Class for selecting the LockConversation setting
  */
-class LockConversationSettingElementSelectionBehaviour extends SettingElementSelectionBehaviour {
+class LockConversationSettingElementSelectionBehaviour extends AbstractElementSelectionBehaviour {
 
     /**
      * Constructor of this class.
