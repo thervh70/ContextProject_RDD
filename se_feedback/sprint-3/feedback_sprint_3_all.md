@@ -8,22 +8,23 @@
 #Sprint Feedback
 Feedback and Grades for Sprint 3.
 
-Total: ****
+Total: **10**
 
 | User Story | Score |
 |------------|-------|
-| definition |      |
-| splitting  |      |
-| responsibility |  |
+| definition | 10    |
+| splitting  | 10    |
+| responsibility | 10 |
 
 | Learning from History | Score |
 |-----------------------|-------|
-| estimation            |      |
-| prioritisation        |      |
-| reflection            |      |
+| estimation            | 10    |
+| prioritisation        | 10    |
+| reflection            | 10    |
 
 ## Notes
-
+* Make sure Youri catches up on hours if necessary
+* Nicely done and keep this up 
 
 #Code Evolution Quality Feedback
 
