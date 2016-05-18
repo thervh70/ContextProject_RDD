@@ -16,6 +16,7 @@ class MainController {
      * @return this
      */
     public start() {
+        Logger.setDebug(); // TODO remove this on release
         this.database = new RESTApiDatabaseAdapter("http://10.0.22.6", 1, 1);
         this.status = new Status();
         this.status.off();

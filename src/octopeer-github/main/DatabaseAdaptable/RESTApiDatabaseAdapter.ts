@@ -70,7 +70,7 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
             Logger.log("The database has not been initialized yet!");
             return;
         }
-        $.ajax(`${this.url}api/events/`, self.createPostData(eventData))
+        $.ajax(`${this.url}api/semantic-events/`, self.createPostData(eventData))
             .done(function(data, status, jqXHR) {
                 if (self._debug) {
                     Logger.debug(`Call success, status: ${status}`);
@@ -104,10 +104,11 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
      */
     private createPostData(eventData: EventObject) {
         return this.createJSONPost({
-            "started_at": eventData.start.toJSON(),
+            "started_at": eventData.start,
             "duration": eventData.duration,
             "session": `${this.url}api/sessions/${this._session}/`,
             "event_type": `${this.url}api/event-types/${eventData.eventID}/`,
+            "element_type": `${this.url}api/event-types/${eventData.elementID}/`,
         });
     }
 
