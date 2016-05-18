@@ -3,10 +3,10 @@
  */
 
 /**
- * Class from which user settings can be retrieved.
- * These settings have been maintained by the front-end.
+ * Class from which user options can be retrieved.
+ * These options have been maintained by the front-end.
  */
-namespace Settings {
+namespace Options {
     let logging: Boolean;
     let tabs: Boolean;
     let comments: Boolean;
