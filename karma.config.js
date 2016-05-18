@@ -14,7 +14,10 @@ module.exports = function(config) {
         coverageReporter: {
             type : 'json',
             subdir : '.',
-            file : 'coverage-final.json'
+            file : 'coverage-final.json',
+            instrumenterOptions: {
+                istanbul: { noCompact: true }
+            }
         },
 
         // remapIstanbulReporter: {
