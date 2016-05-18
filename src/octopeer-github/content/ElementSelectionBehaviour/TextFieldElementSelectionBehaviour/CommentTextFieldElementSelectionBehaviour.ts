@@ -10,8 +10,6 @@ class CommentTextFieldElementSelectionBehaviour extends AbstractElementSelection
      * @param database The database that is used to store the Elements.
      */
     public constructor(database: DatabaseAdaptable) {
-        super(database);
-        this.elementDsc = ".timeline-comment #new_comment_field";
-        this.elementID = new ElementID(501);
+        super(database, new ElementID(501), ".timeline-comment #new_comment_field");
     }
 }

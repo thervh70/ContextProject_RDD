@@ -10,8 +10,6 @@ class CancelEditPRNameButtonElementSelectionBehaviour extends AbstractElementSel
      * @param database The database that is used to store the Elements.
      */
     public constructor(database: DatabaseAdaptable) {
-        super(database);
-        this.elementDsc = ".gh-header-edit button.js-details-target";
-        this.elementID = new ElementID(108);
+        super(database, new ElementID(108), ".gh-header-edit button.js-details-target");
     }
 }

@@ -10,8 +10,6 @@ class PRParticipantNameElementSelectionBehaviour extends AbstractElementSelectio
      * @param database The database that is used to store the Elements.
      */
     public constructor(database: DatabaseAdaptable) {
-        super(database);
-        this.elementDsc = "testttt";
-        this.elementID = new ElementID(304);
+        super(database, new ElementID(304), "testttt");
     }
 }
