@@ -7,7 +7,13 @@ module.exports = function(config) {
             "node_modules/jquery/dist/jquery.min.js",
             "node_modules/jasmine-ajax/lib/mock-ajax.js",
             "node_modules/jasmine-jquery/lib/jasmine-jquery.js",
-            "build/test.js"
+            "build/test.js",
+            {
+                pattern: "build/**/*.html",
+                included: true,
+                served: true,
+                watched: false
+            }
         ],
         reporters: ['progress', 'coverage'],
         coverageReporter: {

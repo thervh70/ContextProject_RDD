@@ -7,7 +7,10 @@
 .idea/modules.xml
 
 # project-wide ignored files
-build/
+## Exclude all in build, except the testhtml folder
+build/*
+!build/testhtml/
+
 coverage/
 node_modules/
 typings/

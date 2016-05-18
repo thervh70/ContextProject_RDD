@@ -8,14 +8,19 @@ describe("An ElementSelector that selects Buttons", function() {
     let logSpy: jasmine.Spy;
 
     beforeEach(function() {
-        setFixtures("<div><button id='bt1' class='js-merge-branch-action'></button><button id='bt2' class='btn2'></button></div>");
+        jasmine.getFixtures().fixturesPath = "base/build";
+        loadFixtures("test2.html");
         database = new ConsoleLogDatabaseAdapter();
         selector = new MergePRButtonElementSelectionBehaviour(database);
         logSpy = spyOn(database, "post");
     });
 
-    it("should select buttons", function () {
+    it("should select something", function () {
         expect(selector.getElements().length).toBe(1);
+    });
+
+    it("should select a MergePRButton", function () {
+        expect(selector.getElements()).toEqual(".js-merge-branch-action");
     });
 
     it("has a callback that should post to the database", function () {
