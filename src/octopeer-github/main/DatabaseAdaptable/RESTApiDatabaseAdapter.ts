@@ -33,7 +33,8 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
                 Logger.debug(jqXHR);
             });
         if (self._debug) {
-            Logger.debug(`Constructed DatabaseAdapter(${_url})`).debug(self);
+            Logger.debug(`Constructed DatabaseAdapter(${_url})`);
+            Logger.debug(self);
         }
     }
 
