@@ -18,7 +18,7 @@ class MainController {
     public start() {
         this.database = new ConsoleLogDatabaseAdapter(); // ("https://localhost:8000", 1, 1);
         this.status = new Status();
-        this.status.off();
+        this.status.standby();
         this.connectToContentScript();
         return this;
     }
@@ -55,13 +55,13 @@ class MainController {
             sendResponse({});
         });
 
-        // TODO: Move the status change method (Actual status updates).
-        chrome.alarms.create({periodInMinutes: 0.02});
-        let i = 0;
-        chrome.alarms.onAlarm.addListener(function() {
-            i = (i + 1) % 4;
-            self.status.set(i);
-        });
+        // // TODO: Move the status change method (Actual status updates).
+        // chrome.alarms.create({periodInMinutes: 0.02});
+        // let i = 0;
+        // chrome.alarms.onAlarm.addListener(function() {
+        //     i = (i + 1) % 4;
+        //     self.status.set(i);
+        // });
     }
 
     /**
@@ -70,17 +70,21 @@ class MainController {
      * @param tab   the Tab to check for
      */
     private testAndSend(tab: Tab) {
+        const self = this;
         const url = tab.url;
         const urlFormat = /https?:\/\/.*github\.com\/(.+)\/(.+)\/pull\/([^\/]+)\/?.*/;
         if (urlFormat.test(url)) {
             let urlInfo = urlFormat.exec(url);
             console.log(`[Tab] Owner: ${urlInfo[1]}, Repo: ${urlInfo[2]}, PR-number: ${urlInfo[3]}`);
+            self.status.running();
             chrome.tabs.sendMessage(tab.id, {
                 hookToDom: true,
             }, function(result) {
                 let str = result || `should be refreshed because content script is not loaded (${tab.url})`;
                 console.log(`[Tab] ${str}`);
             });
+        } else {
+            self.status.standby();
         }
     }
 

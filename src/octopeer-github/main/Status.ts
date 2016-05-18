@@ -61,19 +61,6 @@ class Status {
     }
 
     /**
-     * Set any status and inform the popup and the icon that they should be updated
-     * @param status
-     */
-    public set(status: StatusCode) {
-        chrome.storage.local.set({
-            status: status,
-        });
-
-        chrome.runtime.sendMessage({line: Status.MESSAGE[status], path: this.getIcon(status)});
-        chrome.browserAction.setIcon({path: this.getIcon(status, 19)});
-    }
-
-    /**
      * Gets the correct status icon based on StatusCode and size.
      * Chrome resizes all icons except for the one in the toolbar.
      * That is why we added an extra case.
@@ -87,5 +74,31 @@ class Status {
             sizeString = `${size}`;
         }
         return `img/icon/${Status.NAME[status]}${sizeString}.png`;
+    }
+
+    /**
+     * Set any status and inform the popup and the icon that they should be updated.
+     * Or it sets the OFF flag if the logging is not enabled.
+     * @param status
+     */
+    public set(status: StatusCode) {
+        // if (Settings.getLogging()) {
+            this.setter(status);
+        // } else {
+        //     this.setter(StatusCode.OFF);
+        // }
+    }
+
+    /**
+     * Helper method for set() in order to prevent duplicate code.
+     * @param status
+     */
+    private setter(status: StatusCode) {
+        chrome.storage.local.set({
+            status: status,
+        });
+
+        chrome.runtime.sendMessage({line: Status.MESSAGE[status], path: this.getIcon(status)});
+        chrome.browserAction.setIcon({path: this.getIcon(status, 19)});
     }
 }
