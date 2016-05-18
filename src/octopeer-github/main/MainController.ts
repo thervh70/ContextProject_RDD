@@ -16,7 +16,7 @@ class MainController {
      * @return this
      */
     public start() {
-        this.database = new ConsoleLogDatabaseAdapter(); // ("https://localhost:8000", 1, 1);
+        this.database = new RESTApiDatabaseAdapter("http://10.0.22.6", 1, 1);
         this.status = new Status();
         this.status.off();
         this.connectToContentScript();
