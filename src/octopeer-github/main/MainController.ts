@@ -47,10 +47,10 @@ class MainController {
                 return; // Only continue if message is sent from a content script
             }
             self.database.post(JSON.parse(message), function() {
-                console.log("[Database] Successfully logged to database: ", message);
+                Logger.debug(`Successfully logged to database: ${message}`);
             }, function() {
-                console.log("[WARN] Log to database of following object failed: ", message);
-                console.log("[WARN] Original sender: ", sender);
+                Logger.log("Log to database of following object failed:").log(message);
+                Logger.log(`Original sender: ${sender}`);
             });
             sendResponse({});
         });
@@ -74,12 +74,12 @@ class MainController {
         const urlFormat = /https?:\/\/.*github\.com\/(.+)\/(.+)\/pull\/([^\/]+)\/?.*/;
         if (urlFormat.test(url)) {
             let urlInfo = urlFormat.exec(url);
-            console.log(`[Tab] Owner: ${urlInfo[1]}, Repo: ${urlInfo[2]}, PR-number: ${urlInfo[3]}`);
+            Logger.debug(`[Tab] Owner: ${urlInfo[1]}, Repo: ${urlInfo[2]}, PR-number: ${urlInfo[3]}`);
             chrome.tabs.sendMessage(tab.id, {
                 hookToDom: true,
             }, function(result) {
                 let str = result || `should be refreshed because content script is not loaded (${tab.url})`;
-                console.log(`[Tab] ${str}`);
+                Logger.debug(`[Tab] ${str}`);
             });
         }
     }

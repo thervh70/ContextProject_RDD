@@ -24,14 +24,16 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
             .done(function(data, status, jqXHR) {
                 self._session = self.getSessionFromUrl(data.url);
                 if (self._debug) {
-                    console.log(`Initialized DatabaseAdapter(${_url}, session=${self._session})`, self);
+                    Logger.debug(`Initialized DatabaseAdapter(${_url}, session=${self._session})`);
+                    Logger.debug(self);
                 }
             })
             .fail(function(jqXHR, status) {
-                console.log(`[WARN] DatabaseAdapter could not connect to ${self.url}.`, jqXHR);
+                Logger.log(`DatabaseAdapter could not connect to ${self.url}.`);
+                Logger.debug(jqXHR);
             });
         if (self._debug) {
-            console.log(`Constructed DatabaseAdapter(${_url})`, self);
+            Logger.debug(`Constructed DatabaseAdapter(${_url})`).debug(self);
         }
     }
 
@@ -64,23 +66,22 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
     public post(eventData: EventObject, success: Callback, failure: Callback): void {
         const self = this;
         if (!this.isInitialized) {
-            console.log("[WARN] The database has not been initialized yet!");
+            Logger.log("The database has not been initialized yet!");
             return;
         }
-        const ajax = $.ajax(`${this.url}api/events/`, self.createPostData(eventData))
+        $.ajax(`${this.url}api/events/`, self.createPostData(eventData))
             .done(function(data, status, jqXHR) {
                 if (self._debug) {
-                    console.log(`Call success, status: ${status}`, jqXHR);
+                    Logger.debug(`Call success, status: ${status}`);
+                    Logger.debug(jqXHR);
                 }
                 success(data, status, jqXHR);
             })
             .fail(function(jqXHR, status) {
-                console.log(`[WARN] Call failed, status: ${status}`, jqXHR);
+                Logger.log(`Database post failed, status: ${status}`);
+                Logger.debug(jqXHR);
                 failure(jqXHR, status);
             });
-        if (self._debug) {
-            console.log("Sent out AJAX request: ", ajax);
-        }
     }
 
     /**
