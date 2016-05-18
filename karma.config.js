@@ -3,7 +3,7 @@ module.exports = function(config) {
     var configuration = {
         basePath: '.',
         frameworks: ['jasmine'],
-        plugins: ['karma-remap-istanbul'],
+        // plugins: ['karma-remap-istanbul'],
         files: [
             "node_modules/jquery/dist/jquery.min.js",
             "node_modules/jasmine-ajax/lib/mock-ajax.js",
@@ -12,19 +12,20 @@ module.exports = function(config) {
         ],
         reporters: ['progress', 'coverage', 'karma-remap-istanbul'],
         coverageReporter: {
-            type: 'html',
-            dir: 'coverage/'
+            type : 'json',
+            subdir : '.',
+            file : 'coverage-final.json'
         },
 
-        remapIstanbulReporter: {
-            src: 'coverage/report.json',
-            reports: {
-                lcovonly: 'coverage/',
-                html: 'coverage/'
-            },
-            timeoutNotCreated: 1000, // default value
-            timeoutNoMoreFiles: 1000 // default value
-        },
+        // remapIstanbulReporter: {
+        //     src: 'coverage/coverage-final.json',
+        //     reports: {
+        //         lcovonly: 'coverage/',
+        //         html: 'coverage/'
+        //     },
+        //     timeoutNotCreated: 1000, // default value
+        //     timeoutNoMoreFiles: 1000 // default value
+        // },
 
         preprocessors: {
             // source files, that you wanna generate coverage for
