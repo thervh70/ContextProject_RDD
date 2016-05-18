@@ -37,7 +37,7 @@ Total: ****
 
 |                     | Score |
 |---------------------|-------|
-| Code Change Quality |      |
+| Code Change Quality |       |
 
 | Code Readability | Score |
 |------------------|-------|
@@ -47,16 +47,17 @@ Total: ****
 
 | Continuous Integration | Score |
 |------------------------|-------|
-| Building               |      |
-| Testing                |      |
+| Building               | 8     |
+| Testing                | 7     |
 
 |         | Score |
 |---------|-------|
-| Tooling |      |
+| Tooling | 7     |
 
 | Pull-based Development | Score |
 |------------------------|-------|
-| Branching              |      |
-| Code Review            |      |
+| Branching              | 10     |
+| Code Review            | 10     |
 
 ##Notes
+* Make sure you get the testing and coverage tools all setup (discussed this on Tuesday as well)
