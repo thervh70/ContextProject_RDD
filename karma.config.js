@@ -9,14 +9,11 @@ module.exports = function(config) {
             "node_modules/jasmine-jquery/lib/jasmine-jquery.js",
             "build/test.js"
         ],
-        reporters: ['progress', 'coverage'/*, 'karma-remap-istanbul'*/],
+        reporters: ['progress', 'coverage'],
         coverageReporter: {
             type : 'json',
             subdir : '.',
-            file : 'coverage-final.json',
-            instrumenterOptions: {
-                istanbul: { noCompact: true }
-            }
+            file : 'coverage-final.json'
         },
 
         preprocessors: {
