@@ -81,6 +81,7 @@ class Status {
      * Or it sets the OFF flag if the logging is not enabled.
      * @param status
      */
+    // TODO: Will be fixed in #44, due to bug in Settings.
     public set(status: StatusCode) {
         // if (Settings.getLogging()) {
             this.setter(status);

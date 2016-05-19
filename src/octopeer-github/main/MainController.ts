@@ -54,14 +54,6 @@ class MainController {
             });
             sendResponse({});
         });
-
-        // // TODO: Move the status change method (Actual status updates).
-        // chrome.alarms.create({periodInMinutes: 0.02});
-        // let i = 0;
-        // chrome.alarms.onAlarm.addListener(function() {
-        //     i = (i + 1) % 4;
-        //     self.status.set(i);
-        // });
     }
 
     /**
