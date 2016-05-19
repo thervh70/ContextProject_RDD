@@ -11,7 +11,7 @@ class SaveEditPRNameButtonElementSelectionBehaviour extends AbstractElementSelec
      */
     public constructor(database: DatabaseAdaptable) {
         super(database);
-        this.elementDsc = ".gh-header-edit button[type=submit]";
+        this.elementDsc = "#partial-discussion-header.open .gh-header-edit button[type=submit]";
         this.elementID = new ElementID(107);
     }
 }

@@ -11,7 +11,7 @@ class CommitHashcodeNameElementSelectionBehaviour extends AbstractElementSelecti
      */
     public constructor(database: DatabaseAdaptable) {
         super(database);
-        this.elementDsc = ".commit-id";
+        this.elementDsc = ".commit-id,.commit-links-cell a.sha";
         this.elementID = new ElementID(301);
     }
 }

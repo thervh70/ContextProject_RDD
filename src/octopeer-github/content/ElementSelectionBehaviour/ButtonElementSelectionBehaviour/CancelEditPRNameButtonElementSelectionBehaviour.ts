@@ -11,7 +11,7 @@ class CancelEditPRNameButtonElementSelectionBehaviour extends AbstractElementSel
      */
     public constructor(database: DatabaseAdaptable) {
         super(database);
-        this.elementDsc = ".gh-header-edit button.js-details-target";
+        this.elementDsc = "#partial-discussion-header.open .gh-header-edit button.js-details-target";
         this.elementID = new ElementID(108);
     }
 }

@@ -11,7 +11,7 @@ class CommentPRButtonElementSelectionBehaviour extends AbstractElementSelectionB
      */
     public constructor(database: DatabaseAdaptable) {
         super(database);
-        this.elementDsc = ".timeline-comment button.btn-primary";
+        this.elementDsc = ".timeline-comment button.btn-primary[data-disable-invalid]";
         this.elementID = new ElementID(113);
     }
 }

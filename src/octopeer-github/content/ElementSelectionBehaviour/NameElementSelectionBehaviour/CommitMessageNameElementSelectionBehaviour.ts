@@ -11,7 +11,7 @@ class CommitMessageNameElementSelectionBehaviour extends AbstractElementSelectio
      */
     public constructor(database: DatabaseAdaptable) {
         super(database);
-        this.elementDsc = ".commit-message a";
+        this.elementDsc = "a.message";
         this.elementID = new ElementID(302);
     }
 }
