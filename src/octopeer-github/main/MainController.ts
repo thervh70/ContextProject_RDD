@@ -18,7 +18,7 @@ class MainController {
     public start() {
         this.database = new ConsoleLogDatabaseAdapter(); // ("https://localhost:8000", 1, 1);
         this.status = new Status();
-        this.status.off();
+        this.status.standby();
         this.connectToContentScript();
         return this;
     }
@@ -55,26 +55,22 @@ class MainController {
             });
             sendResponse({});
         });
-
-        // TODO: Move the status change method (Actual status updates).
-        chrome.alarms.create({periodInMinutes: 0.02});
-        let i = 0;
-        chrome.alarms.onAlarm.addListener(function() {
-            i = (i + 1) % 4;
-            self.status.set(i);
-        });
     }
 
     /**
      * Only sends a message to a tab if it contains the correct URL.
+     * I named it alike to a "test-and-set" operation that comes from concurrent programming.
+     *     This (atomic) operation only sets a variable if a condition holds.
      * 'Correct' format:  http[s]//[...]github.com/(owner)/(repo)/pull/(pr-no)[/...]
      * @param tab   the Tab to check for
      */
     private testAndSend(tab: Tab) {
+        const self = this;
         const url = tab.url;
         const urlFormat = /https?:\/\/.*github\.com\/(.+)\/(.+)\/pull\/([^\/]+)\/?.*/;
         if (urlFormat.test(url)) {
             let urlInfo = urlFormat.exec(url);
+            self.status.running();
             Logger.debug(`[Tab] Owner: ${urlInfo[1]}, Repo: ${urlInfo[2]}, PR-number: ${urlInfo[3]}`);
             chrome.tabs.sendMessage(tab.id, {
                 hookToDom: true,
@@ -82,6 +78,8 @@ class MainController {
                 let str = result || `should be refreshed because content script is not loaded (${tab.url})`;
                 Logger.debug(`[Tab] ${str}`);
             });
+        } else {
+            self.status.standby();
         }
     }
 

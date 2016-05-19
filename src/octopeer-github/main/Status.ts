@@ -61,32 +61,45 @@ class Status {
     }
 
     /**
-     * Set any status and inform the popup and the icon that they should be updated
-     * @param status
-     */
-    public set(status: StatusCode) {
-        chrome.storage.local.set({
-            status: status,
-        });
-
-        chrome.runtime.sendMessage({line: Status.MESSAGE[status], path: this.getIcon(status)});
-        chrome.browserAction.setIcon({path: this.getIcon(status, 19)});
-    }
-
-    /**
      * Gets the correct status icon based on StatusCode and size.
+     * Chrome resizes all icons except for the one in the toolbar.
+     * That is why we added an extra case.
      * @param status        the StatusCode to get the icon for.
      * @param size          the size of the icon file (if it does not exist, it returns the largest icon).
      * @returns {string}    the relative icon path from the root of the extension.
      */
     public getIcon(status = StatusCode.OFF, size = 0) {
         let sizeString = "";
-        switch (size) {
-            case 19: // can have multiple (valid) cases later, like 16, 38, 48 or 128
-                sizeString = `${size}`;
-                break;
-            default: break;
+        if (size === 19) {
+            sizeString = `${size}`;
         }
-        return `img/icon/icon_${Status.NAME[status]}${sizeString}.png`;
+        return `img/icon/${Status.NAME[status]}${sizeString}.png`;
+    }
+
+    /**
+     * Set any status and inform the popup and the icon that they should be updated.
+     * Or it sets the OFF flag if the logging is not enabled.
+     * @param status
+     */
+    // TODO: Will be fixed in #44, due to bug in Settings.
+    public set(status: StatusCode) {
+        // if (Settings.getLogging()) {
+            this.setter(status);
+        // } else {
+        //     this.setter(StatusCode.OFF);
+        // }
+    }
+
+    /**
+     * Helper method for set() in order to prevent duplicate code.
+     * @param status
+     */
+    private setter(status: StatusCode) {
+        chrome.storage.local.set({
+            status: status,
+        });
+
+        chrome.runtime.sendMessage({line: Status.MESSAGE[status], path: this.getIcon(status)});
+        chrome.browserAction.setIcon({path: this.getIcon(status, 19)});
     }
 }
