@@ -9,10 +9,10 @@ module.exports = function(config) {
             "node_modules/jasmine-jquery/lib/jasmine-jquery.js",
             "build/test.js",
             {
-                pattern: "build/**/*.html",
-                included: true,
+                pattern: 'src/octopeer-github/test/resources/**/*.html',
+                watched: true,
                 served: true,
-                watched: false
+                included: false
             }
         ],
         reporters: ['progress', 'coverage'],

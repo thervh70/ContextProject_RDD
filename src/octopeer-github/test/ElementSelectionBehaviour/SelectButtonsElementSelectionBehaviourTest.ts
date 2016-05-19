@@ -8,19 +8,15 @@ describe("An ElementSelector that selects Buttons", function() {
     let logSpy: jasmine.Spy;
 
     beforeEach(function() {
-        jasmine.getFixtures().fixturesPath = "base/build";
-        loadFixtures("test2.html");
+        jasmine.getFixtures().fixturesPath = "base/src/octopeer-github/test/resources";
+        loadFixtures("Conversation_tab.html");
         database = new ConsoleLogDatabaseAdapter();
         selector = new MergePRButtonElementSelectionBehaviour(database);
         logSpy = spyOn(database, "post");
     });
 
-    it("should select something", function () {
+    it("should select only one button", function () {
         expect(selector.getElements().length).toBe(1);
-    });
-
-    it("should select a MergePRButton", function () {
-        expect(selector.getElements()).toEqual(".js-merge-branch-action");
     });
 
     it("has a callback that should post to the database", function () {
