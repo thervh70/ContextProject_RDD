@@ -1,17 +1,15 @@
-/// <reference path="ButtonElementSelectionBehaviour.ts"/>
+/// <reference path="../AbstractElementSelectionBehaviour.ts"/>
 /**
  * Created by Mathias on 2016-05-11.
  * Class for selecting the CheckDetail button
  */
-class CheckDetailButtonElementSelectionBehaviour extends ButtonElementSelectionBehaviour {
+class CheckDetailButtonElementSelectionBehaviour extends AbstractElementSelectionBehaviour {
 
     /**
      * Constructor of this class.
      * @param database The database that is used to store the Elements.
      */
     public constructor(database: DatabaseAdaptable) {
-        super(database);
-        this.elementDsc = ".merge-pr .build-status-details";
-        this.elementID = new ElementID(112);
+        super(database, new ElementID(112), ".merge-pr .build-status-details");
     }
 }
