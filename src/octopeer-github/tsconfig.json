@@ -6,8 +6,12 @@
     "noImplicitAny": true,
     "removeComments": true,
     "preserveConstEnums": true,
-    "outFile": "../../../build/test.js",
+    "outFile": "../../build/test.js",
     "target": "es5",
     "sourceMap": true
-  }
+  },
+  "exclude": [
+    "main/main.ts",
+    "content/main.ts"
+  ]
 }
