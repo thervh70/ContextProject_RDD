@@ -52,15 +52,13 @@ The default settings within this enabled area are sufficient, so apply the chang
 
 You've now activated TSLint.
 
+### Coverage
+- Run 'npm run-script travis' to generate a 'coverage-final' json file, if you haven't done so already.
+- Run 'npm run-script coverage' to generate a html coverage report of the json coverage file.
 
-**Installing and using MaDGe (dependency tool):**
-- Run `npm install madge` (library)
-- Run `npm -g install madge` (command-line tool)
-- Run `madge` for using MaDGe (it will return all options)
-- Run (for example) `madge -f amd -c ./src` for checking circular dependencies within the source code.
-- (Optional) GraphViz can be used for visualizing the results.
+You can now view the coverage report by opening the html file.
 
-More examples can be found [here](https://github.com/pahen/madge).
+This html file gives a nice overview of the coverage of the source code.
 
 ### Building and Installing the Extension
 - Run `build.sh` to build the extension
