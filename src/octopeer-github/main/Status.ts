@@ -81,7 +81,6 @@ class Status {
      * Or it sets the OFF flag if the logging is not enabled.
      * @param status
      */
-    // TODO: Will be fixed in #44, due to bug in Settings.
     public set(status: StatusCode) {
         // if (Settings.getLogging()) {
             this.setter(status);
@@ -95,11 +94,16 @@ class Status {
      * @param status
      */
     private setter(status: StatusCode) {
-        chrome.storage.local.set({
-            status: status,
+        chrome.runtime.sendMessage({
+            line: Status.MESSAGE[status],
+            path: this.getIcon(status),
         });
-
-        chrome.runtime.sendMessage({line: Status.MESSAGE[status], path: this.getIcon(status)});
-        chrome.browserAction.setIcon({path: this.getIcon(status, 19)});
+        chrome.storage.local.set({
+            line: Status.MESSAGE[status],
+            path: this.getIcon(status),
+        });
+        chrome.browserAction.setIcon({
+            path: this.getIcon(status, 19),
+        });
     }
 }
