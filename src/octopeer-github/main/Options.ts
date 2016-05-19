@@ -12,6 +12,7 @@ namespace Options {
     let username: Boolean;
     let repo: Boolean;
     let file: Boolean;
+    let observers: Array<OptionsObserver>;
 
     /**
      * Initialization fetches the current settings and stores them in this class.
@@ -28,6 +29,7 @@ namespace Options {
             username = object.hashUsername;
             repo = object.hashRepo;
             file = object.hashFile;
+            notifyObservers();
         });
     }
 
@@ -47,8 +49,27 @@ namespace Options {
                 username = changeObject.hashUsername ? changeObject.hashUsername.newValue : username;
                 repo = changeObject.hashRepo ? changeObject.hashRepo.newValue : repo;
                 file = changeObject.hashFile ? changeObject.hashFile.newValue : file;
+                notifyObservers();
             }
         });
+    }
+
+    /**
+     * Notify the whole list of observers that there has been a change.
+     * The observer is reponsible for fetching the correct data after this change.
+     */
+    export function notifyObservers() {
+        for (const observer of observers) {
+            observer.notify();
+        }
+    }
+
+    /**
+     * It is possible to subscribe to the Options class.
+     * @param obs The Observer that wants to be part of the notification stream.
+     */
+    export function addObserver(obs: OptionsObserver) {
+        this.observers.push(obs);
     }
 
     /**
