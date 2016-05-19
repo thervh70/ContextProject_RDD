@@ -69,11 +69,45 @@ function restore_options_availability() {
         loggingEnabled: true
     }, function(items) {
         // The availability depends on the value of the logging checkbox state.
-        l('tabs').disabled = l('comments').disabled =
-            l('peer_comments').disabled = l('focus').disabled =
-                l('username').disabled = l('repo').disabled =
-                    l('file').disabled = !items.loggingEnabled;
+        // l('tabs').disabled = l('comments').disabled =
+        //     l('peer_comments').disabled = l('focus').disabled =
+        //         l('username').disabled = l('repo').disabled =
+        //             l('file').disabled = !items.loggingEnabled;
+        var enabled = items.loggingEnabled;
+        if (enabled) {
+            show_sub();
+        } else {
+            hide_sub();
+        }
     });
+}
+
+// Shows the sub-options.
+function show_sub() {
+    $('#security_sub').show();
+    $('#privacy_sub').show();
+    $('#hints_sub').show();
+}
+
+// Hides the sub-options.
+function hide_sub() {
+    $('#security_sub').hide();
+    $('#privacy_sub').hide();
+    $('#hints_sub').hide();
+}
+
+// Shows the option cards.
+function show() {
+    $('#security').show();
+    $('#privacy').show();
+    $('#hints').show();
+}
+
+// Hides the option cards.
+function hide() {
+    $('#security').hide();
+    $('#privacy').hide();
+    $('#hints').hide();
 }
 
 // Disables the (sub)options when the user doesn't want Octopeer to log data and
@@ -83,16 +117,19 @@ function switch_options() {
     var logging = l('logging').checked;
     if (logging) {
         Materialize.toast("Logging has been enabled.", 2000);
+        show_sub();
     } else {
         Materialize.toast("Logging has been disabled.", 2000);
+        hide_sub();
     }
-    l('tabs').disabled = !l('tabs').disabled;
-    l('comments').disabled = !l('comments').disabled;
-    l('peer_comments').disabled = !l('peer_comments').disabled;
-    l('focus').disabled = !l('focus').disabled;
-    l('username').disabled = !l('username').disabled;
-    l('repo').disabled = !l('repo').disabled;
-    l('file').disabled = !l('file').disabled;
+    // l('tabs').disabled = !l('tabs').disabled;
+    // l('comments').disabled = !l('comments').disabled;
+    // l('peer_comments').disabled = !l('peer_comments').disabled;
+    // l('focus').disabled = !l('focus').disabled;
+    // l('username').disabled = !l('username').disabled;
+    // l('repo').disabled = !l('repo').disabled;
+    // l('file').disabled = !l('file').disabled;
+
 }
 
 document.addEventListener('DOMContentLoaded', restore_options_state);
