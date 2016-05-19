@@ -30,6 +30,9 @@ before_script:
 script:
   - npm test                # Run the tests
 
+after_script:
+  - npm run-script coveralls
+
 notifications:
   email: false
   slack: tud-contextproject-16:7oE95aUGOwGTYonAvcVxYcGr

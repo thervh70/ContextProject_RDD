@@ -17,15 +17,15 @@ module.exports = function(config) {
         ],
         reporters: ['progress', 'coverage'],
         coverageReporter: {
-            type: 'html',
-            dir: 'coverage/'
+            type : 'json',
+            subdir : '.',
+            file : 'coverage-final.json'
         },
 
         preprocessors: {
             // source files, that you wanna generate coverage for
             // do not include tests or libraries
-            'build/content.js': ['coverage'],
-            'build/main.js': ['coverage']
+            'build/test.js': ['coverage']
         },
 
         browsers: ['Chrome', 'ChromeCanary'],
