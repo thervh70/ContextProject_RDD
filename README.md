@@ -1,6 +1,7 @@
 # ContextProject_RDD
 [![Stories in Ready](https://badge.waffle.io/thervh70/ContextProject_RDD.png?label=ready&title=Ready)](http://waffle.io/thervh70/ContextProject_RDD)
 [![Build Status](https://travis-ci.org/thervh70/ContextProject_RDD.svg?branch=master)](https://travis-ci.org/thervh70/ContextProject_RDD)
+[![Coverage Status](https://coveralls.io/repos/github/thervh70/ContextProject_RDD/badge.svg?branch=master)](https://coveralls.io/github/thervh70/ContextProject_RDD?branch=master)
 
 ### Documents
 - [Definition of Done](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Definition_of_Done.pdf)
