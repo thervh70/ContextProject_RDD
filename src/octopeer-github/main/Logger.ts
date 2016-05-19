@@ -6,25 +6,25 @@ const Logger = new (class Logger {
 
     private isDebug = false;
 
-    public log(obj: any) {
-        this._log("WARN ", obj);
+    public warn(obj: any) {
+        this.log("WARN ", obj);
     }
 
     public debug(obj: any) {
         if (this.isDebug) {
-            this._log("DEBUG", obj);
+            this.log("DEBUG", obj);
         }
     }
 
     public database(obj: any) {
-        this._log("DATA ", obj);
+        this.log("DATA ", obj);
     }
 
     public setDebug(state = true) {
         this.isDebug = state;
     }
 
-    private _log(tag: string, obj: any) {
+    private log(tag: string, obj: any) {
         console.log(`[${tag}] `, obj);
     }
 

@@ -49,9 +49,9 @@ class MainController {
             self.database.post(JSON.parse(message), function() {
                 Logger.debug(`Successfully logged to database: ${message}`);
             }, function() {
-                Logger.log("Log to database of following object failed:");
-                Logger.log(message);
-                Logger.log(`Original sender: ${sender}`);
+                Logger.warn("Log to database of following object failed:");
+                Logger.warn(message);
+                Logger.warn(`Original sender: ${sender}`);
             });
             sendResponse({});
         });

@@ -29,7 +29,7 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
                 }
             })
             .fail(function(jqXHR, status) {
-                Logger.log(`DatabaseAdapter could not connect to ${self.url}.`);
+                Logger.warn(`DatabaseAdapter could not connect to ${self.url}.`);
                 Logger.debug(jqXHR);
             });
         if (self._debug) {
@@ -67,7 +67,7 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
     public post(eventData: EventObject, success: Callback, failure: Callback): void {
         const self = this;
         if (!this.isInitialized) {
-            Logger.log("The database has not been initialized yet!");
+            Logger.warn("The database has not been initialized yet!");
             return;
         }
         $.ajax(`${this.url}api/events/`, self.createPostData(eventData))
@@ -79,7 +79,7 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
                 success(data, status, jqXHR);
             })
             .fail(function(jqXHR, status) {
-                Logger.log(`Database post failed, status: ${status}`);
+                Logger.warn(`Database post failed, status: ${status}`);
                 Logger.debug(jqXHR);
                 failure(jqXHR, status);
             });

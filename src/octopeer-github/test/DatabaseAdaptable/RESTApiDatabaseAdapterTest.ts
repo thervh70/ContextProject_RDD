@@ -58,7 +58,7 @@ describe("A RESTApiDatabaseAdapter", function() {
     });
 
     it("cannot post to the API when not initialized", function() {
-        spyOn(Logger, "_log"); // suppress Logger logs of all levels
+        spyOn(Logger, "log"); // suppress Logger logs of all levels
         delete adapter;
         adapter = new RESTApiDatabaseAdapter("http://localhost:8000", 1, 1);
 

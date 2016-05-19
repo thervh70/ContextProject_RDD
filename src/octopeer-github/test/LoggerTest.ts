@@ -13,7 +13,7 @@ describe("The Logger", function() {
     });
 
     it("should log warnings", function() {
-        Logger.log("this is a warning");
+        Logger.warn("this is a warning");
         expect(consoleSpy).toHaveBeenCalledWith("[WARN ] ", "this is a warning");
     });
 
