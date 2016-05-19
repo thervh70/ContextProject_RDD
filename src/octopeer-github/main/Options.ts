@@ -1,8 +1,5 @@
 /**
  * Created by Mitchell on 12-5-2016.
- */
-
-/**
  * Class from which user options can be retrieved.
  * These options have been maintained by the front-end.
  */
@@ -17,13 +14,48 @@ namespace Options {
     let file: Boolean;
 
     /**
+     * Initialization fetches the current settings and stores them in this class.
+     */
+    export function init() {
+        chrome.storage.sync.get(["loggingEnabled", "trackTabs", "trackComments", "trackPeerComments",
+        "trackFocus", "hashUsername", "hashRepo", "hashFile"], function (obj) {
+            const object = <any> obj;
+            logging = object.loggingEnabled;
+            tabs = object.trackTabs;
+            comments = object.trackComments;
+            peer_comments = object.trackPeerComments;
+            focus = object.trackFocus;
+            username = object.hashUsername;
+            repo = object.hashRepo;
+            file = object.hashFile;
+        });
+    }
+
+    /**
+     * Enables a listener that listens for changes in the sync storage area.
+     * This means that any items that was changed (newValue) is set if changed;
+     */
+    export function update() {
+        chrome.storage.onChanged.addListener(function (changes, areaName) {
+            if (areaName === "sync") {
+                const changeObject = <any> changes;
+                logging = changeObject.loggingEnabled ? changeObject.loggingEnabled.newValue : logging;
+                tabs = changeObject.trackTabs ? changeObject.trackTabs.newValue : tabs;
+                comments = changeObject.trackComments ? changeObject.trackComments.newValue : comments;
+                peer_comments = changeObject.trackPeerComments ? changeObject.trackPeerComments.newValue : peer_comments;
+                focus = changeObject.trackFocus ? changeObject.trackFocus.newValue : focus;
+                username = changeObject.hashUsername ? changeObject.hashUsername.newValue : username;
+                repo = changeObject.hashRepo ? changeObject.hashRepo.newValue : repo;
+                file = changeObject.hashFile ? changeObject.hashFile.newValue : file;
+            }
+        });
+    }
+
+    /**
      * Gets the logging preference, from the chrome storage.
      * @returns {Boolean}
      */
     export function getLogging() {
-        chrome.storage.sync.get("loggingEnabled", function (obj) {
-            this.logging = obj;
-        });
         return logging;
     }
 
@@ -32,9 +64,6 @@ namespace Options {
      * @returns {Boolean}
      */
     export function getTabs() {
-        chrome.storage.sync.get("trackTabs", function (obj) {
-            this.tabs = obj;
-        });
         return tabs;
     }
 
@@ -43,9 +72,6 @@ namespace Options {
      * @returns {Boolean}
      */
     export function getComments() {
-        chrome.storage.sync.get("trackComments", function (obj) {
-            this.comments = obj;
-        });
         return comments;
     }
 
@@ -54,9 +80,6 @@ namespace Options {
      * @returns {Boolean}
      */
     export function getPeerComments() {
-        chrome.storage.sync.get("trackPeerComments", function (obj) {
-            this.peer_comments = obj;
-        });
         return peer_comments;
     }
 
@@ -65,9 +88,6 @@ namespace Options {
      * @returns {Boolean}
      */
     export function getFocus() {
-        chrome.storage.sync.get("trackFocus", function (obj) {
-            this.focus = obj;
-        });
         return focus;
     }
 
@@ -76,9 +96,6 @@ namespace Options {
      * @returns {Boolean}
      */
     export function getUsername() {
-        chrome.storage.sync.get("hashUsername", function (obj) {
-            this.username = obj;
-        });
         return username;
     }
 
@@ -87,9 +104,6 @@ namespace Options {
      * @returns {Boolean}
      */
     export function getRepo() {
-        chrome.storage.sync.get("hashRepo", function (obj) {
-            this.repo = obj;
-        });
         return repo;
     }
 
@@ -98,9 +112,6 @@ namespace Options {
      * @returns {Boolean}
      */
     export function getFile() {
-        chrome.storage.sync.get("hashFile", function (obj) {
-            this.file = obj;
-        });
         return file;
     }
 }
