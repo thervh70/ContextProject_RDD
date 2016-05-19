@@ -6,8 +6,9 @@
 
 enum StatusCode {ERROR, RUNNING, OFF, STANDBY}
 
-class Status {
+const Status = new (class Status implements OptionsObserver{
 
+    private currentStatus: StatusCode;
     /**
      * Status.NAME: the internal names of the enum StatusCode.
      */
@@ -61,6 +62,14 @@ class Status {
     }
 
     /**
+     * If Octopeer was switched off set() will find out.
+     * Otherwise this method simply sets the current status.
+     */
+    public notify(): void {
+        this.standby();
+    }
+
+    /**
      * Gets the correct status icon based on StatusCode and size.
      * Chrome resizes all icons except for the one in the toolbar.
      * That is why we added an extra case.
@@ -81,25 +90,31 @@ class Status {
      * Or it sets the OFF flag if the logging is not enabled.
      * @param status
      */
-    // TODO: Will be fixed in #44, due to bug in Settings.
     public set(status: StatusCode) {
-        // if (Settings.getLogging()) {
+        if (Options.getLogging()) {
             this.setter(status);
-        // } else {
-        //     this.setter(StatusCode.OFF);
-        // }
+        } else {
+            this.setter(StatusCode.OFF);
+        }
     }
 
     /**
      * Helper method for set() in order to prevent duplicate code.
      * @param status
      */
-    private setter(status: StatusCode) {
-        chrome.storage.local.set({
-            status: status,
+    public setter(status: StatusCode) {
+        this.currentStatus = status;
+        chrome.runtime.sendMessage({
+            line: Status.MESSAGE[status],
+            path: this.getIcon(status),
         });
-
-        chrome.runtime.sendMessage({line: Status.MESSAGE[status], path: this.getIcon(status)});
-        chrome.browserAction.setIcon({path: this.getIcon(status, 19)});
+        chrome.storage.local.set({
+            line: Status.MESSAGE[status],
+            path: this.getIcon(status),
+        });
+        chrome.browserAction.setIcon({
+            path: this.getIcon(status, 19),
+        });
     }
-}
+})();
+Status.standby(); // Suppress unused variable `Status`
