@@ -10,6 +10,7 @@ class PRParticipantNameElementSelectionBehaviour extends AbstractElementSelectio
      * @param database The database that is used to store the Elements.
      */
     public constructor(database: DatabaseAdaptable) {
+        // TODO: Fix the jQuery selector
         super(database, new ElementID(304), "testttt");
     }
 }
