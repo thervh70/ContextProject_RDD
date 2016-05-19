@@ -30,4 +30,10 @@ describe("The Logger", function() {
         Logger.setDebug(false); // cleanup
     });
 
+    it("should log database items", function() {
+        const obj = {data: "dummy"};
+        Logger.database(obj);
+        expect(consoleSpy).toHaveBeenCalledWith("[DATA ] ", obj);
+    });
+
 });
