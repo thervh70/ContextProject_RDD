@@ -53,12 +53,9 @@ The default settings within this enabled area are sufficient, so apply the chang
 You've now activated TSLint.
 
 ### Coverage
-- Run `npm run-script test` to generate a 'coverage-final' json file, if you haven't done so already (via `npm run-script travis`).
+- The `npm test` command will generate a `coverage-final.json` file.
 - Run `npm run-script coverage` to generate a html coverage report of the json coverage file.
-
-You can now view the coverage report by opening the html file.
-
-This html file gives a nice overview of the coverage of the source code.
+- You can now view the coverage report by opening `coverage/html/index.html`. This html file gives a nice overview of the coverage of the source code.
 
 ### Building and Installing the Extension
 - Run `build.sh` to build the extension
