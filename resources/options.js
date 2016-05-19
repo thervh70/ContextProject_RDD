@@ -1,6 +1,6 @@
 /**
  * Created by Mitchell on 10-5-2016.
- * Contains necessary functions for the Settings page of Octopeer.
+ * Contains necessary functions for the Options page of Octopeer.
  */
 
 // Helper function; simplifies the calls to specific document e-L-ements.
@@ -33,7 +33,7 @@ function save_options() {
         hashFile: file
         // Hints
     }, function() {
-        Materialize.toast("Settings saved!", 2000);
+        Materialize.toast("Options saved!", 2000);
     });
 }
 

@@ -20,6 +20,8 @@ class MainController {
         this.status = new Status();
         this.status.standby();
         this.connectToContentScript();
+        Options.init();
+        Options.update();
         return this;
     }
 
