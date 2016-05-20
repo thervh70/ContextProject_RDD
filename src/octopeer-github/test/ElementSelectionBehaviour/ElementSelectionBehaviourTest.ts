@@ -114,7 +114,7 @@ let filesChangedSelectors: CreatableNumberPair[] = [
 /**
  * This is a list of the different html files that are used to test the classes.
  * htmlList[x] corresponds with selectorListsList[x].
- * @type {string[]}
+ * @type {string[]} The name of the html file
  */
 const htmlsList = [
     "conversation-tab.html",
@@ -125,7 +125,7 @@ const htmlsList = [
 /**
  * This is a list of the different CreatableNumberPairLists that are used to test the classes.
  * selectorListsList[x] corresponds with htmlList[x].
- * @type {CreatableNumberPair[][]}
+ * @type {CreatableNumberPair[][]} A list of CreatableNummberPairs that indicates which Elements should be present how many times
  */
 const selectorListsList = [
     conversationSelectors,
@@ -135,8 +135,8 @@ const selectorListsList = [
 
 /**
  * Strips the Creatables, so only the name remains. Used for logging the test name.
- * @param fun
- * @returns {string}
+ * @param fun An ElementSelectionBehaviourCreatable that has to be stripped down to its name.
+ * @returns {string} The name of the given Creatable.
  */
 function functionName(fun: ElementSelectionBehaviourCreatable) {
     let ret = fun.toString();
