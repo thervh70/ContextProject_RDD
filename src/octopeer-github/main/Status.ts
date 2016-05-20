@@ -6,7 +6,7 @@
 
 enum StatusCode {ERROR, RUNNING, OFF, STANDBY}
 
-const Status = new (class Status implements OptionsObserver{
+const Status = new (class Status implements OptionsObserver {
 
     /**
      * Status.NAME: the internal names of the enum StatusCode.

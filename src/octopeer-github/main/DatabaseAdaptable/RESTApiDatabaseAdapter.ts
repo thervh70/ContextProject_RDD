@@ -86,8 +86,8 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
     }
 
     /**
-     * Creates a Options Object that can be used in an AJAX request when posting a new session.
-     * @returns {JQueryAjaxSettings}    A Options Object that can be used in an AJAX request.
+     * Creates a Settings Object that can be used in an AJAX request when posting a new session.
+     * @returns {JQueryAjaxSettings}    A Settings Object that can be used in an AJAX request.
      */
     private createPostSession() {
         return this.createJSONPost({
@@ -98,9 +98,9 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
     }
 
     /**
-     * Creates a Options Object that can be used in an AJAX request when posting an event.
+     * Creates a Settings Object that can be used in an AJAX request when posting an event.
      * @param eventData                 The data to post to the database.
-     * @returns {JQueryAjaxSettings}    A Options Object that can be used in an AJAX request.
+     * @returns {JQueryAjaxSettings}    A Settings Object that can be used in an AJAX request.
      */
     private createPostData(eventData: EventObject) {
         return this.createJSONPost({
@@ -112,9 +112,9 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
     }
 
     /**
-     * Creates a Options Object that can be used in an AJAX request.
+     * Creates a Settings Object that can be used in an AJAX request.
      * @param data                  The data that will be posted to the server.
-     * @returns JQueryAjaxSettings  A Options Object that can be used in an AJAX request.
+     * @returns JQueryAjaxSettings  A Settings Object that can be used in an AJAX request.
      */
     private createJSONPost(data: Object): JQueryAjaxSettings {
         return {
