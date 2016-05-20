@@ -68,16 +68,11 @@ function restore_options_availability() {
         // Default value
         loggingEnabled: true
     }, function(items) {
-        // The availability depends on the value of the logging checkbox state.
-        // l('tabs').disabled = l('comments').disabled =
-        //     l('peer_comments').disabled = l('focus').disabled =
-        //         l('username').disabled = l('repo').disabled =
-        //             l('file').disabled = !items.loggingEnabled;
         var enabled = items.loggingEnabled;
         if (enabled) {
-            show_sub();
+            show();
         } else {
-            hide_sub();
+            hide();
         }
     });
 }
@@ -110,6 +105,27 @@ function hide() {
     $('#hints').hide();
 }
 
+// Switches availability of options.
+function switch_disable() {
+    l('tabs').disabled = !l('tabs').disabled;
+    l('comments').disabled = !l('comments').disabled;
+    l('peer_comments').disabled = !l('peer_comments').disabled;
+    l('focus').disabled = !l('focus').disabled;
+    l('username').disabled = !l('username').disabled;
+    l('repo').disabled = !l('repo').disabled;
+    l('file').disabled = !l('file').disabled;
+}
+
+// Restores availability of options.
+// The availability depends on the value of the logging checkbox state.
+function restore_disable() {
+    l('tabs').disabled = l('comments').disabled =
+        l('peer_comments').disabled = l('focus').disabled =
+            l('username').disabled = l('repo').disabled =
+                l('file').disabled = !items.loggingEnabled;
+}
+
+
 // Disables the (sub)options when the user doesn't want Octopeer to log data and
 // enables the (sub)options when the user does.
 // A message will confirm this action to the user.
@@ -117,19 +133,11 @@ function switch_options() {
     var logging = l('logging').checked;
     if (logging) {
         Materialize.toast("Logging has been enabled.", 2000);
-        show_sub();
+        show();
     } else {
         Materialize.toast("Logging has been disabled.", 2000);
-        hide_sub();
+        hide();
     }
-    // l('tabs').disabled = !l('tabs').disabled;
-    // l('comments').disabled = !l('comments').disabled;
-    // l('peer_comments').disabled = !l('peer_comments').disabled;
-    // l('focus').disabled = !l('focus').disabled;
-    // l('username').disabled = !l('username').disabled;
-    // l('repo').disabled = !l('repo').disabled;
-    // l('file').disabled = !l('file').disabled;
-
 }
 
 document.addEventListener('DOMContentLoaded', restore_options_state);

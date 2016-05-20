@@ -1,5 +1,5 @@
 /* tslint:disable:max-line-length */
-/// <reference path="Settings.ts"/>
+/// <reference path="Options.ts"/>
 /// <reference path="../../content/ElementEventBinding/ElementEventBinding.ts"/>
 /// <reference path="../../content/ElementEventBinding/ClickElementEventBinding.ts"/>
 /// <reference path="../../content/ElementEventBinding/KeystrokeElementEventBinding.ts"/>
@@ -68,7 +68,7 @@ const DoNotWatchSettings = new (class DoNotWatchSettings {
         let doNotWatchEvents: ElementEventBindingCreatable[];
         doNotWatchEvents = [];
 
-        if (Settings.getFocus()) {
+        if (Options.getFocus()) {
             doNotWatchEvents.push(ScrollIntoViewElementEventBinding);
             doNotWatchEvents.push(ScrollOutOfViewElementEventBinding);
         }
