@@ -20,6 +20,7 @@ class MainController {
         Status.standby();
         Options.init();
         Options.update();
+        Options.addObserver(Status);
         return this;
     }
 

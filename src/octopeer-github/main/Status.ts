@@ -6,54 +6,71 @@
 
 enum StatusCode {ERROR, RUNNING, OFF, STANDBY}
 
-namespace Status {
+const Status = new (class Status implements OptionsObserver{
 
     /**
      * Status.NAME: the internal names of the enum StatusCode.
      */
-    let NAME = [
-        "error",
-        "running",
-        "off",
-        "standby",
-    ];
+    public static get NAME() {
+        return [
+            "error",
+            "running",
+            "off",
+            "standby",
+        ];
+    }
 
     /**
      * Status.MESSAGE: the message strings of the enum StatusCode.
      */
-    let MESSAGE = [
-        "Octopeer has crashed!",
-        "Octopeer is running.",
-        "Octopeer is turned off.",
-        "Octopeer is standby.",
-     ];
+    public static get MESSAGE() {
+        return [
+            "Octopeer has crashed!",
+            "Octopeer is running.",
+            "Octopeer is turned off.",
+            "Octopeer is standby.",
+        ];
+    }
+
+    /**
+     * Stores the current status.
+     */
+    private currentStatus: StatusCode;
 
     /**
      * Set the error status.
      */
-    export function error() {
+    public error() {
         this.set(StatusCode.ERROR);
     }
 
     /**
      * Set the running status.
      */
-    export function running() {
+    public running() {
         this.set(StatusCode.RUNNING);
     }
 
     /**
      * Set the off status.
      */
-    export function off() {
+    public off() {
         this.set(StatusCode.OFF);
     }
 
     /**
      * Set the standby status.
      */
-    export function standby() {
+    public standby() {
         this.set(StatusCode.STANDBY);
+    }
+
+    /**
+     * If Octopeer was switched off set() will find out.
+     * Otherwise this method simply sets the current status.
+     */
+    public notify() {
+        this.standby();
     }
 
     /**
@@ -64,12 +81,12 @@ namespace Status {
      * @param size          the size of the icon file (if it does not exist, it returns the largest icon).
      * @returns {string}    the relative icon path from the root of the extension.
      */
-    export function getIcon(status = StatusCode.OFF, size = 0) {
+    public getIcon(status = StatusCode.OFF, size = 0) {
         let sizeString = "";
         if (size === 19) {
             sizeString = `${size}`;
         }
-        return `img/icon/${NAME[status]}${sizeString}.png`;
+        return `img/icon/${Status.NAME[status]}${sizeString}.png`;
     }
 
     /**
@@ -77,7 +94,7 @@ namespace Status {
      * Or it sets the OFF flag if the logging is not enabled.
      * @param status
      */
-    export function set(status: StatusCode) {
+    public set(status: StatusCode) {
         if (Options.getLogging()) {
             this.setter(status);
         } else {
@@ -89,17 +106,19 @@ namespace Status {
      * Helper method for set() in order to prevent duplicate code.
      * @param status
      */
-    export function setter(status: StatusCode) {
+    private setter(status: StatusCode) {
+        this.currentStatus = status;
         chrome.runtime.sendMessage({
-            line: MESSAGE[status],
+            line: Status.MESSAGE[status],
             path: this.getIcon(status),
         });
         chrome.storage.local.set({
-            line: MESSAGE[status],
+            line: Status.MESSAGE[status],
             path: this.getIcon(status),
         });
         chrome.browserAction.setIcon({
             path: this.getIcon(status, 19),
         });
     }
-}
+})();
+Status.getIcon(); // Suppress unused variable `Status`
