@@ -3,31 +3,31 @@
  * Class from which user options can be retrieved.
  * These options have been maintained by the front-end.
  */
-const Options = new (class Options {
-    private logging: Boolean;
-    private tabs: Boolean;
-    private comments: Boolean;
-    private peer_comments: Boolean;
-    private focus: Boolean;
-    private username: Boolean;
-    private repo: Boolean;
-    private file: Boolean;
+namespace Options {
+    let logging: Boolean;
+    let tabs: Boolean;
+    let comments: Boolean;
+    let peer_comments: Boolean;
+    let focus: Boolean;
+    let username: Boolean;
+    let repo: Boolean;
+    let file: Boolean;
 
     /**
      * Initialization fetches the current settings and stores them in this class.
      */
-    public init() {
+    export function init() {
         chrome.storage.sync.get(["loggingEnabled", "trackTabs", "trackComments", "trackPeerComments",
         "trackFocus", "hashUsername", "hashRepo", "hashFile"], function (obj) {
             const object = <any> obj;
-            this.logging = object.loggingEnabled;
-            this.tabs = object.trackTabs;
-            this.comments = object.trackComments;
-            this.peer_comments = object.trackPeerComments;
-            this.focus = object.trackFocus;
-            this.username = object.hashUsername;
-            this.repo = object.hashRepo;
-            this.file = object.hashFile;
+            logging = object.loggingEnabled;
+            tabs = object.trackTabs;
+            comments = object.trackComments;
+            peer_comments = object.trackPeerComments;
+            focus = object.trackFocus;
+            username = object.hashUsername;
+            repo = object.hashRepo;
+            file = object.hashFile;
         });
     }
 
@@ -35,18 +35,18 @@ const Options = new (class Options {
      * Enables a listener that listens for changes in the sync storage area.
      * This means that any items that was changed (newValue) is set if changed;
      */
-    public update() {
+    export function update() {
         chrome.storage.onChanged.addListener(function (changes, areaName) {
             if (areaName === "sync") {
                 const changeObject = <any> changes;
-                this.logging = changeObject.loggingEnabled ? changeObject.loggingEnabled.newValue : this.logging;
-                this.tabs = changeObject.trackTabs ? changeObject.trackTabs.newValue : this.tabs;
-                this.comments = changeObject.trackComments ? changeObject.trackComments.newValue : this.comments;
-                this.peer_comments = changeObject.trackPeerComments ? changeObject.trackPeerComments.newValue : this.peer_comments;
-                this.focus = changeObject.trackFocus ? changeObject.trackFocus.newValue : this.focus;
-                this.username = changeObject.hashUsername ? changeObject.hashUsername.newValue : this.username;
-                this.repo = changeObject.hashRepo ? changeObject.hashRepo.newValue : this.repo;
-                this.file = changeObject.hashFile ? changeObject.hashFile.newValue : this.file;
+                logging = changeObject.loggingEnabled ? changeObject.loggingEnabled.newValue : logging;
+                tabs = changeObject.trackTabs ? changeObject.trackTabs.newValue : tabs;
+                comments = changeObject.trackComments ? changeObject.trackComments.newValue : comments;
+                peer_comments = changeObject.trackPeerComments ? changeObject.trackPeerComments.newValue : peer_comments;
+                focus = changeObject.trackFocus ? changeObject.trackFocus.newValue : focus;
+                username = changeObject.hashUsername ? changeObject.hashUsername.newValue : username;
+                repo = changeObject.hashRepo ? changeObject.hashRepo.newValue : repo;
+                file = changeObject.hashFile ? changeObject.hashFile.newValue : file;
             }
         });
     }
@@ -55,64 +55,63 @@ const Options = new (class Options {
      * Gets the logging preference, from the chrome storage.
      * @returns {Boolean}
      */
-    public getLogging() {
-        return this.logging;
+    export function getLogging() {
+        return logging;
     }
 
     /**
      * Gets the tab tracking preference, from the chrome storage.
      * @returns {Boolean}
      */
-    public getTabs() {
-        return this.tabs;
+    export function getTabs() {
+        return tabs;
     }
 
     /**
      * Gets the comment tracking preference, from the chrome storage.
      * @returns {Boolean}
      */
-    public getComments() {
-        return this.comments;
+    export function getComments() {
+        return comments;
     }
 
     /**
      * Gets the peer comments tracking preference, from the chrome storage.
      * @returns {Boolean}
      */
-    public getPeerComments() {
-        return this.peer_comments;
+    export function getPeerComments() {
+        return peer_comments;
     }
 
     /**
      * Gets the focus tracking preference, from the chrome storage.
      * @returns {Boolean}
      */
-    public getFocus() {
-        return this.focus;
+    export function getFocus() {
+        return focus;
     }
 
     /**
      * Gets the username encryption preference, from the chrome storage.
      * @returns {Boolean}
      */
-    public getUsername() {
-        return this.username;
+    export function getUsername() {
+        return username;
     }
 
     /**
      * Gets the repository encryption preference, from the chrome storage.
      * @returns {Boolean}
      */
-    public getRepo() {
-        return this.repo;
+    export function getRepo() {
+        return repo;
     }
 
     /**
      * Gets the file encryption preference, from the chrome storage.
      * @returns {Boolean}
      */
-    public getFile() {
-        return this.file;
+    export function getFile() {
+        return file;
     }
-})();
-Options.getLogging(); // Suppress unused variable
+}
