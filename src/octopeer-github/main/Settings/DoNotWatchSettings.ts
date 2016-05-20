@@ -1,3 +1,4 @@
+/* tslint:disable */
 /// <reference path="Settings.ts"/>
 /// <reference path="../../content/ElementEventBinding/ElementEventBinding.ts"/>
 /// <reference path="../../content/ElementEventBinding/ClickElementEventBinding.ts"/>
@@ -35,12 +36,10 @@
 /// <reference path="../../content/ElementSelectionBehaviour/TabHeaderElementSelectionBehaviour/CommitsTabHeaderElementSelectionBehaviour.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/TabHeaderElementSelectionBehaviour/ConversationTabHeaderElementSelectionBehaviour.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/TabHeaderElementSelectionBehaviour/FilesChangedTabHeaderElementSelectionBehaviour.ts"/>
+/* tslint:enable */
 
 /**
  * Created by Youri on 19-5-2016.
- */
-
-/**
  * Additional type for storing tuples of Element and Event Creatables.
  */
 type ElementXEventCreatable = {
