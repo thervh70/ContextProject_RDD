@@ -9,5 +9,9 @@
     "outFile": "../../build/test.js",
     "target": "es5",
     "sourceMap": true
-  }
+  },
+  "exclude": [
+    "main/main.ts",
+    "content/main.ts"
+  ]
 }

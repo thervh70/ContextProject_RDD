@@ -21,7 +21,10 @@ abstract class AbstractElementSelectionBehaviour implements ElementSelectionBeha
      * Creates a ButtonsElementSelectionBehaviour object.
      * @param database the database to push to.
      */
-    public constructor(private database: DatabaseAdaptable) {}
+    public constructor(private database: DatabaseAdaptable, elementID: ElementID, elementDsc: string) {
+        this.elementID = elementID;
+        this.elementDsc = elementDsc;
+    }
 
     /**
      * Get the elementID for buttons

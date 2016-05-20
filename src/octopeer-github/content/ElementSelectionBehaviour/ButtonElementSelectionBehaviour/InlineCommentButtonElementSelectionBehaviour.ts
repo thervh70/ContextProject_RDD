@@ -10,8 +10,6 @@ class InlineCommentButtonElementSelectionBehaviour extends AbstractElementSelect
      * @param database The database that is used to store the Elements.
      */
     public constructor(database: DatabaseAdaptable) {
-        super(database);
-        this.elementDsc = ".add-line-comment";
-        this.elementID = new ElementID(105);
+        super(database, new ElementID(105), ".add-line-comment");
     }
 }

@@ -10,8 +10,6 @@ class ConversationTabHeaderElementSelectionBehaviour extends AbstractElementSele
      * @param database The database that is used to store the Elements.
      */
     public constructor(database: DatabaseAdaptable) {
-        super(database);
-        this.elementDsc = ".tabnav-tabs a:has(> svg.octicon-comment-discussion)";
-        this.elementID = new ElementID(201);
+        super(database, new ElementID(201), ".tabnav-tabs a:has(> svg.octicon-comment-discussion)");
     }
 }

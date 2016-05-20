@@ -10,8 +10,7 @@ class OtherContributerNameElementSelectionBehaviour extends AbstractElementSelec
      * @param database The database that is used to store the Elements.
      */
     public constructor(database: DatabaseAdaptable) {
-        super(database);
-        this.elementDsc = "teststss";
-        this.elementID = new ElementID(305);
+        // TODO: Fix the jQuery selector
+        super(database, new ElementID(305), "teststss");
     }
 }
