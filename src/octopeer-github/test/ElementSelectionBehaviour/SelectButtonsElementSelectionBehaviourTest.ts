@@ -1,3 +1,4 @@
+/* tslint:disable */
 /// <reference path="../../main/DatabaseAdaptable/DatabaseAdaptable.ts"/>
 /// <reference path="../../main/DatabaseAdaptable/ConsoleLogDatabaseAdapter.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/ElementSelectionBehaviour.ts"/>
@@ -29,6 +30,7 @@
 /// <reference path="../../content/ElementSelectionBehaviour/TabHeaderElementSelectionBehaviour/CommitsTabHeaderElementSelectionBehaviour.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/TabHeaderElementSelectionBehaviour/ConversationTabHeaderElementSelectionBehaviour.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/TabHeaderElementSelectionBehaviour/FilesChangedTabHeaderElementSelectionBehaviour.ts"/>
+/* tslint:enable */
 
 interface CreatableNumberPair extends Array<ElementSelectionBehaviourCreatable | number> {
     0: ElementSelectionBehaviourCreatable;
