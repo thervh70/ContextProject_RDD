@@ -10,6 +10,6 @@ class CommitHashcodeNameElementSelectionBehaviour extends AbstractElementSelecti
      * @param database The database that is used to store the Elements.
      */
     public constructor(database: DatabaseAdaptable) {
-        super(database, new ElementID(301), ".commit-id");
+        super(database, new ElementID(301), ".commit-id,.commit-links-cell a.sha");
     }
 }
