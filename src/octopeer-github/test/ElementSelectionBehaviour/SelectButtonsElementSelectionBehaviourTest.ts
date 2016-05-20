@@ -32,11 +32,24 @@
 /// <reference path="../../content/ElementSelectionBehaviour/TabHeaderElementSelectionBehaviour/FilesChangedTabHeaderElementSelectionBehaviour.ts"/>
 /* tslint:enable */
 
+/**
+ * Interface that enforces a tuple (ElementSelectionBehaviourCreatable, number).
+ * The 0 and 1 are the indices of this tuple (since it is created as a list).
+ * The tuple is used to test the ElementSelectionBehaviour classes. Each Creatable has
+ * a number of times its ElementSelectionBehaviour appears in the html files that are used
+ * to test the classes.
+ */
 interface CreatableNumberPair extends Array<ElementSelectionBehaviourCreatable | number> {
     0: ElementSelectionBehaviourCreatable;
     1: number;
 }
 
+/**
+ * There are three different lists containing CreatableNumberPairs. Each list conforms to an html file.
+ * This html file contains [number] instantiations of the [ElementSelectionBehaviourCreateable]. This is used
+ * in the parameterized test to test whether the right amount of Elements are detected in the html files.
+ * @type {CreatableNumberPair[]}
+ */
 // TODO: All commented tuples in the lists have to be fixed with Ajax request first
 let conversationSelectors: CreatableNumberPair[] =  [
     [AddEmoticonButtonElementSelectionBehaviour, 2],
@@ -98,18 +111,33 @@ let filesChangedSelectors: CreatableNumberPair[] = [
     [FilesChangedTabHeaderElementSelectionBehaviour, 1],
 ];
 
+/**
+ * This is a list of the different html files that are used to test the classes.
+ * htmlList[x] corresponds with selectorListsList[x].
+ * @type {string[]}
+ */
 const htmlsList = [
     "Conversation_tab.html",
     "Commit_tab.html",
     "Files_changed_tab.html",
 ];
 
+/**
+ * This is a list of the different CreatableNumberPairLists that are used to test the classes.
+ * selectorListsList[x] corresponds with htmlList[x].
+ * @type {CreatableNumberPair[][]}
+ */
 const selectorListsList = [
     conversationSelectors,
     commitSelectors,
     filesChangedSelectors,
 ];
 
+/**
+ * Strips the Creatables, so only the name remains. Used for logging the test name.
+ * @param fun
+ * @returns {string}
+ */
 function functionName(fun: ElementSelectionBehaviourCreatable) {
     let ret = fun.toString();
     ret = ret.substr("function ".length);
@@ -120,11 +148,15 @@ function functionName(fun: ElementSelectionBehaviourCreatable) {
 let databaseSpy: jasmine.Spy;
 jasmine.getFixtures().fixturesPath = "base/src/octopeer-github/test/resources";
 
+/**
+ * Every htmlFile is paired with the corresponding CreatableNumberPairList. The Creatables in the list
+ * have a determined amount of times they should appear in the html file. Besides these tests, it is also
+ * tested whether the database was called to log the data.
+ */
 for (let i = 0; i < htmlsList.length; i++) {
     const htmlFile = htmlsList[i];
     const selectors = selectorListsList[i];
 
-    // console.log(selectors);
     for (let j = 0; j < selectors.length; j++) {
         const selectorCreatable = selectors[j][0];
         describe("An ElementSelector that selects Buttons " + functionName(selectorCreatable) + " at " + htmlFile, function () {
@@ -132,14 +164,11 @@ for (let i = 0; i < htmlsList.length; i++) {
             const selector = new selectorCreatable(database);
 
             beforeEach(function () {
-                // console.log(selectors[j]);
-                // console.log(selector);
                 databaseSpy = spyOn(database, "post");
                 loadFixtures(htmlFile);
             });
 
             it("should select only one button", function () {
-                // console.log(selector);
                 expect(selector.getElements().length).toBe(selectors[j][1]);
             });
 
