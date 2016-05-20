@@ -121,6 +121,8 @@ function restoreDisable() {
 }
 
 // Constants that define the function that will be called.
+// Different show/hide (or disable switch) methods can be called from here.
+// These different implementations are there for user testing.
 const show = showCards;
 const hide = hideCards;
 
