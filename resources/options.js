@@ -1,31 +1,26 @@
 /**
  * Created by Mitchell on 10-5-2016.
- * Contains necessary functions for the Settings page of Octopeer.
+ * Contains necessary functions for the Options page of Octopeer.
  */
-
-// Helper function; simplifies the calls to specific document e-L-ements.
-function l(id) {
-    return $('#'+id)[0]
-}
 
 // Saves options to chrome.storage.
 // A message will confirm this to the user.
-function save_options() {
-    var logging = l('logging').checked;
-    var tabs = l('tabs').checked;
-    var comments = l('comments').checked;
-    var peer_comments = l('peer_comments').checked;
-    var focus = l('focus').checked;
-    var username = l('username').checked;
-    var repo = l('repo').checked;
-    var file = l('file').checked;
+function saveOptions() {
+    var logging = $('#logging').prop('checked');
+    var tabs = $('#tabs').prop('checked');
+    var comments = $('#comments').prop('checked');
+    var peerComments = $('#peerComments').prop('checked');
+    var focus = $('#focus').prop('checked');
+    var username = $('#username').prop('checked');
+    var repo = $('#repo').prop('checked');
+    var file = $('#file').prop('checked');
     chrome.storage.sync.set({
         // General
         loggingEnabled: logging,
         // Privacy
         trackTabs: tabs,
         trackComments: comments,
-        trackPeerComments: peer_comments,
+        trackPeerComments: peerComments,
         trackFocus: focus,
         // Security
         hashUsername: username,
@@ -33,12 +28,12 @@ function save_options() {
         hashFile: file
         // Hints
     }, function() {
-        Materialize.toast("Settings saved!", 2000);
+        Materialize.toast("Options saved!", 2000);
     });
 }
 
 // Restores the states of the checkboxes, using the preferences stored in chrome.storage.
-function restore_options_state() {
+function restoreOptionsState() {
     chrome.storage.sync.get({
         // Default values
         loggingEnabled: true,
@@ -51,55 +46,105 @@ function restore_options_state() {
         hashFile: false
     }, function(items) {
         // Saved values from the chrome.storage
-        l('logging').checked = items.loggingEnabled;
-        l('tabs').checked = items.trackTabs;
-        l('comments').checked = items.trackComments;
-        l('peer_comments').checked = items.trackPeerComments;
-        l('focus').checked = items.trackFocus;
-        l('username').checked = items.hashUsername;
-        l('repo').checked = items.hashRepo;
-        l('file').checked = items.hashFile;
+        $('#logging').prop('checked', items.loggingEnabled);
+        $('#tabs').prop('checked', items.trackTabs);
+        $('#comments').prop('checked', items.trackComments);
+        $('#peerComments').prop('checked', items.trackPeerComments);
+        $('#focus').prop('checked', items.trackFocus);
+        $('#username').prop('checked', items.hashUsername);
+        $('#repo').prop('checked', items.hashRepo);
+        $('#file').prop('checked', items.hashFile);
     });
 }
 
 // Restores the availability of the checkboxes, using the logging value which is stored in chrome.storage.
-function restore_options_availability() {
+function restoreOptionsAvailability() {
     chrome.storage.sync.get({
         // Default value
         loggingEnabled: true
     }, function(items) {
-        // The availability depends on the value of the logging checkbox state.
-        l('tabs').disabled = l('comments').disabled =
-            l('peer_comments').disabled = l('focus').disabled =
-                l('username').disabled = l('repo').disabled =
-                    l('file').disabled = !items.loggingEnabled;
+        var enabled = items.loggingEnabled;
+        if (enabled) {
+            show();
+        } else {
+            hide();
+        }
     });
 }
+
+// Shows the sub-options.
+function showSubOptions() {
+    $('#security_sub').show();
+    $('#privacy_sub').show();
+    $('#hints_sub').show();
+}
+
+// Hides the sub-options.
+function hideSubOptions() {
+    $('#security_sub').hide();
+    $('#privacy_sub').hide();
+    $('#hints_sub').hide();
+}
+
+// Shows the option cards.
+function showCards() {
+    $('#security').show();
+    $('#privacy').show();
+    $('#hints').show();
+}
+
+// Hides the option cards.
+function hideCards() {
+    $('#security').hide();
+    $('#privacy').hide();
+    $('#hints').hide();
+}
+
+// Switches availability of options.
+function switchDisable() {
+    $('#tabs').disabled = !$('#tabs').disabled;
+    $('#comments').disabled = !$('#comments').disabled;
+    $('#peerComments').disabled = !$('#peerComments').disabled;
+    $('#focus').disabled = !$('#focus').disabled;
+    $('#username').disabled = !$('#username').disabled;
+    $('#repo').disabled = !$('#repo').disabled;
+    $('#file').disabled = !$('#file').disabled;
+}
+
+// Restores availability of options.
+// The availability depends on the value of the logging checkbox state.
+function restoreDisable() {
+    $('#tabs').disabled = $('#comments').disabled =
+        $('#peerComments').disabled = $('#focus').disabled =
+            $('#username').disabled = $('#repo').disabled =
+                $('#file').disabled = !items.loggingEnabled;
+}
+
+// Constants that define the function that will be called.
+// Different show/hide (or disable switch) methods can be called from here.
+// These different implementations are there for user testing.
+const show = showCards;
+const hide = hideCards;
 
 // Disables the (sub)options when the user doesn't want Octopeer to log data and
 // enables the (sub)options when the user does.
 // A message will confirm this action to the user.
-function switch_options() {
-    var logging = l('logging').checked;
+function switchOptions() {
+    var logging = $('#logging').prop('checked');
     if (logging) {
         Materialize.toast("Logging has been enabled.", 2000);
+        show();
     } else {
         Materialize.toast("Logging has been disabled.", 2000);
+        hide();
     }
-    l('tabs').disabled = !l('tabs').disabled;
-    l('comments').disabled = !l('comments').disabled;
-    l('peer_comments').disabled = !l('peer_comments').disabled;
-    l('focus').disabled = !l('focus').disabled;
-    l('username').disabled = !l('username').disabled;
-    l('repo').disabled = !l('repo').disabled;
-    l('file').disabled = !l('file').disabled;
 }
 
-document.addEventListener('DOMContentLoaded', restore_options_state);
-document.addEventListener('DOMContentLoaded', restore_options_availability);
+document.addEventListener('DOMContentLoaded', restoreOptionsState);
+document.addEventListener('DOMContentLoaded', restoreOptionsAvailability);
 
 // Will execute once the page DOM is ready.
 $(document).ready(function() {
-    l('save').addEventListener('click', save_options);
-    l('logging').addEventListener('click', switch_options);
+    $('#save').click(saveOptions);
+    $('#logging').click(switchOptions);
 });

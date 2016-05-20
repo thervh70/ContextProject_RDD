@@ -10,6 +10,6 @@ class SaveEditPRNameButtonElementSelectionBehaviour extends AbstractElementSelec
      * @param database The database that is used to store the Elements.
      */
     public constructor(database: DatabaseAdaptable) {
-        super(database, new ElementID(107), ".gh-header-edit button[type=submit]");
+        super(database, new ElementID(107), "#partial-discussion-header.open .gh-header-edit button[type=submit]");
     }
 }
