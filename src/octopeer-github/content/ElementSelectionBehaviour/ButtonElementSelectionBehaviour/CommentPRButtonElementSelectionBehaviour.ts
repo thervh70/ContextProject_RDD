@@ -10,6 +10,6 @@ class CommentPRButtonElementSelectionBehaviour extends AbstractElementSelectionB
      * @param database The database that is used to store the Elements.
      */
     public constructor(database: DatabaseAdaptable) {
-        super(database, new ElementID(113), ".timeline-comment button.btn-primary");
+        super(database, new ElementID(113), ".timeline-comment button.btn-primary[data-disable-invalid]");
     }
 }
