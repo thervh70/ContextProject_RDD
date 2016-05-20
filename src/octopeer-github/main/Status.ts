@@ -8,7 +8,6 @@ enum StatusCode {ERROR, RUNNING, OFF, STANDBY}
 
 const Status = new (class Status implements OptionsObserver {
 
-    private currentStatus: StatusCode;
     /**
      * Status.NAME: the internal names of the enum StatusCode.
      */
@@ -62,10 +61,10 @@ const Status = new (class Status implements OptionsObserver {
     }
 
     /**
-     * If Octopeer was switched off set() will find out.
-     * Otherwise this method simply sets the current status.
+     * If Octopeer was switched off, standby() will find out.
+     * Otherwise this method simply sets the standby status.
      */
-    public notify(): void {
+    public notify() {
         this.standby();
     }
 
@@ -102,8 +101,7 @@ const Status = new (class Status implements OptionsObserver {
      * Helper method for set() in order to prevent duplicate code.
      * @param status
      */
-    public setter(status: StatusCode) {
-        this.currentStatus = status;
+    private setter(status: StatusCode) {
         chrome.runtime.sendMessage({
             line: Status.MESSAGE[status],
             path: this.getIcon(status),
