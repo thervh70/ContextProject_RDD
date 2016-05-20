@@ -13,7 +13,7 @@ type ElementXEventCreatable = {
 /**
  * Class for indicating all internal settings of the application.
  */
-const DoNotWatchSettings = new (class Logger {
+const DoNotWatchSettings = new (class DoNotWatchSettings {
     private doNotWatchElements: ElementSelectionBehaviourCreatable[];
     private doNotWatchEvents: ElementEventBindingCreatable[];
     private doNotWatchCombination: ElementXEventCreatable[];
@@ -49,4 +49,4 @@ const DoNotWatchSettings = new (class Logger {
         return this.doNotWatchCombination;
     }
 })();
-DoNotWatchSettings.getElements() // supress unused variable warning
+DoNotWatchSettings.getElements(); // supress unused variable warning
