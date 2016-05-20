@@ -1,4 +1,4 @@
-/* tslint:disable */
+/* tslint:disable:max-line-length */
 /// <reference path="../../main/DatabaseAdaptable/DatabaseAdaptable.ts"/>
 /// <reference path="../../main/DatabaseAdaptable/ConsoleLogDatabaseAdapter.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/ElementSelectionBehaviour.ts"/>
@@ -30,7 +30,7 @@
 /// <reference path="../../content/ElementSelectionBehaviour/TabHeaderElementSelectionBehaviour/CommitsTabHeaderElementSelectionBehaviour.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/TabHeaderElementSelectionBehaviour/ConversationTabHeaderElementSelectionBehaviour.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/TabHeaderElementSelectionBehaviour/FilesChangedTabHeaderElementSelectionBehaviour.ts"/>
-/* tslint:enable */
+/* tslint:enable:max-line-length */
 
 /**
  * Interface that enforces a tuple (ElementSelectionBehaviourCreatable, number).
@@ -117,9 +117,9 @@ let filesChangedSelectors: CreatableNumberPair[] = [
  * @type {string[]}
  */
 const htmlsList = [
-    "Conversation_tab.html",
-    "Commit_tab.html",
-    "Files_changed_tab.html",
+    "conversation-tab.html",
+    "commit-tab.html",
+    "files-changed-tab.html",
 ];
 
 /**
@@ -159,7 +159,7 @@ for (let i = 0; i < htmlsList.length; i++) {
 
     for (let j = 0; j < selectors.length; j++) {
         const selectorCreatable = selectors[j][0];
-        describe("An ElementSelector that selects Buttons " + functionName(selectorCreatable) + " at " + htmlFile, function () {
+        describe("A " + functionName(selectorCreatable) + " that selects Elements at " + htmlFile, function () {
             const database = new ConsoleLogDatabaseAdapter();
             const selector = new selectorCreatable(database);
 
@@ -168,7 +168,7 @@ for (let i = 0; i < htmlsList.length; i++) {
                 loadFixtures(htmlFile);
             });
 
-            it("should select only one button", function () {
+            it("should select exactly the specified amount of Elements", function () {
                 expect(selector.getElements().length).toBe(selectors[j][1]);
             });
 
