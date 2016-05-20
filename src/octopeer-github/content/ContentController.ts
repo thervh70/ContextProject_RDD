@@ -1,4 +1,4 @@
-/// <reference path="../main/Settings/DoNotWatchSettings.ts"/>
+/// <reference path="../main/Options/DoNotWatchOptions.ts"/>
 /// <reference path="ElementEventBinding/ElementEventBinding.ts"/>
 /// <reference path="ElementEventBinding/ClickElementEventBinding.ts"/>
 /// <reference path="ElementEventBinding/KeystrokeElementEventBinding.ts"/>

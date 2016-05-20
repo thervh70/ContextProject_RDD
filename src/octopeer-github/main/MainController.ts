@@ -8,7 +8,6 @@ import Tab = chrome.tabs.Tab;
  */
 class MainController {
 
-    public status: Status;
     private database: DatabaseAdaptable;
 
     /**
@@ -17,9 +16,11 @@ class MainController {
      */
     public start() {
         this.database = new ConsoleLogDatabaseAdapter(); // ("https://localhost:8000", 1, 1);
-        this.status = new Status();
-        this.status.standby();
         this.connectToContentScript();
+        Status.standby();
+        Options.init();
+        Options.update();
+        Options.addObserver(Status);
         return this;
     }
 
@@ -65,12 +66,11 @@ class MainController {
      * @param tab   the Tab to check for
      */
     private testAndSend(tab: Tab) {
-        const self = this;
         const url = tab.url;
         const urlFormat = /https?:\/\/.*github\.com\/(.+)\/(.+)\/pull\/([^\/]+)\/?.*/;
         if (urlFormat.test(url)) {
             let urlInfo = urlFormat.exec(url);
-            self.status.running();
+            Status.running();
             Logger.debug(`[Tab] Owner: ${urlInfo[1]}, Repo: ${urlInfo[2]}, PR-number: ${urlInfo[3]}`);
             chrome.tabs.sendMessage(tab.id, {
                 hookToDom: true,
@@ -79,7 +79,7 @@ class MainController {
                 Logger.debug(`[Tab] ${str}`);
             });
         } else {
-            self.status.standby();
+            Status.standby();
         }
     }
 
