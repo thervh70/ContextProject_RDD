@@ -1,3 +1,4 @@
+/// <reference path="../main/Settings/DoNotWatchSettings.ts"/>
 /// <reference path="ElementEventBinding/ElementEventBinding.ts"/>
 /// <reference path="ElementEventBinding/ClickElementEventBinding.ts"/>
 /// <reference path="ElementEventBinding/KeystrokeElementEventBinding.ts"/>
@@ -138,9 +139,20 @@ class ContentController {
         let elementSelectionBindingHolder: ElementSelectionBehaviour;
 
         for (elementSelectionBinding of this.elementSelectionBindingList) {
+            if (DoNotWatchSettings.getElements().contains(elementSelectionBinding)) {
+                continue;
+            }
+
             elementSelectionBindingHolder = new elementSelectionBinding(database);
 
             for (elementEventBinding of this.elementEventBindingList) {
+                if (DoNotWatchSettings.getEvents().contains(elementEventBinding) ||
+                    DoNotWatchSettings.getCombinations().contains({
+                        element: elementSelectionBinding,
+                        event: elementEventBinding,
+                    })) {
+                    continue;
+                }
                 elementEventBindingHolder = new elementEventBinding(elementSelectionBindingHolder);
             }
         }
