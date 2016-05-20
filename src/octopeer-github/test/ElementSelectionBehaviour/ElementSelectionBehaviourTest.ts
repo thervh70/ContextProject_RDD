@@ -150,8 +150,8 @@ jasmine.getFixtures().fixturesPath = "base/src/octopeer-github/test/resources";
 
 /**
  * Every htmlFile is paired with the corresponding CreatableNumberPairList. The Creatables in the list
- * have a determined amount of times they should appear in the html file. Besides these tests, it is also
- * tested whether the database was called to log the data.
+ * have an expected amount of times they should appear in the html file. These are tested against their actual
+ * number of appearances. Besides these tests, it is also tested whether the database was called to log the data.
  */
 for (let i = 0; i < htmlsList.length; i++) {
     const htmlFile = htmlsList[i];
@@ -168,7 +168,7 @@ for (let i = 0; i < htmlsList.length; i++) {
                 loadFixtures(htmlFile);
             });
 
-            it("should select exactly the specified amount of Elements", function () {
+            it("should select " + selector[j][1] + " Elements.", function () {
                 expect(selector.getElements().length).toBe(selectors[j][1]);
             });
 
