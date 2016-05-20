@@ -7,9 +7,9 @@
   "options_page": "options.html",
 
   "icons": {
-    "16": "img/icon/icon_off.png",
-    "48": "img/icon/icon_off.png",
-    "128": "img/icon/icon_off.png"
+    "16": "img/icon/off.png",
+    "48": "img/icon/off.png",
+    "128": "img/icon/off.png"
   },
 
   "browser_action": {

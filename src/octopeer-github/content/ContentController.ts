@@ -6,7 +6,7 @@
 /// <reference path="ElementEventBinding/ScrollIntoViewElementEventBinding.ts"/>
 /// <reference path="ElementEventBinding/ScrollOutOfViewElementEventBinding.ts"/>
 /// <reference path="ElementSelectionBehaviour/ElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/ButtonElementSelectionBehaviour.ts"/>
+/// <reference path="ElementSelectionBehaviour/AbstractElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/AddEmoticonButtonElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/CancelEditPRNameButtonElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/CancelInlineCommentButtonElementSelectionBehaviour.ts"/>
@@ -20,21 +20,17 @@
 /// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/MergePRButtonElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/SaveEditPRNameButtonElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/ShowChecksToggleButtonElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/MiscellaneousElementSelectionBehaviour/MiscellaneousElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/MiscellaneousElementSelectionBehaviour/DateMiscellaneousElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/NameElementSelectionBehaviour/NameElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/NameElementSelectionBehaviour/CommitHashcodeNameElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/NameElementSelectionBehaviour/CommitMessageNameElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/NameElementSelectionBehaviour/OtherContributerNameElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/NameElementSelectionBehaviour/PRCreatorNameElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/NameElementSelectionBehaviour/PRParticipantNameElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/SettingElementSelectionBehaviour/SettingElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/SettingElementSelectionBehaviour/AssigneeSettingElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/SettingElementSelectionBehaviour/LabelSettingElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/SettingElementSelectionBehaviour/LockConversationSettingElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/SettingElementSelectionBehaviour/MilestoneSettingElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/SettingElementSelectionBehaviour/UnsubscribeSettingElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/TabHeaderElementSelectionBehaviour/TabHeaderElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/TabHeaderElementSelectionBehaviour/CommitsTabHeaderElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/TabHeaderElementSelectionBehaviour/ConversationTabHeaderElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/TabHeaderElementSelectionBehaviour/FilesChangedTabHeaderElementSelectionBehaviour.ts"/>
@@ -93,15 +89,7 @@ class ContentController {
      * An inner singleton class that implements DatabaseAdaptable in order to send messages to the background page.
      * @type {MessageSendDatabaseAdapter}
      */
-    private messageSendDatabaseAdapter = new (class MessageSendDatabaseAdapter implements DatabaseAdaptable {
-        public post(data: EventObject, success: Callback, failure: Callback) {
-            let postData: any = data;
-            postData.elementID = (<ElementID>data.elementID).getElementID();
-            postData.eventID = (<EventID>data.eventID).getEventID();
-            chrome.runtime.sendMessage(JSON.stringify(postData));
-            success();
-        }
-    })();
+    private messageSendDatabaseAdapter = new MessageSendDatabaseAdapter();
 
     /**
      * Starts the ContentController. After calling this, all event handlers are hooked to the DOM-tree.

@@ -1,17 +1,15 @@
-/// <reference path="ButtonElementSelectionBehaviour.ts"/>
+/// <reference path="../AbstractElementSelectionBehaviour.ts"/>
 /**
  * Created by Mathias on 2016-05-11.
  * Class for selecting the MergePRButton
  */
-class MergePRButtonElementSelectionBehaviour extends ButtonElementSelectionBehaviour {
+class MergePRButtonElementSelectionBehaviour extends AbstractElementSelectionBehaviour {
 
     /**
      * Constructor of this class.
      * @param database The database that is used to store the Elements.
      */
     public constructor(database: DatabaseAdaptable) {
-        super(database);
-        this.elementDsc = ".js-merge-branch-action";
-        this.elementID = new ElementID(101);
+        super(database, new ElementID(101), ".js-merge-branch-action");
     }
 }

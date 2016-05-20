@@ -8,13 +8,16 @@
   },
   "license": "none",
   "scripts": {
+    "coverage": "remap-istanbul -i coverage/coverage-final.json -o coverage/html -t html",
+    "coveralls": "remap-istanbul -i coverage/coverage-final.json -t text-lcov | coveralls",
     "postinstall": "npm install -g typings && typings install",
     "test": "karma start karma.config.js --single-run --browsers Chrome",
     "travis": "npm run-script tslint && npm run-script tsc && npm test",
-    "tsc": "tsc --project src/octopeer-github/main && tsc --project src/octopeer-github/content && tsc --project src/octopeer-github/test",
+    "tsc": "tsc --project src/octopeer-github/main && tsc --project src/octopeer-github/content && tsc --project src/octopeer-github",
     "tslint": "tslint -c tslint.json src/**/*.ts"
   },
   "devDependencies": {
+    "coveralls": "^2.11.9",
     "jasmine": "^2.4.1",
     "jasmine-ajax": "^3.2.0",
     "jasmine-jquery": "^2.1.1",
@@ -24,6 +27,7 @@
     "karma-coverage": "^0.5.5",
     "karma-jasmine": "^0.3.8",
     "materialize-css": "^0.97.6",
+    "remap-istanbul": "^0.6.4",
     "tslint": "^3.9.0",
     "typescript": "^1.8.10",
     "typings": "^0.8.1"

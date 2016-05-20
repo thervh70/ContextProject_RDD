@@ -15,6 +15,8 @@ describe("A RESTApiDatabaseAdapter", function() {
             responseText: '{"url":"http://localhost:8000/api/users/42/","username":"Travis"}',
             status: 201,
         });
+
+        Logger.setDebug();
     });
 
     afterEach(function() {
@@ -56,7 +58,7 @@ describe("A RESTApiDatabaseAdapter", function() {
     });
 
     it("cannot post to the API when not initialized", function() {
-        spyOn(console, "log"); // suppress console warnings
+        spyOn(Logger, "log"); // suppress Logger logs of all levels
         delete adapter;
         adapter = new RESTApiDatabaseAdapter("http://localhost:8000", 1, 1);
 
@@ -74,7 +76,7 @@ describe("A RESTApiDatabaseAdapter", function() {
     });
 
     it("can be set to debug mode", function() {
-        const consoleSpy = spyOn(console, "log");
+        const consoleSpy = spyOn(Logger, "debug");
 
         adapter.setDebug();
 
@@ -86,7 +88,6 @@ describe("A RESTApiDatabaseAdapter", function() {
         });
 
         expect(consoleSpy).toHaveBeenCalledTimes(2);
-        expect(consoleSpy.calls.all()[0].args[0]).toBe("Sent out AJAX request: ");
-        expect(consoleSpy.calls.all()[1].args[0]).toBe("Call success, status: success");
+        expect(consoleSpy.calls.all()[0].args[0]).toBe("Call success, status: success");
     });
 });
