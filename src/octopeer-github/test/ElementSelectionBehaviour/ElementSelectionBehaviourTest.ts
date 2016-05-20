@@ -168,7 +168,7 @@ for (let i = 0; i < htmlsList.length; i++) {
                 loadFixtures(htmlFile);
             });
 
-            it("should select " + selector[j][1] + " Elements.", function () {
+            it("should select " + selectors[j][1] + " Elements.", function () {
                 expect(selector.getElements().length).toBe(selectors[j][1]);
             });
 
