@@ -59,6 +59,8 @@ class MainController {
 
     /**
      * Only sends a message to a tab if it contains the correct URL.
+     * I named it alike to a "test-and-set" operation that comes from concurrent programming.
+     *     This (atomic) operation only sets a variable if a condition holds.
      * 'Correct' format:  http[s]//[...]github.com/(owner)/(repo)/pull/(pr-no)[/...]
      * @param tab   the Tab to check for
      */
