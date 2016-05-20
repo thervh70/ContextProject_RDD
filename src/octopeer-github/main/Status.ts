@@ -33,11 +33,6 @@ const Status = new (class Status implements OptionsObserver{
     }
 
     /**
-     * Stores the current status.
-     */
-    private currentStatus: StatusCode;
-
-    /**
      * Set the error status.
      */
     public error() {
@@ -66,8 +61,8 @@ const Status = new (class Status implements OptionsObserver{
     }
 
     /**
-     * If Octopeer was switched off set() will find out.
-     * Otherwise this method simply sets the current status.
+     * If Octopeer was switched off, standby() will find out.
+     * Otherwise this method simply sets the standby status.
      */
     public notify() {
         this.standby();
@@ -107,7 +102,6 @@ const Status = new (class Status implements OptionsObserver{
      * @param status
      */
     private setter(status: StatusCode) {
-        this.currentStatus = status;
         chrome.runtime.sendMessage({
             line: Status.MESSAGE[status],
             path: this.getIcon(status),
