@@ -1,4 +1,4 @@
-/* tslint:disable */
+/* tslint:disable:max-line-length */
 /// <reference path="Settings.ts"/>
 /// <reference path="../../content/ElementEventBinding/ElementEventBinding.ts"/>
 /// <reference path="../../content/ElementEventBinding/ClickElementEventBinding.ts"/>
@@ -36,7 +36,7 @@
 /// <reference path="../../content/ElementSelectionBehaviour/TabHeaderElementSelectionBehaviour/CommitsTabHeaderElementSelectionBehaviour.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/TabHeaderElementSelectionBehaviour/ConversationTabHeaderElementSelectionBehaviour.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/TabHeaderElementSelectionBehaviour/FilesChangedTabHeaderElementSelectionBehaviour.ts"/>
-/* tslint:enable */
+/* tslint:enable:max-line-length */
 
 /**
  * Created by Youri on 19-5-2016.
