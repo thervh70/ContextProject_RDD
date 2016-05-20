@@ -13,16 +13,16 @@ type ElementXEventCreatable = {
 /**
  * Class for indicating all internal settings of the application.
  */
-namespace DoNotWatchSettings {
-    let doNotWatchElements: ElementSelectionBehaviourCreatable[];
-    let doNotWatchEvents: ElementEventBindingCreatable[];
-    let doNotWatchCombination: ElementXEventCreatable[];
+const DoNotWatchSettings = new (class Logger {
+    private doNotWatchElements: ElementSelectionBehaviourCreatable[];
+    private doNotWatchEvents: ElementEventBindingCreatable[];
+    private doNotWatchCombination: ElementXEventCreatable[];
 
     /**
      * Gets Elements not to Log, from the chrome storage.
      * @returns {ElementSelectionBehaviourCreatable[]}
      */
-    export function getElements() {
+    public getElements() {
         chrome.storage.sync.get("doNotWatchElements", function (obj: ElementSelectionBehaviourCreatable[]) {
             this.doNotWatchElements = obj;
         });
@@ -32,7 +32,7 @@ namespace DoNotWatchSettings {
      * Gets Events not to Log, from the chrome storage.
      * @returns {ElementSelectionBehaviourCreatable[]}
      */
-    export function getEvents() {
+    public getEvents() {
         chrome.storage.sync.get("doNotWatchEvents", function (obj: ElementEventBindingCreatable[]) {
             this.doNotWatchEvents = obj;
         });
@@ -42,10 +42,11 @@ namespace DoNotWatchSettings {
      * Gets Elements not to Log, from the chrome storage.
      * @returns {ElementSelectionBehaviourCreatable[]}
      */
-    export function getCombinations() {
+    public getCombinations() {
         chrome.storage.sync.get("doNotWatchCombination", function (obj: ElementXEventCreatable[]) {
             this.doNotWatchCombination = obj;
         });
         return this.doNotWatchCombination;
     }
-}
+})();
+DoNotWatchSettings.getElements() // supress unused variable warning
