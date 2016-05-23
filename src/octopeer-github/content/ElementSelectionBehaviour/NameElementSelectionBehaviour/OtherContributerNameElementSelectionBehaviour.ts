@@ -11,6 +11,6 @@ class OtherContributerNameElementSelectionBehaviour extends AbstractElementSelec
      */
     public constructor(database: DatabaseAdaptable) {
         // TODO: Fix the jQuery selector
-        super(database, new ElementID(305), "teststss");
+        super(database, ElementID.OTHERCONTRIBUTER, "teststss");
     }
 }

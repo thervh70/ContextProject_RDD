@@ -10,6 +10,6 @@ class MergePRButtonElementSelectionBehaviour extends AbstractElementSelectionBeh
      * @param database The database that is used to store the Elements.
      */
     public constructor(database: DatabaseAdaptable) {
-        super(database, new ElementID(101), ".js-merge-branch-action");
+        super(database, ElementID.MERGEPRREQUEST, ".js-merge-branch-action");
     }
 }

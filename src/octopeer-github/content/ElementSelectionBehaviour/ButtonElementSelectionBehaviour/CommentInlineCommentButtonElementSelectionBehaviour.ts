@@ -10,6 +10,6 @@ class CommentInlineCommentButtonElementSelectionBehaviour extends AbstractElemen
      * @param database The database that is used to store the Elements.
      */
     public constructor(database: DatabaseAdaptable) {
-        super(database, new ElementID(104), ".js-inline-comment-form button[type=submit]:not([disabled])");
+        super(database, ElementID.COMMENTINLINECOMMENT, ".js-inline-comment-form button[type=submit]:not([disabled])");
     }
 }

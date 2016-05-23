@@ -11,6 +11,6 @@ class PRParticipantNameElementSelectionBehaviour extends AbstractElementSelectio
      */
     public constructor(database: DatabaseAdaptable) {
         // TODO: Fix the jQuery selector
-        super(database, new ElementID(304), "testttt");
+        super(database, ElementID.PRPARTICIPANT, "testttt");
     }
 }
