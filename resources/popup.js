@@ -12,5 +12,15 @@ $(document).ready(function () {
             $("#status_image").attr("src", message.path);
         }
         sendResponse({});
-    })
+    });
+
+    function toggle() {
+        chrome.storage.sync.get("loggingEnabled", function (res) {
+            chrome.storage.sync.set({
+                loggingEnabled: !(res.loggingEnabled)
+            })
+        });
+    }
+
+    $('#status_toggle').click(toggle);
 });
