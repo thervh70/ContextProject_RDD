@@ -4,7 +4,6 @@
  */
 class EventID {
 
-    
     public static get KEYSTROKE() { return new EventID(101); }
     public static get CLICK() { return new EventID(201); }
     public static get MOUSEENTER() { return new EventID(202); }

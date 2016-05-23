@@ -12,7 +12,7 @@ class ClickElementEventBinding implements ElementEventBinding {
     /**
      * The ID of the Event
      */
-    private eventID: EventID  = new EventID(201);
+    private eventID: EventID  = EventID.CLICK;
 
     /**
      * Getter for the EventType
