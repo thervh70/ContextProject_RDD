@@ -16,7 +16,7 @@ class ElementID {
     public static get CANCELEDITPRNAME() { return new ElementID(108); }
     public static get EDITCOMMENT() { return new ElementID(109); }
     public static get ADDEMOTICON() { return new ElementID(110); }
-    public static get SHOWCICHECKS() { return new ElementID(111); }
+    public static get SHOWCICHECKSTOGGLE() { return new ElementID(111); }
     public static get SHOWCIDETAILS() { return new ElementID(112); }
     public static get COMMENTPR() { return new ElementID(113); }
     public static get CONVERSATIONTAB() { return new ElementID(201); }
@@ -28,7 +28,7 @@ class ElementID {
     public static get PRPARTICIPANT() { return new ElementID(304); }
     public static get OTHERCONTRIBUTER() { return new ElementID(305); }
     public static get LABELS() { return new ElementID(401); }
-    public static get MILESTONES() { return new ElementID(402); }
+    public static get MILESTONE() { return new ElementID(402); }
     public static get ASSIGNEE() { return new ElementID(403); }
     public static get UNSUBSCRIBE() { return new ElementID(404); }
     public static get LOCKCONVERSATION() { return new ElementID(405); }
