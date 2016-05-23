@@ -14,6 +14,12 @@ describe("The DoNotWatchOptions", function() {
         expect(DoNotWatchOptions.getEvents()).toEqual([]);
     });
 
+    it("should return events that should not be watched, when the focus is switched on", function () {
+        spyOn(Options, "getFocus").and.returnValue(true);
+        expect(DoNotWatchOptions.getEvents()).toBeDefined();
+        expect(DoNotWatchOptions.getEvents()).toEqual([ScrollIntoViewElementEventBinding, ScrollOutOfViewElementEventBinding]);
+    });
+
     it("should return combinations that should not be watched, yet undefined", function () {
         expect(DoNotWatchOptions.getCombinations()).not.toBeDefined();
     });
