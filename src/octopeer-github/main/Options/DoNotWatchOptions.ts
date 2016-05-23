@@ -48,9 +48,9 @@ type ElementXEventCreatable = {
 };
 
 /**
- * Class for indicating all internal settings of the application.
+ * Class for indicating all internal options of the application.
  */
-const DoNotWatchSettings = new (class DoNotWatchSettings {
+const DoNotWatchOptions = new (class DoNotWatchOptions {
     /**
      * Gets Elements not to Log, from the chrome storage.
      * @returns {ElementSelectionBehaviourCreatable[]}
@@ -85,4 +85,4 @@ const DoNotWatchSettings = new (class DoNotWatchSettings {
         return doNotWatchCombination;
     }
 })();
-DoNotWatchSettings.getElements(); // supress unused variable warning
+DoNotWatchOptions.getElements(); // suppress unused variable warning
