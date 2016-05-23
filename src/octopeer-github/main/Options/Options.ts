@@ -9,7 +9,7 @@ const Options = new (class Options {
     private logging: Boolean;
     private tabs: Boolean;
     private comments: Boolean;
-    private peer_comments: Boolean;
+    private peerComments: Boolean;
     private focus: Boolean;
     private username: Boolean;
     private repo: Boolean;
@@ -28,7 +28,7 @@ const Options = new (class Options {
             self.logging = object.loggingEnabled;
             self.tabs = object.trackTabs;
             self.comments = object.trackComments;
-            self.peer_comments = object.trackPeerComments;
+            self.peerComments = object.trackPeerComments;
             self.focus = object.trackFocus;
             self.username = object.hashUsername;
             self.repo = object.hashRepo;
@@ -49,7 +49,7 @@ const Options = new (class Options {
                 self.logging = changeObject.loggingEnabled ? changeObject.loggingEnabled.newValue : self.logging;
                 self.tabs = changeObject.trackTabs ? changeObject.trackTabs.newValue : self.tabs;
                 self.comments = changeObject.trackComments ? changeObject.trackComments.newValue : self.comments;
-                self.peer_comments = changeObject.trackPeerComments ? changeObject.trackPeerComments.newValue : self.peer_comments;
+                self.peerComments = changeObject.trackPeerComments ? changeObject.trackPeerComments.newValue : self.peerComments;
                 self.focus = changeObject.trackFocus ? changeObject.trackFocus.newValue : self.focus;
                 self.username = changeObject.hashUsername ? changeObject.hashUsername.newValue : self.username;
                 self.repo = changeObject.hashRepo ? changeObject.hashRepo.newValue : self.repo;
@@ -106,7 +106,7 @@ const Options = new (class Options {
      * @returns {Boolean}
      */
     public getPeerComments() {
-        return this.peer_comments;
+        return this.peerComments;
     }
 
     /**
