@@ -37,10 +37,10 @@ class MainController {
             }
         });
         // Whenever a tab updates, send a message to re-hook to DOM
-        chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-            if (changeInfo.status && changeInfo.status === "complete") {
-                self.testAndSend(tab);
-            }
+        chrome.tabs.onActivated.addListener( function(activeInfo) {
+            chrome.tabs.query({"active": true, "windowId": activeInfo.windowId}, function (tabs: Tab[]) {
+                self.testAndSend(tabs[0]);
+            });
         });
         // When a tab sends a message, log it to the Database
         chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
