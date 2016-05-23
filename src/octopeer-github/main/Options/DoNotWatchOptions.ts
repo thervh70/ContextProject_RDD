@@ -62,7 +62,7 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
     }
     /**
      * Gets Events not to Log, from the chrome storage.
-     * @returns {ElementSelectionBehaviourCreatable[]}
+     * @returns {ElementEventBindingCreatable[]}
      */
     public getEvents() {
         let doNotWatchEvents: ElementEventBindingCreatable[];
@@ -76,8 +76,8 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
         return doNotWatchEvents;
     }
     /**
-     * Gets Elements not to Log, from the chrome storage.
-     * @returns {ElementSelectionBehaviourCreatable[]}
+     * Gets Combinations not to Log, from the chrome storage.
+     * @returns {ElementXEventCreatable[]}
      */
     public getCombinations() {
         let doNotWatchCombination: ElementXEventCreatable[];
