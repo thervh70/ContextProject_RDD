@@ -3,7 +3,7 @@
  */
 const numericalValueforElementID = 4; // randomly chosen.
 
-describe("An Idenfifier for an element", function() {
+describe("An Identifier for an element", function() {
     let elementID: ElementID;
 
     it("should return the value of instantiation", function () {
