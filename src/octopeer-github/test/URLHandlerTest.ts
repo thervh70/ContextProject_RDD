@@ -16,4 +16,8 @@ describe("The URLHandler", function() {
         });
     });
 
+    it("should correctly get the session id from a URL", function () {
+        expect(URLHandler.getSessionFromUrl("http://localhost:8000/api/users/42/")).toBe(42);
+    });
+
 });
