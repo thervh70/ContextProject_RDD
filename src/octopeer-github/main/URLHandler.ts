@@ -41,7 +41,7 @@ class URLHandler {
      * ]
      */
     public static isPullRequestUrl(url: string): Array<string> {
-        const urlFormat = /https?:\/\/.*github\.com\/(.+)\/(.+)\/pull\/([^\/]+)\/?.*/;
+        const urlFormat = /https?:\/\/.*github\.com\/(.+)\/(.+)\/pull\/([^\/#\?]+)[\/#\?]?.*/;
         if (urlFormat.test(url)) {
             const res: RegExpExecArray = urlFormat.exec(url);
             return [res[0], res[1], res[2], res[3]];
