@@ -5,7 +5,6 @@
  */
 class URLHandler {
 
-
     /**
      * Appends a trailing slash to the URL if there is no trailing slash yet.
      * @param url           The URL to format.
