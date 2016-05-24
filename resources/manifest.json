@@ -1,7 +1,7 @@
 {
   "name": "Octopeer Github Data Collector",
   "manifest_version": 2,
-  "version": "0.3.0",
+  "version": "0.5.0",
   "description": "This extension collects data while the user reviews Pull Requests.",
   "author": "Rubber Duck Debuggers",
   "options_page": "options.html",
