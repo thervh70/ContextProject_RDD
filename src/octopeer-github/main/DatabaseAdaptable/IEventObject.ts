@@ -19,7 +19,8 @@ interface IEventObject {
 }
 
 /**
- * A short-hand method to create an IEventObject.
+ * A constructor has been provided. This does not have to be used for something to be an IEventObject however.
+ * TypeScript can infer types, so any object with the correct fields is seen as an IEventObject.
  */
 class EventObject implements IEventObject {
     constructor(public elementID: ElementID, public eventID: EventID,
