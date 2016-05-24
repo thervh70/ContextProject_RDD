@@ -11,7 +11,7 @@ class MessageSendDatabaseAdapter implements DatabaseAdaptable {
     /**
      * @see ../../main/DatabaseAdaptable
      */
-    public post(data: EventObject, success: Callback, failure: Callback) {
+    public post(data: IEventObject, success: Callback, failure: Callback) {
         let postData: any = data;
         postData.elementID = (<ElementID>data.elementID).getElementID();
         postData.eventID = (<EventID>data.eventID).getEventID();

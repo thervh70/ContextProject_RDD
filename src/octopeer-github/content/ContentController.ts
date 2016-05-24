@@ -1,3 +1,4 @@
+/* tslint:disable:max-line-length */
 /// <reference path="../main/Options/DoNotWatchOptions.ts"/>
 /// <reference path="ElementEventBinding/ElementEventBinding.ts"/>
 /// <reference path="ElementEventBinding/ClickElementEventBinding.ts"/>
@@ -35,6 +36,7 @@
 /// <reference path="ElementSelectionBehaviour/TabHeaderElementSelectionBehaviour/CommitsTabHeaderElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/TabHeaderElementSelectionBehaviour/ConversationTabHeaderElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/TabHeaderElementSelectionBehaviour/FilesChangedTabHeaderElementSelectionBehaviour.ts"/>
+/* tslint:enable:max-line-length */
 
 /**
  * The ContentController hooks the event handlers to the DOM-tree.
@@ -122,6 +124,7 @@ class ContentController {
                 });
             } catch (e) {
                 sendResponse(`has errored (${location.href})\n[ERR] ${e}`);
+                console.error(e);
                 return;
             }
             sendResponse(`hooked to DOM (${location.href})`);
@@ -139,15 +142,15 @@ class ContentController {
         let elementSelectionBindingHolder: ElementSelectionBehaviour;
 
         for (elementSelectionBinding of this.elementSelectionBindingList) {
-            if (DoNotWatchSettings.getElements().indexOf(elementSelectionBinding) > 0) {
+            if (DoNotWatchOptions.getElements().indexOf(elementSelectionBinding) > 0) {
                 continue;
             }
 
             elementSelectionBindingHolder = new elementSelectionBinding(database);
 
             for (elementEventBinding of this.elementEventBindingList) {
-                if (DoNotWatchSettings.getEvents().indexOf(elementEventBinding) > 0 ||
-                    DoNotWatchSettings.getCombinations().indexOf({
+                if (DoNotWatchOptions.getEvents().indexOf(elementEventBinding) > 0 ||
+                    DoNotWatchOptions.getCombinations().indexOf({
                         element: elementSelectionBinding,
                         event: elementEventBinding,
                     }) > 0
