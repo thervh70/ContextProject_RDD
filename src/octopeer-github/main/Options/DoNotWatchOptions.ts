@@ -64,7 +64,6 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
         }
         return doNotWatchElements;
     }
-    
     /**
      * Gets Events not to Log, from the chrome storage.
      * @returns {ElementSelectionBehaviourCreatable[]}
