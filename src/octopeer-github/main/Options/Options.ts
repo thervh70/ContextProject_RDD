@@ -95,6 +95,17 @@ const Options = new (class Options {
     }
 
     /**
+     * Remove a certain OptionsObserver.
+     * @param obs The Observer that has to be deleted from the list.
+     */
+    public removeObserver(obs: OptionsObserver) {
+        const index = this.observers.indexOf(obs);
+        if (index > -1) {
+            this.observers.splice(index, 1);
+        }
+    }
+
+    /**
      * Gets the logging preference, from the chrome storage.
      * @returns {Boolean}
      */
