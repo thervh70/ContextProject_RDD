@@ -37,8 +37,15 @@ class MainController {
             }
         });
         // Whenever a tab updates, send a message to re-hook to DOM
+        chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+            if (changeInfo.status && changeInfo.status === "complete") {
+                self.testAndSend(tab);
+            }
+        });
+        // Whenever the user changes tabs, send a message to re-hook to DOM
         chrome.tabs.onActivated.addListener( function(activeInfo) {
             chrome.tabs.query({"active": true, "windowId": activeInfo.windowId}, function (tabs: Tab[]) {
+                // There is usually only one active tab, so no need to iterate
                 self.testAndSend(tabs[0]);
             });
         });
