@@ -64,7 +64,7 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
      * @param success       Callback, which is called once the call has succeeded.
      * @param failure       Callback, which is called once the call has failed.
      */
-    public post(eventData: EventObject, success: Callback, failure: Callback): void {
+    public post(eventData: IEventObject, success: Callback, failure: Callback): void {
         const self = this;
         if (!this.isInitialized) {
             Logger.warn("The database has not been initialized yet!");
@@ -102,7 +102,7 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
      * @param eventData                 The data to post to the database.
      * @returns {JQueryAjaxSettings}    A Settings Object that can be used in an AJAX request.
      */
-    private createPostData(eventData: EventObject) {
+    private createPostData(eventData: IEventObject) {
         return this.createJSONPost({
             "started_at": eventData.start.toJSON(),
             "duration": eventData.duration,
