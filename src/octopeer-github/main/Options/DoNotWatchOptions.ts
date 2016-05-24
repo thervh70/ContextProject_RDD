@@ -56,7 +56,7 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
      * @returns {ElementSelectionBehaviourCreatable[]}
      */
     public getElements() {
-        let doNotWatchElements: ElementSelectionBehaviourCreatable[];
+        let doNotWatchElements: ElementSelectionBehaviourCreatable[] = [];
 
         return doNotWatchElements;
     }
@@ -65,8 +65,7 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
      * @returns {ElementSelectionBehaviourCreatable[]}
      */
     public getEvents() {
-        let doNotWatchEvents: ElementEventBindingCreatable[];
-        doNotWatchEvents = [];
+        let doNotWatchEvents: ElementEventBindingCreatable[] = [];
 
         if (Options.getFocus()) {
             doNotWatchEvents.push(ScrollIntoViewElementEventBinding);
@@ -80,7 +79,7 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
      * @returns {ElementSelectionBehaviourCreatable[]}
      */
     public getCombinations() {
-        let doNotWatchCombination: ElementXEventCreatable[];
+        let doNotWatchCombination: ElementXEventCreatable[] = [];
 
         return doNotWatchCombination;
     }
