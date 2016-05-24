@@ -34,6 +34,20 @@ describe("The URLHandler", function() {
                 url, "thervh70", "ContextProject_RDD", "7",
             ]);
         });
+
+        it("be correct when in the files tab", function() {
+            const url = testURL + "/files";
+            expect(URLHandler.isPullRequestUrl(url)).toEqual([
+                url, "thervh70", "ContextProject_RDD", "7",
+            ]);
+        });
+
+        it("be correct when linked to a specific event", function() {
+            const url = testURL + "#event-666986359";
+            expect(URLHandler.isPullRequestUrl(url)).toEqual([
+                url, "thervh70", "ContextProject_RDD", "7",
+            ]);
+        });
     });
 
 });
