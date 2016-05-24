@@ -6,7 +6,7 @@
 
 enum StatusCode {ERROR, RUNNING, OFF, STANDBY}
 
-const Status = new (class Status implements OptionsObserver {
+const Status = new (class Status {
 
     /**
      * Status.NAME: the internal names of the enum StatusCode.
@@ -58,15 +58,6 @@ const Status = new (class Status implements OptionsObserver {
      */
     public standby() {
         this.set(StatusCode.STANDBY);
-    }
-
-    /**
-     * If Octopeer was switched off, standby() will find out.
-     * Otherwise this method simply sets the standby status.
-     */
-    // TODO: Fix Toggle in PR (not standby but running)
-    public notify() {
-        this.standby();
     }
 
     /**
