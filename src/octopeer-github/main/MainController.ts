@@ -42,6 +42,13 @@ class MainController {
                 self.testAndSend(tab);
             }
         });
+        // Whenever the user changes tabs, send a message to re-hook to DOM
+        chrome.tabs.onActivated.addListener( function(activeInfo) {
+            chrome.tabs.query({"active": true, "windowId": activeInfo.windowId}, function (tabs: Tab[]) {
+                // There is usually only one active tab, so no need to iterate
+                self.testAndSend(tabs[0]);
+            });
+        });
         // When a tab sends a message, log it to the Database
         chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
             if (!sender.tab) {
