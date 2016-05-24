@@ -122,6 +122,7 @@ class ContentController {
                 });
             } catch (e) {
                 sendResponse(`has errored (${location.href})\n[ERR] ${e}`);
+                console.error(e);
                 return;
             }
             sendResponse(`hooked to DOM (${location.href})`);
