@@ -36,7 +36,7 @@ class MainController {
     }
 
     /**
-     * On start-up, let all tabs hook to DOM
+     * On start-up, let all tabs hook to DOM.
      */
     private initAllCurrentTabs() {
         const self = this;
@@ -49,7 +49,7 @@ class MainController {
     }
 
     /**
-     * Whenever a tab updates, send a message to re-hook to DOM
+     * Whenever a tab updates, send a message to re-hook to DOM.
      */
     private rehookOnUpdate() {
         const self = this;
@@ -61,20 +61,20 @@ class MainController {
     }
 
     /**
-     * Whenever the user changes tabs, send a message to re-hook to DOM
+     * Whenever the user changes tabs, send a message to re-hook to DOM.
+     * There is usually only one active tab, so no need to iterate in the callback.
      */
     private rehookOnFocusChange() {
         const self = this;
         chrome.tabs.onActivated.addListener(function(activeInfo) {
             chrome.tabs.query({"active": true, "windowId": activeInfo.windowId}, function (tabs: Tab[]) {
-                // There is usually only one active tab, so no need to iterate
                 self.testAndSend(tabs[0]);
             });
         });
     }
 
     /**
-     * When a tab sends a message, log it to the Database
+     * When a tab sends a message, log it to the Database.
      */
     private listenToDatabaseMessages() {
         const self = this;
