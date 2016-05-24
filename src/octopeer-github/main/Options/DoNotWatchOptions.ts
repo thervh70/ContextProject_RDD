@@ -57,9 +57,16 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
      */
     public getElements() {
         let doNotWatchElements: ElementSelectionBehaviourCreatable[];
+        doNotWatchElements = [];
 
+        if (Options.getDoNotWatchCommentElements()) {
+            doNotWatchElements.push(CommentInlineCommentButtonElementSelectionBehaviour);
+            doNotWatchElements.push(CommentPRButtonElementSelectionBehaviour);
+            doNotWatchElements.push(EditCommentButtonElementSelectionBehaviour);
+        }
         return doNotWatchElements;
     }
+    
     /**
      * Gets Events not to Log, from the chrome storage.
      * @returns {ElementSelectionBehaviourCreatable[]}
@@ -68,20 +75,28 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
         let doNotWatchEvents: ElementEventBindingCreatable[];
         doNotWatchEvents = [];
 
-        if (Options.getFocus()) {
+        if (Options.getDoNotWatchOnScreenEvents()) {
             doNotWatchEvents.push(ScrollIntoViewElementEventBinding);
             doNotWatchEvents.push(ScrollOutOfViewElementEventBinding);
         }
-
+        if (Options.getDoNotWatchHoverEvents()) {
+            doNotWatchEvents.push(MouseEnterElementEventBinding);
+            doNotWatchEvents.push(MouseLeaveElementEventBinding);
+        }
+        if (Options.getDoNotWatchKeyboardShortcutEvents()) {
+            doNotWatchEvents.push(KeystrokeElementEventBinding);
+        }
         return doNotWatchEvents;
     }
+
     /**
      * Gets Elements not to Log, from the chrome storage.
+     * This is currenlty just a placeholder for the structure to be used.
      * @returns {ElementSelectionBehaviourCreatable[]}
      */
     public getCombinations() {
         let doNotWatchCombination: ElementXEventCreatable[];
-
+        doNotWatchCombination = [];
         return doNotWatchCombination;
     }
 })();
