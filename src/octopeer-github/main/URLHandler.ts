@@ -29,4 +29,24 @@ class URLHandler {
         return Number(suburl);
     }
 
+    /**
+     * Checks whether the url provided is one that belongs to a Pull Request.
+     * 'Correct' format:  http[s]//[...]github.com/(owner)/(repo)/pull/(pr-no)[/...]
+     * @param url               The URL to get the session ID from.
+     * @returns {Array<string>} [] if the url is INVALID. If the url is VALID: [
+     *      0: the url recognized by the regular expression
+     *      1: owner of the repo
+     *      2: repository name
+     *      3: pull request number (in a string)
+     * ]
+     */
+    public static isPullRequestUrl(url: string): Array<string> {
+        const urlFormat = /https?:\/\/.*github\.com\/(.+)\/(.+)\/pull\/([^\/]+)\/?.*/;
+        if (urlFormat.test(url)) {
+            return urlFormat.exec(url);
+        } else {
+            return [];
+        }
+    }
+
 }
