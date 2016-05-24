@@ -48,15 +48,15 @@ type ElementXEventCreatable = {
 };
 
 /**
- * Class for indicating all internal settings of the application.
+ * Class for indicating all internal options of the application.
  */
-const DoNotWatchSettings = new (class DoNotWatchSettings {
+const DoNotWatchOptions = new (class DoNotWatchOptions {
     /**
      * Gets Elements not to Log, from the chrome storage.
      * @returns {ElementSelectionBehaviourCreatable[]}
      */
     public getElements() {
-        let doNotWatchElements: ElementSelectionBehaviourCreatable[];
+        let doNotWatchElements: ElementSelectionBehaviourCreatable[] = [];
 
         return doNotWatchElements;
     }
@@ -65,8 +65,7 @@ const DoNotWatchSettings = new (class DoNotWatchSettings {
      * @returns {ElementSelectionBehaviourCreatable[]}
      */
     public getEvents() {
-        let doNotWatchEvents: ElementEventBindingCreatable[];
-        doNotWatchEvents = [];
+        let doNotWatchEvents: ElementEventBindingCreatable[] = [];
 
         if (Options.getFocus()) {
             doNotWatchEvents.push(ScrollIntoViewElementEventBinding);
@@ -80,9 +79,9 @@ const DoNotWatchSettings = new (class DoNotWatchSettings {
      * @returns {ElementSelectionBehaviourCreatable[]}
      */
     public getCombinations() {
-        let doNotWatchCombination: ElementXEventCreatable[];
+        let doNotWatchCombination: ElementXEventCreatable[] = [];
 
         return doNotWatchCombination;
     }
 })();
-DoNotWatchSettings.getElements(); // supress unused variable warning
+DoNotWatchOptions.getElements(); // suppress unused variable warning

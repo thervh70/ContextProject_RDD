@@ -122,6 +122,7 @@ class ContentController {
                 });
             } catch (e) {
                 sendResponse(`has errored (${location.href})\n[ERR] ${e}`);
+                console.error(e);
                 return;
             }
             sendResponse(`hooked to DOM (${location.href})`);
@@ -139,15 +140,15 @@ class ContentController {
         let elementSelectionBindingHolder: ElementSelectionBehaviour;
 
         for (elementSelectionBinding of this.elementSelectionBindingList) {
-            if (DoNotWatchSettings.getElements().indexOf(elementSelectionBinding) > 0) {
+            if (DoNotWatchOptions.getElements().indexOf(elementSelectionBinding) > 0) {
                 continue;
             }
 
             elementSelectionBindingHolder = new elementSelectionBinding(database);
 
             for (elementEventBinding of this.elementEventBindingList) {
-                if (DoNotWatchSettings.getEvents().indexOf(elementEventBinding) > 0 ||
-                    DoNotWatchSettings.getCombinations().indexOf({
+                if (DoNotWatchOptions.getEvents().indexOf(elementEventBinding) > 0 ||
+                    DoNotWatchOptions.getCombinations().indexOf({
                         element: elementSelectionBinding,
                         event: elementEventBinding,
                     }) > 0

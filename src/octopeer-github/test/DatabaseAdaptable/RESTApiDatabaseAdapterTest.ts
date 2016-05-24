@@ -45,7 +45,7 @@ describe("A RESTApiDatabaseAdapter", function() {
     it("can post to the API", function() {
         const spyFunc = jasmine.createSpy("success");
 
-        adapter.post(EventObject(defaultElementID, defaultEventID, new Date(), 100), spyFunc, EMPTY_CALLBACK);
+        adapter.post(new EventObject(defaultElementID, defaultEventID, new Date(), 100), spyFunc, EMPTY_CALLBACK);
 
         jasmine.Ajax.requests.mostRecent().respondWith({
             contentType: "text/json",
@@ -64,7 +64,7 @@ describe("A RESTApiDatabaseAdapter", function() {
 
         const spyFunc = jasmine.createSpy("success");
 
-        adapter.post(EventObject(defaultElementID, defaultEventID, new Date(), 100), spyFunc, EMPTY_CALLBACK);
+        adapter.post(new EventObject(defaultElementID, defaultEventID, new Date(), 100), spyFunc, EMPTY_CALLBACK);
 
         jasmine.Ajax.requests.mostRecent().respondWith({
             contentType: "text/json",
@@ -80,7 +80,7 @@ describe("A RESTApiDatabaseAdapter", function() {
 
         adapter.setDebug();
 
-        adapter.post(EventObject(defaultElementID, defaultEventID, new Date(), 100), EMPTY_CALLBACK, EMPTY_CALLBACK);
+        adapter.post(new EventObject(defaultElementID, defaultEventID, new Date(), 100), EMPTY_CALLBACK, EMPTY_CALLBACK);
         jasmine.Ajax.requests.mostRecent().respondWith({
             contentType: "text/json",
             responseText: JSON.stringify({success: true}),
