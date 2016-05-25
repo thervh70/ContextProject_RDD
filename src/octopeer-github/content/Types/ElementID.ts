@@ -4,6 +4,11 @@
  */
 class ElementID {
 
+    /**
+     * The 'Getters in this list are not really getters,
+     * they are the closest thing TypeScript has to offer as
+     * public static final fields.
+     */
     /** Instantiated ElementID for the MergePullRequestButton. */
     public static get MERGE_PULLREQUEST() { return new ElementID(101); }
     /** Instantiated ElementID for the ClosePullRequestButton. */
@@ -30,6 +35,10 @@ class ElementID {
     public static get SHOW_CI_DETAILS() { return new ElementID(112); }
     /** Instantiated ElementID for the CommentPullRequestButton. */
     public static get CREATE_PR_COMMENT() { return new ElementID(113); }
+    /** Instantiated ElementID for the CommentPullRequestButton. */
+    public static get CONFIRM_EDIT_COMMENT() { return new ElementID(114); }
+    /** Instantiated ElementID for the CommentPullRequestButton. */
+    public static get CANCEL_EDIT_COMMENT() { return new ElementID(115); }
     /** Instantiated ElementID for the ConversationTab. */
     public static get CONVERSATION_TAB() { return new ElementID(201); }
     /** Instantiated ElementID for the CommitsTab. */

@@ -4,6 +4,11 @@
  */
 class EventID {
 
+    /**
+     * The 'Getters in this list are not really getters,
+     * they are the closest thing TypeScript has to offer as
+     * public static final fields.
+     */
     /** Instantiated EventID for a Keystroke event. */
     public static get KEYSTROKE() { return new EventID(101); }
     /** Instantiated EventID for a Click event. */
