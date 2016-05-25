@@ -13,7 +13,7 @@ describe("The Logger", function() {
     });
 
     it("should log warnings", function() {
-        Logger.log("this is a warning");
+        Logger.warn("this is a warning");
         expect(consoleSpy).toHaveBeenCalledWith("[WARN ] ", "this is a warning");
     });
 
@@ -28,6 +28,12 @@ describe("The Logger", function() {
         expect(consoleSpy).toHaveBeenCalledWith("[DEBUG] ", "this is a debug message");
 
         Logger.setDebug(false); // cleanup
+    });
+
+    it("should log database items", function() {
+        const obj = {data: "dummy"};
+        Logger.database(obj);
+        expect(consoleSpy).toHaveBeenCalledWith("[DATA ] ", obj);
     });
 
 });

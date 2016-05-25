@@ -1,6 +1,7 @@
 # ContextProject_RDD
 [![Stories in Ready](https://badge.waffle.io/thervh70/ContextProject_RDD.png?label=ready&title=Ready)](http://waffle.io/thervh70/ContextProject_RDD)
 [![Build Status](https://travis-ci.org/thervh70/ContextProject_RDD.svg?branch=master)](https://travis-ci.org/thervh70/ContextProject_RDD)
+[![Coverage Status](https://coveralls.io/repos/github/thervh70/ContextProject_RDD/badge.svg?branch=master)](https://coveralls.io/github/thervh70/ContextProject_RDD?branch=master)
 
 ### Documents
 - [Definition of Done](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Definition_of_Done.pdf)
@@ -9,10 +10,12 @@
   - [2](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Sprint_Backlog2.pdf)
   - [3](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Sprint_Backlog3.pdf)
   - [4](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Sprint_Backlog4.pdf)
+  - [5](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Sprint_Backlog5.pdf)
 - Sprint retrospectives:
   - [1](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/SprintRetrospective-1.pdf)
   - [2](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/SprintRetrospective-2.pdf)
   - [3](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/SprintRetrospective-3.pdf)
+  - [4](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/SprintRetrospective-4.pdf)
 
 - Research Documents:
   - [Frameworks](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/research/Research_Frameworks.pdf)
@@ -51,15 +54,10 @@ The default settings within this enabled area are sufficient, so apply the chang
 
 You've now activated TSLint.
 
-
-**Installing and using MaDGe (dependency tool):**
-- Run `npm install madge` (library)
-- Run `npm -g install madge` (command-line tool)
-- Run `madge` for using MaDGe (it will return all options)
-- Run (for example) `madge -f amd -c ./src` for checking circular dependencies within the source code.
-- (Optional) GraphViz can be used for visualizing the results.
-
-More examples can be found [here](https://github.com/pahen/madge).
+### Coverage
+- The `npm test` command will generate a `coverage-final.json` file.
+- Run `npm run-script coverage` to generate a html coverage report of the json coverage file.
+- You can now view the coverage report by opening `coverage/html/index.html`. This html file gives a nice overview of the coverage of the source code.
 
 ### Building and Installing the Extension
 - Run `build.sh` to build the extension

@@ -1,3 +1,5 @@
+/* tslint:disable:max-line-length */
+/// <reference path="../main/Options/DoNotWatchOptions.ts"/>
 /// <reference path="ElementEventBinding/ElementEventBinding.ts"/>
 /// <reference path="ElementEventBinding/ClickElementEventBinding.ts"/>
 /// <reference path="ElementEventBinding/KeystrokeElementEventBinding.ts"/>
@@ -6,7 +8,7 @@
 /// <reference path="ElementEventBinding/ScrollIntoViewElementEventBinding.ts"/>
 /// <reference path="ElementEventBinding/ScrollOutOfViewElementEventBinding.ts"/>
 /// <reference path="ElementSelectionBehaviour/ElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/ButtonElementSelectionBehaviour.ts"/>
+/// <reference path="ElementSelectionBehaviour/AbstractElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/AddEmoticonButtonElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/CancelEditPRNameButtonElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/CancelInlineCommentButtonElementSelectionBehaviour.ts"/>
@@ -20,24 +22,21 @@
 /// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/MergePRButtonElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/SaveEditPRNameButtonElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/ShowChecksToggleButtonElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/MiscellaneousElementSelectionBehaviour/MiscellaneousElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/MiscellaneousElementSelectionBehaviour/DateMiscellaneousElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/NameElementSelectionBehaviour/NameElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/NameElementSelectionBehaviour/CommitHashcodeNameElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/NameElementSelectionBehaviour/CommitMessageNameElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/NameElementSelectionBehaviour/OtherContributerNameElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/NameElementSelectionBehaviour/PRCreatorNameElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/NameElementSelectionBehaviour/PRParticipantNameElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/SettingElementSelectionBehaviour/SettingElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/SettingElementSelectionBehaviour/AssigneeSettingElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/SettingElementSelectionBehaviour/LabelSettingElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/SettingElementSelectionBehaviour/LockConversationSettingElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/SettingElementSelectionBehaviour/MilestoneSettingElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/SettingElementSelectionBehaviour/UnsubscribeSettingElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/TabHeaderElementSelectionBehaviour/TabHeaderElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/TabHeaderElementSelectionBehaviour/CommitsTabHeaderElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/TabHeaderElementSelectionBehaviour/ConversationTabHeaderElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/TabHeaderElementSelectionBehaviour/FilesChangedTabHeaderElementSelectionBehaviour.ts"/>
+/* tslint:enable:max-line-length */
 
 /**
  * The ContentController hooks the event handlers to the DOM-tree.
@@ -125,6 +124,7 @@ class ContentController {
                 });
             } catch (e) {
                 sendResponse(`has errored (${location.href})\n[ERR] ${e}`);
+                console.error(e);
                 return;
             }
             sendResponse(`hooked to DOM (${location.href})`);
@@ -142,9 +142,21 @@ class ContentController {
         let elementSelectionBindingHolder: ElementSelectionBehaviour;
 
         for (elementSelectionBinding of this.elementSelectionBindingList) {
+            if (DoNotWatchOptions.getElements().indexOf(elementSelectionBinding) > 0) {
+                continue;
+            }
+
             elementSelectionBindingHolder = new elementSelectionBinding(database);
 
             for (elementEventBinding of this.elementEventBindingList) {
+                if (DoNotWatchOptions.getEvents().indexOf(elementEventBinding) > 0 ||
+                    DoNotWatchOptions.getCombinations().indexOf({
+                        element: elementSelectionBinding,
+                        event: elementEventBinding,
+                    }) > 0
+                ) {
+                    continue;
+                }
                 elementEventBindingHolder = new elementEventBinding(elementSelectionBindingHolder);
             }
         }

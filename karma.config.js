@@ -7,19 +7,25 @@ module.exports = function(config) {
             "node_modules/jquery/dist/jquery.min.js",
             "node_modules/jasmine-ajax/lib/mock-ajax.js",
             "node_modules/jasmine-jquery/lib/jasmine-jquery.js",
-            "build/test.js"
+            "build/test.js",
+            {
+                pattern: 'src/octopeer-github/test/resources/**/*.html',
+                watched: true,
+                served: true,
+                included: false
+            }
         ],
         reporters: ['progress', 'coverage'],
         coverageReporter: {
-            type: 'html',
-            dir: 'coverage/'
+            type : 'json',
+            subdir : '.',
+            file : 'coverage-final.json'
         },
 
         preprocessors: {
             // source files, that you wanna generate coverage for
             // do not include tests or libraries
-            'build/content.js': ['coverage'],
-            'build/main.js': ['coverage']
+            'build/test.js': ['coverage']
         },
 
         browsers: ['Chrome', 'ChromeCanary'],

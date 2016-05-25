@@ -18,18 +18,18 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
      */
     constructor(private _url: string, private _user: number, private _pr: number, private _debug = false) {
         const self = this; // scope 'self' to be the adapter (instead of the AJAX call)
-        self._url = self.formatUrl(self._url);
+        self._url = URLHandler.formatUrl(self._url);
 
         $.ajax(`${self.url}api/sessions/`, self.createPostSession())
             .done(function(data, status, jqXHR) {
-                self._session = self.getSessionFromUrl(data.url);
+                self._session = URLHandler.getSessionFromUrl(data.url);
                 if (self._debug) {
                     Logger.debug(`Initialized DatabaseAdapter(${_url}, session=${self._session})`);
                     Logger.debug(self);
                 }
             })
             .fail(function(jqXHR, status) {
-                Logger.log(`DatabaseAdapter could not connect to ${self.url}.`);
+                Logger.warn(`DatabaseAdapter could not connect to ${self.url}.`);
                 Logger.debug(jqXHR);
             });
         if (self._debug) {
@@ -64,10 +64,10 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
      * @param success       Callback, which is called once the call has succeeded.
      * @param failure       Callback, which is called once the call has failed.
      */
-    public post(eventData: EventObject, success: Callback, failure: Callback): void {
+    public post(eventData: IEventObject, success: Callback, failure: Callback): void {
         const self = this;
         if (!this.isInitialized) {
-            Logger.log("The database has not been initialized yet!");
+            Logger.warn("The database has not been initialized yet!");
             return;
         }
         $.ajax(`${this.url}api/semantic-events/`, self.createPostData(eventData))
@@ -79,7 +79,7 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
                 success(data, status, jqXHR);
             })
             .fail(function(jqXHR, status) {
-                Logger.log(`Database post failed, status: ${status}`);
+                Logger.warn(`Database post failed, status: ${status}`);
                 Logger.debug(jqXHR);
                 failure(jqXHR, status);
             });
@@ -102,7 +102,7 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
      * @param eventData                 The data to post to the database.
      * @returns {JQueryAjaxSettings}    A Settings Object that can be used in an AJAX request.
      */
-    private createPostData(eventData: EventObject) {
+    private createPostData(eventData: IEventObject) {
         return this.createJSONPost({
             "started_at": eventData.start,
             "duration": eventData.duration,
@@ -123,29 +123,6 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
             dataType: "json",
             type: "POST",
         };
-    }
-
-    /**
-     * Appends a trailing slash to the URL if there is no trailing slash yet.
-     * @param url           The URL to format.
-     * @returns {string}    A formatted URL.
-     */
-    private formatUrl(url: string) {
-        if (url.charAt(url.length - 1) !== "/") {
-            url += "/";
-        }
-        return url;
-    }
-
-    /**
-     * Gets the session ID from the URL.
-     * @param url           The URL to get the session ID from.
-     * @returns {Number}    The session ID.
-     */
-    private getSessionFromUrl(url: string) {
-        let suburl = url.substr(0, url.length - 1);             // trim trailing slash
-        suburl = suburl.substr(suburl.lastIndexOf("/") + 1);    // substring starting from the character after the last "/"
-        return Number(suburl);
     }
 
 }

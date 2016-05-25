@@ -1,9 +1,12 @@
-/// <reference path="../ElementSelectionBehaviour.ts"/>
-/// <reference path="../../ElementEventBinding/ElementEventBinding.ts"/>
+/// <reference path="ElementSelectionBehaviour.ts"/>
+/// <reference path="../ElementEventBinding/ElementEventBinding.ts"/>
 /**
- * Created by Mathias on 2016-05-11.
+ * Created by Mathias on 2016-05-17.
+ * The main abstract class for ElementSelectionBehaviours.
+ * It implements the ElementSelectionBehaviour interface and all ElementSelectionBehaviours
+ * inherit from this abstract class.
  */
-abstract class NameElementSelectionBehaviour implements ElementSelectionBehaviour {
+abstract class AbstractElementSelectionBehaviour implements ElementSelectionBehaviour {
 
     /**
      * The description of the Element
@@ -18,7 +21,10 @@ abstract class NameElementSelectionBehaviour implements ElementSelectionBehaviou
      * Creates a ButtonsElementSelectionBehaviour object.
      * @param database the database to push to.
      */
-    public constructor(private database: DatabaseAdaptable) {}
+    public constructor(private database: DatabaseAdaptable, elementID: ElementID, elementDsc: string) {
+        this.elementID = elementID;
+        this.elementDsc = elementDsc;
+    }
 
     /**
      * Get the elementID for buttons
@@ -45,7 +51,7 @@ abstract class NameElementSelectionBehaviour implements ElementSelectionBehaviou
         const self = this;
         return (function(eventObject: JQueryEventObject) {
             // TODO: check when the new Date is triggered.
-            self.database.post(EventObject(self.getElementID(), eventID, new Date(), 0),
+            self.database.post(new EventObject(self.getElementID(), eventID, new Date(), 0),
                 EMPTY_CALLBACK, EMPTY_CALLBACK);
         });
     }
