@@ -25,6 +25,9 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
             Logger.warn("Not a valid PR URL: " + _prUrl);
             return;
         }
+        this._owner = urlInfo[1];
+        this._repo = urlInfo[2];
+        this._pr = Number(urlInfo[3]);
         this._initialized = true;
         if (_debug) {
             Logger.debug(`Constructed DatabaseAdapter(${_databaseUrl})`);
