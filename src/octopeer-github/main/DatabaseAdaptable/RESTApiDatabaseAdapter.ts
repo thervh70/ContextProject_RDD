@@ -112,7 +112,8 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
      */
     private createJSONPost(data: Object): JQueryAjaxSettings {
         return {
-            data: data,
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(data),
             dataType: "json",
             type: "POST",
         };
