@@ -7,31 +7,33 @@
 class RESTApiDatabaseAdapter implements DatabaseAdaptable {
 
     private _session: number = -1;
+    private _owner: string;
+    private _repo: string;
+    private _pr: number;
 
-    // TODO The PR id and UserID should be get from the context
     /**
      * Constructs the RESTApiDatabaseAdapter
-     * @param _url              The URL to connect to, on this address the server should be running.
+     * @param _databaseUrl      The URL to connect to, on this address the server should be running.
+     * @param _prUrl            A URL to a pull request.
      * @param _user             The username of the user on GitHub.
-     * @param _owner            The username of the owner of the repository.
-     * @param _repo             The repository name.
-     * @param _pr               The PR number (relative to the repository, not the ID in the database).
      * @param _debug = false    When this is true, verbose logging will be used.
      */
-    constructor(private _url: string,
-                private _user: string, private _owner: string, private _repo: string, private _pr: number,
-                private _debug = false) {
-        const self = this; // scope 'self' to be the adapter (instead of the AJAX call)
-        self._url = URLHandler.formatUrl(self._url);
+    constructor(private _databaseUrl: string, private _prUrl: string, private _user: string, private _debug = false) {
+        _databaseUrl = URLHandler.formatUrl(_databaseUrl);
+        const urlInfo = URLHandler.isPullRequestUrl(_prUrl);
+        if (urlInfo === []) {
+            Logger.warn("Not a valid PR URL: " + _prUrl);
+            return;
+        }
         this.fetchSessionId();
-        if (self._debug) {
-            Logger.debug(`Constructed DatabaseAdapter(${_url})`);
+        if (_debug) {
+            Logger.debug(`Constructed DatabaseAdapter(${_databaseUrl})`);
             Logger.debug(self);
         }
     }
 
     private fetchSessionId() {
-        const self = this;
+        const self = this; // scope 'self' to be the adapter (instead of the AJAX call)
         $.ajax(`${self.url}api/sessions/`, self.createPostSession())
             .done(function(data, status, jqXHR) {
                 self._session = URLHandler.getSessionFromUrl(data.url);
@@ -47,7 +49,7 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
     }
 
     get url(): string {
-        return this._url;
+        return this._databaseUrl;
     }
 
     get isInitialized(): boolean {

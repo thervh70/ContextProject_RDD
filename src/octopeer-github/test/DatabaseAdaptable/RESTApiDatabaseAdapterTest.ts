@@ -9,7 +9,7 @@ describe("A RESTApiDatabaseAdapter", function() {
     beforeEach(function() {
         jasmine.Ajax.install();
 
-        adapter = new RESTApiDatabaseAdapter("http://localhost:8000/", "Travis", "Travis", "travisrepo", 42);
+        adapter = new RESTApiDatabaseAdapter("http://localhost:8000/", "https://github.com/Travis/travisrepo/pull/42", "Travis");
         jasmine.Ajax.requests.mostRecent().respondWith({
             contentType: "text/json",
             responseText: '{"url":"http://localhost:8000/api/users/42/","username":"Travis"}',
@@ -50,7 +50,7 @@ describe("A RESTApiDatabaseAdapter", function() {
     it("cannot post to the API when not initialized", function() {
         spyOn(Logger, "log"); // suppress Logger logs of all levels
         delete adapter;
-        adapter = new RESTApiDatabaseAdapter("http://localhost:8000/", "Travis", "Travis", "travisrepo", 42);
+        adapter = new RESTApiDatabaseAdapter("http://localhost:8000/", "https://github.com/Travis/travisrepo/pull/42", "Travis");
 
         const spyFunc = jasmine.createSpy("success");
 

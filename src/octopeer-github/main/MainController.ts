@@ -16,7 +16,7 @@ class MainController {
      */
     public start() {
         Logger.setDebug(); // TODO remove this on release
-        this.database = new RESTApiDatabaseAdapter("http://10.0.22.6", "Travis", "Travis", "travisrepo", 42);
+        this.database = new RESTApiDatabaseAdapter("http://10.0.22.6", "https://github.com/Travis/travisrepo/pull/42", "Travis");
         this.connectToContentScript();
         Status.standby();
         // TODO: Options.update actually means "add a listener to the storage" so can be merged into init
