@@ -10,6 +10,6 @@ class UnsubscribeSettingElementSelectionBehaviour extends AbstractElementSelecti
      * @param database The database that is used to store the Elements.
      */
     public constructor(database: DatabaseAdaptable) {
-        super(database, new ElementID(404), "#partial-discussion-sidebar button:has(svg.octicon-mute)");
+        super(database, ElementID.UNSUBSCRIBE, "#partial-discussion-sidebar button:has(svg.octicon-mute)");
     }
 }

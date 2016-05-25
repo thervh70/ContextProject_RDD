@@ -10,6 +10,6 @@ class LabelSettingElementSelectionBehaviour extends AbstractElementSelectionBeha
      * @param database The database that is used to store the Elements.
      */
     public constructor(database: DatabaseAdaptable) {
-        super(database, new ElementID(401), "#partial-discussion-sidebar button[data-hotkey=l]");
+        super(database, ElementID.LABELS, "#partial-discussion-sidebar button[data-hotkey=l]");
     }
 }

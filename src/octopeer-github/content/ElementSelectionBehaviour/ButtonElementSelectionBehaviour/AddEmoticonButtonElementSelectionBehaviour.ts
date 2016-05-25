@@ -10,6 +10,6 @@ class AddEmoticonButtonElementSelectionBehaviour extends AbstractElementSelectio
      * @param database The database that is used to store the Elements.
      */
     public constructor(database: DatabaseAdaptable) {
-        super(database, new ElementID(110), ".timeline-comment-actions button:has(svg.octicon-smiley)");
+        super(database, ElementID.ADD_EMOTICON, ".timeline-comment-actions button:has(svg.octicon-smiley)");
     }
 }

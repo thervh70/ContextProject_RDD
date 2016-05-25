@@ -10,6 +10,6 @@ class CheckDetailButtonElementSelectionBehaviour extends AbstractElementSelectio
      * @param database The database that is used to store the Elements.
      */
     public constructor(database: DatabaseAdaptable) {
-        super(database, new ElementID(112), ".merge-pr .build-status-details");
+        super(database, ElementID.SHOW_CI_DETAILS, ".merge-pr .build-status-details");
     }
 }
