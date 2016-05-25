@@ -10,11 +10,6 @@ describe("A RESTApiDatabaseAdapter", function() {
         jasmine.Ajax.install();
 
         adapter = new RESTApiDatabaseAdapter("http://localhost:8000/", "https://github.com/Travis/travisrepo/pull/42", "Travis");
-        jasmine.Ajax.requests.mostRecent().respondWith({
-            contentType: "text/json",
-            responseText: '{"url":"http://localhost:8000/api/users/42/","username":"Travis"}',
-            status: 201,
-        });
 
         Logger.setDebug();
     });
@@ -26,10 +21,6 @@ describe("A RESTApiDatabaseAdapter", function() {
 
     it("correctly initializes on init", function() {
         expect(adapter.isInitialized).toBe(true);
-    });
-
-    it("correctly sets the session number", function() {
-        expect(adapter.session).toBe(42);
     });
 
     it("can post to the API", function() {
@@ -50,7 +41,7 @@ describe("A RESTApiDatabaseAdapter", function() {
     it("cannot post to the API when not initialized", function() {
         spyOn(Logger, "log"); // suppress Logger logs of all levels
         delete adapter;
-        adapter = new RESTApiDatabaseAdapter("http://localhost:8000/", "https://github.com/Travis/travisrepo/pull/42", "Travis");
+        adapter = new RESTApiDatabaseAdapter("http://localhost:8000/", "https://github.com/invalid/url", "Travis");
 
         const spyFunc = jasmine.createSpy("success");
 

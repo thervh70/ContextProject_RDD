@@ -6,7 +6,7 @@
 
 class RESTApiDatabaseAdapter implements DatabaseAdaptable {
 
-    private _session: number = -1;
+    private _initialized: boolean = false;
     private _owner: string;
     private _repo: string;
     private _pr: number;
@@ -25,27 +25,11 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
             Logger.warn("Not a valid PR URL: " + _prUrl);
             return;
         }
-        this.fetchSessionId();
+        this._initialized = true;
         if (_debug) {
             Logger.debug(`Constructed DatabaseAdapter(${_databaseUrl})`);
-            Logger.debug(self);
+            Logger.debug(this);
         }
-    }
-
-    private fetchSessionId() {
-        const self = this; // scope 'self' to be the adapter (instead of the AJAX call)
-        $.ajax(`${self.url}api/sessions/`, self.createPostSession())
-            .done(function(data, status, jqXHR) {
-                self._session = URLHandler.getSessionFromUrl(data.url);
-                if (self._debug) {
-                    Logger.debug(`Initialized DatabaseAdapter(${self.url}, session=${self._session})`);
-                    Logger.debug(self);
-                }
-            })
-            .fail(function(jqXHR, status) {
-                Logger.warn(`DatabaseAdapter could not connect to ${self.url}.`);
-                Logger.debug(jqXHR);
-            });
     }
 
     get url(): string {
@@ -53,11 +37,7 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
     }
 
     get isInitialized(): boolean {
-        return this._session !== -1;
-    }
-
-    get session(): number {
-        return this._session;
+        return this._initialized;
     }
 
     /**
@@ -93,18 +73,6 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
                 Logger.debug(jqXHR);
                 failure(jqXHR, status);
             });
-    }
-
-    /**
-     * Creates a Settings Object that can be used in an AJAX request when posting a new session.
-     * @returns {JQueryAjaxSettings}    A Settings Object that can be used in an AJAX request.
-     */
-    private createPostSession() {
-        return this.createJSONPost({
-            "platform": "GitHub",
-            "pull_request": `${this.url}api/pull-requests/${this._pr}/`,
-            "user": `${this.url}api/users/${this._user}/`,
-        });
     }
 
     /**
