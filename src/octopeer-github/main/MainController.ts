@@ -103,7 +103,7 @@ class MainController {
     private testAndSend(tab: Tab) {
         const url = tab.url;
         let urlInfo = URLHandler.isPullRequestUrl(url);
-        if (urlInfo === []) {
+        if (urlInfo.equals([])) {
             Status.standby();
             return;
         }
