@@ -19,12 +19,20 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
     constructor(private _url: string, private _user: number, private _pr: number, private _debug = false) {
         const self = this; // scope 'self' to be the adapter (instead of the AJAX call)
         self._url = URLHandler.formatUrl(self._url);
+        this.fetchSessionId();
+        if (self._debug) {
+            Logger.debug(`Constructed DatabaseAdapter(${_url})`);
+            Logger.debug(self);
+        }
+    }
 
+    private fetchSessionId() {
+        const self = this;
         $.ajax(`${self.url}api/sessions/`, self.createPostSession())
             .done(function(data, status, jqXHR) {
                 self._session = URLHandler.getSessionFromUrl(data.url);
                 if (self._debug) {
-                    Logger.debug(`Initialized DatabaseAdapter(${_url}, session=${self._session})`);
+                    Logger.debug(`Initialized DatabaseAdapter(${self.url}, session=${self._session})`);
                     Logger.debug(self);
                 }
             })
@@ -32,10 +40,6 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
                 Logger.warn(`DatabaseAdapter could not connect to ${self.url}.`);
                 Logger.debug(jqXHR);
             });
-        if (self._debug) {
-            Logger.debug(`Constructed DatabaseAdapter(${_url})`);
-            Logger.debug(self);
-        }
     }
 
     get url(): string {
