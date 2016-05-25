@@ -1,6 +1,3 @@
-/// <reference path="../../content/ElementEventBinding/ElementEventBinding.ts"/>
-/// <reference path="../../content/Types/ElementID.ts"/>
-/// <reference path="../../content/Types/EventID.ts"/>
 /// <reference path="IEventObject.ts"/>
 
 /**
