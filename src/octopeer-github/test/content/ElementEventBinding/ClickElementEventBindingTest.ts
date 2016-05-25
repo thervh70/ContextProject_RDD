@@ -3,9 +3,16 @@
 /// <reference path="../../../content/ElementEventBinding/ClickElementEventBinding.ts"/>\
 /// <reference path="../../../content/ElementSelectionBehaviour/ButtonElementSelectionBehaviour/MergePRButtonElementSelectionBehaviour.ts"/>
 
+/**
+ * Created by Mitchell on 25-5-2016.
+ * Behaviour unit tests for the ClickElementEventBinding class.
+ */
+
+let binder: ElementEventBinding;
+let database: DatabaseAdaptable;
+let selector: ElementSelectionBehaviour;
+
 describe("An EventBinder that binds Click events", function() {
-    let selector: ElementSelectionBehaviour;
-    let database: DatabaseAdaptable;
     let logSpy: jasmine.Spy;
 
     beforeEach(function () {
@@ -16,9 +23,24 @@ describe("An EventBinder that binds Click events", function() {
     });
 
     it("should be bound to the right type of buttons", function() {
-        const binder = new ClickElementEventBinding(selector);
+        binder = new ClickElementEventBinding(selector);
         $(".js-merge-branch-action").click();
         expect(logSpy).toHaveBeenCalledTimes(1);
         delete binder;
+    });
+});
+
+describe("A ClickElementEventBinding's", function() {
+
+    it("type should be retrieved when the getEventType function is called", function() {
+        selector = new InlineCommentButtonElementSelectionBehaviour(database);
+        binder = new ClickElementEventBinding(selector);
+        expect(binder.getEventType()).toBe("click");
+    });
+
+    it("ID should be retrieved when the getEventID function is called", function() {
+        selector = new CommentInlineCommentButtonElementSelectionBehaviour(database);
+        binder = new ClickElementEventBinding(selector);
+        expect(binder.getEventID()).toEqual(new EventID(201));
     });
 });
