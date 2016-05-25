@@ -19,7 +19,7 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
      * @param _debug = false    When this is true, verbose logging will be used.
      */
     constructor(private _databaseUrl: string, private _prUrl: string, private _user: string, private _debug = false) {
-        _databaseUrl = URLHandler.formatUrl(_databaseUrl);
+        this._databaseUrl = URLHandler.formatUrl(_databaseUrl);
         const urlInfo = URLHandler.isPullRequestUrl(_prUrl);
         if (urlInfo.equals([])) {
             Logger.warn("Not a valid PR URL: " + _prUrl);
