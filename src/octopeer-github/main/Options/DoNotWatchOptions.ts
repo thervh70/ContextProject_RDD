@@ -56,8 +56,12 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
      * @returns {ElementSelectionBehaviourCreatable[]}
      */
     public getElements() {
-        let doNotWatchElements: ElementSelectionBehaviourCreatable[];
-
+        let doNotWatchElements: ElementSelectionBehaviourCreatable[] = [];
+        if (Options.getDoNotWatchCommentElements()) {
+            doNotWatchElements.push(CommentInlineCommentButtonElementSelectionBehaviour);
+            doNotWatchElements.push(CommentPRButtonElementSelectionBehaviour);
+            doNotWatchElements.push(EditCommentButtonElementSelectionBehaviour);
+        }
         return doNotWatchElements;
     }
     /**
@@ -65,23 +69,29 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
      * @returns {ElementSelectionBehaviourCreatable[]}
      */
     public getEvents() {
-        let doNotWatchEvents: ElementEventBindingCreatable[];
-        doNotWatchEvents = [];
+        let doNotWatchEvents: ElementEventBindingCreatable[] = [];
 
-        if (Options.getFocus()) {
+        if (Options.getDoNotWatchOnScreenEvents()) {
             doNotWatchEvents.push(ScrollIntoViewElementEventBinding);
             doNotWatchEvents.push(ScrollOutOfViewElementEventBinding);
         }
-
+        if (Options.getDoNotWatchHoverEvents()) {
+            doNotWatchEvents.push(MouseEnterElementEventBinding);
+            doNotWatchEvents.push(MouseLeaveElementEventBinding);
+        }
+        if (Options.getDoNotWatchKeyboardShortcutEvents()) {
+            doNotWatchEvents.push(KeystrokeElementEventBinding);
+        }
         return doNotWatchEvents;
     }
+
     /**
      * Gets Elements not to Log, from the chrome storage.
+     * This is currenlty just a placeholder for the structure to be used.
      * @returns {ElementSelectionBehaviourCreatable[]}
      */
     public getCombinations() {
-        let doNotWatchCombination: ElementXEventCreatable[];
-
+        let doNotWatchCombination: ElementXEventCreatable[] = [];
         return doNotWatchCombination;
     }
 })();

@@ -14,6 +14,11 @@ const Options = new (class Options {
     private username: Boolean;
     private repo: Boolean;
     private file: Boolean;
+    private doNotWatchOnScreenEvents: Boolean;
+    private doNotWatchHoverEvents: Boolean;
+    private doNotWatchCommentElements: Boolean;
+    private doNotWatchKeyboardShortcutEvents: Boolean;
+
     private observers: OptionsObserver[];
 
     /**
@@ -33,6 +38,10 @@ const Options = new (class Options {
             self.username = object.hashUsername;
             self.repo = object.hashRepo;
             self.file = object.hashFile;
+            self.doNotWatchOnScreenEvents = object.doNotWatchOnScreenEvents;
+            self.doNotWatchHoverEvents = object.doNotWatchHoverEvents;
+            self.doNotWatchCommentElements = object.doNotWatchCommentElements;
+            self.doNotWatchKeyboardShortcutEvents = object.doNotWatchKeyboardShortcutEvents;
             self.notifyObservers();
         });
     }
@@ -54,6 +63,14 @@ const Options = new (class Options {
                 self.username = changeObject.hashUsername ? changeObject.hashUsername.newValue : self.username;
                 self.repo = changeObject.hashRepo ? changeObject.hashRepo.newValue : self.repo;
                 self.file = changeObject.hashFile ? changeObject.hashFile.newValue : self.file;
+                self.doNotWatchOnScreenEvents = changeObject.doNotWatchOnScreenEvents ?
+                    changeObject.doNotWatchOnScreenEvents.newValue : self.doNotWatchOnScreenEvents;
+                self.doNotWatchHoverEvents = changeObject.doNotWatchHoverEvents ?
+                    changeObject.doNotWatchHoverEvents.newValue : self.doNotWatchHoverEvents;
+                self.doNotWatchCommentElements = changeObject.doNotWatchCommentElements ?
+                    changeObject.doNotWatchCommentElements.newValue : self.doNotWatchCommentElements;
+                self.doNotWatchKeyboardShortcutEvents = changeObject.doNotWatchKeyboardShortcutEvents ?
+                    changeObject.doNotWatchKeyboardShortcutEvents.newValue : self.doNotWatchKeyboardShortcutEvents;
                 self.notifyObservers();
             }
         });
@@ -139,6 +156,42 @@ const Options = new (class Options {
      */
     public getFile() {
         return this.file;
+    }
+
+    /**
+     * Gets doNotWatch preference about onscreen elements, from the chrome storage.
+     * User persepective: Do not watch what elements are on my screen.
+     * @returns {Boolean}
+     */
+    public getDoNotWatchOnScreenEvents() {
+        return this.doNotWatchOnScreenEvents;
+    }
+
+    /**
+     * Gets doNotWatch preference about hovering above elements, from the chrome storage.
+     * User persepective: Do not watch what elements I hover over.
+     * @returns {Boolean}
+     */
+    public getDoNotWatchHoverEvents() {
+        return this.doNotWatchHoverEvents;
+    }
+
+    /**
+     * Gets doNotWatch preference about comments, from the chrome storage.
+     * User persepective: Do not watch the comments of my pull request.
+     * @returns {Boolean}
+     */
+    public getDoNotWatchCommentElements() {
+        return this.doNotWatchCommentElements;
+    }
+
+    /**
+     * Gets doNotWatch preference about keyboard shortcuts, from the chrome storage.
+     * User persepective: Do not watch my keyboard shortcuts.
+     * @returns {Boolean}
+     */
+    public getDoNotWatchKeyboardShortcutEvents() {
+        return this.doNotWatchKeyboardShortcutEvents;
     }
 })();
 Options.getLogging();
