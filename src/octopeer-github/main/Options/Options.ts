@@ -78,7 +78,7 @@ const Options = new (class Options {
 
     /**
      * Notify the whole list of observers that there has been a change.
-     * The observer is reponsible for fetching the correct data after this change.
+     * The observer is responsible for fetching the correct data after this change.
      */
     public notifyObservers() {
         for (const observer of this.observers) {
