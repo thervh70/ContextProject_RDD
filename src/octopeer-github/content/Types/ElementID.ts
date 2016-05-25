@@ -10,9 +10,9 @@ class ElementID {
      * public static final fields.
      */
     /** Instantiated ElementID for the MergePullRequestButton. */
-    public static get MERGE_PULLREQUEST() { return new ElementID(101); }
+    public static get MERGE_PR() { return new ElementID(101); }
     /** Instantiated ElementID for the ClosePullRequestButton. */
-    public static get CLOSE_PULLREQUEST() { return new ElementID(102); }
+    public static get CLOSE_PR() { return new ElementID(102); }
     /** Instantiated ElementID for the CancelInlineCommentButton. */
     public static get CANCEL_INLINE_COMMENT() { return new ElementID(103); }
     /** Instantiated ElementID for the ConfirmInlineCommentButton. */
