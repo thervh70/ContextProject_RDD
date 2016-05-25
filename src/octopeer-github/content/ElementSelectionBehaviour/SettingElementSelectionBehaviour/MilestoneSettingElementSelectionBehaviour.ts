@@ -10,6 +10,6 @@ class MilestoneSettingElementSelectionBehaviour extends AbstractElementSelection
      * @param database The database that is used to store the Elements.
      */
     public constructor(database: DatabaseAdaptable) {
-        super(database, new ElementID(402), "#partial-discussion-sidebar button[data-hotkey=m]");
+        super(database, ElementID.MILESTONE, "#partial-discussion-sidebar button[data-hotkey=m]");
     }
 }

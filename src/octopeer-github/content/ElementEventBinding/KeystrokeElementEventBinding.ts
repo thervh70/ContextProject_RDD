@@ -12,7 +12,7 @@ class KeystrokeElementEventBinding implements ElementEventBinding {
     /**
      * The ID of the Event
      */
-    private eventID: EventID  = new EventID(101);
+    private eventID: EventID  = EventID.KEYSTROKE;
 
     /**
      * Getter for the EventType

@@ -10,6 +10,6 @@ class DateMiscellaneousElementSelectionBehaviour extends AbstractElementSelectio
      * @param database The database that is used to store the Elements.
      */
     public constructor(database: DatabaseAdaptable) {
-        super(database, new ElementID(501), "relative-time");
+        super(database, ElementID.DATE, "relative-time");
     }
 }
