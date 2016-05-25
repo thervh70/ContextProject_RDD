@@ -9,7 +9,7 @@ describe("A RESTApiDatabaseAdapter", function() {
     beforeEach(function() {
         jasmine.Ajax.install();
 
-        adapter = new RESTApiDatabaseAdapter("http://localhost:8000", 1, 1);
+        adapter = new RESTApiDatabaseAdapter("http://localhost:8000/", 1, 1);
         jasmine.Ajax.requests.mostRecent().respondWith({
             contentType: "text/json",
             responseText: '{"url":"http://localhost:8000/api/users/42/","username":"Travis"}',
@@ -24,16 +24,6 @@ describe("A RESTApiDatabaseAdapter", function() {
         jasmine.Ajax.uninstall();
     });
 
-    it("correctly adds a trailing slash to the url", function() {
-        delete adapter;
-        adapter = new RESTApiDatabaseAdapter("http://localhost:8000/", 1, 1);
-        expect(adapter.url).toBe("http://localhost:8000/");
-    });
-
-    it("should not add a trailing slash to the url when it is already there", function() {
-        expect(adapter.url).toBe("http://localhost:8000/");
-    });
-
     it("correctly initializes on init", function() {
         expect(adapter.isInitialized).toBe(true);
     });
@@ -45,7 +35,7 @@ describe("A RESTApiDatabaseAdapter", function() {
     it("can post to the API", function() {
         const spyFunc = jasmine.createSpy("success");
 
-        adapter.post(EventObject(defaultElementID, defaultEventID, new Date(), 100), spyFunc, EMPTY_CALLBACK);
+        adapter.post(new EventObject(defaultElementID, defaultEventID, new Date(), 100), spyFunc, EMPTY_CALLBACK);
 
         jasmine.Ajax.requests.mostRecent().respondWith({
             contentType: "text/json",
@@ -60,11 +50,11 @@ describe("A RESTApiDatabaseAdapter", function() {
     it("cannot post to the API when not initialized", function() {
         spyOn(Logger, "log"); // suppress Logger logs of all levels
         delete adapter;
-        adapter = new RESTApiDatabaseAdapter("http://localhost:8000", 1, 1);
+        adapter = new RESTApiDatabaseAdapter("http://localhost:8000/", 1, 1);
 
         const spyFunc = jasmine.createSpy("success");
 
-        adapter.post(EventObject(defaultElementID, defaultEventID, new Date(), 100), spyFunc, EMPTY_CALLBACK);
+        adapter.post(new EventObject(defaultElementID, defaultEventID, new Date(), 100), spyFunc, EMPTY_CALLBACK);
 
         jasmine.Ajax.requests.mostRecent().respondWith({
             contentType: "text/json",
@@ -80,7 +70,7 @@ describe("A RESTApiDatabaseAdapter", function() {
 
         adapter.setDebug();
 
-        adapter.post(EventObject(defaultElementID, defaultEventID, new Date(), 100), EMPTY_CALLBACK, EMPTY_CALLBACK);
+        adapter.post(new EventObject(defaultElementID, defaultEventID, new Date(), 100), EMPTY_CALLBACK, EMPTY_CALLBACK);
         jasmine.Ajax.requests.mostRecent().respondWith({
             contentType: "text/json",
             responseText: JSON.stringify({success: true}),

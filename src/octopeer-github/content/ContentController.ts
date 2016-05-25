@@ -1,3 +1,4 @@
+/* tslint:disable:max-line-length */
 /// <reference path="../main/Options/DoNotWatchOptions.ts"/>
 /// <reference path="ElementEventBinding/ElementEventBinding.ts"/>
 /// <reference path="ElementEventBinding/ClickElementEventBinding.ts"/>
@@ -35,6 +36,7 @@
 /// <reference path="ElementSelectionBehaviour/TabHeaderElementSelectionBehaviour/CommitsTabHeaderElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/TabHeaderElementSelectionBehaviour/ConversationTabHeaderElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/TabHeaderElementSelectionBehaviour/FilesChangedTabHeaderElementSelectionBehaviour.ts"/>
+/* tslint:enable:max-line-length */
 
 /**
  * The ContentController hooks the event handlers to the DOM-tree.
@@ -122,6 +124,7 @@ class ContentController {
                 });
             } catch (e) {
                 sendResponse(`has errored (${location.href})\n[ERR] ${e}`);
+                console.error(e);
                 return;
             }
             sendResponse(`hooked to DOM (${location.href})`);
