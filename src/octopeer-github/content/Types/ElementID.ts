@@ -5,47 +5,47 @@
 class ElementID {
 
     /** Instantiated ElementID for the MergePullRequestButton. */
-    public static get MERGEPRREQUEST() { return new ElementID(101); }
+    public static get MERGE_PULLREQUEST() { return new ElementID(101); }
     /** Instantiated ElementID for the ClosePullRequestButton. */
-    public static get CLOSEPRREQUEST() { return new ElementID(102); }
+    public static get CLOSE_PULLREQUEST() { return new ElementID(102); }
     /** Instantiated ElementID for the CancelInlineCommentButton. */
-    public static get CANCELINLINECOMMENT() { return new ElementID(103); }
+    public static get CANCEL_INLINE_COMMENT() { return new ElementID(103); }
     /** Instantiated ElementID for the ConfirmInlineCommentButton. */
-    public static get CONFIRMINLINECOMMENT() { return new ElementID(104); }
+    public static get CONFIRM_INLINE_COMMENT() { return new ElementID(104); }
     /** Instantiated ElementID for the CreateInlineCommentButton. */
-    public static get CREATEINLINECOMMENT() { return new ElementID(105); }
+    public static get CREATE_INLINE_COMMENT() { return new ElementID(105); }
     /** Instantiated ElementID for the EditPullRequestNameButton. */
-    public static get EDITPRNAME() { return new ElementID(106); }
+    public static get EDIT_PRNAME() { return new ElementID(106); }
     /** Instantiated ElementID for the SavePullRequestNameButton. */
-    public static get SAVEPRNAME() { return new ElementID(107); }
+    public static get SAVE_PRNAME() { return new ElementID(107); }
     /** Instantiated ElementID for the CancelEditPullRequestNameButton. */
-    public static get CANCELEDITPRNAME() { return new ElementID(108); }
+    public static get CANCEL_EDIT_PRNAME() { return new ElementID(108); }
     /** Instantiated ElementID for the EditCommentButton. */
-    public static get EDITCOMMENT() { return new ElementID(109); }
+    public static get EDIT_COMMENT() { return new ElementID(109); }
     /** Instantiated ElementID for the AddEmoticonButton. */
-    public static get ADDEMOTICON() { return new ElementID(110); }
+    public static get ADD_EMOTICON() { return new ElementID(110); }
     /** Instantiated ElementID for the ShowCIChecksToggleButton. */
-    public static get SHOWCICHECKSTOGGLE() { return new ElementID(111); }
+    public static get SHOW_CI_CHECKS_TOGGLE() { return new ElementID(111); }
     /** Instantiated ElementID for the ShowCIDetailsButton. */
-    public static get SHOWCIDETAILS() { return new ElementID(112); }
+    public static get SHOW_CI_DETAILS() { return new ElementID(112); }
     /** Instantiated ElementID for the CommentPullRequestButton. */
-    public static get COMMENTPR() { return new ElementID(113); }
+    public static get CREATE_PR_COMMENT() { return new ElementID(113); }
     /** Instantiated ElementID for the ConversationTab. */
-    public static get CONVERSATIONTAB() { return new ElementID(201); }
+    public static get CONVERSATION_TAB() { return new ElementID(201); }
     /** Instantiated ElementID for the CommitsTab. */
-    public static get COMMITSTAB() { return new ElementID(202); }
+    public static get COMMITS_TAB() { return new ElementID(202); }
     /** Instantiated ElementID for the FilesChangedTab. */
-    public static get FILESCHANGEDTAB() { return new ElementID(203); }
+    public static get FILES_CHANGED_TAB() { return new ElementID(203); }
     /** Instantiated ElementID for the CommitHashCode. */
-    public static get COMMITHASHCODE() { return new ElementID(301); }
+    public static get COMMIT_HASHCODE() { return new ElementID(301); }
     /** Instantiated ElementID for the CommitName. */
-    public static get COMMITNAME() { return new ElementID(302); }
+    public static get COMMIT_NAME() { return new ElementID(302); }
     /** Instantiated ElementID for the PullRequestCreator. */
-    public static get PRCREATOR() { return new ElementID(303); }
+    public static get PR_CREATOR() { return new ElementID(303); }
     /** Instantiated ElementID for the PullRequestParticipant. */
-    public static get PRPARTICIPANT() { return new ElementID(304); }
+    public static get PR_PARTICIPANT() { return new ElementID(304); }
     /** Instantiated ElementID for the OtherContributer. */
-    public static get OTHERCONTRIBUTER() { return new ElementID(305); }
+    public static get OTHER_CONTRIBUTOR() { return new ElementID(305); }
     /** Instantiated ElementID for the LabelsSetting. */
     public static get LABELS() { return new ElementID(401); }
     /** Instantiated ElementID for the MilestoneSetting. */
@@ -55,11 +55,11 @@ class ElementID {
     /** Instantiated ElementID for the UnsubscribeSetting. */
     public static get UNSUBSCRIBE() { return new ElementID(404); }
     /** Instantiated ElementID for the LockConversationSetting. */
-    public static get LOCKCONVERSATION() { return new ElementID(405); }
+    public static get LOCK_CONVERSATION() { return new ElementID(405); }
     /** Instantiated ElementID for the CommentTextField. */
-    public static get COMMENTTEXTFIELD() { return new ElementID(501); }
+    public static get COMMENT_TEXTFIELD() { return new ElementID(501); }
     /** Instantiated ElementID for the InlineCommentTextField. */
-    public static get INLINECOMMENTTEXTFIELD() { return new ElementID(502); }
+    public static get INLINE_COMMENT_TEXTFIELD() { return new ElementID(502); }
     /** Instantiated ElementID for the Date. */
     public static get DATE() { return new ElementID(901); }
 

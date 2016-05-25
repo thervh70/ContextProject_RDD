@@ -10,6 +10,6 @@ class InlineCommentButtonElementSelectionBehaviour extends AbstractElementSelect
      * @param database The database that is used to store the Elements.
      */
     public constructor(database: DatabaseAdaptable) {
-        super(database, ElementID.CREATEINLINECOMMENT, ".add-line-comment");
+        super(database, ElementID.CREATE_INLINE_COMMENT, ".add-line-comment");
     }
 }

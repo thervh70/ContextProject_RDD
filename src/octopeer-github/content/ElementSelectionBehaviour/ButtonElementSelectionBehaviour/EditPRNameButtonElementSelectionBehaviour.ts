@@ -10,6 +10,6 @@ class EditPRNameButtonElementSelectionBehaviour extends AbstractElementSelection
      * @param database The database that is used to store the Elements.
      */
     public constructor(database: DatabaseAdaptable) {
-        super(database, ElementID.EDITPRNAME, ".gh-header-actions button");
+        super(database, ElementID.EDIT_PRNAME, ".gh-header-actions button");
     }
 }

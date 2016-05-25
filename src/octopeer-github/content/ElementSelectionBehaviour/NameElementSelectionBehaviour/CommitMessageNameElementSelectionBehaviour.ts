@@ -10,6 +10,6 @@ class CommitMessageNameElementSelectionBehaviour extends AbstractElementSelectio
      * @param database The database that is used to store the Elements.
      */
     public constructor(database: DatabaseAdaptable) {
-        super(database, ElementID.COMMITNAME, "a.message");
+        super(database, ElementID.COMMIT_NAME, "a.message");
     }
 }

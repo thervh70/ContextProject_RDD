@@ -11,7 +11,7 @@ class MouseEnterElementEventBinding implements ElementEventBinding {
     /**
      * The ID of the Event
      */
-    private eventID: EventID  = EventID.MOUSEENTER;
+    private eventID: EventID  = EventID.MOUSE_ENTER;
 
     /**
      * Getter for the EventType
