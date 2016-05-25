@@ -63,17 +63,20 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
             failure();
             return;
         }
-        $.ajax(`${this._databaseUrl}api/semantic-events/`, self.createPostData(eventData))
+        const postData = self.createPostData(eventData);
+        $.ajax(`${this._databaseUrl}api/semantic-events/`, postData)
             .done(function(data, status, jqXHR) {
                 if (self._debug) {
                     Logger.debug(`Call success, status: ${status}`);
                     Logger.debug(jqXHR);
+                    Logger.debug(postData);
                 }
                 success(data, status, jqXHR);
             })
             .fail(function(jqXHR, status) {
                 Logger.warn(`Database post failed, status: ${status}`);
                 Logger.debug(jqXHR);
+                Logger.debug(postData);
                 failure(jqXHR, status);
             });
     }
