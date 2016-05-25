@@ -12,11 +12,15 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
     /**
      * Constructs the RESTApiDatabaseAdapter
      * @param _url              The URL to connect to, on this address the server should be running.
-     * @param _user             The ID of the User in the database.
-     * @param _pr               The ID of the PR in the database.
+     * @param _user             The username of the user on GitHub.
+     * @param _owner            The username of the owner of the repository.
+     * @param _repo             The repository name.
+     * @param _pr               The PR number (relative to the repository, not the ID in the database).
      * @param _debug = false    When this is true, verbose logging will be used.
      */
-    constructor(private _url: string, private _user: number, private _pr: number, private _debug = false) {
+    constructor(private _url: string,
+                private _user: string, private _owner: string, private _repo: string, private _pr: number,
+                private _debug = false) {
         const self = this; // scope 'self' to be the adapter (instead of the AJAX call)
         self._url = URLHandler.formatUrl(self._url);
         this.fetchSessionId();
@@ -108,11 +112,23 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
      */
     private createPostData(eventData: IEventObject) {
         return this.createJSONPost({
-            "started_at": eventData.start,
-            "duration": eventData.duration,
-            "session": `${this.url}api/sessions/${this._session}/`,
+            "session": {
+                "pull_request": {
+                    "repository": {
+                        "owner": this._owner,
+                        "name": this._repo,
+                        "platform": "GitHub",
+                    },
+                    "pull_request_number": this._pr,
+                },
+                "user": {
+                    "username": this._user,
+                }
+            },
             "event_type": `${this.url}api/event-types/${eventData.eventID}/`,
             "element_type": `${this.url}api/event-types/${eventData.elementID}/`,
+            "started_at": eventData.start,
+            "duration": eventData.duration,
         });
     }
 
