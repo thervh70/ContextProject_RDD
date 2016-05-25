@@ -10,6 +10,6 @@ class LockConversationSettingElementSelectionBehaviour extends AbstractElementSe
      * @param database The database that is used to store the Elements.
      */
     public constructor(database: DatabaseAdaptable) {
-        super(database, new ElementID(405), "#partial-discussion-sidebar a:has(svg.octicon-lock)");
+        super(database, ElementID.LOCK_CONVERSATION, "#partial-discussion-sidebar a:has(svg.octicon-lock)");
     }
 }

@@ -12,7 +12,7 @@ class ScrollIntoViewElementEventBinding implements ElementEventBinding {
     /**
      * The ID of the Event
      */
-    private eventID: EventID  = new EventID(301);
+    private eventID: EventID  = EventID.SCROLL_INTO_VIEW;
 
     /**
      * Getter for the EventType
