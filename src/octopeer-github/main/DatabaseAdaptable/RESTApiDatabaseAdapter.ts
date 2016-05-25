@@ -21,7 +21,7 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
     constructor(private _databaseUrl: string, private _prUrl: string, private _user: string, private _debug = false) {
         _databaseUrl = URLHandler.formatUrl(_databaseUrl);
         const urlInfo = URLHandler.isPullRequestUrl(_prUrl);
-        if (urlInfo === []) {
+        if (urlInfo.equals([])) {
             Logger.warn("Not a valid PR URL: " + _prUrl);
             return;
         }
@@ -60,6 +60,7 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
         const self = this;
         if (!this.isInitialized) {
             Logger.warn("The database has not been initialized yet!");
+            failure();
             return;
         }
         $.ajax(`${this._databaseUrl}api/semantic-events/`, self.createPostData(eventData))
