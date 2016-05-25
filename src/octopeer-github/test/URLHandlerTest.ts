@@ -37,6 +37,20 @@ describe("The URLHandler", function() {
                 ]);
             });
         }
+
+        it("return an empty array when the URL is invalid", function() {
+            const invalidURLs = [
+                "https://github.com/",
+                "https://github.com/thervh70/ContextProject_RDD",
+                "https://github.com/thervh70/ContextProject_RDD/pull",
+                "https://github.com/thervh70/ContextProject_RDD/pulls",
+                "https://github.com/thervh70/ContextProject_RDD/blob/master/README.md",
+            ];
+            let url: string;
+            for (url of invalidURLs) {
+                expect(URLHandler.isPullRequestUrl(url)).toEqual([]);
+            }
+        });
     });
 
 });
