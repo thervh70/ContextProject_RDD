@@ -12,7 +12,7 @@ class ScrollOutOfViewElementEventBinding implements ElementEventBinding {
     /**
      * The ID of the Event
      */
-    private eventID: EventID  = EventID.SCROLL_OUTOF_VIEW;
+    private eventID: EventID  = EventID.SCROLL_OUT_OF_VIEW;
 
     /**
      * Getter for the EventType

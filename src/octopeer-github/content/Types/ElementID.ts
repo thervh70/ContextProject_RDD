@@ -20,9 +20,9 @@ class ElementID {
     /** Instantiated ElementID for the CreateInlineCommentButton. */
     public static get CREATE_INLINE_COMMENT() { return new ElementID(105); }
     /** Instantiated ElementID for the EditPullRequestNameButton. */
-    public static get EDIT_PRNAME() { return new ElementID(106); }
+    public static get EDIT_PR_NAME() { return new ElementID(106); }
     /** Instantiated ElementID for the SavePullRequestNameButton. */
-    public static get SAVE_PRNAME() { return new ElementID(107); }
+    public static get SAVE_PR_NAME() { return new ElementID(107); }
     /** Instantiated ElementID for the CancelEditPullRequestNameButton. */
     public static get CANCEL_EDIT_PRNAME() { return new ElementID(108); }
     /** Instantiated ElementID for the EditCommentButton. */

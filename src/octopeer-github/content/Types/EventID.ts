@@ -20,7 +20,7 @@ class EventID {
     /** Instantiated EventID for a ScrollIntoView event. */
     public static get SCROLL_INTO_VIEW() { return new EventID(301); }
     /** Instantiated EventID for a ScrollOutOfView event. */
-    public static get SCROLL_OUTOF_VIEW() { return new EventID(302); }
+    public static get SCROLL_OUT_OF_VIEW() { return new EventID(302); }
     /** Instantiated EventID for a StartWatchingPullRequest event. */
     public static get START_WATCHING_PR() { return new EventID(401); }
     /** Instantiated EventID for a StopWatchingPullRequest event. */
