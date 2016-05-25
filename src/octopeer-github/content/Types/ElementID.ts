@@ -5,7 +5,7 @@
 class ElementID {
 
     /**
-     * The 'Getters in this list are not really getters,
+     * The 'Getters' in this list are not really getters,
      * they are the closest thing TypeScript has to offer as
      * public static final fields.
      */
