@@ -1,5 +1,5 @@
-///<reference path="../../main/DatabaseAdaptable/DatabaseAdaptable.ts"/>
-///<reference path="../../main/DatabaseAdaptable/RESTApiDatabaseAdapter.ts"/>
+///<reference path="../../../main/DatabaseAdaptable/DatabaseAdaptable.ts"/>
+///<reference path="../../../main/DatabaseAdaptable/RESTApiDatabaseAdapter.ts"/>
 const defaultEventID = new EventID(1);
 const defaultElementID = new ElementID(1);
 

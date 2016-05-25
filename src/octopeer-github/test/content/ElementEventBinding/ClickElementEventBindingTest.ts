@@ -1,7 +1,7 @@
-/// <reference path="../../main/DatabaseAdaptable/DatabaseAdaptable.ts"/>
-/// <reference path="../../main/DatabaseAdaptable/ConsoleLogDatabaseAdapter.ts"/>
-/// <reference path="../../content/ElementEventBinding/ClickElementEventBinding.ts"/>\
-/// <reference path="../../content/ElementSelectionBehaviour/ButtonElementSelectionBehaviour/MergePRButtonElementSelectionBehaviour.ts"/>
+/// <reference path="../../../main/DatabaseAdaptable/DatabaseAdaptable.ts"/>
+/// <reference path="../../../main/DatabaseAdaptable/ConsoleLogDatabaseAdapter.ts"/>
+/// <reference path="../../../content/ElementEventBinding/ClickElementEventBinding.ts"/>\
+/// <reference path="../../../content/ElementSelectionBehaviour/ButtonElementSelectionBehaviour/MergePRButtonElementSelectionBehaviour.ts"/>
 
 describe("An EventBinder that binds Click events", function() {
     let selector: ElementSelectionBehaviour;

@@ -73,18 +73,18 @@ describe("The Status, when set", function() {
 
     it("by the set function, should call helper method setter with the given status, if Octopeer is allowed to log", function () {
         let spyOptions = spyOn(Options, "getLogging").and.returnValue(true);
-        let spySettings = spyOn(Status, "setter");
+        let spySetter = spyOn(Status, "setter");
         let statusCode = StatusCode.ERROR;
         Status.set(statusCode);
         expect(spyOptions).toHaveBeenCalled();
-        expect(spySettings).toHaveBeenCalledWith(statusCode);
+        expect(spySetter).toHaveBeenCalledWith(statusCode);
     });
 
     it("by the set function, should call helper method setter with the StatusCode off, if Octopeer is not allowed to log", function () {
         let spyOptions = spyOn(Options, "getLogging").and.returnValue(false);
-        let spySettings = spyOn(Status, "setter");
+        let spySetter = spyOn(Status, "setter");
         Status.set(StatusCode.ERROR);
         expect(spyOptions).toHaveBeenCalled();
-        expect(spySettings).toHaveBeenCalledWith(StatusCode.OFF);
+        expect(spySetter).toHaveBeenCalledWith(StatusCode.OFF);
     });
 });
