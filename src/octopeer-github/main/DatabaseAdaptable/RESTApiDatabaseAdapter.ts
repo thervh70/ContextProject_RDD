@@ -96,7 +96,7 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
                 },
                 "user": {
                     "username": this._user,
-                }
+                },
             },
             "event_type": `${this._databaseUrl}api/event-types/${eventData.eventID}/`,
             "element_type": `${this._databaseUrl}api/event-types/${eventData.elementID}/`,
