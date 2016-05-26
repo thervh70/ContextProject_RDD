@@ -1,4 +1,3 @@
-///<reference path="../../main/DatabaseAdaptable/DatabaseAdaptable.ts"/>
 ///<reference path="../../main/DatabaseAdaptable/RESTApiDatabaseAdapter.ts"/>
 const defaultEventID = new EventID(1);
 const defaultElementID = new ElementID(1);
@@ -26,7 +25,7 @@ describe("A RESTApiDatabaseAdapter", function() {
     it("can post to the API", function() {
         const spyFunc = jasmine.createSpy("success");
 
-        adapter.post(new EventObject(defaultElementID, defaultEventID, new Date().getTime(), 100), spyFunc, EMPTY_CALLBACK);
+        adapter.postSemantic(new SemanticEvent(defaultElementID, defaultEventID, new Date().getTime(), 100), spyFunc, EMPTY_CALLBACK);
 
         jasmine.Ajax.requests.mostRecent().respondWith({
             contentType: "text/json",
@@ -42,7 +41,7 @@ describe("A RESTApiDatabaseAdapter", function() {
         const successSpy = jasmine.createSpy("success");
         const failureSpy = jasmine.createSpy("failure");
 
-        adapter.post(new EventObject(defaultElementID, defaultEventID, new Date().getTime(), 100), successSpy, failureSpy);
+        adapter.postSemantic(new SemanticEvent(defaultElementID, defaultEventID, new Date().getTime(), 100), successSpy, failureSpy);
 
         jasmine.Ajax.requests.mostRecent().respondWith({
             contentType: "text/json",
@@ -62,7 +61,7 @@ describe("A RESTApiDatabaseAdapter", function() {
         const successSpy = jasmine.createSpy("success");
         const failureSpy = jasmine.createSpy("failure");
 
-        adapter.post(new EventObject(defaultElementID, defaultEventID, new Date().getTime(), 100), successSpy, failureSpy);
+        adapter.postSemantic(new SemanticEvent(defaultElementID, defaultEventID, new Date().getTime(), 100), successSpy, failureSpy);
 
         expect(successSpy).not.toHaveBeenCalled();
         expect(failureSpy).toHaveBeenCalled();
@@ -74,7 +73,7 @@ describe("A RESTApiDatabaseAdapter", function() {
 
         adapter.setDebug();
 
-        adapter.post(new EventObject(defaultElementID, defaultEventID, new Date().getTime(), 100), EMPTY_CALLBACK, EMPTY_CALLBACK);
+        adapter.postSemantic(new SemanticEvent(defaultElementID, defaultEventID, new Date().getTime(), 100), EMPTY_CALLBACK, EMPTY_CALLBACK);
         jasmine.Ajax.requests.mostRecent().respondWith({
             contentType: "text/json",
             responseText: JSON.stringify({success: true}),

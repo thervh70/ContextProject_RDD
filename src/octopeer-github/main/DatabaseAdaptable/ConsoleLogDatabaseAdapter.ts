@@ -9,7 +9,7 @@ class ConsoleLogDatabaseAdapter implements DatabaseAdaptable {
     /**
      * @param eventData The data to log to the console.
      */
-    public post(eventData: IEventObject) {
+    public postSemantic(eventData: ISemanticEvent) {
         Logger.database(eventData);
     }
 

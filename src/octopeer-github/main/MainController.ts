@@ -1,4 +1,3 @@
-/// <reference path="DatabaseAdaptable/DatabaseAdaptable.ts"/>
 /// <reference path="DatabaseAdaptable/RESTApiDatabaseAdapter.ts"/>
 /// <reference path="DatabaseAdaptable/ConsoleLogDatabaseAdapter.ts"/>
 
@@ -80,7 +79,7 @@ class MainController {
                 return; // Only continue if message is sent from a content script
             }
             const database = new RESTApiDatabaseAdapter("http://10.0.22.6", sender.tab.url, "Travis");
-            database.post(JSON.parse(message), function() {
+            database.postSemantic(JSON.parse(message), function() {
                 Logger.debug(`Successfully logged to database: ${message}`);
             }, function() {
                 Logger.warn("Log to database of following object failed:");

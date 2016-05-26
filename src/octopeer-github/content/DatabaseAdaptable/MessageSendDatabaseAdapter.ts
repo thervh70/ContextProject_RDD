@@ -6,12 +6,12 @@
  * This class implements DatabaseAdaptable in a way that
  * the data is sent to the Chrome Extension Background page.
  */
-class MessageSendDatabaseAdapter implements DatabaseAdaptable {
+class MessageSendDatabaseAdapter implements SemanticDatabaseAdaptable {
 
     /**
-     * @see ../../main/DatabaseAdaptable
+     * @see ../../main/SemanticDatabaseAdaptable
      */
-    public post(data: IEventObject, success: Callback, failure: Callback) {
+    public postSemantic(data: ISemanticEvent, success: Callback, failure: Callback) {
         let postData: any = data;
         postData.elementID = (<ElementID>data.elementID).getElementID();
         postData.eventID = (<EventID>data.eventID).getEventID();
