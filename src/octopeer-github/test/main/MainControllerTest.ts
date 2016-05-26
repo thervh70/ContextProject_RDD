@@ -29,7 +29,7 @@ describe("The MainController, when started by the start function,", function() {
         expect(spyOptionsInit).toHaveBeenCalled();
         expect(spyOptionsUpdate).toHaveBeenCalled();
         expect(spyOptionsObserver).toHaveBeenCalled();
-        expect(spyOptionsObserver).toHaveBeenCalledWith(Status);
+        expect(spyOptionsObserver).toHaveBeenCalledWith(testMainController);
     });
 
     it("should return the right object", function () {

@@ -60,15 +60,6 @@ describe("The Status, when the state is changed", function() {
     });
 });
 
-describe("The Status, when notified", function() {
-
-    it("should call the standby method to ensure that Octopeer goes to standby mode", function () {
-        let spy = spyOn(Status, "standby");
-        Status.notify();
-        expect(spy).toHaveBeenCalled();
-    });
-});
-
 describe("The Status, when set", function() {
 
     it("by the set function, should call helper method setter with the given status, if Octopeer is allowed to log", function () {
