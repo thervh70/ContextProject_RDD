@@ -78,14 +78,21 @@ class MainController {
             if (!sender.tab) {
                 return; // Only continue if message is sent from a content script
             }
-            const database = new RESTApiDatabaseAdapter("http://10.0.22.6", sender.tab.url, "Travis");
-            database.postSemantic(JSON.parse(message), function() {
+            const dataMessage = <DataMessage>JSON.parse(message);
+            const database: DatabaseAdaptable = new ConsoleLogDatabaseAdapter();
+            // RESTApiDatabaseAdapter("http://10.0.22.6", sender.tab.url, "Travis");
+            const success = function() {
                 Logger.debug(`Successfully logged to database: ${message}`);
-            }, function() {
+            };
+            const failure = function() {
                 Logger.warn("Log to database of following object failed:");
                 Logger.warn(message);
                 Logger.warn(`Original sender: ${sender}`);
-            });
+            };
+            switch (dataMessage.type) {
+                case "postSemantic": database.postSemantic(<ISemanticEvent>dataMessage.data, success, failure); break;
+                case "postKeystroke": database.postKeystroke(<IKeystrokeEvent>dataMessage.data, success, failure); break;
+            }
             sendResponse({});
         });
     }
@@ -113,4 +120,9 @@ class MainController {
         });
     }
 
+}
+
+interface DataMessage {
+    data: any;
+    type: string;
 }
