@@ -3,9 +3,17 @@
  * Created by Maarten on 26-05-2016.
  */
 
+/**
+ * The Callback type can be used in implementing classes to allow for a callback on success or failure.
+ * Using EMPTY_CALLBACK means you explicitly specify that nothing should happen on success or failure.
+ */
 type Callback = JQueryPromiseCallback<any>;
 
-const EMPTY_CALLBACK = function() {return; };
-EMPTY_CALLBACK(); // suppress TSLint unused-variable, because it is used elsewhere
+// tslint:disable-next-line:no-unused-variable
+const EMPTY_CALLBACK: Callback = function() {return; };
 
-type DatabaseAdaptable = SemanticDatabaseAdaptable;
+/**
+ * A DatabaseAdaptable implements all possible interfaces for a database.
+ * It is used for short-hand.
+ */
+type DatabaseAdaptable = SemanticDatabaseAdaptable; // & KeystrokeDatabaseAdaptable & MousePositionDatabaseAdaptable & ...
