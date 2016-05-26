@@ -94,6 +94,7 @@ class MainController {
                 case "postKeystroke":     database.postKeystroke(    <IKeystrokeEvent>dataMessage.data,     success, failure); break;
                 case "postMousePosition": database.postMousePosition(<IMousePositionEvent>dataMessage.data, success, failure); break;
                 case "postMouseClick":    database.postMouseClick(   <IMouseClickEvent>dataMessage.data,    success, failure); break;
+                case "postMouseScroll":   database.postMouseScroll(  <IMouseScrollEvent>dataMessage.data,   success, failure); break;
             }
             sendResponse({});
         });

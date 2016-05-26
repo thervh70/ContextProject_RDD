@@ -32,4 +32,9 @@ class MessageSendDatabaseAdapter implements DatabaseAdaptable {
         success();
     }
 
+    public postMouseScroll(data: IMouseScrollEvent, success: Callback, failure: Callback) {
+        chrome.runtime.sendMessage(JSON.stringify({data: data, type: "postMouseScroll"}));
+        success();
+    }
+
 }
