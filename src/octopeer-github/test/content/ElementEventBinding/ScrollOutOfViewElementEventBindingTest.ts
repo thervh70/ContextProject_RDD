@@ -6,13 +6,13 @@
 describe("A ScrollOutOfViewElementEventBinding's", function() {
 
     it("type should be retrieved when the getEventType function is called", function() {
-        selector = new InlineCommentTextFieldElementSelectionBehaviour(database);
+        selector = new ConfirmEditCommentButtonElementSelectionBehaviour(database);
         binder = new ScrollOutOfViewElementEventBinding(selector);
         expect(binder.getEventType()).toBe("scrolloutofview");
     });
 
     it("ID should be retrieved when the getEventID function is called", function() {
-        selector = new PRCreatorNameElementSelectionBehaviour(database);
+        selector = new CancelEditCommentButtonElementSelectionBehaviour(database);
         binder = new ScrollOutOfViewElementEventBinding(selector);
         expect(binder.getEventID()).toEqual(new EventID(302));
     });
