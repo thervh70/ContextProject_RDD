@@ -51,7 +51,7 @@ abstract class AbstractElementSelectionBehaviour implements ElementSelectionBeha
         const self = this;
         return (function(eventObject: JQueryEventObject) {
             // TODO: check when the new Date is triggered.
-            self.database.post(new EventObject(self.getElementID(), eventID, new Date(), 0),
+            self.database.post(new EventObject(self.getElementID(), eventID, new Date().getTime(), 0),
                 EMPTY_CALLBACK, EMPTY_CALLBACK);
         });
     }

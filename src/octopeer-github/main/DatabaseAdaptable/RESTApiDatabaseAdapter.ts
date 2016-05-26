@@ -6,48 +6,40 @@
 
 class RESTApiDatabaseAdapter implements DatabaseAdaptable {
 
-    private _session: number = -1;
+    private _initialized: boolean = false;
+    private _owner: string;
+    private _repo: string;
+    private _pr: number;
 
-    // TODO The PR id and UserID should be get from the context
     /**
      * Constructs the RESTApiDatabaseAdapter
-     * @param _url              The URL to connect to, on this address the server should be running.
-     * @param _user             The ID of the User in the database.
-     * @param _pr               The ID of the PR in the database.
+     * @param _databaseUrl      The URL to connect to, on this address the server should be running.
+     * @param _prUrl            A URL to a pull request.
+     * @param _user             The username of the user on GitHub.
      * @param _debug = false    When this is true, verbose logging will be used.
      */
-    constructor(private _url: string, private _user: number, private _pr: number, private _debug = false) {
-        const self = this; // scope 'self' to be the adapter (instead of the AJAX call)
-        self._url = URLHandler.formatUrl(self._url);
-
-        $.ajax(`${self.url}api/sessions/`, self.createPostSession())
-            .done(function(data, status, jqXHR) {
-                self._session = URLHandler.getSessionFromUrl(data.url);
-                if (self._debug) {
-                    Logger.debug(`Initialized DatabaseAdapter(${_url}, session=${self._session})`);
-                    Logger.debug(self);
-                }
-            })
-            .fail(function(jqXHR, status) {
-                Logger.warn(`DatabaseAdapter could not connect to ${self.url}.`);
-                Logger.debug(jqXHR);
-            });
-        if (self._debug) {
-            Logger.debug(`Constructed DatabaseAdapter(${_url})`);
-            Logger.debug(self);
+    constructor(private _databaseUrl: string, private _prUrl: string, private _user: string, private _debug = false) {
+        this._databaseUrl = URLHandler.formatUrl(_databaseUrl);
+        const urlInfo = URLHandler.isPullRequestUrl(_prUrl);
+        if (urlInfo.equals([])) {
+            Logger.warn("Not a valid PR URL: " + _prUrl);
+            return;
+        }
+        this._owner = urlInfo[1];
+        this._repo = urlInfo[2];
+        this._pr = Number(urlInfo[3]);
+        this._initialized = true;
+        if (_debug) {
+            Logger.debug(`Constructed DatabaseAdapter(${_databaseUrl})`);
+            Logger.debug(this);
         }
     }
 
-    get url(): string {
-        return this._url;
-    }
-
+    /**
+     * @returns {boolean} whether `this` is initialized, i.e. ready to receive post-requests.
+     */
     get isInitialized(): boolean {
-        return this._session !== -1;
-    }
-
-    get session(): number {
-        return this._session;
+        return this._initialized;
     }
 
     /**
@@ -68,33 +60,25 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
         const self = this;
         if (!this.isInitialized) {
             Logger.warn("The database has not been initialized yet!");
+            failure();
             return;
         }
-        $.ajax(`${this.url}api/events/`, self.createPostData(eventData))
+        const postData = self.createPostData(eventData);
+        $.ajax(`${this._databaseUrl}api/semantic-events/`, postData)
             .done(function(data, status, jqXHR) {
                 if (self._debug) {
                     Logger.debug(`Call success, status: ${status}`);
                     Logger.debug(jqXHR);
+                    Logger.debug(postData);
                 }
                 success(data, status, jqXHR);
             })
             .fail(function(jqXHR, status) {
                 Logger.warn(`Database post failed, status: ${status}`);
                 Logger.debug(jqXHR);
+                Logger.debug(postData);
                 failure(jqXHR, status);
             });
-    }
-
-    /**
-     * Creates a Settings Object that can be used in an AJAX request when posting a new session.
-     * @returns {JQueryAjaxSettings}    A Settings Object that can be used in an AJAX request.
-     */
-    private createPostSession() {
-        return this.createJSONPost({
-            "platform": "GitHub",
-            "pull_request": `${this.url}api/pull-requests/${this._pr}/`,
-            "user": `${this.url}api/users/${this._user}/`,
-        });
     }
 
     /**
@@ -104,10 +88,23 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
      */
     private createPostData(eventData: IEventObject) {
         return this.createJSONPost({
-            "started_at": eventData.start.toJSON(),
+            "session": {
+                "pull_request": {
+                    "repository": {
+                        "owner": this._owner,
+                        "name": this._repo,
+                        "platform": "GitHub",
+                    },
+                    "pull_request_number": this._pr,
+                },
+                "user": {
+                    "username": this._user,
+                },
+            },
+            "event_type": `${this._databaseUrl}api/event-types/${eventData.eventID}/`,
+            "element_type": `${this._databaseUrl}api/element-types/${eventData.elementID}/`,
+            "started_at": eventData.start / 1000,
             "duration": eventData.duration,
-            "session": `${this.url}api/sessions/${this._session}/`,
-            "event_type": `${this.url}api/event-types/${eventData.eventID}/`,
         });
     }
 
@@ -118,7 +115,8 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
      */
     private createJSONPost(data: Object): JQueryAjaxSettings {
         return {
-            data: data,
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(data),
             dataType: "json",
             type: "POST",
         };

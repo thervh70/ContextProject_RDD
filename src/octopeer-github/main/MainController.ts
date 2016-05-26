@@ -8,14 +8,12 @@ import Tab = chrome.tabs.Tab;
  */
 class MainController implements OptionsObserver {
 
-    private database: DatabaseAdaptable;
-
     /**
      * Starts the MainController. After calling this, all event handlers are hooked to the DOM-tree.
      * @return this
      */
     public start() {
-        this.database = new ConsoleLogDatabaseAdapter(); // ("https://localhost:8000", 1, 1);
+        Logger.setDebug(); // TODO remove this on release
         this.connectToContentScript();
         Status.standby();
         // TODO: Options.update actually means "add a listener to the storage" so can be merged into init
@@ -88,12 +86,12 @@ class MainController implements OptionsObserver {
      * When a tab sends a message, log it to the Database.
      */
     private listenToDatabaseMessages() {
-        const self = this;
         chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
             if (!sender.tab) {
                 return; // Only continue if message is sent from a content script
             }
-            self.database.post(JSON.parse(message), function() {
+            const database = new RESTApiDatabaseAdapter("http://10.0.22.6", sender.tab.url, "Travis");
+            database.post(JSON.parse(message), function() {
                 Logger.debug(`Successfully logged to database: ${message}`);
             }, function() {
                 Logger.warn("Log to database of following object failed:");
