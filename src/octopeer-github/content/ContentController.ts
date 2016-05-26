@@ -144,6 +144,8 @@ class ContentController {
         let windowResolutionTracker: ResizeTracker;
         let keystrokeTracker: KeystrokeTracker;
         let mouseClickTracker: MouseClickTracker;
+        let mouseScrollTracker: MouseScrollTracker;
+        let mousePositionTracker: MousePositionTracker;
 
         for (elementSelectionBinding of this.elementSelectionBindingList) {
             if (DoNotWatchOptions.getElements().indexOf(elementSelectionBinding) > 0) {
@@ -167,6 +169,8 @@ class ContentController {
         windowResolutionTracker = new ResizeTracker(database);
         keystrokeTracker = new KeystrokeTracker(database);
         mouseClickTracker = new MouseClickTracker(database);
+        mouseScrollTracker = new MouseScrollTracker(database);
+        mousePositionTracker = new MousePositionTracker(database);
     }
 
 }
