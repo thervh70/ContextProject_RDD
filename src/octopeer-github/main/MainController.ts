@@ -6,7 +6,7 @@ import Tab = chrome.tabs.Tab;
 /**
  * The MainController hooks the event handlers to the DOM-tree.
  */
-class MainController {
+class MainController implements OptionsObserver {
 
     private database: DatabaseAdaptable;
 
@@ -21,8 +21,19 @@ class MainController {
         // TODO: Options.update actually means "add a listener to the storage" so can be merged into init
         Options.init();
         Options.update();
-        Options.addObserver(Status);
+        Options.addObserver(this);
         return this;
+    }
+
+    /**
+     * Listens for changes in Options.
+     * If changed, the MainController has to verify that the page is a PR or not.
+     */
+    public notify() {
+        const self = this;
+        chrome.tabs.query({"active": true, "currentWindow": true}, function (tabs: Tab[]) {
+            self.testAndSend(tabs[0]);
+        });
     }
 
     /**
@@ -102,7 +113,7 @@ class MainController {
     private testAndSend(tab: Tab) {
         const url = tab.url;
         let urlInfo = URLHandler.isPullRequestUrl(url);
-        if (urlInfo === []) {
+        if (urlInfo.equals([])) {
             Status.standby();
             return;
         }

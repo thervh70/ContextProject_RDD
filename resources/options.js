@@ -3,6 +3,17 @@
  * Contains necessary functions for the Options page of Octopeer.
  */
 
+// Listens for changes in the loggingEnabled flag.
+// This boolean might be switched using the popup.
+function changeListener() {
+    chrome.storage.onChanged.addListener(function (changes, areaName) {
+        if (areaName === "sync" && changes.loggingEnabled) {
+            restoreOptionsState();
+            restoreOptionsAvailability();
+        }
+    });
+}
+
 // Saves options to chrome.storage.
 // A message will confirm this to the user.
 function saveOptions() {
@@ -147,4 +158,5 @@ document.addEventListener('DOMContentLoaded', restoreOptionsAvailability);
 $(document).ready(function() {
     $('#save').click(saveOptions);
     $('#logging').click(switchOptions);
+    changeListener();
 });
