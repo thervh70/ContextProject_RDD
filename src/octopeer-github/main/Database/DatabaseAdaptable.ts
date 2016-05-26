@@ -24,7 +24,7 @@ const EMPTY_CALLBACK: Callback = function() {return; };
 type UnixTimestamp = number;
 
 /**
- * A Database implements all possible interfaces for a database.
+ * A DatabaseAdaptable implements all possible interfaces for a database.
  * It is used for short-hand.
  */
 interface DatabaseAdaptable extends SemanticDatabaseAdaptable, KeystrokeDatabaseAdaptable, MousePositionDatabaseAdaptable,

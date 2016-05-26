@@ -3,7 +3,7 @@
  */
 
 /**
- * This class implements Database in a way that
+ * This class implements DatabaseAdaptable in a way that
  * the data is sent to the Chrome Extension Background page.
  * @see ../../main/DatabaseAdaptable/ for more Documentation (copy-pasting is bad, mmkay)
  */

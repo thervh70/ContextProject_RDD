@@ -91,7 +91,7 @@ class MainController implements OptionsObserver {
             }
             const dataMessage = <DataMessage>JSON.parse(message);
             const database: DatabaseAdaptable = new ConsoleLogDatabaseAdapter();
-            // RESTApiDatabaseAdapter("http://10.0.22.6", sender.tab.url, "Travis");
+            // TODO: change to RESTApiDatabaseAdapter("http://10.0.22.6", sender.tab.url, "Travis"); // TODO: get name from context
             const success = function() {
                 Logger.debug(`Successfully logged to database: ${message}`);
             };
