@@ -36,9 +36,9 @@ describe("The MainController, when started by the start function,", function() {
         spyConnectCS = spyOn(testMainController, "connectToContentScript");
         testMainController.start();
 
-        // checks whether the object contains the right properties.
+        // checks whether the object contains the right properties (only contains a spy).
         expect(testMainController.start()).toEqual(jasmine.objectContaining({
-            database: new ConsoleLogDatabaseAdapter(),
+            connectToContentScript: spyConnectCS,
         }));
     });
 

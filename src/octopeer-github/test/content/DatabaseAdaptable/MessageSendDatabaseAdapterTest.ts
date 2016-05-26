@@ -13,7 +13,7 @@ describe("A MessageSendDatabaseAdapter", function() {
         MSDAdapter = new MessageSendDatabaseAdapter();
         spy = spyOn(chrome.runtime, "sendMessage");
         spyObj = jasmine.createSpy("success");
-        data = new EventObject(defaultElementID, defaultEventID, new Date(), 42);
+        data = new EventObject(defaultElementID, defaultEventID, new Date().getTime(), 42);
         MSDAdapter.post(data, spyObj, EMPTY_CALLBACK);
 
         expect(spy).toHaveBeenCalledWith(JSON.stringify(data));
