@@ -78,4 +78,33 @@ describe("The Status, when set", function() {
         expect(spyOptions).toHaveBeenCalled();
         expect(spySetter).toHaveBeenCalledWith(StatusCode.OFF);
     });
+
+});
+
+describe("The Status, chrome ", function() {
+
+    it("the helper method 'setter' should update the new status by setting properties of chrome.", function () {
+        // spies that use the mocked chrome functions.
+        const spyRT = spyOn(chrome.runtime, "sendMessage");
+        const spyLST = spyOn(chrome.storage.local, "set");
+        const spyBA = spyOn(chrome.browserAction, "setIcon");
+        const line = "Octopeer is turned off.";
+        const path = "img/icon/off.png";
+        Status.set(StatusCode.ERROR);
+
+        expect(spyRT).toHaveBeenCalled();
+        expect(spyRT).toHaveBeenCalledWith({
+            line: line,
+            path: path,
+        });
+        expect(spyLST).toHaveBeenCalled();
+        expect(spyLST).toHaveBeenCalledWith({
+            line: line,
+            path: path,
+        });
+        expect(spyBA).toHaveBeenCalled();
+        expect(spyBA).toHaveBeenCalledWith({
+            path: "img/icon/off19.png",
+        });
+    });
 });
