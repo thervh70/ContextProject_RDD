@@ -20,4 +20,11 @@ class ConsoleLogDatabaseAdapter implements DatabaseAdaptable {
         Logger.database(eventData);
     }
 
+    /**
+     * @param eventData The data to log to the console.
+     */
+    public postMousePosition(eventData: IMousePositionEvent) {
+        Logger.database(eventData);
+    }
+
 }

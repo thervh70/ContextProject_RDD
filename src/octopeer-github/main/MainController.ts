@@ -92,6 +92,7 @@ class MainController {
             switch (dataMessage.type) {
                 case "postSemantic": database.postSemantic(<ISemanticEvent>dataMessage.data, success, failure); break;
                 case "postKeystroke": database.postKeystroke(<IKeystrokeEvent>dataMessage.data, success, failure); break;
+                case "postMousePosition": database.postMousePosition(<IMousePositionEvent>dataMessage.data, success, failure); break;
             }
             sendResponse({});
         });
