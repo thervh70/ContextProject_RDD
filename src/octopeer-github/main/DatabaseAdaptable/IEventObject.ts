@@ -2,8 +2,13 @@
  * Created by Maarten on 24-05-2016.
  */
 
+/** An amount of milliseconds since the Unix Epoch (1-1-1970 0:00). */
+type UnixTimestamp = number;
+/** An amount of milliseconds. */
 type Duration = number;
+/** The name of a file in the repository. */
 type FileName = string;
+/** A line number in a file. */
 type LineNumber = number;
 
 /**
@@ -12,7 +17,7 @@ type LineNumber = number;
 interface IEventObject {
     elementID: ElementID;
     eventID: EventID;
-    start: Date;
+    start: UnixTimestamp;
     duration: Duration;
     filename?: FileName;
     lineNumber?: LineNumber;
@@ -24,6 +29,6 @@ interface IEventObject {
  */
 class EventObject implements IEventObject {
     constructor(public elementID: ElementID, public eventID: EventID,
-                public start: Date, public duration: Duration,
+                public start: UnixTimestamp, public duration: Duration,
                 public filename?: FileName, public lineNumber?: LineNumber) { }
 }
