@@ -10,6 +10,6 @@ class CommitsTabHeaderElementSelectionBehaviour extends AbstractElementSelection
      * @param database The database that is used to store the Elements.
      */
     public constructor(database: DatabaseAdaptable) {
-        super(database, new ElementID(202), ".tabnav-tabs a:has(> svg.octicon-git-commit)");
+        super(database, ElementID.COMMITS_TAB, ".tabnav-tabs a:has(> svg.octicon-git-commit)");
     }
 }

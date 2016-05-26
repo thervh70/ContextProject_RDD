@@ -10,6 +10,6 @@ class EditCommentButtonElementSelectionBehaviour extends AbstractElementSelectio
      * @param database The database that is used to store the Elements.
      */
     public constructor(database: DatabaseAdaptable) {
-        super(database, new ElementID(109), ".timeline-comment-actions button:has(svg.octicon-pencil)");
+        super(database, ElementID.EDIT_COMMENT, ".timeline-comment-actions button:has(svg.octicon-pencil)");
     }
 }

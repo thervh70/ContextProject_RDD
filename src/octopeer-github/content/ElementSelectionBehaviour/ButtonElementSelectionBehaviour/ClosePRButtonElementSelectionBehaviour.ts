@@ -10,6 +10,6 @@ class ClosePRButtonElementSelectionBehaviour extends AbstractElementSelectionBeh
      * @param database The database that is used to store the Elements.
      */
     public constructor(database: DatabaseAdaptable) {
-        super(database, new ElementID(102), ".js-comment-and-button");
+        super(database, ElementID.CLOSE_PR, ".js-comment-and-button");
     }
 }

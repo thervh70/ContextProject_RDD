@@ -10,6 +10,6 @@ class FilesChangedTabHeaderElementSelectionBehaviour extends AbstractElementSele
      * @param database The database that is used to store the Elements.
      */
     public constructor(database: DatabaseAdaptable) {
-        super(database, new ElementID(203), ".tabnav-tabs a:has(> svg.octicon-diff)");
+        super(database, ElementID.FILES_CHANGED_TAB, ".tabnav-tabs a:has(> svg.octicon-diff)");
     }
 }
