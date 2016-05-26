@@ -1,10 +1,10 @@
-/// <reference path="./SemanticDatabaseAdaptable.ts"/>
+/// <reference path="./DatabaseAdaptable/SemanticDatabaseAdaptable.ts"/>
 
 /**
  * This class connects to the RESTful API made by Aaron.
  */
 
-class RESTApiDatabaseAdapter implements SemanticDatabaseAdaptable { // TODO implement DatabaseAdaptable in another branch
+class RESTApiDatabaseAdapter implements SemanticDatabaseAdaptable { // TODO implement Database in another branch
 
     private _initialized: boolean = false;
     private _owner: string;

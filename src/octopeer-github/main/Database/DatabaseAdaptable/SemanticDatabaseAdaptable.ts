@@ -1,4 +1,4 @@
-/// <reference path="ISemanticEvent.ts"/>
+/// <reference path="../EventObject/ISemanticEvent.ts"/>
 
 /**
  * Created by Youri on 04/05/2016.

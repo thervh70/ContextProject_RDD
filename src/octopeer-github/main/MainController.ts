@@ -1,5 +1,5 @@
-/// <reference path="DatabaseAdaptable/RESTApiDatabaseAdapter.ts"/>
-/// <reference path="DatabaseAdaptable/ConsoleLogDatabaseAdapter.ts"/>
+/// <reference path="Database/RESTApiDatabaseAdapter.ts"/>
+/// <reference path="Database/ConsoleLogDatabaseAdapter.ts"/>
 
 import Tab = chrome.tabs.Tab;
 /**

@@ -1,5 +1,5 @@
 /* tslint:disable:max-line-length */
-/// <reference path="../../main/DatabaseAdaptable/ConsoleLogDatabaseAdapter.ts"/>
+/// <reference path="../../main/Database/ConsoleLogDatabaseAdapter.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/ElementSelectionBehaviour.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/AbstractElementSelectionBehaviour.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/ButtonElementSelectionBehaviour/AddEmoticonButtonElementSelectionBehaviour.ts"/>

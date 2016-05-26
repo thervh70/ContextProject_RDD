@@ -1,9 +1,9 @@
-/// <reference path="KeystrokeDatabaseAdaptable.ts"/>
-/// <reference path="SemanticDatabaseAdaptable.ts"/>
-/// <reference path="MousePositionDatabaseAdaptable.ts"/>
-/// <reference path="MouseClickDatabaseAdaptable.ts"/>
-/// <reference path="MouseScrollDatabaseAdaptable.ts"/>
-/// <reference path="WindowResolutionDatabaseAdaptable.ts"/>
+/// <reference path="DatabaseAdaptable/KeystrokeDatabaseAdaptable.ts"/>
+/// <reference path="DatabaseAdaptable/SemanticDatabaseAdaptable.ts"/>
+/// <reference path="DatabaseAdaptable/MousePositionDatabaseAdaptable.ts"/>
+/// <reference path="DatabaseAdaptable/MouseClickDatabaseAdaptable.ts"/>
+/// <reference path="DatabaseAdaptable/MouseScrollDatabaseAdaptable.ts"/>
+/// <reference path="DatabaseAdaptable/WindowResolutionDatabaseAdaptable.ts"/>
 /**
  * Created by Maarten on 26-05-2016.
  */
@@ -24,7 +24,7 @@ const EMPTY_CALLBACK: Callback = function() {return; };
 type UnixTimestamp = number;
 
 /**
- * A DatabaseAdaptable implements all possible interfaces for a database.
+ * A Database implements all possible interfaces for a database.
  * It is used for short-hand.
  */
 interface DatabaseAdaptable extends SemanticDatabaseAdaptable, KeystrokeDatabaseAdaptable, MousePositionDatabaseAdaptable,

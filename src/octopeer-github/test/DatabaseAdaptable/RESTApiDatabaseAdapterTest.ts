@@ -1,4 +1,4 @@
-///<reference path="../../main/DatabaseAdaptable/RESTApiDatabaseAdapter.ts"/>
+///<reference path="../../main/Database/RESTApiDatabaseAdapter.ts"/>
 
 describe("A RESTApiDatabaseAdapter", function() {
     const defaultEventID = new EventID(1);
