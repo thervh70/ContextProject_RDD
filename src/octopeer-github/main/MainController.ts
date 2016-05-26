@@ -27,7 +27,7 @@ class MainController implements OptionsObserver {
 
     /**
      * Listens for changes in Options.
-     * If changed, the Maincontroller has to verify that the page is a PR or not.
+     * If changed, the MainController has to verify that the page is a PR or not.
      */
     public notify() {
         const self = this;

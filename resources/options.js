@@ -3,7 +3,7 @@
  * Contains necessary functions for the Options page of Octopeer.
  */
 
-// Listen for changes in the loggingEnabled flag.
+// Listens for changes in the loggingEnabled flag.
 // This boolean might be switched using the popup.
 function changeListener() {
     chrome.storage.onChanged.addListener(function (changes, areaName) {
