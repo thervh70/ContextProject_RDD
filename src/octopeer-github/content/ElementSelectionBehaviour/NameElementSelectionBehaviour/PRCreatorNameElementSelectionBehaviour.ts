@@ -11,6 +11,6 @@ class PRCreatorNameElementSelectionBehaviour extends AbstractElementSelectionBeh
      */
     public constructor(database: DatabaseAdaptable) {
         // TODO: Fix the jQuery selector
-        super(database, new ElementID(303), "testtttt");
+        super(database, ElementID.PR_CREATOR, "testtttt");
     }
 }

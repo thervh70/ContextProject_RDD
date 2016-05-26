@@ -34,7 +34,7 @@ All documents can in general be found in the doc folder.
 - Download [Nodejs](https://nodejs.org/en/download/)
 - Use WebStorm (or Git knowledge) to clone the repo to a local folder
 - Run `npm install`
-- Run `npm test` to check whether works correctly
+- Run `npm run-script travis` to check whether everything works correctly
 
 Congratulations, you can now start developing!
 

@@ -11,7 +11,7 @@ class MouseLeaveElementEventBinding implements ElementEventBinding {
     /**
      * The ID of the Event
      */
-    private eventID: EventID  = new EventID(203);
+    private eventID: EventID  = EventID.MOUSE_LEAVE;
 
     /**
      * Getter for the EventType
