@@ -1,3 +1,4 @@
+/// <reference path="IKeystrokeEvent.ts"/>
 /**
  * Created by Maarten on 26-05-2016.
  */

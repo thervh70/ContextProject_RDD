@@ -1,4 +1,3 @@
-
 /**
  * Created by Maarten on 17-05-2016.
  */
@@ -25,6 +24,11 @@ class MessageSendDatabaseAdapter implements DatabaseAdaptable {
 
     public postMousePosition(data: IMousePositionEvent, success: Callback, failure: Callback) {
         chrome.runtime.sendMessage(JSON.stringify({data: data, type: "postMousePosition"}));
+        success();
+    }
+
+    public postMouseClick(data: IMouseClickEvent, success: Callback, failure: Callback) {
+        chrome.runtime.sendMessage(JSON.stringify({data: data, type: "postMouseClick"}));
         success();
     }
 
