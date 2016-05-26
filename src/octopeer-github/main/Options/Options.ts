@@ -4,6 +4,9 @@
  * Created by Mitchell on 12-5-2016.
  * Class from which user options can be retrieved.
  * These options have been maintained by the front-end.
+ * The specific options to be used are still not definitive.
+ * The options displayed below are mainly there for showing the structure of the Options class,
+ * and being able to create the bindings between the content controller, and such with the Options class.
  */
 const Options = new (class Options {
     private logging: Boolean;
@@ -92,6 +95,17 @@ const Options = new (class Options {
      */
     public addObserver(obs: OptionsObserver) {
         this.observers.push(obs);
+    }
+
+    /**
+     * Remove a certain OptionsObserver.
+     * @param obs The Observer that has to be deleted from the list.
+     */
+    public removeObserver(obs: OptionsObserver) {
+        const index = this.observers.indexOf(obs);
+        if (index > -1) {
+            this.observers.splice(index, 1);
+        }
     }
 
     /**

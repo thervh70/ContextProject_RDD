@@ -12,5 +12,16 @@ $(document).ready(function () {
             $("#status_image").attr("src", message.path);
         }
         sendResponse({});
-    })
+    });
+
+    //Use the toggle button on the popup to switch the loggingEnabled option.
+    function toggle() {
+        chrome.storage.sync.get("loggingEnabled", function (res) {
+            chrome.storage.sync.set({
+                loggingEnabled: !(res.loggingEnabled)
+            })
+        });
+    }
+
+    $('#status_toggle').click(toggle);
 });
