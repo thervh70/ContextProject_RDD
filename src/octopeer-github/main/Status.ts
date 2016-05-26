@@ -115,4 +115,4 @@ const Status = new (class Status implements OptionsObserver {
         });
     }
 })();
-Status.getIcon(); // Suppress unused variable `Status`
+Status.getIcon();
