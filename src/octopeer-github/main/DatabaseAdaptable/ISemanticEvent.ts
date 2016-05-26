@@ -2,8 +2,6 @@
  * Created by Maarten on 24-05-2016.
  */
 
-/** An amount of milliseconds since the Unix Epoch (1-1-1970 0:00). */
-type UnixTimestamp = number;
 /** An amount of milliseconds. */
 type Duration = number;
 /** The name of a file in the repository. */
@@ -12,7 +10,7 @@ type FileName = string;
 type LineNumber = number;
 
 /**
- * An IEventObject contains the data that should be posted to a Database.
+ * An ISemanticEvent contains the data that should be posted to a Database.
  */
 interface ISemanticEvent {
     elementID: ElementID;
@@ -24,8 +22,8 @@ interface ISemanticEvent {
 }
 
 /**
- * A constructor has been provided. This does not have to be used for something to be an IEventObject however.
- * TypeScript can infer types, so any object with the correct fields is seen as an IEventObject.
+ * A constructor has been provided. This does not have to be used for something to be an ISemanticEvent however.
+ * TypeScript can infer types, so any object with the correct fields is seen as an ISemanticEvent.
  */
 class SemanticEvent implements ISemanticEvent {
     constructor(public elementID: ElementID, public eventID: EventID,
