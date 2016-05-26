@@ -37,4 +37,9 @@ class MessageSendDatabaseAdapter implements DatabaseAdaptable {
         success();
     }
 
+    public postWindowResolution(data: IWindowResolutionEvent, success: Callback, failure: Callback) {
+        chrome.runtime.sendMessage(JSON.stringify({data: data, type: "postWindowResolution"}));
+        success();
+    }
+
 }

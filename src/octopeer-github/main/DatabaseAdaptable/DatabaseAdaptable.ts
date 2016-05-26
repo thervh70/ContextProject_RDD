@@ -3,6 +3,7 @@
 /// <reference path="MousePositionDatabaseAdaptable.ts"/>
 /// <reference path="MouseClickDatabaseAdaptable.ts"/>
 /// <reference path="MouseScrollDatabaseAdaptable.ts"/>
+/// <reference path="WindowResolutionDatabaseAdaptable.ts"/>
 /**
  * Created by Maarten on 26-05-2016.
  */
@@ -27,4 +28,4 @@ type UnixTimestamp = number;
  * It is used for short-hand.
  */
 interface DatabaseAdaptable extends SemanticDatabaseAdaptable, KeystrokeDatabaseAdaptable, MousePositionDatabaseAdaptable,
-    MouseClickDatabaseAdaptable, MouseScrollDatabaseAdaptable { }
+    MouseClickDatabaseAdaptable, MouseScrollDatabaseAdaptable, WindowResolutionDatabaseAdaptable { }

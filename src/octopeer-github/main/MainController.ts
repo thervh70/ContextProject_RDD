@@ -90,11 +90,18 @@ class MainController {
                 Logger.warn(`Original sender: ${sender}`);
             };
             switch (dataMessage.type) {
-                case "postSemantic":      database.postSemantic(     <ISemanticEvent>dataMessage.data,      success, failure); break;
-                case "postKeystroke":     database.postKeystroke(    <IKeystrokeEvent>dataMessage.data,     success, failure); break;
-                case "postMousePosition": database.postMousePosition(<IMousePositionEvent>dataMessage.data, success, failure); break;
-                case "postMouseClick":    database.postMouseClick(   <IMouseClickEvent>dataMessage.data,    success, failure); break;
-                case "postMouseScroll":   database.postMouseScroll(  <IMouseScrollEvent>dataMessage.data,   success, failure); break;
+                case "postSemantic":
+                    database.postSemantic(        <ISemanticEvent>dataMessage.data,         success, failure); break;
+                case "postKeystroke":
+                    database.postKeystroke(       <IKeystrokeEvent>dataMessage.data,        success, failure); break;
+                case "postMousePosition":
+                    database.postMousePosition(   <IMousePositionEvent>dataMessage.data,    success, failure); break;
+                case "postMouseClick":
+                    database.postMouseClick(      <IMouseClickEvent>dataMessage.data,       success, failure); break;
+                case "postMouseScroll":
+                    database.postMouseScroll(     <IMouseScrollEvent>dataMessage.data,      success, failure); break;
+                case "postWindowResolution":
+                    database.postWindowResolution(<IWindowResolutionEvent>dataMessage.data, success, failure); break;
             }
             sendResponse({});
         });
