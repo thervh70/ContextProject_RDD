@@ -10,6 +10,6 @@ class InlineCommentTextFieldElementSelectionBehaviour extends AbstractElementSel
      * @param database The database that is used to store the Elements.
      */
     public constructor(database: DatabaseAdaptable) {
-        super(database, new ElementID(502), ".js-inline-comment-form textarea[id^=new]");
+        super(database, ElementID.INLINE_COMMENT_TEXTFIELD, ".js-inline-comment-form textarea[id^=new]");
     }
 }
