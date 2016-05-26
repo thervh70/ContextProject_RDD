@@ -20,5 +20,8 @@ _window.chrome = {
             set: function () {},
         },
     },
+    tabs: {
+        query: function() {},
+    },
 };
 /* tslint:enable:no-empty */

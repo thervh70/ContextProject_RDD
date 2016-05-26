@@ -52,7 +52,18 @@ describe("The MainController, when started by the start function,", function() {
         expect(spies[3]).toHaveBeenCalled();
     });
 
-    // TODO: Add tests with chrome function mocks.
+});
+
+describe("The MainController", function() {
+
+    it("should call the notify function in order to notify via the chrome query function", function () {
+        testMainController = new MainController();
+        const spyChrome = spyOn(chrome.tabs, "query");
+        testMainController.notify();
+
+        expect(spyChrome).toHaveBeenCalled();
+    });
+
 });
 
 /**
