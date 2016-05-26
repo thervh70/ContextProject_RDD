@@ -1,5 +1,6 @@
 /* tslint:disable:max-line-length */
 /// <reference path="../main/Options/DoNotWatchOptions.ts"/>
+/// <reference path="../main/DatabaseAdaptable/ConsoleLogDatabaseAdapter.ts"/>
 /// <reference path="ElementEventBinding/ElementEventBinding.ts"/>
 /// <reference path="ElementEventBinding/ClickElementEventBinding.ts"/>
 /// <reference path="ElementEventBinding/KeystrokeElementEventBinding.ts"/>
@@ -140,6 +141,7 @@ class ContentController {
         let elementSelectionBinding: ElementSelectionBehaviourCreatable;
         let elementEventBindingHolder: ElementEventBinding;
         let elementSelectionBindingHolder: ElementSelectionBehaviour;
+        let windowResolutionTracker: ResizeTracker;
 
         for (elementSelectionBinding of this.elementSelectionBindingList) {
             if (DoNotWatchOptions.getElements().indexOf(elementSelectionBinding) > 0) {
@@ -160,6 +162,7 @@ class ContentController {
                 elementEventBindingHolder = new elementEventBinding(elementSelectionBindingHolder);
             }
         }
+        windowResolutionTracker = new ResizeTracker(database);
     }
 
 }
