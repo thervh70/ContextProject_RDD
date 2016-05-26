@@ -4,6 +4,7 @@
  * Performs a series of POST requests in order to fill the constant part of the Database.
  */
 
+// tslint:disable-next-line:no-unused-variable
 function constantDatabasePoster() {
     const url = "http://10.0.22.6/";
 
