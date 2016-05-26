@@ -13,4 +13,11 @@ class ConsoleLogDatabaseAdapter implements DatabaseAdaptable {
         Logger.database(eventData);
     }
 
+    /**
+     * @param eventData The data to log to the console.
+     */
+    public postKeystroke(eventData: IKeystrokeEvent) {
+        Logger.database(eventData);
+    }
+
 }

@@ -1,3 +1,4 @@
+/// <reference path="KeystrokeDatabaseAdaptable.ts"/>
 /// <reference path="SemanticDatabaseAdaptable.ts"/>
 /**
  * Created by Maarten on 26-05-2016.
@@ -22,4 +23,4 @@ type UnixTimestamp = number;
  * A DatabaseAdaptable implements all possible interfaces for a database.
  * It is used for short-hand.
  */
-type DatabaseAdaptable = SemanticDatabaseAdaptable; // & KeystrokeDatabaseAdaptable & MousePositionDatabaseAdaptable & ...
+interface DatabaseAdaptable extends SemanticDatabaseAdaptable, KeystrokeDatabaseAdaptable { }
