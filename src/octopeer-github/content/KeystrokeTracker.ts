@@ -9,26 +9,11 @@ class KeystrokeTracker {
      */
     constructor(private db: KeystrokeDatabaseAdaptable) {
         const self = this;
-        let $window: JQuery = $(window);
-        let resizeTimer: number;
-        $window.resize(function (eventObject: JQueryEventObject) {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(function () {
-                self.db.postKeystroke(new KeystrokeEvent("",
-                    new Date().getTime()), EMPTY_CALLBACK, EMPTY_CALLBACK);
-            }, 500);
-        });
-    }
-
-    /**
-     * Get a Callback to bind to the proper Event.
-     * @returns {function(any): undefined}
-     */
-    public getCallback() {
-        return (function(event: any) {
-            const self = this;
-            // const data = "test";
-            self.db.postKeystroke(new KeystrokeEvent("a", new Date().getTime()), EMPTY_CALLBACK, EMPTY_CALLBACK);
+        const $body = $("body");
+        $body.off("keypress");
+        $body.on("keypress", function (eventObject: JQueryEventObject) {
+            self.db.postKeystroke(new KeystrokeEvent(String.fromCharCode(eventObject.which),
+                new Date().getTime()), EMPTY_CALLBACK, EMPTY_CALLBACK);
         });
     }
 }
