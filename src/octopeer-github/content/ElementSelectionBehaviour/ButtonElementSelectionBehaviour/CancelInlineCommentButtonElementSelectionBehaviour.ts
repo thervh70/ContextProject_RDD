@@ -10,6 +10,6 @@ class CancelInlineCommentButtonElementSelectionBehaviour extends AbstractElement
      * @param database The database that is used to store the Elements.
      */
     public constructor(database: DatabaseAdaptable) {
-        super(database, ElementID.CANCEL_INLINE_COMMENT, "table:not([style=display:none]) .js-hide-inline-comment-form");
+        super(database, ElementID.CANCEL_INLINE_COMMENT, "div#files tr.inline-comments .js-hide-inline-comment-form");
     }
 }
