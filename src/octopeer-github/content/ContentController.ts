@@ -1,6 +1,6 @@
 /* tslint:disable:max-line-length */
 /// <reference path="../main/Options/DoNotWatchOptions.ts"/>
-/// <reference path="../main/DatabaseAdaptable/ConsoleLogDatabaseAdapter.ts"/>
+/// <reference path="../main/Database/ConsoleLogDatabaseAdapter.ts"/>
 /// <reference path="ElementEventBinding/ElementEventBinding.ts"/>
 /// <reference path="ElementEventBinding/ClickElementEventBinding.ts"/>
 /// <reference path="ElementEventBinding/KeystrokeElementEventBinding.ts"/>

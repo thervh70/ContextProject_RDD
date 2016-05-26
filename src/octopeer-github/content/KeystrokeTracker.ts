@@ -7,7 +7,18 @@ class KeystrokeTracker {
      * Initialize a KeystrokeTracker that contains a KeystrokeDatabaseAdaptable.
      * @param db The DatabaseAdaptable for the Tracker.
      */
-    constructor(private db: KeystrokeDatabaseAdaptable) { }
+    constructor(private db: KeystrokeDatabaseAdaptable) {
+        const self = this;
+        let $window: JQuery = $(window);
+        let resizeTimer: number;
+        $window.resize(function (eventObject: JQueryEventObject) {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function () {
+                self.db.postKeystroke(new KeystrokeEvent("",
+                    new Date().getTime()), EMPTY_CALLBACK, EMPTY_CALLBACK);
+            }, 500);
+        });
+    }
 
     /**
      * Get a Callback to bind to the proper Event.
