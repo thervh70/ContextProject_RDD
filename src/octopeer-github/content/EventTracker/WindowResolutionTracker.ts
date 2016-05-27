@@ -3,6 +3,9 @@
  */
 class ResizeTracker {
 
+    /** Private static final for the timeout between logs. */
+    private static get WINDOW_RESOLUTION_TRACKER_TIMEOUT() { return 500; }
+
     constructor(private db: WindowResolutionDatabaseAdaptable) {
         const self = this;
         let $window: JQuery = $(window);
@@ -12,7 +15,7 @@ class ResizeTracker {
             resizeTimer = setTimeout(function () {
                 self.db.postWindowResolution(new WindowResolutionEvent($window.width(), $window.height(),
                     new Date().getTime()), EMPTY_CALLBACK, EMPTY_CALLBACK);
-            }, 500);
+            }, this.WINDOW_RESOLUTION_TRACKER_TIMEOUT);
         });
     }
 }
