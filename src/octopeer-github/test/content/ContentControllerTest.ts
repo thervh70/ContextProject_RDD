@@ -10,7 +10,7 @@ describe("The ContentController", function() {
 
     let testContentController: ContentController;
 
-    const propertyListOne = [
+    const elementEventBindingList = [
         ClickElementEventBinding,
         KeystrokeElementEventBinding,
         MouseEnterElementEventBinding,
@@ -19,7 +19,7 @@ describe("The ContentController", function() {
         ScrollOutOfViewElementEventBinding,
     ];
 
-    const propertyListTwo = [
+    const elementSelectionBehaviourList = [
         AddEmoticonButtonElementSelectionBehaviour,
         CancelEditPRNameButtonElementSelectionBehaviour,
         CancelInlineCommentButtonElementSelectionBehaviour,
@@ -59,8 +59,8 @@ describe("The ContentController", function() {
 
         // Checks whether the object contains the right properties.
         expect(testContentController.start()).toEqual(jasmine.objectContaining({
-            elementEventBindingList: propertyListOne,
-            elementSelectionBindingList: propertyListTwo,
+            elementEventBindingList: elementEventBindingList,
+            elementSelectionBindingList: elementSelectionBehaviourList,
             messageSendDatabaseAdapter : new MessageSendDatabaseAdapter(),
         }));
     });

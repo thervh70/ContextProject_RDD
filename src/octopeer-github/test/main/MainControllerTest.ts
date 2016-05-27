@@ -116,7 +116,7 @@ describe("The MainController, when started by the start function,", function() {
 
 describe("The MainController", function() {
 
-    it("should call the notify function in order to notify via the chrome query function", function () {
+    it("should, when notify is being called, notify the current tab", function () {
         testMainController = new MainController();
         const spyChrome = spyOn(chrome.tabs, "query");
         testMainController.notify();

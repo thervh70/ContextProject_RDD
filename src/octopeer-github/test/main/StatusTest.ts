@@ -79,11 +79,7 @@ describe("The Status, when set", function() {
         expect(spySetter).toHaveBeenCalledWith(StatusCode.OFF);
     });
 
-});
-
-describe("The Status, chrome ", function() {
-
-    it("the helper method 'setter' should update the new status by setting properties of chrome.", function () {
+    it("by the helper method 'setter' should update the new status by setting new properties with functions of chrome.", function () {
         // spies that use the mocked chrome functions.
         const spyRT = spyOn(chrome.runtime, "sendMessage");
         const spyLST = spyOn(chrome.storage.local, "set");
