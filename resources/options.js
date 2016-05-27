@@ -46,15 +46,14 @@ function saveOptions() {
 // Restores the states of the checkboxes, using the preferences stored in chrome.storage.
 function restoreOptionsState() {
     chrome.storage.sync.get({
-        // Default values
-        loggingEnabled: true,
-        trackTabs: true,
-        trackComments: true,
-        trackPeerComments: true,
-        trackFocus: true,
-        hashUsername: true,
-        hashRepo: true,
-        hashFile: false
+        loggingEnabled: Boolean,
+        trackTabs: Boolean,
+        trackComments: Boolean,
+        trackPeerComments: Boolean,
+        trackFocus: Boolean,
+        hashUsername: Boolean,
+        hashRepo: Boolean,
+        hashFile: Boolean
     }, function(items) {
         // Saved values from the chrome.storage
         $('#logging').prop('checked', items.loggingEnabled);

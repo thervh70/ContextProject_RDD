@@ -42,21 +42,81 @@ describe("The MainController, when started by the start function,", function() {
         }));
     });
 
+    let spyInitCurTabs: jasmine.Spy;
+    let spyRehookOnUpdate: jasmine.Spy;
+    let spyRehookOnFocus: jasmine.Spy;
+    let spyListenDBMessages: jasmine.Spy;
+
     it("the connectToContentScript helper method, should call the right functions", function () {
-        const spies = desiredSpies([true, true, true, true]);
+        spyInitCurTabs = spyOn(testMainController, "initAllCurrentTabs");
+        spyRehookOnUpdate = spyOn(testMainController, "rehookOnUpdate");
+        spyRehookOnFocus = spyOn(testMainController, "rehookOnFocusChange");
+        spyListenDBMessages = spyOn(testMainController, "listenToDatabaseMessages");
         testMainController.start();
 
-        expect(spies[0]).toHaveBeenCalled();
-        expect(spies[1]).toHaveBeenCalled();
-        expect(spies[2]).toHaveBeenCalled();
-        expect(spies[3]).toHaveBeenCalled();
+        expect(spyInitCurTabs).toHaveBeenCalled();
+        expect(spyRehookOnUpdate).toHaveBeenCalled();
+        expect(spyRehookOnFocus).toHaveBeenCalled();
+        expect(spyListenDBMessages).toHaveBeenCalled();
+    });
+
+    it("the initAllCurrentTabs helper method, should call the right functions", function () {
+        const spyChrome = spyOn(chrome.tabs, "query");
+        spyRehookOnUpdate = spyOn(testMainController, "rehookOnUpdate");
+        spyRehookOnFocus = spyOn(testMainController, "rehookOnFocusChange");
+        spyListenDBMessages = spyOn(testMainController, "listenToDatabaseMessages");
+        testMainController.start();
+
+        expect(spyChrome).toHaveBeenCalled();
+        expect(spyRehookOnUpdate).toHaveBeenCalled();
+        expect(spyRehookOnFocus).toHaveBeenCalled();
+        expect(spyListenDBMessages).toHaveBeenCalled();
+    });
+
+    it("the rehookOnUpdate helper method, should call the right functions", function () {
+        const spyChrome = spyOn(chrome.tabs.onUpdated, "addListener");
+        spyInitCurTabs = spyOn(testMainController, "initAllCurrentTabs");
+        spyRehookOnFocus = spyOn(testMainController, "rehookOnFocusChange");
+        spyListenDBMessages = spyOn(testMainController, "listenToDatabaseMessages");
+        testMainController.start();
+
+        expect(spyChrome).toHaveBeenCalled();
+        expect(spyInitCurTabs).toHaveBeenCalled();
+        expect(spyRehookOnFocus).toHaveBeenCalled();
+        expect(spyListenDBMessages).toHaveBeenCalled();
+    });
+
+    it("the rehookOnFocusChange helper method, should call the right functions", function () {
+        const spyChrome = spyOn(chrome.tabs.onActivated, "addListener");
+        spyInitCurTabs = spyOn(testMainController, "initAllCurrentTabs");
+        spyRehookOnUpdate = spyOn(testMainController, "rehookOnUpdate");
+        spyListenDBMessages = spyOn(testMainController, "listenToDatabaseMessages");
+        testMainController.start();
+
+        expect(spyChrome).toHaveBeenCalled();
+        expect(spyInitCurTabs).toHaveBeenCalled();
+        expect(spyRehookOnUpdate).toHaveBeenCalled();
+        expect(spyListenDBMessages).toHaveBeenCalled();
+    });
+
+    it("the listenToDatabaseMessages helper method, should call the right functions", function () {
+        const spyChrome = spyOn(chrome.runtime.onMessage, "addListener");
+        spyInitCurTabs = spyOn(testMainController, "initAllCurrentTabs");
+        spyRehookOnUpdate = spyOn(testMainController, "rehookOnUpdate");
+        spyRehookOnFocus = spyOn(testMainController, "rehookOnFocusChange");
+        testMainController.start();
+
+        expect(spyChrome).toHaveBeenCalled();
+        expect(spyInitCurTabs).toHaveBeenCalled();
+        expect(spyRehookOnFocus).toHaveBeenCalled();
+        expect(spyListenDBMessages).toHaveBeenCalled();
     });
 
 });
 
 describe("The MainController", function() {
 
-    it("should call the notify function in order to notify via the chrome query function", function () {
+    it("should, when notify is being called, notify the current tab", function () {
         testMainController = new MainController();
         const spyChrome = spyOn(chrome.tabs, "query");
         testMainController.notify();
@@ -65,32 +125,3 @@ describe("The MainController", function() {
     });
 
 });
-
-/**
- * Adds the spies that are desired to an array.
- * This function simplifies spy creation within test cases, as most spies are desired, but not always all of them.
- * @param spyRequest an array consisting of booleans, indicating the desired spies.
- * @returns {jasmine.Spy[]} the desired spies.
- */
-function desiredSpies(spyRequest: boolean[]) {
-    // Spies for MainController private functions.
-    let spyReturn: jasmine.Spy[];
-    spyReturn = [];
-    const spyInitCurTabs = spyOn(testMainController, "initAllCurrentTabs");
-    const spyRehookOnUpdate = spyOn(testMainController, "rehookOnUpdate");
-    const spyRehookOnFocus = spyOn(testMainController, "rehookOnFocusChange");
-    const spyListenDBMessages = spyOn(testMainController, "listenToDatabaseMessages");
-    if (spyRequest[0]) {
-        spyReturn.push(spyInitCurTabs);
-    }
-    if (spyRequest[1]) {
-        spyReturn.push(spyRehookOnUpdate);
-    }
-    if (spyRequest[2]) {
-        spyReturn.push(spyRehookOnFocus);
-    }
-    if (spyRequest[3]) {
-        spyReturn.push(spyListenDBMessages);
-    }
-    return spyReturn;
-}
