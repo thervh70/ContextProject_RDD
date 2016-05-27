@@ -141,7 +141,7 @@ class ContentController {
         let elementSelectionBinding: ElementSelectionBehaviourCreatable;
         let elementEventBindingHolder: ElementEventBinding;
         let elementSelectionBindingHolder: ElementSelectionBehaviour;
-        let windowResolutionTracker: ResizeTracker;
+        let windowResolutionTracker: WindowResolutionTracker;
         let keystrokeTracker: KeystrokeTracker;
         let mouseClickTracker: MouseClickTracker;
         let mouseScrollTracker: MouseScrollTracker;
@@ -166,7 +166,7 @@ class ContentController {
                 elementEventBindingHolder = new elementEventBinding(elementSelectionBindingHolder);
             }
         }
-        windowResolutionTracker = new ResizeTracker(database);
+        windowResolutionTracker = new WindowResolutionTracker(database);
         keystrokeTracker = new KeystrokeTracker(database);
         mouseClickTracker = new MouseClickTracker(database);
         mouseScrollTracker = new MouseScrollTracker(database);
