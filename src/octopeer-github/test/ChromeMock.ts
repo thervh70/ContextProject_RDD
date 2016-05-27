@@ -25,6 +25,12 @@ _window.chrome = {
         },
     },
     tabs: {
+        onActivated: {
+            addListener: function() {},
+        },
+        onUpdated: {
+            addListener: function() {},
+        },
         query: function() {},
     },
 };
