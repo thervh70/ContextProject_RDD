@@ -1,5 +1,6 @@
 /* tslint:disable:max-line-length */
 /// <reference path="../main/Options/DoNotWatchOptions.ts"/>
+/// <reference path="../main/Database/ConsoleLogDatabaseAdapter.ts"/>
 /// <reference path="ElementEventBinding/ElementEventBinding.ts"/>
 /// <reference path="ElementEventBinding/ClickElementEventBinding.ts"/>
 /// <reference path="ElementEventBinding/KeystrokeElementEventBinding.ts"/>
@@ -100,7 +101,7 @@ class ContentController {
      */
     public start() {
         if (!chrome.runtime.onMessage.hasListeners()) {
-            chrome.runtime.onMessage.addListener(this.processMessageFromBackgroundPage);
+            chrome.runtime.onMessage.addListener(this.processMessageFromBackgroundPage());
         }
         return this;
     }
@@ -108,23 +109,25 @@ class ContentController {
     /**
      * Set up all event handlers in the Chrome API.
      */
-    private processMessageFromBackgroundPage(request: any, sender: any, sendResponse: Function) {
+    private processMessageFromBackgroundPage() {
         const self = this;
-        if (!request.hookToDom) {
-            sendResponse(`did nothing (${location.href})`);
-            return;
-        }
-        try {
-            self.hookToDOM(self.messageSendDatabaseAdapter);
-            $("body").click(function () {
+        return function (request: any, sender: any, sendResponse: Function) {
+            if (!request.hookToDom) {
+                sendResponse(`did nothing (${location.href})`);
+                return;
+            }
+            try {
                 self.hookToDOM(self.messageSendDatabaseAdapter);
-            });
-        } catch (e) {
-            sendResponse(`has errored (${location.href})\n[ERR] ${e}`);
-            console.error(e);
-            return;
-        }
-        sendResponse(`hooked to DOM (${location.href})`);
+                $("body").click(function () {
+                    self.hookToDOM(self.messageSendDatabaseAdapter);
+                });
+            } catch (e) {
+                sendResponse(`has errored (${location.href})\n[ERR] ${e}`);
+                console.error(e);
+                return;
+            }
+            sendResponse(`hooked to DOM (${location.href})`);
+        };
     }
 
     /**
@@ -136,6 +139,11 @@ class ContentController {
         let elementSelectionBinding: ElementSelectionBehaviourCreatable;
         let elementEventBindingHolder: ElementEventBinding;
         let elementSelectionBindingHolder: ElementSelectionBehaviour;
+        let windowResolutionTracker: WindowResolutionTracker;
+        let keystrokeTracker: KeystrokeTracker;
+        let mouseClickTracker: MouseClickTracker;
+        let mouseScrollTracker: MouseScrollTracker;
+        let mousePositionTracker: MousePositionTracker;
 
         for (elementSelectionBinding of this.elementSelectionBindingList) {
             if (DoNotWatchOptions.getElements().indexOf(elementSelectionBinding) > 0) {
@@ -156,6 +164,11 @@ class ContentController {
                 elementEventBindingHolder = new elementEventBinding(elementSelectionBindingHolder);
             }
         }
+        windowResolutionTracker = new WindowResolutionTracker(database);
+        keystrokeTracker = new KeystrokeTracker(database);
+        mouseClickTracker = new MouseClickTracker(database);
+        mouseScrollTracker = new MouseScrollTracker(database);
+        mousePositionTracker = new MousePositionTracker(database);
     }
 
 }
