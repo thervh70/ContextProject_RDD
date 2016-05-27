@@ -4,7 +4,6 @@
  */
 
 describe("The ContentController", function() {
-    let spy: jasmine.Spy;
     let spyAddedListeners: jasmine.Spy;
     let spyCheckListeners: jasmine.Spy;
 

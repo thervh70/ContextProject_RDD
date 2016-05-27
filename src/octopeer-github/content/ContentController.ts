@@ -127,7 +127,7 @@ class ContentController {
                 return;
             }
             sendResponse(`hooked to DOM (${location.href})`);
-        }
+        };
     }
 
     /**
