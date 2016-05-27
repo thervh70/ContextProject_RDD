@@ -78,4 +78,3 @@ function constantDatabasePoster() {
         }));
     }
 }
-/* tslint:enable:no-unused-variable */
