@@ -6,7 +6,7 @@
 
 enum StatusCode {ERROR, RUNNING, OFF, STANDBY}
 
-/* tslint:disable:no-unused-variable */
+// tslint:disable-next-line:no-unused-variable
 const Status = new (class Status {
 
     /**
@@ -108,4 +108,3 @@ const Status = new (class Status {
         });
     }
 })();
-/* tslint:enable:no-unused-variable */
