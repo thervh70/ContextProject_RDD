@@ -114,8 +114,9 @@ describe("A RESTApiDatabaseAdapter", function() {
         Logger.setDebug();
         consoleSpy = spyOn(Logger, "debug");
 
-        let adapterDebugOn =
-            new RESTApiDatabaseAdapter("http://localhost:8000/", "https://github.com/Travis/travisrepo/pull/42", "Travis", true);
+        /* tslint:disable:no-unused-expression */
+        new RESTApiDatabaseAdapter("http://localhost:8000/", "https://github.com/Travis/travisrepo/pull/42", "Travis", true);
+        /* tslint:enable:no-unused-expression */
 
         expect(consoleSpy).toHaveBeenCalledTimes(2);
         expect(consoleSpy.calls.all()[0].args[0]).toBe("Constructed DatabaseAdapter(http://localhost:8000/)");
