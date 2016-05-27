@@ -6,39 +6,40 @@
 
 let _window: any = window;
 
-/* tslint:disable:no-empty */
+/* tslint:disable-next-line:no-empty */
+const emptyFun = function() {};
+
 _window.chrome = {
     browserAction: {
-        setIcon: function() {},
+        setIcon: emptyFun,
     },
     runtime: {
         onMessage: {
-            addListener: function() {},
-            hasListeners: function() {},
+            addListener: emptyFun,
+            hasListeners: emptyFun,
         },
-        sendMessage: function() {},
+        sendMessage: emptyFun,
     },
     storage: {
         local: {
-            get: function () {},
-            set: function () {},
+            get: emptyFun,
+            set: emptyFun,
         },
         onChanged: {
-            addListener: function () {},
+            addListener: emptyFun,
         },
         sync: {
-            get: function () {},
-            set: function () {},
+            get: emptyFun,
+            set: emptyFun,
         },
     },
     tabs: {
         onActivated: {
-            addListener: function() {},
+            addListener: emptyFun,
         },
         onUpdated: {
-            addListener: function() {},
+            addListener: emptyFun,
         },
-        query: function() {},
+        query: emptyFun,
     },
 };
-/* tslint:enable:no-empty */
