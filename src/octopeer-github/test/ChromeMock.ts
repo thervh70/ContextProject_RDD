@@ -12,6 +12,10 @@ _window.chrome = {
         setIcon: function() {},
     },
     runtime: {
+        onMessage: {
+            addListener: function() {},
+            hasListeners: function() {},
+        },
         sendMessage: function() {},
     },
     storage: {

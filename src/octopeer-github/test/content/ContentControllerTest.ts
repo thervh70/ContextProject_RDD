@@ -5,6 +5,9 @@
 
 describe("The ContentController", function() {
     let spy: jasmine.Spy;
+    let spyAddedListeners: jasmine.Spy;
+    let spyCheckListeners: jasmine.Spy;
+
     let testContentController: ContentController;
 
     const propertyListOne = [
@@ -51,15 +54,32 @@ describe("The ContentController", function() {
     });
 
     it("should return an initialized (content)controller, with the right properties, by calling the start function", function () {
-        spy = spyOn(testContentController, "connectToBackgroundPage");
+        spyCheckListeners = spyOn(chrome.runtime.onMessage, "hasListeners").and.returnValue(false);
         testContentController.start();
 
-        expect(spy).toHaveBeenCalled();
-        // checks whether the object contains the right properties.
+        // Checks whether the object contains the right properties.
         expect(testContentController.start()).toEqual(jasmine.objectContaining({
             elementEventBindingList: propertyListOne,
             elementSelectionBindingList: propertyListTwo,
             messageSendDatabaseAdapter : new MessageSendDatabaseAdapter(),
         }));
+    });
+
+    it("should return an initialized (content)controller, when no listeners are added, by calling the start function", function () {
+        spyCheckListeners = spyOn(chrome.runtime.onMessage, "hasListeners").and.returnValue(false).and.callThrough();
+        testContentController.start();
+
+        expect(spyCheckListeners).toHaveBeenCalled();
+    });
+
+    it("should return an initialized (content)controller, when listeners are added, by calling the start function", function () {
+        spy = spyOn(testContentController, "processMessageFromBackgroundPage");
+        spyCheckListeners = spyOn(chrome.runtime.onMessage, "hasListeners").and.returnValue(true).and.callThrough();
+        spyAddedListeners = spyOn(chrome.runtime.onMessage, "addListener").and.callThrough();
+        testContentController.start();
+
+        expect(spyCheckListeners).toHaveBeenCalled();
+        expect(spyAddedListeners).toHaveBeenCalled();
+        expect(spyAddedListeners.calls.mostRecent().args[0]).toEqual(spy);
     });
 });
