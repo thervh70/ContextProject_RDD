@@ -27,6 +27,6 @@ class MousePositionTracker {
                 self.db.postMousePosition(new MousePositionEvent(viewportX + mouseX, viewportY + mouseY,
                     viewportX, viewportY, new Date().getTime()), EMPTY_CALLBACK, EMPTY_CALLBACK);
             });
-        }, this.MOUSE_POSITION_TRACKER_TIMEOUT);
+        }, MousePositionTracker.MOUSE_POSITION_TRACKER_TIMEOUT);
     }
 }

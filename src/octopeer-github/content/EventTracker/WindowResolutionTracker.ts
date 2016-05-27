@@ -15,7 +15,7 @@ class ResizeTracker {
             resizeTimer = setTimeout(function () {
                 self.db.postWindowResolution(new WindowResolutionEvent($window.width(), $window.height(),
                     new Date().getTime()), EMPTY_CALLBACK, EMPTY_CALLBACK);
-            }, this.WINDOW_RESOLUTION_TRACKER_TIMEOUT);
+            }, ResizeTracker.WINDOW_RESOLUTION_TRACKER_TIMEOUT);
         });
     }
 }

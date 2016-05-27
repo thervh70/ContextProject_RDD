@@ -19,7 +19,7 @@ class MouseScrollTracker {
             resizeTimer = setTimeout(function () {
                 self.db.postMouseScroll(new MouseScrollEvent($window.scrollLeft(), $window.scrollTop(),
                     new Date().getTime()), EMPTY_CALLBACK, EMPTY_CALLBACK);
-            }, this.MOUSE_SCROLL_TRACKER_TIMEOUT);
+            }, MouseScrollTracker.MOUSE_SCROLL_TRACKER_TIMEOUT);
         });
     }
 }
