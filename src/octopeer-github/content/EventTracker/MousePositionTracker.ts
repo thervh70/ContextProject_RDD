@@ -4,7 +4,7 @@
 class MousePositionTracker {
 
     /** Private static final for the timeout between logs. */
-    private static get MOUSE_POSITION_TRACKER_TIMEOUT() { return 500; }
+    private static get TIMEOUT() { return 500; }
 
     /**
      * Initialize a MousePositionTracker that contains a MousePositionDatabaseAdaptable.
@@ -27,6 +27,6 @@ class MousePositionTracker {
                 self.db.postMousePosition(new MousePositionEvent(viewportX + mouseX, viewportY + mouseY,
                     viewportX, viewportY, new Date().getTime()), EMPTY_CALLBACK, EMPTY_CALLBACK);
             });
-        }, MousePositionTracker.MOUSE_POSITION_TRACKER_TIMEOUT);
+        }, MousePositionTracker.TIMEOUT);
     }
 }

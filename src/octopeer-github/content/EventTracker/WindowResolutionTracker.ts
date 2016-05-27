@@ -4,7 +4,7 @@
 class WindowResolutionTracker {
 
     /** Private static final for the timeout between logs. */
-    private static get WINDOW_RESOLUTION_TRACKER_TIMEOUT() { return 500; }
+    private static get TIMEOUT() { return 500; }
 
     /**
      * Initialize a WindowResolutionTracker that contains a WindowResolutionDatabaseAdaptable.
@@ -19,7 +19,7 @@ class WindowResolutionTracker {
             resizeTimer = setTimeout(function () {
                 self.db.postWindowResolution(new WindowResolutionEvent($window.width(), $window.height(),
                     new Date().getTime()), EMPTY_CALLBACK, EMPTY_CALLBACK);
-            }, WindowResolutionTracker.WINDOW_RESOLUTION_TRACKER_TIMEOUT);
+            }, WindowResolutionTracker.TIMEOUT);
         });
     }
 }

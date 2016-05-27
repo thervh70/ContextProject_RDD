@@ -4,7 +4,7 @@
 class MouseScrollTracker {
 
     /** Private static final for the timeout between logs. */
-    private static get MOUSE_SCROLL_TRACKER_TIMEOUT() { return 1000; }
+    private static get TIMEOUT() { return 1000; }
 
     /**
      * Initialize a MouseScrollTracker that contains a MouseScrollDatabaseAdaptable.
@@ -19,7 +19,7 @@ class MouseScrollTracker {
             resizeTimer = setTimeout(function () {
                 self.db.postMouseScroll(new MouseScrollEvent($window.scrollLeft(), $window.scrollTop(),
                     new Date().getTime()), EMPTY_CALLBACK, EMPTY_CALLBACK);
-            }, MouseScrollTracker.MOUSE_SCROLL_TRACKER_TIMEOUT);
+            }, MouseScrollTracker.TIMEOUT);
         });
     }
 }
