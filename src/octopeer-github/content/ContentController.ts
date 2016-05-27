@@ -100,36 +100,32 @@ class ContentController {
      * @return this
      */
     public start() {
-        this.connectToBackgroundPage();
+        if (!chrome.runtime.onMessage.hasListeners()) {
+            chrome.runtime.onMessage.addListener(this.processMessageFromBackgroundPage);
+        }
         return this;
     }
 
     /**
      * Set up all event handlers in the Chrome API.
      */
-    private connectToBackgroundPage() {
+    private processMessageFromBackgroundPage(request: any, sender: any, sendResponse: Function) {
         const self = this;
-        if (chrome.runtime.onMessage.hasListeners()) {
+        if (!request.hookToDom) {
+            sendResponse(`did nothing (${location.href})`);
             return;
         }
-
-        chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-            if (!request.hookToDom) {
-                sendResponse(`did nothing (${location.href})`);
-                return;
-            }
-            try {
+        try {
+            self.hookToDOM(self.messageSendDatabaseAdapter);
+            $("body").click(function () {
                 self.hookToDOM(self.messageSendDatabaseAdapter);
-                $("body").click(function() {
-                    self.hookToDOM(self.messageSendDatabaseAdapter);
-                });
-            } catch (e) {
-                sendResponse(`has errored (${location.href})\n[ERR] ${e}`);
-                console.error(e);
-                return;
-            }
-            sendResponse(`hooked to DOM (${location.href})`);
-        });
+            });
+        } catch (e) {
+            sendResponse(`has errored (${location.href})\n[ERR] ${e}`);
+            console.error(e);
+            return;
+        }
+        sendResponse(`hooked to DOM (${location.href})`);
     }
 
     /**
