@@ -50,7 +50,7 @@ type ElementXEventCreatable = {
 /**
  * Class for indicating all internal options of the application.
  */
-/* tslint:disable:no-unused-variable */
+// tslint:disable-next-line:no-unused-variable
 const DoNotWatchOptions = new (class DoNotWatchOptions {
     /**
      * Gets Elements not to Log, from the chrome storage.
@@ -96,4 +96,3 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
         return doNotWatchCombination;
     }
 })();
-/* tslint:enable:no-unused-variable */
