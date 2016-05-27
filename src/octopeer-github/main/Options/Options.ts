@@ -8,6 +8,7 @@
  * The options displayed below are mainly there for showing the structure of the Options class,
  * and being able to create the bindings between the content controller, and such with the Options class.
  */
+// tslint:disable-next-line:no-unused-variable
 const Options = new (class Options {
     private logging: Boolean;
     private tabs: Boolean;
@@ -81,7 +82,7 @@ const Options = new (class Options {
 
     /**
      * Notify the whole list of observers that there has been a change.
-     * The observer is reponsible for fetching the correct data after this change.
+     * The observer is responsible for fetching the correct data after this change.
      */
     public notifyObservers() {
         for (const observer of this.observers) {
@@ -208,4 +209,3 @@ const Options = new (class Options {
         return this.doNotWatchKeyboardShortcutEvents;
     }
 })();
-Options.getLogging();
