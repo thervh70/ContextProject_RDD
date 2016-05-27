@@ -11,11 +11,15 @@
   - [3](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Sprint_Backlog3.pdf)
   - [4](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Sprint_Backlog4.pdf)
   - [5](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Sprint_Backlog5.pdf)
+  - [6](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Sprint_Backlog6.pdf)
+
 - Sprint retrospectives:
   - [1](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/SprintRetrospective-1.pdf)
   - [2](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/SprintRetrospective-2.pdf)
   - [3](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/SprintRetrospective-3.pdf)
   - [4](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/SprintRetrospective-4.pdf)
+  - [5](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/SprintRetrospective-5.pdf)
+
 
 - Research Documents:
   - [Frameworks](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/research/Research_Frameworks.pdf)
@@ -34,7 +38,7 @@ All documents can in general be found in the doc folder.
 - Download [Nodejs](https://nodejs.org/en/download/)
 - Use WebStorm (or Git knowledge) to clone the repo to a local folder
 - Run `npm install`
-- Run `npm test` to check whether works correctly
+- Run `npm run-script travis` to check whether everything works correctly
 
 Congratulations, you can now start developing!
 

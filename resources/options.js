@@ -3,6 +3,17 @@
  * Contains necessary functions for the Options page of Octopeer.
  */
 
+// Listens for changes in the loggingEnabled flag.
+// This boolean might be switched using the popup.
+function changeListener() {
+    chrome.storage.onChanged.addListener(function (changes, areaName) {
+        if (areaName === "sync" && changes.loggingEnabled) {
+            restoreOptionsState();
+            restoreOptionsAvailability();
+        }
+    });
+}
+
 // Saves options to chrome.storage.
 // A message will confirm this to the user.
 function saveOptions() {
@@ -35,15 +46,14 @@ function saveOptions() {
 // Restores the states of the checkboxes, using the preferences stored in chrome.storage.
 function restoreOptionsState() {
     chrome.storage.sync.get({
-        // Default values
-        loggingEnabled: true,
-        trackTabs: true,
-        trackComments: true,
-        trackPeerComments: true,
-        trackFocus: true,
-        hashUsername: true,
-        hashRepo: true,
-        hashFile: false
+        loggingEnabled: Boolean,
+        trackTabs: Boolean,
+        trackComments: Boolean,
+        trackPeerComments: Boolean,
+        trackFocus: Boolean,
+        hashUsername: Boolean,
+        hashRepo: Boolean,
+        hashFile: Boolean
     }, function(items) {
         // Saved values from the chrome.storage
         $('#logging').prop('checked', items.loggingEnabled);
@@ -147,4 +157,5 @@ document.addEventListener('DOMContentLoaded', restoreOptionsAvailability);
 $(document).ready(function() {
     $('#save').click(saveOptions);
     $('#logging').click(switchOptions);
+    changeListener();
 });

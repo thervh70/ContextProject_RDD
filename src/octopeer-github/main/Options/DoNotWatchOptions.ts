@@ -12,15 +12,15 @@
 /// <reference path="../../content/ElementSelectionBehaviour/ButtonElementSelectionBehaviour/AddEmoticonButtonElementSelectionBehaviour.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/ButtonElementSelectionBehaviour/CancelEditPRNameButtonElementSelectionBehaviour.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/ButtonElementSelectionBehaviour/CancelInlineCommentButtonElementSelectionBehaviour.ts"/>
-/// <reference path="../../content/ElementSelectionBehaviour/ButtonElementSelectionBehaviour/CheckDetailButtonElementSelectionBehaviour.ts"/>
+/// <reference path="../../content/ElementSelectionBehaviour/ButtonElementSelectionBehaviour/ShowCIDetailsButtonElementSelectionBehaviour.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/ButtonElementSelectionBehaviour/ClosePRButtonElementSelectionBehaviour.ts"/>
-/// <reference path="../../content/ElementSelectionBehaviour/ButtonElementSelectionBehaviour/CommentInlineCommentButtonElementSelectionBehaviour.ts"/>
+/// <reference path="../../content/ElementSelectionBehaviour/ButtonElementSelectionBehaviour/ConfirmInlineCommentButtonElementSelectionBehaviour.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/ButtonElementSelectionBehaviour/CommentPRButtonElementSelectionBehaviour.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/ButtonElementSelectionBehaviour/EditCommentButtonElementSelectionBehaviour.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/ButtonElementSelectionBehaviour/EditPRNameButtonElementSelectionBehaviour.ts"/>
-/// <reference path="../../content/ElementSelectionBehaviour/ButtonElementSelectionBehaviour/InlineCommentButtonElementSelectionBehaviour.ts"/>
+/// <reference path="../../content/ElementSelectionBehaviour/ButtonElementSelectionBehaviour/CreateInlineCommentButtonElementSelectionBehaviour.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/ButtonElementSelectionBehaviour/MergePRButtonElementSelectionBehaviour.ts"/>
-/// <reference path="../../content/ElementSelectionBehaviour/ButtonElementSelectionBehaviour/SaveEditPRNameButtonElementSelectionBehaviour.ts"/>
+/// <reference path="../../content/ElementSelectionBehaviour/ButtonElementSelectionBehaviour/SavePRNameButtonElementSelectionBehaviour.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/ButtonElementSelectionBehaviour/ShowChecksToggleButtonElementSelectionBehaviour.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/MiscellaneousElementSelectionBehaviour/DateMiscellaneousElementSelectionBehaviour.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/NameElementSelectionBehaviour/CommitHashcodeNameElementSelectionBehaviour.ts"/>
@@ -48,41 +48,51 @@ type ElementXEventCreatable = {
 };
 
 /**
- * Class for indicating all internal settings of the application.
+ * Class for indicating all internal options of the application.
  */
-const DoNotWatchSettings = new (class DoNotWatchSettings {
+// tslint:disable-next-line:no-unused-variable
+const DoNotWatchOptions = new (class DoNotWatchOptions {
     /**
      * Gets Elements not to Log, from the chrome storage.
      * @returns {ElementSelectionBehaviourCreatable[]}
      */
     public getElements() {
-        let doNotWatchElements: ElementSelectionBehaviourCreatable[];
-
+        let doNotWatchElements: ElementSelectionBehaviourCreatable[] = [];
+        if (Options.getDoNotWatchCommentElements()) {
+            doNotWatchElements.push(CommentInlineCommentButtonElementSelectionBehaviour);
+            doNotWatchElements.push(CommentPRButtonElementSelectionBehaviour);
+            doNotWatchElements.push(EditCommentButtonElementSelectionBehaviour);
+        }
         return doNotWatchElements;
     }
     /**
      * Gets Events not to Log, from the chrome storage.
-     * @returns {ElementSelectionBehaviourCreatable[]}
+     * @returns {ElementEventBindingCreatable[]}
      */
     public getEvents() {
-        let doNotWatchEvents: ElementEventBindingCreatable[];
-        doNotWatchEvents = [];
+        let doNotWatchEvents: ElementEventBindingCreatable[] = [];
 
-        if (Options.getFocus()) {
+        if (Options.getDoNotWatchOnScreenEvents()) {
             doNotWatchEvents.push(ScrollIntoViewElementEventBinding);
             doNotWatchEvents.push(ScrollOutOfViewElementEventBinding);
         }
-
+        if (Options.getDoNotWatchHoverEvents()) {
+            doNotWatchEvents.push(MouseEnterElementEventBinding);
+            doNotWatchEvents.push(MouseLeaveElementEventBinding);
+        }
+        if (Options.getDoNotWatchKeyboardShortcutEvents()) {
+            doNotWatchEvents.push(KeystrokeElementEventBinding);
+        }
         return doNotWatchEvents;
     }
+
     /**
-     * Gets Elements not to Log, from the chrome storage.
-     * @returns {ElementSelectionBehaviourCreatable[]}
+     * Gets Combinations not to Log, from the chrome storage.
+     * This is currently just a placeholder for the structure to be used.
+     * @returns {ElementXEventCreatable[]}
      */
     public getCombinations() {
-        let doNotWatchCombination: ElementXEventCreatable[];
-
+        let doNotWatchCombination: ElementXEventCreatable[] = [];
         return doNotWatchCombination;
     }
 })();
-DoNotWatchSettings.getElements(); // supress unused variable warning

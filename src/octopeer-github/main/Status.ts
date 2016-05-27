@@ -6,7 +6,8 @@
 
 enum StatusCode {ERROR, RUNNING, OFF, STANDBY}
 
-const Status = new (class Status implements OptionsObserver {
+// tslint:disable-next-line:no-unused-variable
+const Status = new (class Status {
 
     /**
      * Status.NAME: the internal names of the enum StatusCode.
@@ -61,14 +62,6 @@ const Status = new (class Status implements OptionsObserver {
     }
 
     /**
-     * If Octopeer was switched off, standby() will find out.
-     * Otherwise this method simply sets the standby status.
-     */
-    public notify() {
-        this.standby();
-    }
-
-    /**
      * Gets the correct status icon based on StatusCode and size.
      * Chrome resizes all icons except for the one in the toolbar.
      * That is why we added an extra case.
@@ -115,4 +108,3 @@ const Status = new (class Status implements OptionsObserver {
         });
     }
 })();
-Status.getIcon(); // Suppress unused variable `Status`

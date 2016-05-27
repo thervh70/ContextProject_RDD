@@ -4,16 +4,25 @@
  * Created by Mitchell on 12-5-2016.
  * Class from which user options can be retrieved.
  * These options have been maintained by the front-end.
+ * The specific options to be used are still not definitive.
+ * The options displayed below are mainly there for showing the structure of the Options class,
+ * and being able to create the bindings between the content controller, and such with the Options class.
  */
+// tslint:disable-next-line:no-unused-variable
 const Options = new (class Options {
-    private logging: Boolean;
-    private tabs: Boolean;
-    private comments: Boolean;
-    private peer_comments: Boolean;
-    private focus: Boolean;
-    private username: Boolean;
-    private repo: Boolean;
-    private file: Boolean;
+    private logging: Boolean = true;
+    private tabs: Boolean = true;
+    private comments: Boolean = true;
+    private peerComments: Boolean = true;
+    private focus: Boolean = true;
+    private username: Boolean = true;
+    private repo: Boolean = true;
+    private file: Boolean = false;
+    private doNotWatchOnScreenEvents: Boolean = false;
+    private doNotWatchHoverEvents: Boolean = false;
+    private doNotWatchCommentElements: Boolean = false;
+    private doNotWatchKeyboardShortcutEvents: Boolean = false;
+
     private observers: OptionsObserver[];
 
     /**
@@ -28,11 +37,15 @@ const Options = new (class Options {
             self.logging = object.loggingEnabled;
             self.tabs = object.trackTabs;
             self.comments = object.trackComments;
-            self.peer_comments = object.trackPeerComments;
+            self.peerComments = object.trackPeerComments;
             self.focus = object.trackFocus;
             self.username = object.hashUsername;
             self.repo = object.hashRepo;
             self.file = object.hashFile;
+            self.doNotWatchOnScreenEvents = object.doNotWatchOnScreenEvents;
+            self.doNotWatchHoverEvents = object.doNotWatchHoverEvents;
+            self.doNotWatchCommentElements = object.doNotWatchCommentElements;
+            self.doNotWatchKeyboardShortcutEvents = object.doNotWatchKeyboardShortcutEvents;
             self.notifyObservers();
         });
     }
@@ -49,11 +62,19 @@ const Options = new (class Options {
                 self.logging = changeObject.loggingEnabled ? changeObject.loggingEnabled.newValue : self.logging;
                 self.tabs = changeObject.trackTabs ? changeObject.trackTabs.newValue : self.tabs;
                 self.comments = changeObject.trackComments ? changeObject.trackComments.newValue : self.comments;
-                self.peer_comments = changeObject.trackPeerComments ? changeObject.trackPeerComments.newValue : self.peer_comments;
+                self.peerComments = changeObject.trackPeerComments ? changeObject.trackPeerComments.newValue : self.peerComments;
                 self.focus = changeObject.trackFocus ? changeObject.trackFocus.newValue : self.focus;
                 self.username = changeObject.hashUsername ? changeObject.hashUsername.newValue : self.username;
                 self.repo = changeObject.hashRepo ? changeObject.hashRepo.newValue : self.repo;
                 self.file = changeObject.hashFile ? changeObject.hashFile.newValue : self.file;
+                self.doNotWatchOnScreenEvents = changeObject.doNotWatchOnScreenEvents ?
+                    changeObject.doNotWatchOnScreenEvents.newValue : self.doNotWatchOnScreenEvents;
+                self.doNotWatchHoverEvents = changeObject.doNotWatchHoverEvents ?
+                    changeObject.doNotWatchHoverEvents.newValue : self.doNotWatchHoverEvents;
+                self.doNotWatchCommentElements = changeObject.doNotWatchCommentElements ?
+                    changeObject.doNotWatchCommentElements.newValue : self.doNotWatchCommentElements;
+                self.doNotWatchKeyboardShortcutEvents = changeObject.doNotWatchKeyboardShortcutEvents ?
+                    changeObject.doNotWatchKeyboardShortcutEvents.newValue : self.doNotWatchKeyboardShortcutEvents;
                 self.notifyObservers();
             }
         });
@@ -61,7 +82,7 @@ const Options = new (class Options {
 
     /**
      * Notify the whole list of observers that there has been a change.
-     * The observer is reponsible for fetching the correct data after this change.
+     * The observer is responsible for fetching the correct data after this change.
      */
     public notifyObservers() {
         for (const observer of this.observers) {
@@ -75,6 +96,26 @@ const Options = new (class Options {
      */
     public addObserver(obs: OptionsObserver) {
         this.observers.push(obs);
+    }
+
+    /**
+     * Remove a certain OptionsObserver.
+     * @param obs The Observer that has to be deleted from the list.
+     */
+    public removeObserver(obs: OptionsObserver) {
+        const index = this.observers.indexOf(obs);
+        if (index > -1) {
+            this.observers.splice(index, 1);
+        }
+    }
+
+
+    /**
+     * Returns the list of observers.
+     * @returns {Array<OptionsObserver>}
+     */
+    public getObservers() {
+        return this.observers;
     }
 
     /**
@@ -106,7 +147,7 @@ const Options = new (class Options {
      * @returns {Boolean}
      */
     public getPeerComments() {
-        return this.peer_comments;
+        return this.peerComments;
     }
 
     /**
@@ -140,5 +181,40 @@ const Options = new (class Options {
     public getFile() {
         return this.file;
     }
+
+    /**
+     * Gets doNotWatch preference about onscreen elements, from the chrome storage.
+     * User persepective: Do not watch what elements are on my screen.
+     * @returns {Boolean}
+     */
+    public getDoNotWatchOnScreenEvents() {
+        return this.doNotWatchOnScreenEvents;
+    }
+
+    /**
+     * Gets doNotWatch preference about hovering above elements, from the chrome storage.
+     * User persepective: Do not watch what elements I hover over.
+     * @returns {Boolean}
+     */
+    public getDoNotWatchHoverEvents() {
+        return this.doNotWatchHoverEvents;
+    }
+
+    /**
+     * Gets doNotWatch preference about comments, from the chrome storage.
+     * User persepective: Do not watch the comments of my pull request.
+     * @returns {Boolean}
+     */
+    public getDoNotWatchCommentElements() {
+        return this.doNotWatchCommentElements;
+    }
+
+    /**
+     * Gets doNotWatch preference about keyboard shortcuts, from the chrome storage.
+     * User persepective: Do not watch my keyboard shortcuts.
+     * @returns {Boolean}
+     */
+    public getDoNotWatchKeyboardShortcutEvents() {
+        return this.doNotWatchKeyboardShortcutEvents;
+    }
 })();
-Options.getLogging();

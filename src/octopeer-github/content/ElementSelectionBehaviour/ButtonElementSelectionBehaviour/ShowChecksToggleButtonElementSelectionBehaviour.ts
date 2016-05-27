@@ -10,6 +10,6 @@ class ShowChecksToggleButtonElementSelectionBehaviour extends AbstractElementSel
      * @param database The database that is used to store the Elements.
      */
     public constructor(database: DatabaseAdaptable) {
-        super(database, new ElementID(111), ".merge-pr button.js-details-target:has(span)");
+        super(database, ElementID.SHOW_CI_CHECKS_TOGGLE, ".merge-pr button.js-details-target:has(span)");
     }
 }

@@ -1,4 +1,6 @@
+/* tslint:disable:max-line-length */
 /// <reference path="../main/Options/DoNotWatchOptions.ts"/>
+/// <reference path="../main/Database/ConsoleLogDatabaseAdapter.ts"/>
 /// <reference path="ElementEventBinding/ElementEventBinding.ts"/>
 /// <reference path="ElementEventBinding/ClickElementEventBinding.ts"/>
 /// <reference path="ElementEventBinding/KeystrokeElementEventBinding.ts"/>
@@ -11,15 +13,15 @@
 /// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/AddEmoticonButtonElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/CancelEditPRNameButtonElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/CancelInlineCommentButtonElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/CheckDetailButtonElementSelectionBehaviour.ts"/>
+/// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/ShowCIDetailsButtonElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/ClosePRButtonElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/CommentInlineCommentButtonElementSelectionBehaviour.ts"/>
+/// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/ConfirmInlineCommentButtonElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/CommentPRButtonElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/EditCommentButtonElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/EditPRNameButtonElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/InlineCommentButtonElementSelectionBehaviour.ts"/>
+/// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/CreateInlineCommentButtonElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/MergePRButtonElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/SaveEditPRNameButtonElementSelectionBehaviour.ts"/>
+/// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/SavePRNameButtonElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/ShowChecksToggleButtonElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/MiscellaneousElementSelectionBehaviour/DateMiscellaneousElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/NameElementSelectionBehaviour/CommitHashcodeNameElementSelectionBehaviour.ts"/>
@@ -35,6 +37,7 @@
 /// <reference path="ElementSelectionBehaviour/TabHeaderElementSelectionBehaviour/CommitsTabHeaderElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/TabHeaderElementSelectionBehaviour/ConversationTabHeaderElementSelectionBehaviour.ts"/>
 /// <reference path="ElementSelectionBehaviour/TabHeaderElementSelectionBehaviour/FilesChangedTabHeaderElementSelectionBehaviour.ts"/>
+/* tslint:enable:max-line-length */
 
 /**
  * The ContentController hooks the event handlers to the DOM-tree.
@@ -87,7 +90,7 @@ class ContentController {
     ];
 
     /**
-     * An inner singleton class that implements DatabaseAdaptable in order to send messages to the background page.
+     * A private DatabaseAdaptable that sends messages to the background page.
      * @type {MessageSendDatabaseAdapter}
      */
     private messageSendDatabaseAdapter = new MessageSendDatabaseAdapter();
@@ -97,35 +100,34 @@ class ContentController {
      * @return this
      */
     public start() {
-        this.connectToBackgroundPage();
+        if (!chrome.runtime.onMessage.hasListeners()) {
+            chrome.runtime.onMessage.addListener(this.processMessageFromBackgroundPage());
+        }
         return this;
     }
 
     /**
      * Set up all event handlers in the Chrome API.
      */
-    private connectToBackgroundPage() {
+    private processMessageFromBackgroundPage() {
         const self = this;
-        if (chrome.runtime.onMessage.hasListeners()) {
-            return;
-        }
-
-        chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+        return function (request: any, sender: any, sendResponse: Function) {
             if (!request.hookToDom) {
                 sendResponse(`did nothing (${location.href})`);
                 return;
             }
             try {
                 self.hookToDOM(self.messageSendDatabaseAdapter);
-                $("body").click(function() {
+                $("body").click(function () {
                     self.hookToDOM(self.messageSendDatabaseAdapter);
                 });
             } catch (e) {
                 sendResponse(`has errored (${location.href})\n[ERR] ${e}`);
+                console.error(e);
                 return;
             }
             sendResponse(`hooked to DOM (${location.href})`);
-        });
+        };
     }
 
     /**
@@ -137,17 +139,22 @@ class ContentController {
         let elementSelectionBinding: ElementSelectionBehaviourCreatable;
         let elementEventBindingHolder: ElementEventBinding;
         let elementSelectionBindingHolder: ElementSelectionBehaviour;
+        let windowResolutionTracker: WindowResolutionTracker;
+        let keystrokeTracker: KeystrokeTracker;
+        let mouseClickTracker: MouseClickTracker;
+        let mouseScrollTracker: MouseScrollTracker;
+        let mousePositionTracker: MousePositionTracker;
 
         for (elementSelectionBinding of this.elementSelectionBindingList) {
-            if (DoNotWatchSettings.getElements().indexOf(elementSelectionBinding) > 0) {
+            if (DoNotWatchOptions.getElements().indexOf(elementSelectionBinding) > 0) {
                 continue;
             }
 
             elementSelectionBindingHolder = new elementSelectionBinding(database);
 
             for (elementEventBinding of this.elementEventBindingList) {
-                if (DoNotWatchSettings.getEvents().indexOf(elementEventBinding) > 0 ||
-                    DoNotWatchSettings.getCombinations().indexOf({
+                if (DoNotWatchOptions.getEvents().indexOf(elementEventBinding) > 0 ||
+                    DoNotWatchOptions.getCombinations().indexOf({
                         element: elementSelectionBinding,
                         event: elementEventBinding,
                     }) > 0
@@ -157,6 +164,11 @@ class ContentController {
                 elementEventBindingHolder = new elementEventBinding(elementSelectionBindingHolder);
             }
         }
+        windowResolutionTracker = new WindowResolutionTracker(database);
+        keystrokeTracker = new KeystrokeTracker(database);
+        mouseClickTracker = new MouseClickTracker(database);
+        mouseScrollTracker = new MouseScrollTracker(database);
+        mousePositionTracker = new MousePositionTracker(database);
     }
 
 }
