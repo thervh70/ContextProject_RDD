@@ -6,7 +6,7 @@
  * The Logger class (singleton) is used to log events to the console.
  * The Logger will not output debug messages if this is not explicitly requested.
  */
-/* tslint:disable:no-unused-variable */
+// tslint:disable-next-line:no-unused-variable
 const Logger = new (class Logger {
 
     private isDebug = false;
@@ -55,4 +55,3 @@ const Logger = new (class Logger {
     }
 
 })();
-/* tslint:enable:no-unused-variable */
