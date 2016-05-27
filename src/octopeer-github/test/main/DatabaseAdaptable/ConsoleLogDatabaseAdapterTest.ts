@@ -4,15 +4,15 @@
  */
 
 describe("The ConsoleLogDatabaseAdapter", function() {
-    let data: IEventObject;
+    let data: ISemanticEvent;
     let CLDAdapter: DatabaseAdaptable;
     let spy: jasmine.Spy;
 
     it("should 'post' data to the console by calling the post function", function () {
         CLDAdapter = new ConsoleLogDatabaseAdapter();
-        data = new EventObject(defaultElementID, defaultEventID, new Date().getTime(), 42);
+        data = new SemanticEvent(defaultElementID, defaultEventID, new Date().getTime(), 42);
         spy = spyOn(Logger, "database");
-        CLDAdapter.post(data, EMPTY_CALLBACK, EMPTY_CALLBACK);
+        CLDAdapter.postSemantic(data, EMPTY_CALLBACK, EMPTY_CALLBACK);
 
         expect(spy).toHaveBeenCalled();
         expect(spy).toHaveBeenCalledWith(data);

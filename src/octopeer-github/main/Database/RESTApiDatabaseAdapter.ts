@@ -1,10 +1,10 @@
-/// <reference path="../DatabaseAdaptable/DatabaseAdaptable.ts"/>
+/// <reference path="./DatabaseAdaptable/SemanticDatabaseAdaptable.ts"/>
 
 /**
  * This class connects to the RESTful API made by Aaron.
  */
 
-class RESTApiDatabaseAdapter implements DatabaseAdaptable {
+class RESTApiDatabaseAdapter implements SemanticDatabaseAdaptable { // TODO implement Database in another branch
 
     private _initialized: boolean = false;
     private _owner: string;
@@ -56,7 +56,7 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
      * @param success       Callback, which is called once the call has succeeded.
      * @param failure       Callback, which is called once the call has failed.
      */
-    public post(eventData: IEventObject, success: Callback, failure: Callback): void {
+    public postSemantic(eventData: ISemanticEvent, success: Callback, failure: Callback): void {
         const self = this;
         if (!this.isInitialized) {
             Logger.warn("The database has not been initialized yet!");
@@ -86,7 +86,7 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
      * @param eventData                 The data to post to the database.
      * @returns {JQueryAjaxSettings}    A Settings Object that can be used in an AJAX request.
      */
-    private createPostData(eventData: IEventObject) {
+    private createPostData(eventData: ISemanticEvent) {
         return this.createJSONPost({
             "session": {
                 "pull_request": {

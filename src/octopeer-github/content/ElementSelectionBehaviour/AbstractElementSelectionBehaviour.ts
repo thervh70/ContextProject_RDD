@@ -21,7 +21,7 @@ abstract class AbstractElementSelectionBehaviour implements ElementSelectionBeha
      * Creates a ButtonsElementSelectionBehaviour object.
      * @param database the database to push to.
      */
-    public constructor(private database: DatabaseAdaptable, elementID: ElementID, elementDsc: string) {
+    public constructor(private database: SemanticDatabaseAdaptable, elementID: ElementID, elementDsc: string) {
         this.elementID = elementID;
         this.elementDsc = elementDsc;
     }
@@ -51,7 +51,7 @@ abstract class AbstractElementSelectionBehaviour implements ElementSelectionBeha
         const self = this;
         return (function(eventObject: JQueryEventObject) {
             // TODO: check when the new Date is triggered.
-            self.database.post(new EventObject(self.getElementID(), eventID, new Date().getTime(), 0),
+            self.database.postSemantic(new SemanticEvent(self.getElementID(), eventID, new Date().getTime(), 0),
                 EMPTY_CALLBACK, EMPTY_CALLBACK);
         });
     }

@@ -89,7 +89,7 @@ class ContentController {
     ];
 
     /**
-     * An inner singleton class that implements DatabaseAdaptable in order to send messages to the background page.
+     * A private DatabaseAdaptable that sends messages to the background page.
      * @type {MessageSendDatabaseAdapter}
      */
     private messageSendDatabaseAdapter = new MessageSendDatabaseAdapter();

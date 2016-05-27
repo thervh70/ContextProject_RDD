@@ -1,6 +1,5 @@
-/// <reference path="DatabaseAdaptable/DatabaseAdaptable.ts"/>
-/// <reference path="DatabaseAdaptable/RESTApiDatabaseAdapter.ts"/>
-/// <reference path="DatabaseAdaptable/ConsoleLogDatabaseAdapter.ts"/>
+/// <reference path="Database/RESTApiDatabaseAdapter.ts"/>
+/// <reference path="Database/ConsoleLogDatabaseAdapter.ts"/>
 
 import Tab = chrome.tabs.Tab;
 /**
@@ -90,14 +89,31 @@ class MainController implements OptionsObserver {
             if (!sender.tab) {
                 return; // Only continue if message is sent from a content script
             }
-            const database = new RESTApiDatabaseAdapter("http://10.0.22.6", sender.tab.url, "Travis");
-            database.post(JSON.parse(message), function() {
+            const dataMessage = <DataMessage>JSON.parse(message);
+            const database: DatabaseAdaptable = new ConsoleLogDatabaseAdapter();
+            // TODO: change to RESTApiDatabaseAdapter("http://10.0.22.6", sender.tab.url, "Travis"); // TODO: get name from context
+            const success = function() {
                 Logger.debug(`Successfully logged to database: ${message}`);
-            }, function() {
+            };
+            const failure = function() {
                 Logger.warn("Log to database of following object failed:");
                 Logger.warn(message);
                 Logger.warn(`Original sender: ${sender}`);
-            });
+            };
+            switch (dataMessage.type) {
+                case "postSemantic":
+                    database.postSemantic(        <ISemanticEvent>dataMessage.data,         success, failure); break;
+                case "postKeystroke":
+                    database.postKeystroke(       <IKeystrokeEvent>dataMessage.data,        success, failure); break;
+                case "postMousePosition":
+                    database.postMousePosition(   <IMousePositionEvent>dataMessage.data,    success, failure); break;
+                case "postMouseClick":
+                    database.postMouseClick(      <IMouseClickEvent>dataMessage.data,       success, failure); break;
+                case "postMouseScroll":
+                    database.postMouseScroll(     <IMouseScrollEvent>dataMessage.data,      success, failure); break;
+                case "postWindowResolution":
+                    database.postWindowResolution(<IWindowResolutionEvent>dataMessage.data, success, failure); break;
+            }
             sendResponse({});
         });
     }
@@ -125,4 +141,9 @@ class MainController implements OptionsObserver {
         });
     }
 
+}
+
+interface DataMessage {
+    data: any;
+    type: string;
 }

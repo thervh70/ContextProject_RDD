@@ -1,6 +1,6 @@
 /* tslint:disable:max-line-length */
-/// <reference path="../../../main/DatabaseAdaptable/DatabaseAdaptable.ts"/>
-/// <reference path="../../../main/DatabaseAdaptable/ConsoleLogDatabaseAdapter.ts"/>
+/// <reference path="../../../main/Database/DatabaseAdaptable.ts"/>
+/// <reference path="../../../main/Database/ConsoleLogDatabaseAdapter.ts"/>
 /// <reference path="../../../content/ElementSelectionBehaviour/ElementSelectionBehaviour.ts"/>
 /// <reference path="../../../content/ElementSelectionBehaviour/AbstractElementSelectionBehaviour.ts"/>
 /// <reference path="../../../content/ElementSelectionBehaviour/ButtonElementSelectionBehaviour/AddEmoticonButtonElementSelectionBehaviour.ts"/>
@@ -164,7 +164,7 @@ for (let i = 0; i < htmlsList.length; i++) {
             const selector = new selectorCreatable(database);
 
             beforeEach(function () {
-                databaseSpy = spyOn(database, "post");
+                databaseSpy = spyOn(database, "postSemantic");
                 loadFixtures(htmlFile);
             });
 
