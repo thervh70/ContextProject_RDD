@@ -10,6 +10,10 @@ describe("A RESTApiDatabaseAdapter", function() {
     let adapter: RESTApiDatabaseAdapter;
     let consoleSpy: jasmine.Spy;
 
+    beforeAll(function() {
+        Logger.setDebug(false);
+    });
+
     beforeEach(function() {
         jasmine.Ajax.install();
 
@@ -21,6 +25,7 @@ describe("A RESTApiDatabaseAdapter", function() {
     afterEach(function() {
         delete adapter;
         jasmine.Ajax.uninstall();
+        Logger.setDebug(false);
     });
 
     it("correctly initializes on init", function() {
@@ -106,19 +111,14 @@ describe("A RESTApiDatabaseAdapter", function() {
     });
 
     it("can be initialized with debug mode on", function() {
-        let adapterDebugOff =
-            new RESTApiDatabaseAdapter("http://localhost:8000/", "https://github.com/Travis/travisrepo/pull/42", "Travis", true);
         Logger.setDebug();
         consoleSpy = spyOn(Logger, "debug");
 
-        adapterDebugOff.postSemantic(defaultSemanticEvent, EMPTY_CALLBACK, EMPTY_CALLBACK);
-        jasmine.Ajax.requests.mostRecent().respondWith({
-            contentType: "text/json",
-            responseText: JSON.stringify({success: true}),
-            status: 201,
-        });
+        /* tslint:disable:no-unused-expression */
+        new RESTApiDatabaseAdapter("http://localhost:8000/", "https://github.com/Travis/travisrepo/pull/42", "Travis", true);
+        /* tslint:enable:no-unused-expression */
 
-        expect(consoleSpy).toHaveBeenCalledTimes(3);
-        expect(consoleSpy.calls.all()[0].args[0]).toBe("Call success, status: success");
+        expect(consoleSpy).toHaveBeenCalledTimes(2);
+        expect(consoleSpy.calls.all()[0].args[0]).toBe("Constructed DatabaseAdapter(http://localhost:8000/)");
     });
 });

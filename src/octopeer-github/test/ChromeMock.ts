@@ -23,6 +23,13 @@ _window.chrome = {
             get: function () {},
             set: function () {},
         },
+        onChanged: {
+            addListener: function () {},
+        },
+        sync: {
+            get: function () {},
+            set: function () {},
+        },
     },
     tabs: {
         onActivated: {
