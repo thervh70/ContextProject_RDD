@@ -88,9 +88,12 @@ describe("The Status, chrome ", function() {
         const spyRT = spyOn(chrome.runtime, "sendMessage");
         const spyLST = spyOn(chrome.storage.local, "set");
         const spyBA = spyOn(chrome.browserAction, "setIcon");
+        const spyLog = spyOn(Options, "getLogging").and.returnValue(false);
         const line = "Octopeer is turned off.";
         const path = "img/icon/off.png";
         Status.set(StatusCode.ERROR);
+
+        expect(spyLog).toHaveBeenCalled();
 
         expect(spyRT).toHaveBeenCalled();
         expect(spyRT).toHaveBeenCalledWith({
