@@ -29,4 +29,3 @@ type UnixTimestamp = number;
  */
 interface DatabaseAdaptable extends SemanticDatabaseAdaptable, KeystrokeDatabaseAdaptable, MousePositionDatabaseAdaptable,
     MouseClickDatabaseAdaptable, MouseScrollDatabaseAdaptable, WindowResolutionDatabaseAdaptable { }
-
