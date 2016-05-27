@@ -12,18 +12,18 @@ class MousePositionTracker {
      */
     constructor(private db: MousePositionDatabaseAdaptable) {
         const self = this;
-        let $window: JQuery;
+        let windowObject: JQuery;
         let mouseX: number;
         let mouseY: number;
         let viewportX: number;
         let viewportY: number;
         setInterval(function () {
             $(document).one("mousemove", function (eventObject: JQueryEventObject) {
-                $window = $(window);
+                windowObject = $(window);
                 mouseX = eventObject.pageX;
                 mouseY = eventObject.pageY;
-                viewportX = $window.scrollLeft();
-                viewportY = $window.scrollTop();
+                viewportX = windowObject.scrollLeft();
+                viewportY = windowObject.scrollTop();
                 self.db.postMousePosition(new MousePositionEvent(viewportX + mouseX, viewportY + mouseY,
                     viewportX, viewportY, new Date().getTime()), EMPTY_CALLBACK, EMPTY_CALLBACK);
             });

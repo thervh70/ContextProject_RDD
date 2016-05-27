@@ -12,12 +12,12 @@ class MouseScrollTracker {
      */
     constructor(private db: MouseScrollDatabaseAdaptable) {
         const self = this;
-        const $window = $(window);
+        const windowObject = $(window);
         let resizeTimer: number;
-        $window.scroll(function (eventObject: JQueryEventObject) {
+        windowObject.scroll(function (eventObject: JQueryEventObject) {
             clearTimeout(resizeTimer);
             resizeTimer = setTimeout(function () {
-                self.db.postMouseScroll(new MouseScrollEvent($window.scrollLeft(), $window.scrollTop(),
+                self.db.postMouseScroll(new MouseScrollEvent(windowObject.scrollLeft(), windowObject.scrollTop(),
                     new Date().getTime()), EMPTY_CALLBACK, EMPTY_CALLBACK);
             }, MouseScrollTracker.TIMEOUT);
         });

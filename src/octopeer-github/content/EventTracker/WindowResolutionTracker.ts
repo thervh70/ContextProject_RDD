@@ -12,12 +12,12 @@ class WindowResolutionTracker {
      */
     constructor(private db: WindowResolutionDatabaseAdaptable) {
         const self = this;
-        let $window: JQuery = $(window);
+        let windowObject: JQuery = $(window);
         let resizeTimer: number;
-        $window.resize(function (eventObject: JQueryEventObject) {
+        windowObject.resize(function (eventObject: JQueryEventObject) {
             clearTimeout(resizeTimer);
             resizeTimer = setTimeout(function () {
-                self.db.postWindowResolution(new WindowResolutionEvent($window.width(), $window.height(),
+                self.db.postWindowResolution(new WindowResolutionEvent(windowObject.width(), windowObject.height(),
                     new Date().getTime()), EMPTY_CALLBACK, EMPTY_CALLBACK);
             }, WindowResolutionTracker.TIMEOUT);
         });

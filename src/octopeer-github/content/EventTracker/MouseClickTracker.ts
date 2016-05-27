@@ -19,18 +19,18 @@ class MouseClickTracker {
             }
         }
         const self = this;
-        let $window = $(window);
+        let windowObject = $(window);
         let mouseX: number;
         let mouseY: number;
         let viewportX: number;
         let viewportY: number;
-        $window.off("click");
-        $window.on("click", function (eventObject: JQueryEventObject) {
-            $window = $(window);
+        windowObject.off("click");
+        windowObject.on("click", function (eventObject: JQueryEventObject) {
+            windowObject = $(window);
             mouseX = eventObject.pageX;
             mouseY = eventObject.pageY;
-            viewportX = $window.scrollLeft();
-            viewportY = $window.scrollTop();
+            viewportX = windowObject.scrollLeft();
+            viewportY = windowObject.scrollTop();
             const time = new Date().getTime();
             self.dbClick.postMouseClick(new MouseClickEvent(time), EMPTY_CALLBACK, EMPTY_CALLBACK);
             self.dbPosition.postMousePosition(new MousePositionEvent(viewportX + mouseX, viewportY + mouseY,
