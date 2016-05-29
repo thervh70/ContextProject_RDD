@@ -112,10 +112,11 @@ class ContentController {
     private processMessageFromBackgroundPage() {
         const self = this;
         return function (request: any, sender: any, sendResponse: Function) {
-            if (!request.hookToDom) {
+            if (request.hookToDom === undefined) {
                 sendResponse(`did nothing (${location.href})`);
                 return;
             }
+            // TODO: when hookToDom is false, it should remove from DOM. ATM, EEBs and EventTrackers do not support this.
             try {
                 self.hookToDOM(self.messageSendDatabaseAdapter);
                 $("body").click(function () {

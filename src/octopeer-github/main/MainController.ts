@@ -134,9 +134,12 @@ class MainController implements OptionsObserver {
         Status.running();
         Logger.debug(`[Tab] Owner: ${urlInfo[1]}, Repo: ${urlInfo[2]}, PR-number: ${urlInfo[3]}`);
         chrome.tabs.sendMessage(tab.id, {
-            hookToDom: true,
+            hookToDom: Options.getLogging(),
         }, function (result) {
-            let str = result || `should be refreshed because content script is not loaded (${tab.url})`;
+            if (!result) {
+                chrome.tabs.reload(tab.id);
+            }
+            let str = result || `will be refreshed because content script is not loaded (${tab.url})`;
             Logger.debug(`[Tab] ${str}`);
         });
     }
