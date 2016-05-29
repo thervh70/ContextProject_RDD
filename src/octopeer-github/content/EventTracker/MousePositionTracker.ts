@@ -6,6 +6,9 @@ class MousePositionTracker {
     /** Private static final for the timeout between logs. */
     private static get TIMEOUT() { return 500; }
 
+    /** This intervalTimer field is static, because there should only be one timer at any given time. */
+    private static intervalTimer: number;
+
     /**
      * Initialize a MousePositionTracker that contains a MousePositionDatabaseAdaptable.
      * @param db The DatabaseAdaptable for the Tracker.
@@ -17,7 +20,8 @@ class MousePositionTracker {
         let mouseY: number;
         let viewportX: number;
         let viewportY: number;
-        setInterval(function () {
+        clearInterval(MousePositionTracker.intervalTimer);
+        MousePositionTracker.intervalTimer = setInterval(function () {
             $(document).one("mousemove", function (eventObject: JQueryEventObject) {
                 windowObject = $(window);
                 mouseX = eventObject.pageX;
