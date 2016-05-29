@@ -23,6 +23,11 @@ Total: ****
 | reflection            |    |
 
 ## Notes
+* Well done
+* That Matthias took over Robin's task should be added in a note, it looks like both were assigned responsibility and then one member was removed
+* Why is the row Octopeer from Logging Data empty and what is it?
+* Blank page 3
+* Make sure everyone catches up again on their hours in the next sprints.
 
 #Code Evolution Quality Feedback
 
