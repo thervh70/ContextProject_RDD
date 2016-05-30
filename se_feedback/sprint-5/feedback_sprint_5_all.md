@@ -31,7 +31,7 @@ Total: **9.55**
 
 #Code Evolution Quality Feedback
 
-Total: **8.98**
+Total: **9.18**
 
 | Architecture                       | Score |
 |------------------------------------|-------|
@@ -51,7 +51,7 @@ Total: **8.98**
 | Continuous Integration | Score |
 |------------------------|-------|
 | Building               |  10    |
-| Testing                |  8    |
+| Testing                |  9    |
 
 |         | Score |
 |---------|-------|
