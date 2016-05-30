@@ -32,7 +32,8 @@ const Options = new (class Options {
         const self = this;
         this.observers = [];
         chrome.storage.sync.get(["loggingEnabled", "trackTabs", "trackComments", "trackPeerComments",
-        "trackFocus", "hashUsername", "hashRepo", "hashFile"], function (obj) {
+        "trackFocus", "hashUsername", "hashRepo", "hashFile", "doNotWatchOnScreenEvents", "doNotWatchHoverEvents",
+        "doNotWatchCommentElements", "doNotWatchKeyboardShortcutEvents"], function (obj) {
             const object = <any> obj;
             self.logging = object.loggingEnabled;
             self.tabs = object.trackTabs;
