@@ -17,26 +17,18 @@ function changeListener() {
 // Saves options to chrome.storage.
 // A message will confirm this to the user.
 function saveOptions() {
-    var logging = $('#logging').prop('checked');
-    var tabs = $('#tabs').prop('checked');
-    var comments = $('#comments').prop('checked');
-    var peerComments = $('#peerComments').prop('checked');
-    var focus = $('#focus').prop('checked');
-    var username = $('#username').prop('checked');
-    var repo = $('#repo').prop('checked');
-    var file = $('#file').prop('checked');
     chrome.storage.sync.set({
         // General
-        loggingEnabled: logging,
+        loggingEnabled: $('#logging').prop('checked'),
         // Privacy
-        trackTabs: tabs,
-        trackComments: comments,
-        trackPeerComments: peerComments,
-        trackFocus: focus,
+        trackTabs: $('#tabs').prop('checked'),
+        trackComments:  $('#comments').prop('checked'),
+        trackPeerComments: $('#peerComments').prop('checked'),
+        trackFocus: $('#focus').prop('checked'),
         // Security
-        hashUsername: username,
-        hashRepo: repo,
-        hashFile: file
+        hashUsername: $('#username').prop('checked'),
+        hashRepo: $('#repo').prop('checked'),
+        hashFile: $('#file').prop('checked')
         // Hints
     }, function() {
         Materialize.toast("Options saved!", 2000);
