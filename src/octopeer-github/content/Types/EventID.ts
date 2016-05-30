@@ -33,7 +33,7 @@ class EventID {
     constructor(private eventID: number) {}
 
     /**
-     * get the value of the element ID.
+     * get the value of the event ID.
      * @returns {number}
      */
     public getEventID(): number {
