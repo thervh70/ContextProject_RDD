@@ -1,5 +1,3 @@
-/// <reference path="OptionsObserver.ts"/>
-
 /**
  * Created by Mitchell on 12-5-2016.
  * Class from which user options can be retrieved.
