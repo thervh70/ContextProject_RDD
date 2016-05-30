@@ -5,16 +5,17 @@
 class ConsoleLogDatabaseAdapter implements DatabaseAdaptable {
 
     /**
-     * Simple boolean to keep track of the raw data output.
+     * Simple boolean to keep track of the raw data logging.
      */
-    private static outputRawData = true;
+    private static rawDataLogging = true;
 
     /**
      * Set the raw data switch for the console.
-     * @bool the new value.
+     * By default the console will show raw data.
+     * @logging the new value.
      */
-    public static setRawData(bool: boolean) {
-        ConsoleLogDatabaseAdapter.outputRawData = bool;
+    public static setRawData(logging = true) {
+        ConsoleLogDatabaseAdapter.rawDataLogging = logging;
     }
 
     /**
@@ -22,7 +23,7 @@ class ConsoleLogDatabaseAdapter implements DatabaseAdaptable {
      * @returns raw data value.
      */
     public static getRawData() {
-        return ConsoleLogDatabaseAdapter.outputRawData;
+        return ConsoleLogDatabaseAdapter.rawDataLogging;
     }
 
     /**
@@ -69,9 +70,12 @@ class ConsoleLogDatabaseAdapter implements DatabaseAdaptable {
 
     /**
      * Raw data filter method.
+     * It checks whether the raw data logging is enabled and will then output the eventdata.
+     * If the raw data logging is disabled this method will do nothing.
+     * @param eventData The data that will be passed
      */
-    public filterRawData(eventData: any) {
-        if (ConsoleLogDatabaseAdapter.outputRawData) {
+    private filterRawData(eventData: any) {
+        if (ConsoleLogDatabaseAdapter.rawDataLogging) {
             Logger.database(eventData);
         }
     }
