@@ -142,12 +142,24 @@ function switchOptions() {
     }
 }
 
+// Adds click events to the checkboxes of the options.
+function addOptionClickEvents() {
+    $('#logging').click(saveOptions);
+    $('#tabs').click(saveOptions);
+    $('#comments').click(saveOptions);
+    $('#peerComments').click(saveOptions);
+    $('#focus').click(saveOptions);
+    $('#username').click(saveOptions);
+    $('#repo').click(saveOptions);
+    $('#file').click(saveOptions);
+}
+
 document.addEventListener('DOMContentLoaded', restoreOptionsState);
 document.addEventListener('DOMContentLoaded', restoreOptionsAvailability);
 
 // Will execute once the page DOM is ready.
 $(document).ready(function() {
-    $('#save').click(saveOptions);
+    addOptionClickEvents();
     $('#logging').click(switchOptions);
     changeListener();
 });
