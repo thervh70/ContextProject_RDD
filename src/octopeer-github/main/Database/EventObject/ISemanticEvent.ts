@@ -20,13 +20,3 @@ interface ISemanticEvent {
     filename?: FileName;
     lineNumber?: LineNumber;
 }
-
-/**
- * A constructor has been provided. This does not have to be used for something to be an ISemanticEvent however.
- * TypeScript can infer types, so any object with the correct fields is seen as an ISemanticEvent.
- */
-class SemanticEvent implements ISemanticEvent {
-    constructor(public elementID: ElementID, public eventID: EventID,
-                public start: UnixTimestamp, public duration: Duration,
-                public filename?: FileName, public lineNumber?: LineNumber) { }
-}

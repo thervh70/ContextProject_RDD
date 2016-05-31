@@ -15,12 +15,3 @@ interface IMousePositionEvent {
 
     timestamp: UnixTimestamp;
 }
-
-/**
- * A constructor has been provided. This does not have to be used for something to be an IMousePositionEvent however.
- * TypeScript can infer types, so any object with the correct fields is seen as an IMousePositionEvent.
- */
-class MousePositionEvent implements IMousePositionEvent {
-    constructor(public position_x: number, public position_y: number,
-                public viewport_x: number, public viewport_y: number, public timestamp: UnixTimestamp) { }
-}
