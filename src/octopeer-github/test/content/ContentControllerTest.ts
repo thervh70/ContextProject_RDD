@@ -25,7 +25,7 @@ describe("The ContentController", function() {
         CheckDetailButtonElementSelectionBehaviour,
         ClosePRButtonElementSelectionBehaviour,
         CommentInlineCommentButtonElementSelectionBehaviour,
-        CommentPRButtonElementSelectionBehaviour,
+        CreatePRCommentButtonElementSelectionBehaviour,
         EditCommentButtonElementSelectionBehaviour,
         EditPRNameButtonElementSelectionBehaviour,
         InlineCommentButtonElementSelectionBehaviour,

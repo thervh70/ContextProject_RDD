@@ -56,7 +56,7 @@ let conversationSelectors: CreatableNumberPair[] =  [
     [CancelEditPRNameButtonElementSelectionBehaviour, 0],
     [CheckDetailButtonElementSelectionBehaviour, 2],
     [ClosePRButtonElementSelectionBehaviour, 1],
-    [CommentPRButtonElementSelectionBehaviour, 1],
+    [CreatePRCommentButtonElementSelectionBehaviour, 1],
     [EditCommentButtonElementSelectionBehaviour, 2],
     [EditPRNameButtonElementSelectionBehaviour, 1],
     [MergePRButtonElementSelectionBehaviour, 1],
