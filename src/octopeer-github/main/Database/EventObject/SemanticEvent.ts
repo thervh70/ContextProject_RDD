@@ -15,8 +15,9 @@ type LineNumber = number;
 interface SemanticEvent {
     elementID: ElementID;
     eventID: EventID;
-    start: UnixTimestamp;
-    duration: Duration;
+
     filename?: FileName;
     lineNumber?: LineNumber;
+
+    created_at: UnixTimestamp;
 }

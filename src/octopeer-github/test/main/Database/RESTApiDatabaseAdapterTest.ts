@@ -5,7 +5,7 @@ const defaultEventID = new EventID(1);
 const defaultElementID = new ElementID(1);
 
 describe("A RESTApiDatabaseAdapter", function() {
-    const defaultSemanticEvent = EventFactory.semantic(defaultElementID, defaultEventID, new Date().getTime(), 100);
+    const defaultSemanticEvent = EventFactory.semantic(defaultElementID, defaultEventID);
 
     let adapter: RESTApiDatabaseAdapter;
     let consoleSpy: jasmine.Spy;

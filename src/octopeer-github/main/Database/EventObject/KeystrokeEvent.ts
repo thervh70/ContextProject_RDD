@@ -7,5 +7,6 @@
  */
 interface KeystrokeEvent {
     keystroke: string;
-    timestamp: UnixTimestamp;
+    key_down_at: UnixTimestamp;
+    key_up_at: UnixTimestamp;
 }

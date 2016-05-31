@@ -10,5 +10,5 @@ interface WindowResolutionEvent {
     width: number;
     height: number;
 
-    timestamp: UnixTimestamp;
+    created_at: UnixTimestamp;
 }

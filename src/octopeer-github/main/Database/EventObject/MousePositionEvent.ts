@@ -13,5 +13,5 @@ interface MousePositionEvent {
     viewport_x: number;
     viewport_y: number;
 
-    timestamp: UnixTimestamp;
+    created_at: UnixTimestamp;
 }

@@ -6,5 +6,5 @@
  * An MouseClickEvent contains the data that should be posted to a Database.
  */
 interface MouseClickEvent {
-    timestamp: UnixTimestamp;
+    created_at: UnixTimestamp;
 }
