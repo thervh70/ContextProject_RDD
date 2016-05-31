@@ -18,7 +18,7 @@ abstract class EventFactory {
      * @returns {SemanticEvent} A SemanticEvent object that can be posted to the database.
      */
     public static semantic(elementID: ElementID, eventID: EventID,
-                           filename?: FileName, lineNumber?: LineNumber, created_at = new Date().getTime()): SemanticEvent {
+                           filename?: FileName, lineNumber?: LineNumber, created_at = EventFactory.getTime()): SemanticEvent {
         return {created_at: created_at, elementID: elementID, eventID: eventID, filename: filename, lineNumber: lineNumber};
     }
 
@@ -38,7 +38,7 @@ abstract class EventFactory {
      * @param created_at    the timestamp at which the event was created. Defaults to the current timestamp.
      * @returns {MouseClickEvent} A MouseClickEvent object that can be posted to the database.
      */
-    public static mouseClick(created_at = new Date().getTime()): MouseClickEvent {
+    public static mouseClick(created_at = EventFactory.getTime()): MouseClickEvent {
         return {created_at: created_at};
     }
 
@@ -52,7 +52,7 @@ abstract class EventFactory {
      * @returns {MousePositionEvent} A MousePositionEvent object that can be posted to the database.
      */
     public static mousePosition(position_x: number, position_y: number,
-                                viewport_x: number, viewport_y: number, created_at = new Date().getTime()): MousePositionEvent {
+                                viewport_x: number, viewport_y: number, created_at = EventFactory.getTime()): MousePositionEvent {
         return {created_at: created_at, position_x: position_x, position_y: position_y,
                 viewport_x: viewport_x, viewport_y: viewport_y};
     }
@@ -64,7 +64,7 @@ abstract class EventFactory {
      * @param created_at    the timestamp at which the event was created. Defaults to the current timestamp.
      * @returns {MouseScrollEvent} A MouseScrollEvent object that can be posted to the database.
      */
-    public static mouseScroll(viewport_x: number, viewport_y: number, created_at = new Date().getTime()): MouseScrollEvent {
+    public static mouseScroll(viewport_x: number, viewport_y: number, created_at = EventFactory.getTime()): MouseScrollEvent {
         return {created_at: created_at, viewport_x: viewport_x, viewport_y: viewport_y};
     }
 
@@ -75,8 +75,12 @@ abstract class EventFactory {
      * @param created_at    the timestamp at which the event was created. Defaults to the current timestamp.
      * @returns {WindowResolutionEvent} A WindowResolutionEvent object that can be posted to the database.
      */
-    public static windowResolution(width: number, height: number, created_at = new Date().getTime()): WindowResolutionEvent {
+    public static windowResolution(width: number, height: number, created_at = EventFactory.getTime()): WindowResolutionEvent {
         return {created_at: created_at, height: height, width: width};
+    }
+
+    public static getTime() {
+        return new Date().getTime() / 1000;
     }
 
 }

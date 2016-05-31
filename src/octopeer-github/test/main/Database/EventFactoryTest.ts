@@ -3,7 +3,7 @@
  */
 describe("An EventFactory", function() {
 
-    const defaultTime: UnixTimestamp = new Date().getTime();
+    const defaultTime: UnixTimestamp = EventFactory.getTime();
 
     it("should properly create SemanticEvents", function() {
         expect(EventFactory.semantic(ElementID.MERGE_PR, EventID.CLICK, undefined, undefined, defaultTime))
