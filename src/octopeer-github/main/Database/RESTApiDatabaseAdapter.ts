@@ -50,22 +50,6 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
         this._debug = d;
     }
 
-    /**
-     * Post an event to the database.
-     * @param eventData     The data to post to the database.
-     * @param success       Callback, which is called once the call has succeeded.
-     * @param failure       Callback, which is called once the call has failed.
-     */
-    public postSemantic(eventData: SemanticEvent, success: Callback, failure: Callback): void {
-        if (!this.isInitialized) {
-            Logger.warn("The database has not been initialized yet!");
-            failure();
-            return;
-        }
-        const postData = this.createSemanticPostData(eventData);
-        this.postWithAjax(postData, "semantic-events", success, failure);
-    }
-
     public postKeystroke(eventData: KeystrokeEvent, success: Callback, failure: Callback) {
         this.postRawEvent(eventData, "keystroke-events", success, failure);
     }
@@ -86,19 +70,44 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
         this.postRawEvent(eventData, "window-resolution-events", success, failure);
     }
 
+    /**
+     * Post an event to the database.
+     * @param eventData     The data to post to the database.
+     * @param success       Callback, which is called once the call has succeeded.
+     * @param failure       Callback, which is called once the call has failed.
+     */
+    public postSemantic(eventData: SemanticEvent, success: Callback, failure: Callback): void {
+        const postData = this.createSemanticPostData(eventData);
+        this.postWithAjax(postData, "semantic-events", success, failure);
+    }
+
     private postRawEvent(eventData: KeystrokeEvent | MouseClickEvent | MousePositionEvent | MouseScrollEvent
         | WindowResolutionEvent, eventURL: string, success: Callback, failure: Callback) {
-        if (!this.isInitialized) {
-            Logger.warn("The database has not been initialized yet!");
-            failure();
-            return;
-        }
         (<any>eventData).session = this.getSession();
         const postData = this.createJSONPost(eventData);
         this.postWithAjax(postData, eventURL, success, failure);
     }
 
+    /**
+     * Creates a Settings Object that can be used in an AJAX request when posting an event.
+     * @param eventData                 The data to post to the database.
+     * @returns {JQueryAjaxSettings}    A Settings Object that can be used in an AJAX request.
+     */
+    private createSemanticPostData(eventData: SemanticEvent) {
+        return this.createJSONPost({
+            "session": this.getSession(),
+            "event_type": `${this._databaseUrl}api/event-types/${eventData.eventID}/`,
+            "element_type": `${this._databaseUrl}api/element-types/${eventData.elementID}/`,
+            "created_at": eventData.created_at,
+        });
+    }
+
     private postWithAjax(postData: JQueryAjaxSettings, eventURL: string, success: Callback, failure: Callback) {
+        if (!this.isInitialized) {
+            Logger.warn("The database has not been initialized yet!");
+            failure();
+            return;
+        }
         $.ajax(`${this._databaseUrl}api/${eventURL}/`, postData)
             .done((data, status, jqXHR) => {
                 if (this._debug) {
@@ -114,20 +123,6 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
                 Logger.debug(postData);
                 failure(jqXHR, status);
             });
-    }
-
-    /**
-     * Creates a Settings Object that can be used in an AJAX request when posting an event.
-     * @param eventData                 The data to post to the database.
-     * @returns {JQueryAjaxSettings}    A Settings Object that can be used in an AJAX request.
-     */
-    private createSemanticPostData(eventData: SemanticEvent) {
-        return this.createJSONPost({
-            "session": this.getSession(),
-            "event_type": `${this._databaseUrl}api/event-types/${eventData.eventID}/`,
-            "element_type": `${this._databaseUrl}api/element-types/${eventData.elementID}/`,
-            "created_at": eventData.created_at,
-        });
     }
 
     /**
