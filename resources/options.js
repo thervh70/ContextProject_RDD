@@ -22,16 +22,16 @@ function changeListener() {
 function saveOptions() {
     chrome.storage.sync.set({
         // General
-        loggingEnabled: $('#logging').prop('checked'),
+        loggingEnabled: $(optionsID(0)).prop('checked'),
         // Privacy
-        trackTabs: $('#tabs').prop('checked'),
-        trackComments:  $('#comments').prop('checked'),
-        trackPeerComments: $('#peerComments').prop('checked'),
-        trackFocus: $('#focus').prop('checked'),
+        trackTabs: $(optionsID(1)).prop('checked'),
+        trackComments:  $(optionsID(2)).prop('checked'),
+        trackPeerComments: $(optionsID(3)).prop('checked'),
+        trackFocus: $(optionsID(4)).prop('checked'),
         // Security
-        hashUsername: $('#username').prop('checked'),
-        hashRepo: $('#repo').prop('checked'),
-        hashFile: $('#file').prop('checked')
+        hashUsername: $(optionsID(5)).prop('checked'),
+        hashRepo: $(optionsID(6)).prop('checked'),
+        hashFile: $(optionsID(7)).prop('checked')
         // Hints
     }, function() {});
 }
@@ -49,14 +49,14 @@ function restoreOptionsState() {
         hashFile: Boolean
     }, function(items) {
         // Saved values from the chrome.storage
-        $('#logging').prop('checked', items.loggingEnabled);
-        $('#tabs').prop('checked', items.trackTabs);
-        $('#comments').prop('checked', items.trackComments);
-        $('#peerComments').prop('checked', items.trackPeerComments);
-        $('#focus').prop('checked', items.trackFocus);
-        $('#username').prop('checked', items.hashUsername);
-        $('#repo').prop('checked', items.hashRepo);
-        $('#file').prop('checked', items.hashFile);
+        $(optionsID(0)).prop('checked', items.loggingEnabled);
+        $(optionsID(1)).prop('checked', items.trackTabs);
+        $(optionsID(2)).prop('checked', items.trackComments);
+        $(optionsID(3)).prop('checked', items.trackPeerComments);
+        $(optionsID(4)).prop('checked', items.trackFocus);
+        $(optionsID(5)).prop('checked', items.hashUsername);
+        $(optionsID(6)).prop('checked', items.hashRepo);
+        $(optionsID(7)).prop('checked', items.hashFile);
     });
 }
 
@@ -125,7 +125,9 @@ function optionsID(index){
 }
 
 // Adds click events to the checkboxes of the options.
+// When clicking on the main option, switchOptions is also called.
 function addOptionClickEvents() {
+    $(optionsID(0)).click(switchOptions);
     for(var i = 0; i < options.length; i++) {
         $(optionsID(i)).click(saveOptions);
     }
@@ -155,6 +157,5 @@ document.addEventListener('DOMContentLoaded', restoreOptionsAvailability);
 // Will execute once the page DOM is ready.
 $(document).ready(function() {
     addOptionClickEvents();
-    $(optionsID(0)).click(switchOptions);
     changeListener();
 });
