@@ -1,3 +1,4 @@
+/// <reference path="../../../content/Types/PageMask.ts"/>
 /**
  * Created by Maarten on 31-05-2016.
  */
@@ -16,7 +17,7 @@ describe("A PageMask", function() {
 
     it("should indicate for all pages that they are on the ALL pageMask", function() {
         for (let i = 0; i < list.length; i++) {
-            expect(list[i].isOnPage(PageMasks.ALL)).toBe(true);
+            expect(list[i].isOnPage(PageMask.ALL)).toBe(true);
         }
     });
 
