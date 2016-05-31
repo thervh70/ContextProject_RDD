@@ -11,6 +11,14 @@ class PageMask {
     public static get COMMITS()         { return new PageMask(0b010); };
     public static get FILES_CHANGED()   { return new PageMask(0b100); };
 
+    public static combine(...masks: PageMask[]) {
+        let res = 0;
+        for (let mask of masks) {
+            res |= mask._mask;
+        }
+        return new PageMask(res);
+    }
+
     constructor(private _mask: number) { }
 
     public isOnPage(pageMask: PageMask): boolean {
