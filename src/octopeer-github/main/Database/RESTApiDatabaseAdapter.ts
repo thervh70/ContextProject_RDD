@@ -4,7 +4,7 @@
  * This class connects to the RESTful API made by Aaron.
  */
 
-class RESTApiDatabaseAdapter implements SemanticDatabaseAdaptable { // TODO implement Database in another branch
+class RESTApiDatabaseAdapter implements DatabaseAdaptable {
 
     private _initialized: boolean = false;
     private _owner: string;
@@ -62,7 +62,7 @@ class RESTApiDatabaseAdapter implements SemanticDatabaseAdaptable { // TODO impl
             failure();
             return;
         }
-        const postData = this.createPostData(eventData);
+        const postData = this.createSemanticPostData(eventData);
         $.ajax(`${this._databaseUrl}api/semantic-events/`, postData)
             .done((data, status, jqXHR) => {
                 if (this._debug) {
@@ -80,26 +80,60 @@ class RESTApiDatabaseAdapter implements SemanticDatabaseAdaptable { // TODO impl
             });
     }
 
+    public postKeystroke(eventData: IKeystrokeEvent, success: Callback, failure: Callback) {
+        this.rawDataAjaxCall(eventData, "keystroke-events", success, failure);
+    }
+
+    public postMouseClick(eventData: IMouseClickEvent, success: Callback, failure: Callback) {
+        this.rawDataAjaxCall(eventData, "mouse-click-events", success, failure);
+    }
+
+    public postMousePosition(eventData: IMousePositionEvent, success: Callback, failure: Callback) {
+        this.rawDataAjaxCall(eventData, "mouse-position-events", success, failure);
+    }
+
+    public postMouseScroll(eventData: IMouseScrollEvent, success: Callback, failure: Callback) {
+        this.rawDataAjaxCall(eventData, "mouse-scroll-events", success, failure);
+    }
+
+    public postWindowResolution(eventData: IWindowResolutionEvent, success: Callback, failure: Callback) {
+        this.rawDataAjaxCall(eventData, "window-resolution-events", success, failure);
+    }
+
+    private rawDataAjaxCall(eventData: IKeystrokeEvent | IMouseClickEvent | IMousePositionEvent | IMouseScrollEvent
+        | IWindowResolutionEvent, eventURL: string, success: Callback, failure: Callback) {
+        if (!this.isInitialized) {
+            Logger.warn("The database has not been initialized yet!");
+            failure();
+            return;
+        }
+        (<any>eventData).session = this.getSession();
+        const postData = this.createJSONPost(eventData);
+        $.ajax(`${this._databaseUrl}api/${eventURL}/`, postData)
+            .done((data, status, jqXHR) => {
+                if (this._debug) {
+                    Logger.debug(`Call success, status: ${status}`);
+                    Logger.debug(jqXHR);
+                    Logger.debug(postData);
+                }
+                success(data, status, jqXHR);
+            })
+            .fail((jqXHR, status) => {
+                Logger.warn(`Database post to ${eventURL} failed, status: ${status}`);
+                Logger.debug(jqXHR);
+                Logger.debug(postData);
+                failure(jqXHR, status);
+            });
+    }
+
     /**
      * Creates a Settings Object that can be used in an AJAX request when posting an event.
      * @param eventData                 The data to post to the database.
      * @returns {JQueryAjaxSettings}    A Settings Object that can be used in an AJAX request.
      */
-    private createPostData(eventData: ISemanticEvent) {
+    private createSemanticPostData(eventData: ISemanticEvent) {
         return this.createJSONPost({
-            "session": {
-                "pull_request": {
-                    "repository": {
-                        "owner": this._owner,
-                        "name": this._repo,
-                        "platform": "GitHub",
-                    },
-                    "pull_request_number": this._pr,
-                },
-                "user": {
-                    "username": this._user,
-                },
-            },
+            "session": this.getSession(),
             "event_type": `${this._databaseUrl}api/event-types/${eventData.eventID}/`,
             "element_type": `${this._databaseUrl}api/element-types/${eventData.elementID}/`,
             "started_at": eventData.start / 1000,
@@ -118,6 +152,22 @@ class RESTApiDatabaseAdapter implements SemanticDatabaseAdaptable { // TODO impl
             data: JSON.stringify(data),
             dataType: "json",
             type: "POST",
+        };
+    }
+
+    private getSession() {
+        return {
+            "pull_request": {
+                "repository": {
+                    "owner": this._owner,
+                    "name": this._repo,
+                    "platform": "GitHub",
+                },
+                "pull_request_number": this._pr,
+            },
+            "user": {
+                "username": this._user,
+            },
         };
     }
 
