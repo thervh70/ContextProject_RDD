@@ -17,10 +17,22 @@ class ElementSelectionBehaviourFactory {
     }
 
     /**
-     * Create is used to create a GenericElementSelectionBehaviour.
+     * Creates a GenericElementSelectionBehaviour by finding the right
+     * ElementSelectionBehaviourData and passing this and the database to
+     * the GenericElementSelectionBehaviour constructor.
+     * @param database The database to be used
+     * @param ID The ElementID the data should match
+     * @returns {any}
      */
-    public create() {
-        return;
+    public create(database: DatabaseAdaptable, ID: ElementID) {
+        let data: ElementSelectionBehaviourData;
+
+        for (data of this.elementSelectionBehaviourData) {
+            if (data.elementID === ID) {
+                return new GenericElementSelectionBehaviour(database, data);
+            }
+        }
+        return null;
     }
 
     /**
