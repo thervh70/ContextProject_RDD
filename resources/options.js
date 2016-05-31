@@ -6,6 +6,12 @@
 // List that contains all optionID names that Octopeer provides.
 var options = ['logging', 'tabs', 'comments', 'peerComments', 'focus', 'username', 'repo', 'file'];
 
+// List that contains all subOptionID names that Octopeer provides.
+var subOptions = ['securitySub', 'privacySub', 'hintsSub'];
+
+// List that contains all cardID names that Octopeer provides.
+var cards = ['security', 'privacy', 'hints'];
+
 // Listens for changes in the loggingEnabled flag.
 // This boolean might be switched using the popup.
 function changeListener() {
@@ -77,30 +83,30 @@ function restoreOptionsAvailability() {
 
 // Shows the sub-options.
 function showSubOptions() {
-    $('#security_sub').show();
-    $('#privacy_sub').show();
-    $('#hints_sub').show();
+    for(var i = 0; i < subOptions.length; i++) {
+        $(subOptionsID(i)).show();
+    }
 }
 
 // Hides the sub-options.
 function hideSubOptions() {
-    $('#security_sub').hide();
-    $('#privacy_sub').hide();
-    $('#hints_sub').hide();
+    for(var i = 0; i < subOptions.length; i++) {
+        $(subOptionsID(i)).hide();
+    }
 }
 
 // Shows the option cards.
 function showCards() {
-    $('#security').show();
-    $('#privacy').show();
-    $('#hints').show();
+    for(var i = 0; i < cards.length; i++) {
+        $(cardID(i)).show();
+    }
 }
 
 // Hides the option cards.
 function hideCards() {
-    $('#security').hide();
-    $('#privacy').hide();
-    $('#hints').hide();
+    for(var i = 0; i < cards.length; i++) {
+        $(cardID(i)).hide();
+    }
 }
 
 // Switches availability of options.
@@ -119,9 +125,24 @@ function restoreDisable() {
     }
 }
 
-// Helper function that appends a hashtag to every element from the options array.
+// Retrieves the ID of an option.
 function optionsID(index){
-    return '#' + options[index];
+    return idGenerator(index, options);
+}
+
+// Retrieves the ID of a subOption.
+function subOptionsID(index){
+    return idGenerator(index, subOptions);
+}
+
+// Retrieves the ID of a card.
+function cardID(index){
+    return idGenerator(index, cards);
+}
+
+// Helper function that appends a hashtag to an element from an array, in order to return an ID.
+function idGenerator(index, array){
+    return '#' + array[index];
 }
 
 // Adds click events to the checkboxes of the options.
