@@ -1,4 +1,4 @@
-/// <reference path="../EventObject/IMousePositionEvent.ts"/>
+/// <reference path="../EventObject/MousePositionEvent.ts"/>
 /**
  * Created by Maarten on 26-05-2016.
  */

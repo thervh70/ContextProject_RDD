@@ -1,4 +1,4 @@
-/// <reference path="../EventObject/IMouseScrollEvent.ts"/>
+/// <reference path="../EventObject/MouseScrollEvent.ts"/>
 /**
  * Created by Maarten on 26-05-2016.
  */

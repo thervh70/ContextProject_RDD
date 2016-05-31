@@ -1,4 +1,4 @@
-/// <reference path="../EventObject/IWindowResolutionEvent.ts"/>
+/// <reference path="../EventObject/WindowResolutionEvent.ts"/>
 /**
  * Created by Maarten on 26-05-2016.
  */

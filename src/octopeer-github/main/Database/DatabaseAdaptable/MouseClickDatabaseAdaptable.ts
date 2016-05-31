@@ -1,4 +1,4 @@
-/// <reference path="../EventObject/IMouseClickEvent.ts"/>
+/// <reference path="../EventObject/MouseClickEvent.ts"/>
 /**
  * Created by Maarten on 26-05-2016.
  */
