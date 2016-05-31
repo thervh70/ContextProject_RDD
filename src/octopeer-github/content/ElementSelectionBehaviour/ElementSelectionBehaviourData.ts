@@ -6,7 +6,7 @@ interface ElementSelectionBehaviourData {
     elementID: ElementID;
     name: string;
     selector: string;
-    composedSelector: () => JQuery;
+    composedSelector?: () => JQuery;
     foundOnPages: PageMask;
-    callback: (event: JQueryEventObject) => void;
+    callback?: (event: JQueryEventObject) => void;
 }
