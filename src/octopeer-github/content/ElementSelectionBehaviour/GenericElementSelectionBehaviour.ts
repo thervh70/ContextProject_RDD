@@ -5,7 +5,7 @@
  * The GenericElementSelectionBehaviour should be instantiated with an ESBData object.
  * This object defines the properties of the GenericESB.
  */
-abstract class GenericElementSelectionBehaviour implements ElementSelectionBehaviour {
+class GenericElementSelectionBehaviour implements ElementSelectionBehaviour {
 
     /**
      * Creates a ButtonsElementSelectionBehaviour object.
