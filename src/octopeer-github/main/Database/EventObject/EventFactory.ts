@@ -24,10 +24,9 @@ abstract class EventFactory {
 
     /**
      * Creates a KeystrokeEvent object.
+     * @param keystroke     the keystroke that is being logged.
      * @param key_down_at   the timestamp when the key went down.
      * @param key_up_at     the timestamp when the key went up.
-     * @param keystroke     the keystroke that is being logged.
-     * @param created_at    the timestamp at which the event was created. Defaults to the current timestamp.
      * @returns {KeystrokeEvent} A KeystrokeEvent object that can be posted to the database.
      */
     public static keystroke(keystroke: string, key_down_at: UnixTimestamp, key_up_at: UnixTimestamp): KeystrokeEvent {
