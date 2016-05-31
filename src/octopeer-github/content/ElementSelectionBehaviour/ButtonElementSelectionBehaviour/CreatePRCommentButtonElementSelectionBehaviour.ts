@@ -3,7 +3,7 @@
  * Created by Mathias on 2016-05-13.
  * Class for selecting the ClosePR button
  */
-class CommentPRButtonElementSelectionBehaviour extends AbstractElementSelectionBehaviour {
+class CreatePRCommentButtonElementSelectionBehaviour extends AbstractElementSelectionBehaviour {
 
     /**
      * Constructor of this class.

@@ -15,7 +15,7 @@
 /// <reference path="../../content/ElementSelectionBehaviour/ButtonElementSelectionBehaviour/ShowCIDetailsButtonElementSelectionBehaviour.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/ButtonElementSelectionBehaviour/ClosePRButtonElementSelectionBehaviour.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/ButtonElementSelectionBehaviour/ConfirmInlineCommentButtonElementSelectionBehaviour.ts"/>
-/// <reference path="../../content/ElementSelectionBehaviour/ButtonElementSelectionBehaviour/CommentPRButtonElementSelectionBehaviour.ts"/>
+/// <reference path="../../content/ElementSelectionBehaviour/ButtonElementSelectionBehaviour/CreatePRCommentButtonElementSelectionBehaviour.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/ButtonElementSelectionBehaviour/EditCommentButtonElementSelectionBehaviour.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/ButtonElementSelectionBehaviour/EditPRNameButtonElementSelectionBehaviour.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/ButtonElementSelectionBehaviour/CreateInlineCommentButtonElementSelectionBehaviour.ts"/>
@@ -60,7 +60,7 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
         let doNotWatchElements: ElementSelectionBehaviourCreatable[] = [];
         if (Options.getDoNotWatchCommentElements()) {
             doNotWatchElements.push(CommentInlineCommentButtonElementSelectionBehaviour);
-            doNotWatchElements.push(CommentPRButtonElementSelectionBehaviour);
+            doNotWatchElements.push(CreatePRCommentButtonElementSelectionBehaviour);
             doNotWatchElements.push(EditCommentButtonElementSelectionBehaviour);
         }
         return doNotWatchElements;
