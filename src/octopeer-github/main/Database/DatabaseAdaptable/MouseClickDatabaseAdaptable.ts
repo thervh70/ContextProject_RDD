@@ -1,4 +1,4 @@
-/// <reference path="../EventObject/IMouseClickEvent.ts"/>
+/// <reference path="../EventObject/MouseClickEvent.ts"/>
 /**
  * Created by Maarten on 26-05-2016.
  */
@@ -10,5 +10,5 @@
  * @param failure       Callback, which is called once the call has failed.
  */
 interface MouseClickDatabaseAdaptable {
-    postMouseClick(eventData: IMouseClickEvent, success: Callback, failure: Callback): void;
+    postMouseClick(eventData: MouseClickEvent, success: Callback, failure: Callback): void;
 }

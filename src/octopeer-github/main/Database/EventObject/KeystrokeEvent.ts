@@ -3,9 +3,9 @@
  */
 
 /**
- * An IKeystrokeEvent contains the data that should be posted to a Database.
+ * A KeystrokeEvent contains the data that should be posted to a Database.
  */
-interface IKeystrokeEvent {
+interface KeystrokeEvent {
     keystroke: string;
     timestamp: UnixTimestamp;
 }

@@ -4,7 +4,7 @@
  */
 
 describe("A MessageSendDatabaseAdapter", function() {
-    let data: ISemanticEvent;
+    let data: SemanticEvent;
     let MSDAdapter: DatabaseAdaptable;
     let spy: jasmine.Spy;
     let spyObj: jasmine.Spy;

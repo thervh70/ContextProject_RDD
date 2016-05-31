@@ -56,7 +56,7 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
      * @param success       Callback, which is called once the call has succeeded.
      * @param failure       Callback, which is called once the call has failed.
      */
-    public postSemantic(eventData: ISemanticEvent, success: Callback, failure: Callback): void {
+    public postSemantic(eventData: SemanticEvent, success: Callback, failure: Callback): void {
         if (!this.isInitialized) {
             Logger.warn("The database has not been initialized yet!");
             failure();
@@ -80,28 +80,28 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
             });
     }
 
-    public postKeystroke(eventData: IKeystrokeEvent, success: Callback, failure: Callback) {
+    public postKeystroke(eventData: KeystrokeEvent, success: Callback, failure: Callback) {
         this.rawDataAjaxCall(eventData, "keystroke-events", success, failure);
     }
 
-    public postMouseClick(eventData: IMouseClickEvent, success: Callback, failure: Callback) {
+    public postMouseClick(eventData: MouseClickEvent, success: Callback, failure: Callback) {
         this.rawDataAjaxCall(eventData, "mouse-click-events", success, failure);
     }
 
-    public postMousePosition(eventData: IMousePositionEvent, success: Callback, failure: Callback) {
+    public postMousePosition(eventData: MousePositionEvent, success: Callback, failure: Callback) {
         this.rawDataAjaxCall(eventData, "mouse-position-events", success, failure);
     }
 
-    public postMouseScroll(eventData: IMouseScrollEvent, success: Callback, failure: Callback) {
+    public postMouseScroll(eventData: MouseScrollEvent, success: Callback, failure: Callback) {
         this.rawDataAjaxCall(eventData, "mouse-scroll-events", success, failure);
     }
 
-    public postWindowResolution(eventData: IWindowResolutionEvent, success: Callback, failure: Callback) {
+    public postWindowResolution(eventData: WindowResolutionEvent, success: Callback, failure: Callback) {
         this.rawDataAjaxCall(eventData, "window-resolution-events", success, failure);
     }
 
-    private rawDataAjaxCall(eventData: IKeystrokeEvent | IMouseClickEvent | IMousePositionEvent | IMouseScrollEvent
-        | IWindowResolutionEvent, eventURL: string, success: Callback, failure: Callback) {
+    private rawDataAjaxCall(eventData: KeystrokeEvent | MouseClickEvent | MousePositionEvent | MouseScrollEvent
+        | WindowResolutionEvent, eventURL: string, success: Callback, failure: Callback) {
         if (!this.isInitialized) {
             Logger.warn("The database has not been initialized yet!");
             failure();
@@ -131,7 +131,7 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
      * @param eventData                 The data to post to the database.
      * @returns {JQueryAjaxSettings}    A Settings Object that can be used in an AJAX request.
      */
-    private createSemanticPostData(eventData: ISemanticEvent) {
+    private createSemanticPostData(eventData: SemanticEvent) {
         return this.createJSONPost({
             "session": this.getSession(),
             "event_type": `${this._databaseUrl}api/event-types/${eventData.eventID}/`,

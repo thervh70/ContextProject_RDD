@@ -9,7 +9,7 @@
  */
 class MessageSendDatabaseAdapter implements DatabaseAdaptable {
 
-    public postSemantic(data: ISemanticEvent, success: Callback, failure: Callback) {
+    public postSemantic(data: SemanticEvent, success: Callback, failure: Callback) {
         let postData: any = data;
         postData.elementID = (<ElementID>data.elementID).getElementID();
         postData.eventID = (<EventID>data.eventID).getEventID();
@@ -17,27 +17,27 @@ class MessageSendDatabaseAdapter implements DatabaseAdaptable {
         success();
     }
 
-    public postKeystroke(data: IKeystrokeEvent, success: Callback, failure: Callback) {
+    public postKeystroke(data: KeystrokeEvent, success: Callback, failure: Callback) {
         chrome.runtime.sendMessage(JSON.stringify({data: data, type: "postKeystroke"}));
         success();
     }
 
-    public postMousePosition(data: IMousePositionEvent, success: Callback, failure: Callback) {
+    public postMousePosition(data: MousePositionEvent, success: Callback, failure: Callback) {
         chrome.runtime.sendMessage(JSON.stringify({data: data, type: "postMousePosition"}));
         success();
     }
 
-    public postMouseClick(data: IMouseClickEvent, success: Callback, failure: Callback) {
+    public postMouseClick(data: MouseClickEvent, success: Callback, failure: Callback) {
         chrome.runtime.sendMessage(JSON.stringify({data: data, type: "postMouseClick"}));
         success();
     }
 
-    public postMouseScroll(data: IMouseScrollEvent, success: Callback, failure: Callback) {
+    public postMouseScroll(data: MouseScrollEvent, success: Callback, failure: Callback) {
         chrome.runtime.sendMessage(JSON.stringify({data: data, type: "postMouseScroll"}));
         success();
     }
 
-    public postWindowResolution(data: IWindowResolutionEvent, success: Callback, failure: Callback) {
+    public postWindowResolution(data: WindowResolutionEvent, success: Callback, failure: Callback) {
         chrome.runtime.sendMessage(JSON.stringify({data: data, type: "postWindowResolution"}));
         success();
     }

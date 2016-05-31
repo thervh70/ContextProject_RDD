@@ -3,9 +3,9 @@
  */
 
 /**
- * An IWindowResolutionEvent contains the data that should be posted to a Database.
+ * An WindowResolutionEvent contains the data that should be posted to a Database.
  */
-interface IWindowResolutionEvent {
+interface WindowResolutionEvent {
     /** The width and height of the new size of the viewport. */
     width: number;
     height: number;
