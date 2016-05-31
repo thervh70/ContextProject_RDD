@@ -4,10 +4,14 @@
 
 describe("A PageMask", function() {
 
+    const list = [PageMask.CONVERSATION, PageMask.COMMITS, PageMask.FILES_CHANGED];
+
     it("should be combined correctly", function() {
-        expect(PageMask.combine(PageMask.CONVERSATION, PageMask.FILES_CHANGED).isOnPage(PageMask.CONVERSATION)).toBeTruthy();
-        expect(PageMask.combine(PageMask.CONVERSATION, PageMask.FILES_CHANGED).isOnPage(PageMask.FILES_CHANGED)).toBeTruthy();
-        expect(PageMask.combine(PageMask.CONVERSATION, PageMask.FILES_CHANGED).isOnPage(PageMask.COMMITS)).toBeFalsy();
+        const masks = [PageMask.CONVERSATION, PageMask.FILES_CHANGED];
+        const contains = [true, false, true]; // TODO arrays in JS have no proper contains method
+        for (let i = 0; i < list.length; i++) {
+            expect(PageMask.combine(...masks).isOnPage(list[i])).toBe(contains[i]);
+        }
     });
 
 });
