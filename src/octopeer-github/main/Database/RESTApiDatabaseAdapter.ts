@@ -51,23 +51,23 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
     }
 
     public postKeystroke(eventData: KeystrokeEvent, success: Callback, failure: Callback) {
-        this.postRawEvent(eventData, "keystroke-events", success, failure);
+        this.postEvent(eventData, "keystroke-events", success, failure);
     }
 
     public postMouseClick(eventData: MouseClickEvent, success: Callback, failure: Callback) {
-        this.postRawEvent(eventData, "mouse-click-events", success, failure);
+        this.postEvent(eventData, "mouse-click-events", success, failure);
     }
 
     public postMousePosition(eventData: MousePositionEvent, success: Callback, failure: Callback) {
-        this.postRawEvent(eventData, "mouse-position-events", success, failure);
+        this.postEvent(eventData, "mouse-position-events", success, failure);
     }
 
     public postMouseScroll(eventData: MouseScrollEvent, success: Callback, failure: Callback) {
-        this.postRawEvent(eventData, "mouse-scroll-events", success, failure);
+        this.postEvent(eventData, "mouse-scroll-events", success, failure);
     }
 
     public postWindowResolution(eventData: WindowResolutionEvent, success: Callback, failure: Callback) {
-        this.postRawEvent(eventData, "window-resolution-events", success, failure);
+        this.postEvent(eventData, "window-resolution-events", success, failure);
     }
 
     /**
@@ -77,29 +77,16 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
      * @param failure       Callback, which is called once the call has failed.
      */
     public postSemantic(eventData: SemanticEvent, success: Callback, failure: Callback): void {
-        const postData = this.createSemanticPostData(eventData);
-        this.postWithAjax(postData, "semantic-events", success, failure);
-    }
-
-    private postRawEvent(eventData: KeystrokeEvent | MouseClickEvent | MousePositionEvent | MouseScrollEvent
-        | WindowResolutionEvent, eventURL: string, success: Callback, failure: Callback) {
-        (<any>eventData).session = this.getSession();
-        const postData = this.createJSONPost(eventData);
-        this.postWithAjax(postData, eventURL, success, failure);
-    }
-
-    /**
-     * Creates a Settings Object that can be used in an AJAX request when posting an event.
-     * @param eventData                 The data to post to the database.
-     * @returns {JQueryAjaxSettings}    A Settings Object that can be used in an AJAX request.
-     */
-    private createSemanticPostData(eventData: SemanticEvent) {
-        return this.createJSONPost({
-            "session": this.getSession(),
+        this.postEvent({
             "event_type": `${this._databaseUrl}api/event-types/${eventData.eventID}/`,
             "element_type": `${this._databaseUrl}api/element-types/${eventData.elementID}/`,
             "created_at": eventData.created_at,
-        });
+        }, "semantic-events", success, failure);
+    }
+
+    private postEvent(eventData: any, eventURL: string, success: Callback, failure: Callback) {
+        const postData = this.createJSONPost(eventData);
+        this.postWithAjax(postData, eventURL, success, failure);
     }
 
     private postWithAjax(postData: JQueryAjaxSettings, eventURL: string, success: Callback, failure: Callback) {
@@ -130,7 +117,8 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
      * @param data                  The data that will be posted to the server.
      * @returns JQueryAjaxSettings  A Settings Object that can be used in an AJAX request.
      */
-    private createJSONPost(data: Object): JQueryAjaxSettings {
+    private createJSONPost(data: any): JQueryAjaxSettings {
+        data.session = this.getSession();
         return {
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(data),
