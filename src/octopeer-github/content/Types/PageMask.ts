@@ -14,7 +14,7 @@ class PageMask {
     constructor(private _mask: number) { }
 
     public isOnPage(pageMask: PageMask): boolean {
-        return this._mask ^ pageMask._mask > 0;
+        return (this._mask ^ pageMask._mask) > 0;
     }
 
 }
