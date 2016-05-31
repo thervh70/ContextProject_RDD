@@ -27,7 +27,11 @@ abstract class GenericElementSelectionBehaviour implements ElementSelectionBehav
      * @returns {JQuery} button elements.
      */
     public getElements() {
-        return $(this.data.selector);
+        if (this.data.composedSelector === undefined) {
+            return $(this.data.selector);
+        } else {
+            return this.data.composedSelector();
+        }
     }
 
     /**
