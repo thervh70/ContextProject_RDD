@@ -57,23 +57,22 @@ class RESTApiDatabaseAdapter implements SemanticDatabaseAdaptable { // TODO impl
      * @param failure       Callback, which is called once the call has failed.
      */
     public postSemantic(eventData: ISemanticEvent, success: Callback, failure: Callback): void {
-        const self = this;
         if (!this.isInitialized) {
             Logger.warn("The database has not been initialized yet!");
             failure();
             return;
         }
-        const postData = self.createPostData(eventData);
+        const postData = this.createPostData(eventData);
         $.ajax(`${this._databaseUrl}api/semantic-events/`, postData)
-            .done(function(data, status, jqXHR) {
-                if (self._debug) {
+            .done((data, status, jqXHR) => {
+                if (this._debug) {
                     Logger.debug(`Call success, status: ${status}`);
                     Logger.debug(jqXHR);
                     Logger.debug(postData);
                 }
                 success(data, status, jqXHR);
             })
-            .fail(function(jqXHR, status) {
+            .fail((jqXHR, status) => {
                 Logger.warn(`Database post failed, status: ${status}`);
                 Logger.debug(jqXHR);
                 Logger.debug(postData);
