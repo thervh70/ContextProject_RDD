@@ -3,6 +3,9 @@
  * Contains necessary functions for the Options page of Octopeer.
  */
 
+// List that contains all optionID names that Octopeer provides.
+var options = ['logging', 'tabs', 'comments', 'peerComments', 'focus', 'username', 'repo', 'file'];
+
 // Listens for changes in the loggingEnabled flag.
 // This boolean might be switched using the popup.
 function changeListener() {
@@ -102,22 +105,30 @@ function hideCards() {
 
 // Switches availability of options.
 function switchDisable() {
-    $('#tabs').disabled = !$('#tabs').disabled;
-    $('#comments').disabled = !$('#comments').disabled;
-    $('#peerComments').disabled = !$('#peerComments').disabled;
-    $('#focus').disabled = !$('#focus').disabled;
-    $('#username').disabled = !$('#username').disabled;
-    $('#repo').disabled = !$('#repo').disabled;
-    $('#file').disabled = !$('#file').disabled;
+    for(var i = 1; i < options.length; i++) {
+        $(optionsID(i)).disabled = !$(optionsID(i)).disabled;
+    }
 }
 
 // Restores availability of options.
 // The availability depends on the value of the logging checkbox state.
 function restoreDisable() {
-    $('#tabs').disabled = $('#comments').disabled =
-        $('#peerComments').disabled = $('#focus').disabled =
-            $('#username').disabled = $('#repo').disabled =
-                $('#file').disabled = !items.loggingEnabled;
+    var enabled = !items.loggingEnabled;
+    for(var i = 1; i < options.length; i++) {
+        $(optionsID(i)).disabled = enabled;
+    }
+}
+
+// Helper function that appends a hashtag to every element from the options array.
+function optionsID(index){
+    return '#' + options[index];
+}
+
+// Adds click events to the checkboxes of the options.
+function addOptionClickEvents() {
+    for(var i = 0; i < options.length; i++) {
+        $(optionsID(i)).click(saveOptions);
+    }
 }
 
 // Constants that define the function that will be called.
@@ -130,24 +141,12 @@ const hide = hideCards;
 // enables the (sub)options when the user does.
 // A message will confirm this action to the user.
 function switchOptions() {
-    var logging = $('#logging').prop('checked');
+    var logging = $(optionsID(0)).prop('checked');
     if (logging) {
         show();
     } else {
         hide();
     }
-}
-
-// Adds click events to the checkboxes of the options.
-function addOptionClickEvents() {
-    $('#logging').click(saveOptions);
-    $('#tabs').click(saveOptions);
-    $('#comments').click(saveOptions);
-    $('#peerComments').click(saveOptions);
-    $('#focus').click(saveOptions);
-    $('#username').click(saveOptions);
-    $('#repo').click(saveOptions);
-    $('#file').click(saveOptions);
 }
 
 document.addEventListener('DOMContentLoaded', restoreOptionsState);
@@ -156,6 +155,6 @@ document.addEventListener('DOMContentLoaded', restoreOptionsAvailability);
 // Will execute once the page DOM is ready.
 $(document).ready(function() {
     addOptionClickEvents();
-    $('#logging').click(switchOptions);
+    $(optionsID(0)).click(switchOptions);
     changeListener();
 });
