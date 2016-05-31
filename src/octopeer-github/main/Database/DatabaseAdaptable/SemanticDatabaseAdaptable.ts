@@ -11,5 +11,5 @@
  * @param failure       Callback, which is called once the call has failed.
  */
 interface SemanticDatabaseAdaptable {
-    postSemantic(eventData: ISemanticEvent, success: Callback, failure: Callback): void;
+    postSemantic(eventData: SemanticEvent, success: Callback, failure: Callback): void;
 }

@@ -10,5 +10,5 @@
  * @param failure       Callback, which is called once the call has failed.
  */
 interface WindowResolutionDatabaseAdaptable {
-    postWindowResolution(eventData: IWindowResolutionEvent, success: Callback, failure: Callback): void;
+    postWindowResolution(eventData: WindowResolutionEvent, success: Callback, failure: Callback): void;
 }

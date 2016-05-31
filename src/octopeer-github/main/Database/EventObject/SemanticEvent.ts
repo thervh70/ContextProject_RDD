@@ -10,9 +10,9 @@ type FileName = string;
 type LineNumber = number;
 
 /**
- * An ISemanticEvent contains the data that should be posted to a Database.
+ * An SemanticEvent contains the data that should be posted to a Database.
  */
-interface ISemanticEvent {
+interface SemanticEvent {
     elementID: ElementID;
     eventID: EventID;
     start: UnixTimestamp;

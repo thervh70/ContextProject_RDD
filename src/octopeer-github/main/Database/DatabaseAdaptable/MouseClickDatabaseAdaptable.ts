@@ -10,5 +10,5 @@
  * @param failure       Callback, which is called once the call has failed.
  */
 interface MouseClickDatabaseAdaptable {
-    postMouseClick(eventData: IMouseClickEvent, success: Callback, failure: Callback): void;
+    postMouseClick(eventData: MouseClickEvent, success: Callback, failure: Callback): void;
 }

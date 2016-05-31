@@ -3,9 +3,9 @@
  */
 
 /**
- * An IMouseScrollEvent contains the data that should be posted to a Database.
+ * An MouseScrollEvent contains the data that should be posted to a Database.
  */
-interface IMouseScrollEvent {
+interface MouseScrollEvent {
     /** The viewport_x and viewport_y indicate the current viewport. */
     viewport_x: number;
     viewport_y: number;

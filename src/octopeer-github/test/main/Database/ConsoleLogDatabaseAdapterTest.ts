@@ -4,7 +4,7 @@
  */
 
 describe("The ConsoleLogDatabaseAdapter", function() {
-    let data: ISemanticEvent;
+    let data: SemanticEvent;
     let CLDAdapter: DatabaseAdaptable;
     let spy: jasmine.Spy;
 

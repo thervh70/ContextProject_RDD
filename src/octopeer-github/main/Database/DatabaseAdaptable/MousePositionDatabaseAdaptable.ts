@@ -10,5 +10,5 @@
  * @param failure       Callback, which is called once the call has failed.
  */
 interface MousePositionDatabaseAdaptable {
-    postMousePosition(eventData: IMousePositionEvent, success: Callback, failure: Callback): void;
+    postMousePosition(eventData: MousePositionEvent, success: Callback, failure: Callback): void;
 }

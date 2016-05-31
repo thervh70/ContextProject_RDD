@@ -10,5 +10,5 @@
  * @param failure       Callback, which is called once the call has failed.
  */
 interface MouseScrollDatabaseAdaptable {
-    postMouseScroll(eventData: IMouseScrollEvent, success: Callback, failure: Callback): void;
+    postMouseScroll(eventData: MouseScrollEvent, success: Callback, failure: Callback): void;
 }
