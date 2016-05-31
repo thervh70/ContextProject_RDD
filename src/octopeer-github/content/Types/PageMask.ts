@@ -10,6 +10,7 @@ class PageMask {
     public static get CONVERSATION()    { return new PageMask(0b001); };
     public static get COMMITS()         { return new PageMask(0b010); };
     public static get FILES_CHANGED()   { return new PageMask(0b100); };
+    public static get ALL()             { return new PageMask(0b111); };
 
     public static combine(...masks: PageMask[]) {
         let res = 0;

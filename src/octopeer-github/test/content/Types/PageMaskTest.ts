@@ -14,4 +14,10 @@ describe("A PageMask", function() {
         }
     });
 
+    it("should indicate for all pages that they are on the ALL pageMask", function() {
+        for (let i = 0; i < list.length; i++) {
+            expect(list[i].isOnPage(PageMasks.ALL)).toBe(true);
+        }
+    });
+
 });
