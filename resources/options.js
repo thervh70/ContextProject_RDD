@@ -30,9 +30,7 @@ function saveOptions() {
         hashRepo: $('#repo').prop('checked'),
         hashFile: $('#file').prop('checked')
         // Hints
-    }, function() {
-        Materialize.toast("Options saved!", 2000);
-    });
+    }, function() {});
 }
 
 // Restores the states of the checkboxes, using the preferences stored in chrome.storage.
@@ -134,10 +132,8 @@ const hide = hideCards;
 function switchOptions() {
     var logging = $('#logging').prop('checked');
     if (logging) {
-        Materialize.toast("Logging has been enabled.", 2000);
         show();
     } else {
-        Materialize.toast("Logging has been disabled.", 2000);
         hide();
     }
 }
