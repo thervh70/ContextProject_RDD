@@ -36,6 +36,14 @@ class ElementSelectionBehaviourFactory {
     }
 
     /**
+     * Get the sorted ElementSelectionBehaviourData list
+     * @returns {ElementSelectionBehaviourData[]}
+     */
+    public getElementSelectionBehaviourData() {
+        return this.elementSelectionBehaviourData;
+    }
+
+    /**
      * Compare two ElementSelectionBehaviourDatas by ElementID.
      * Used to sort the ElementSelectionBehaviourData list.
      * @param esb1 The first ElementSelectionBehaviourData

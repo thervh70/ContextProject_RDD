@@ -35,6 +35,14 @@ class GenericElementSelectionBehaviour implements ElementSelectionBehaviour {
     }
 
     /**
+     * Get the Data object.
+     * @returns {ElementSelectionBehaviourData} the Data object.
+     */
+    public getData() {
+        return this.data;
+    }
+
+    /**
      * Get a callback to bind to the event.
      * @param eventID the id of the event.
      * @returns {function(JQueryEventObject)} an EventHandler to handle the event on the selected objects.
