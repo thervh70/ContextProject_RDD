@@ -9,7 +9,7 @@ var options = ['logging', 'tabs', 'comments', 'peerComments', 'focus', 'username
 // List that contains all subOptionID names that Octopeer provides.
 var subOptions = ['securitySub', 'privacySub', 'hintsSub'];
 
-// List that contains all cardID names that Octopeer provides.
+// List that contains all cardElement names that Octopeer provides.
 var cards = ['security', 'privacy', 'hints'];
 
 // Listens for changes in the loggingEnabled flag.
@@ -28,16 +28,16 @@ function changeListener() {
 function saveOptions() {
     chrome.storage.sync.set({
         // General
-        loggingEnabled: $(optionsID(0)).prop('checked'),
+        loggingEnabled: optionsElement(0).prop('checked'),
         // Privacy
-        trackTabs: $(optionsID(1)).prop('checked'),
-        trackComments:  $(optionsID(2)).prop('checked'),
-        trackPeerComments: $(optionsID(3)).prop('checked'),
-        trackFocus: $(optionsID(4)).prop('checked'),
+        trackTabs: optionsElement(1).prop('checked'),
+        trackComments:  optionsElement(2).prop('checked'),
+        trackPeerComments: optionsElement(3).prop('checked'),
+        trackFocus: optionsElement(4).prop('checked'),
         // Security
-        hashUsername: $(optionsID(5)).prop('checked'),
-        hashRepo: $(optionsID(6)).prop('checked'),
-        hashFile: $(optionsID(7)).prop('checked')
+        hashUsername: optionsElement(5).prop('checked'),
+        hashRepo: optionsElement(6).prop('checked'),
+        hashFile: optionsElement(7).prop('checked')
         // Hints
     }, function() {});
 }
@@ -55,14 +55,14 @@ function restoreOptionsState() {
         hashFile: Boolean
     }, function(items) {
         // Saved values from the chrome.storage
-        $(optionsID(0)).prop('checked', items.loggingEnabled);
-        $(optionsID(1)).prop('checked', items.trackTabs);
-        $(optionsID(2)).prop('checked', items.trackComments);
-        $(optionsID(3)).prop('checked', items.trackPeerComments);
-        $(optionsID(4)).prop('checked', items.trackFocus);
-        $(optionsID(5)).prop('checked', items.hashUsername);
-        $(optionsID(6)).prop('checked', items.hashRepo);
-        $(optionsID(7)).prop('checked', items.hashFile);
+        optionsElement(0).prop('checked', items.loggingEnabled);
+        optionsElement(1).prop('checked', items.trackTabs);
+        optionsElement(2).prop('checked', items.trackComments);
+        optionsElement(3).prop('checked', items.trackPeerComments);
+        optionsElement(4).prop('checked', items.trackFocus);
+        optionsElement(5).prop('checked', items.hashUsername);
+        optionsElement(6).prop('checked', items.hashRepo);
+        optionsElement(7).prop('checked', items.hashFile);
     });
 }
 
@@ -84,35 +84,35 @@ function restoreOptionsAvailability() {
 // Shows the sub-options.
 function showSubOptions() {
     for(var i = 0; i < subOptions.length; i++) {
-        $(subOptionsID(i)).show();
+        subOptionsElement(i).show();
     }
 }
 
 // Hides the sub-options.
 function hideSubOptions() {
     for(var i = 0; i < subOptions.length; i++) {
-        $(subOptionsID(i)).hide();
+        subOptionsElement(i).hide();
     }
 }
 
 // Shows the option cards.
 function showCards() {
     for(var i = 0; i < cards.length; i++) {
-        $(cardID(i)).show();
+        cardElement(i).show();
     }
 }
 
 // Hides the option cards.
 function hideCards() {
     for(var i = 0; i < cards.length; i++) {
-        $(cardID(i)).hide();
+        cardElement(i).hide();
     }
 }
 
 // Switches availability of options.
 function switchDisable() {
     for(var i = 1; i < options.length; i++) {
-        $(optionsID(i)).disabled = !$(optionsID(i)).disabled;
+        optionsElement(i).disabled = !optionsElement(i).disabled;
     }
 }
 
@@ -121,36 +121,36 @@ function switchDisable() {
 function restoreDisable() {
     var enabled = !items.loggingEnabled;
     for(var i = 1; i < options.length; i++) {
-        $(optionsID(i)).disabled = enabled;
+        optionsElement(i).disabled = enabled;
     }
 }
 
-// Retrieves the ID of an option.
-function optionsID(index){
-    return idGenerator(index, options);
+// Retrieves the element of an option.
+function optionsElement(index){
+    return elementGenerator(index, options);
 }
 
-// Retrieves the ID of a subOption.
-function subOptionsID(index){
-    return idGenerator(index, subOptions);
+// Retrieves the element of a subOption.
+function subOptionsElement(index){
+    return elementGenerator(index, subOptions);
 }
 
-// Retrieves the ID of a card.
-function cardID(index){
-    return idGenerator(index, cards);
+// Retrieves the element of a card.
+function cardElement(index){
+    return elementGenerator(index, cards);
 }
 
-// Helper function that appends a hashtag to an element from an array, in order to return an ID.
-function idGenerator(index, array){
-    return '#' + array[index];
+// Helper function that creates an element based on an index and an array containing the option names.
+function elementGenerator(index, array){
+    return $('#' + array[index]);
 }
 
 // Adds click events to the checkboxes of the options.
 // When clicking on the main option, switchOptions is also called.
 function addOptionClickEvents() {
-    $(optionsID(0)).click(switchOptions);
+    optionsElement(0).click(switchOptions);
     for(var i = 0; i < options.length; i++) {
-        $(optionsID(i)).click(saveOptions);
+        optionsElement(i).click(saveOptions);
     }
 }
 
@@ -164,7 +164,7 @@ const hide = hideCards;
 // enables the (sub)options when the user does.
 // A message will confirm this action to the user.
 function switchOptions() {
-    var logging = $(optionsID(0)).prop('checked');
+    var logging = optionsElement(0).prop('checked');
     if (logging) {
         show();
     } else {
