@@ -26,43 +26,26 @@ function changeListener() {
 // Saves options to chrome.storage.
 // A message will confirm this to the user.
 function saveOptions() {
-    chrome.storage.sync.set({
-        // General
-        loggingEnabled: optionsElement(0).prop('checked'),
-        // Privacy
-        trackTabs: optionsElement(1).prop('checked'),
-        trackComments:  optionsElement(2).prop('checked'),
-        trackPeerComments: optionsElement(3).prop('checked'),
-        trackFocus: optionsElement(4).prop('checked'),
-        // Security
-        hashUsername: optionsElement(5).prop('checked'),
-        hashRepo: optionsElement(6).prop('checked'),
-        hashFile: optionsElement(7).prop('checked')
-        // Hints
-    }, function() {});
+    var saveObject = {};
+    // Loops over all options and adds the current value to the chrome storage.
+    for (var i = 0; i < options.length; i++) {
+        saveObject[options[i]] = optionsElement(i).prop('checked');
+    }
+    chrome.storage.sync.set(saveObject, function() {});
 }
 
 // Restores the states of the checkboxes, using the preferences stored in chrome.storage.
 function restoreOptionsState() {
-    chrome.storage.sync.get({
-        loggingEnabled: Boolean,
-        trackTabs: Boolean,
-        trackComments: Boolean,
-        trackPeerComments: Boolean,
-        trackFocus: Boolean,
-        hashUsername: Boolean,
-        hashRepo: Boolean,
-        hashFile: Boolean
-    }, function(items) {
-        // Saved values from the chrome.storage
-        optionsElement(0).prop('checked', items.loggingEnabled);
-        optionsElement(1).prop('checked', items.trackTabs);
-        optionsElement(2).prop('checked', items.trackComments);
-        optionsElement(3).prop('checked', items.trackPeerComments);
-        optionsElement(4).prop('checked', items.trackFocus);
-        optionsElement(5).prop('checked', items.hashUsername);
-        optionsElement(6).prop('checked', items.hashRepo);
-        optionsElement(7).prop('checked', items.hashFile);
+    var defaultObject = {};
+    // Loops over all options and casts them to Booleans.
+    for (var i = 0; i < options.length; i++) {
+        defaultObject[options[i]] = Boolean;
+    }
+    chrome.storage.sync.get(defaultObject, function(items) {
+        // Retrieves and restores the values by using the chrome.storage
+        for (var i = 0; i < options.length; i++) {
+            optionsElement(i).prop('checked', items[options[i]]);
+        }
     });
 }
 
