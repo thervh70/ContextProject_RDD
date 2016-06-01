@@ -1,5 +1,6 @@
 /**
- * Created by Robin on 24-5-2016.
+ * Created by Robin and Mitchell on 24-5-2016.
+ * Behaviour unit tests for the Options class.
  */
 
 describe("The Options class", function() {
@@ -93,5 +94,10 @@ describe("The Options class", function() {
 
     it("should get the watchkeyboard value", function() {
         expect(Options.getOption("doNotWatchKeyboardShortcutEvents")).toBe(false);
+    });
+
+    it("should generate a list of its options", function() {
+        expect(Options.generateOptionList()).toEqual(["logging", "tabs", "comments", "peerComments", "focus", "username", "repo", "file",
+        "doNotWatchOnScreenEvents", "doNotWatchHoverEvents", "doNotWatchCommentElements", "doNotWatchKeyboardShortcutEvents"]);
     });
 });
