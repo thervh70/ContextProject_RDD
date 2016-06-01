@@ -47,11 +47,42 @@ type ElementXEventCreatable = {
     event: ElementEventBindingCreatable
 };
 
+interface ElementThatShouldNotBeWatchedTuple extends Array<string | Array<ElementSelectionBehaviourCreatable>> {
+    0: string;
+    1: Array<ElementSelectionBehaviourCreatable>;
+}
+
+interface EventThatShouldNotBeWatchedTuple extends Array<string | Array<ElementEventBindingCreatable>> {
+    0: string;
+    1: Array<ElementEventBindingCreatable>;
+}
+
+interface CombinationsThatShouldNotBeWatchedTuple extends Array<string | Array<ElementXEventCreatable>> {
+    0: string;
+    1: Array<ElementXEventCreatable>;
+}
+
 /**
  * Class for indicating all internal options of the application.
  */
 // tslint:disable-next-line:no-unused-variable
 const DoNotWatchOptions = new (class DoNotWatchOptions {
+
+    private elementsThatShouldNotBeWatched: ElementThatShouldNotBeWatchedTuple[] = [
+        ["doNotWatchCommentElements", [
+            CommentInlineCommentButtonElementSelectionBehaviour,
+            CommentPRButtonElementSelectionBehaviour,
+            EditCommentButtonElementSelectionBehaviour,
+        ]],
+    ];
+
+    private eventsThatShouldNotBeWatched: EventThatShouldNotBeWatchedTuple[] = [
+        ["doNotWatchOnScreenEvents", [ScrollIntoViewElementEventBinding, ScrollOutOfViewElementEventBinding]],
+        ["doNotWatchHoverEvents", [MouseEnterElementEventBinding, MouseLeaveElementEventBinding]],
+        ["doNotWatchKeyboardShortcutEvents", [KeystrokeElementEventBinding]],
+    ];
+
+    private combinationsThatShouldNotBeWatched: CombinationsThatShouldNotBeWatchedTuple[] = [];
 
     public shouldElementBeWatched(element: ElementSelectionBehaviourCreatable) {
         return !this.getElements().contains(element);
@@ -71,10 +102,12 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
      */
     public getElements() {
         let doNotWatchElements: ElementSelectionBehaviourCreatable[] = [];
-        if (Options.getDoNotWatchCommentElements()) {
-            doNotWatchElements.push(CommentInlineCommentButtonElementSelectionBehaviour);
-            doNotWatchElements.push(CommentPRButtonElementSelectionBehaviour);
-            doNotWatchElements.push(EditCommentButtonElementSelectionBehaviour);
+        for (let tuple of this.elementsThatShouldNotBeWatched) {
+            if (Options.get(tuple[0])) {
+                for (let element of tuple[1]) {
+                    doNotWatchElements.push(element);
+                }
+            }
         }
         return doNotWatchElements;
     }
@@ -84,17 +117,12 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
      */
     public getEvents() {
         let doNotWatchEvents: ElementEventBindingCreatable[] = [];
-
-        if (Options.getDoNotWatchOnScreenEvents()) {
-            doNotWatchEvents.push(ScrollIntoViewElementEventBinding);
-            doNotWatchEvents.push(ScrollOutOfViewElementEventBinding);
-        }
-        if (Options.getDoNotWatchHoverEvents()) {
-            doNotWatchEvents.push(MouseEnterElementEventBinding);
-            doNotWatchEvents.push(MouseLeaveElementEventBinding);
-        }
-        if (Options.getDoNotWatchKeyboardShortcutEvents()) {
-            doNotWatchEvents.push(KeystrokeElementEventBinding);
+        for (let tuple of this.eventsThatShouldNotBeWatched) {
+            if (Options.get(tuple[0])) {
+                for (let element of tuple[1]) {
+                    doNotWatchEvents.push(element);
+                }
+            }
         }
         return doNotWatchEvents;
     }
@@ -105,7 +133,14 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
      * @returns {ElementXEventCreatable[]}
      */
     public getCombinations() {
-        let doNotWatchCombination: ElementXEventCreatable[] = [];
-        return doNotWatchCombination;
+        let doNotWatchCombinations: ElementXEventCreatable[] = [];
+        for (let tuple of this.combinationsThatShouldNotBeWatched) {
+            if (Options.get(tuple[0])) {
+                for (let element of tuple[1]) {
+                    doNotWatchCombinations.push(element);
+                }
+            }
+        }
+        return doNotWatchCombinations;
     }
 })();
