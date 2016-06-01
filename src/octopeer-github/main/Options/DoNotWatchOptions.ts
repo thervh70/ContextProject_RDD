@@ -53,15 +53,15 @@ type ElementXEventCreatable = {
 // tslint:disable-next-line:no-unused-variable
 const DoNotWatchOptions = new (class DoNotWatchOptions {
 
-    public shouldElementBeLogged(element: ElementSelectionBehaviourCreatable) {
+    public shouldElementBeWatched(element: ElementSelectionBehaviourCreatable) {
         return !this.getElements().contains(element);
     }
 
-    public shouldEventBeLogged(event: ElementEventBindingCreatable) {
+    public shouldEventBeWatched(event: ElementEventBindingCreatable) {
         return !this.getEvents().contains(event);
     }
 
-    public shouldCombinationBeLogged(combination: ElementXEventCreatable) {
+    public shouldCombinationBeWatched(combination: ElementXEventCreatable) {
         return !this.getCombinations().contains(combination);
     }
 

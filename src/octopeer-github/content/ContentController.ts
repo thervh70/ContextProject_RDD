@@ -148,15 +148,15 @@ class ContentController {
         let mousePositionTracker: MousePositionTracker;
 
         for (elementSelectionBinding of this.elementSelectionBindingList) {
-            if (!DoNotWatchOptions.shouldElementBeLogged(elementSelectionBinding)) {
+            if (!DoNotWatchOptions.shouldElementBeWatched(elementSelectionBinding)) {
                 continue;
             }
 
             elementSelectionBindingHolder = new elementSelectionBinding(database);
 
             for (elementEventBinding of this.elementEventBindingList) {
-                if (DoNotWatchOptions.shouldEventBeLogged(elementEventBinding) &&
-                    DoNotWatchOptions.shouldCombinationBeLogged({
+                if (DoNotWatchOptions.shouldEventBeWatched(elementEventBinding) &&
+                    DoNotWatchOptions.shouldCombinationBeWatched({
                         element: elementSelectionBinding,
                         event: elementEventBinding,
                     })
