@@ -39,8 +39,8 @@
         <div class="card">
             <div class="card-content">
                 <span class="card-title">General</span> <br>
-                <input type="checkbox" id="logging" checked>
-                <label for="logging">I accept Octopeer to log data from me while reviewing pull requests on GitHub.</label>
+                <input type="checkbox" id="loggingEnabled" checked>
+                <label for="loggingEnabled">I accept Octopeer to log data from me while reviewing pull requests on GitHub.</label>
             </div>
         </div>
     </div>
@@ -54,20 +54,20 @@
                 </p>
                 <ul id="privacySubOptions">
                     <li>
-                        <input type="checkbox" id="tabs" checked>
-                        <label for="tabs">other active tabs that are used.</label>
+                        <input type="checkbox" id="trackTabs" checked>
+                        <label for="trackTabs">other active tabs that are used.</label>
                     </li>
                     <li>
-                        <input type="checkbox" id="comments" checked>
-                        <label for="comments"> the comments that I add to a pull request. </label>
+                        <input type="checkbox" id="trackComments" checked>
+                        <label for="trackComments"> the comments that I add to a pull request. </label>
                     </li>
                     <li>
-                        <input type="checkbox" id="peerComments" checked>
-                        <label for="peerComments"> the comments of my peers that have been added to a pull request. </label>
+                        <input type="checkbox" id="trackPeerComments" checked>
+                        <label for="trackPeerComments"> the comments of my peers that have been added to a pull request. </label>
                     </li>
                     <li>
-                        <input type="checkbox" id="focus" checked>
-                        <label for="focus"> what part of a page I'm focusing on (in terms of text hovering, selection, etc.). </label>
+                        <input type="checkbox" id="trackFocus" checked>
+                        <label for="trackFocus"> what part of a page I'm focusing on (in terms of text hovering, selection, etc.). </label>
                     </li>
                 </ul>
             </div>
@@ -84,16 +84,16 @@
                 </p>
                 <ul id="securitySubOptions">
                     <li>
-                        <input type="checkbox" id="username" checked>
-                        <label for="username"> Encrypt your username. </label>
+                        <input type="checkbox" id="hashUsername" checked>
+                        <label for="hashUsername"> Encrypt your username. </label>
                     </li>
                     <li>
-                        <input type="checkbox" id="repo" checked>
-                        <label for="repo"> Encrypt the names of repositories you're working in. </label>
+                        <input type="checkbox" id="hashRepo" checked>
+                        <label for="hashRepo"> Encrypt the names of repositories you're working in. </label>
                     </li>
                     <li>
-                        <input type="checkbox" id="file">
-                        <label for="file"> Encrypt the names of the files you're working on. </label>
+                        <input type="checkbox" id="hashFile">
+                        <label for="hashFile"> Encrypt the names of the files you're working on. </label>
                      </li>
                 </ul>
             </div>

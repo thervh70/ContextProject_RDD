@@ -4,7 +4,7 @@
  */
 
 // List that contains all optionID names that Octopeer provides.
-var options = ['logging', 'tabs', 'comments', 'peerComments', 'focus', 'username', 'repo', 'file'];
+var options = ['loggingEnabled', 'trackTabs', 'trackComments', 'trackPeerComments', 'trackFocus', 'hashUsername', 'hashRepo', 'hashFile'];
 
 // List that contains all subOptionID names that Octopeer provides.
 var subOptions = ['securitySubOptions', 'privacySubOptions', 'hintsSubOptions'];
