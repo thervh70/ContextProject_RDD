@@ -47,6 +47,18 @@ describe("The Options class", function() {
         expect(spyNotify).not.toHaveBeenCalled();
     });
 
+    it("should get an option by passing a string as parameter", function() {
+        expect(Options.get("logging")).toBe(true);
+    });
+
+    it("should return undefined when a non-existing property is get", function() {
+        expect(Options.get("IdoNOTexist")).toBe(undefined);
+    });
+
+    it("should return undefined when a non-boolean property is get", function() {
+        expect(Options.get("addObserver")).toBe(undefined);
+});
+
     it("should get the logging value", function() {
         expect(Options.getLogging()).toBe(true);
     });

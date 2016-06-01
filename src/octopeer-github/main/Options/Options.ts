@@ -10,18 +10,19 @@
  */
 // tslint:disable-next-line:no-unused-variable
 const Options = new (class Options {
-    private logging: Boolean = true;
-    private tabs: Boolean = true;
-    private comments: Boolean = true;
-    private peerComments: Boolean = true;
-    private focus: Boolean = true;
-    private username: Boolean = true;
-    private repo: Boolean = true;
-    private file: Boolean = false;
-    private doNotWatchOnScreenEvents: Boolean = false;
-    private doNotWatchHoverEvents: Boolean = false;
-    private doNotWatchCommentElements: Boolean = false;
-    private doNotWatchKeyboardShortcutEvents: Boolean = false;
+    private logging = true;
+    private tabs = true;
+    private comments = true;
+    private peerComments = true;
+    private focus = true;
+    private username = true;
+    private repo = true;
+    private file = false;
+    private doNotWatchOnScreenEvents = false;
+    private doNotWatchHoverEvents = false;
+    private doNotWatchCommentElements = false;
+    private doNotWatchKeyboardShortcutEvents = false;
+    [key: string]: any;
 
     private observers: OptionsObserver[];
 
@@ -117,6 +118,14 @@ const Options = new (class Options {
      */
     public getObservers() {
         return this.observers;
+    }
+
+    public get(option: string): boolean {
+        if (typeof this[option] === "boolean") {
+            return this[option];
+        } else {
+            return undefined;
+        }
     }
 
     /**
