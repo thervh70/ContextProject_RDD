@@ -18,36 +18,6 @@ describe("The ContentController", function() {
         ScrollOutOfViewElementEventBinding,
     ];
 
-    const elementSelectionBehaviourList = [
-        AddEmoticonButtonElementSelectionBehaviour,
-        CancelEditPRNameButtonElementSelectionBehaviour,
-        CancelInlineCommentButtonElementSelectionBehaviour,
-        CheckDetailButtonElementSelectionBehaviour,
-        ClosePRButtonElementSelectionBehaviour,
-        CommentInlineCommentButtonElementSelectionBehaviour,
-        CreatePRCommentButtonElementSelectionBehaviour,
-        EditCommentButtonElementSelectionBehaviour,
-        EditPRNameButtonElementSelectionBehaviour,
-        InlineCommentButtonElementSelectionBehaviour,
-        MergePRButtonElementSelectionBehaviour,
-        SaveEditPRNameButtonElementSelectionBehaviour,
-        ShowChecksToggleButtonElementSelectionBehaviour,
-        DateMiscellaneousElementSelectionBehaviour,
-        CommitHashcodeNameElementSelectionBehaviour,
-        CommitMessageNameElementSelectionBehaviour,
-        OtherContributerNameElementSelectionBehaviour,
-        PRCreatorNameElementSelectionBehaviour,
-        PRParticipantNameElementSelectionBehaviour,
-        AssigneeSettingElementSelectionBehaviour,
-        LabelSettingElementSelectionBehaviour,
-        LockConversationSettingElementSelectionBehaviour,
-        MilestoneSettingElementSelectionBehaviour,
-        UnsubscribeSettingElementSelectionBehaviour,
-        CommitsTabHeaderElementSelectionBehaviour,
-        ConversationTabHeaderElementSelectionBehaviour,
-        FilesChangedTabHeaderElementSelectionBehaviour,
-    ];
-
     beforeEach(function() {
         testContentController = new ContentController();
     });
