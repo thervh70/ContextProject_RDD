@@ -3,7 +3,7 @@
  */
 
 /**
- * An MouseClickEvent contains the data that should be posted to a Database.
+ * A MouseClickEvent contains the data that should be posted to a Database.
  * @param timestamp     when the event was created.
  */
 interface MouseClickEvent {

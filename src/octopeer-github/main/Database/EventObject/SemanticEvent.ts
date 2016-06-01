@@ -8,7 +8,7 @@ type FileName = string;
 type LineNumber = number;
 
 /**
- * An SemanticEvent contains the data that should be posted to a Database.
+ * A SemanticEvent contains the data that should be posted to a Database.
  * @param elementID     the ID of the element being tracked.
  * @param eventID       the ID of the event being tracked.
  * @param start         when the event was created.

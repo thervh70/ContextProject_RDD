@@ -3,7 +3,7 @@
  */
 
 /**
- * An MousePositionEvent contains the data that should be posted to a Database.
+ * A MousePositionEvent contains the data that should be posted to a Database.
  * @param position_x    specifies the x-position on the page (i.e. relative to the top-left corner of the document).
  * @param position_y    specifies the y-position on the page (i.e. relative to the top-left corner of the document).
  * @param viewport_x    specifies the x-position on the viewport (i.e. relative to the top-left corner of the window).

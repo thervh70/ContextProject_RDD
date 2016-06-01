@@ -3,7 +3,7 @@
  */
 
 /**
- * An MouseScrollEvent contains the data that should be posted to a Database.
+ * A MouseScrollEvent contains the data that should be posted to a Database.
  * @param viewport_x    indicates the x-position of the current viewport.
  * @param viewport_y    indicates the y-position of the current viewport.
  * @param timestamp     when the event was created.
