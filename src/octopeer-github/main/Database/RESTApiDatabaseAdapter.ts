@@ -50,28 +50,58 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
         this._debug = d;
     }
 
+    /**
+     * Post a keystroke event to the database.
+     * @param eventData     The data to post to the database.
+     * @param success       Callback, which is called once the call has succeeded.
+     * @param failure       Callback, which is called once the call has failed.
+     */
     public postKeystroke(eventData: KeystrokeEvent, success: Callback, failure: Callback) {
         this.postEvent(eventData, "keystroke-events", success, failure);
     }
 
+    /**
+     * Post a mouse click event to the database.
+     * @param eventData     The data to post to the database.
+     * @param success       Callback, which is called once the call has succeeded.
+     * @param failure       Callback, which is called once the call has failed.
+     */
     public postMouseClick(eventData: MouseClickEvent, success: Callback, failure: Callback) {
         this.postEvent(eventData, "mouse-click-events", success, failure);
     }
 
+    /**
+     * Post a mouse position event to the database.
+     * @param eventData     The data to post to the database.
+     * @param success       Callback, which is called once the call has succeeded.
+     * @param failure       Callback, which is called once the call has failed.
+     */
     public postMousePosition(eventData: MousePositionEvent, success: Callback, failure: Callback) {
         this.postEvent(eventData, "mouse-position-events", success, failure);
     }
 
+    /**
+     * Post a mouse scroll event to the database.
+     * @param eventData     The data to post to the database.
+     * @param success       Callback, which is called once the call has succeeded.
+     * @param failure       Callback, which is called once the call has failed.
+     */
     public postMouseScroll(eventData: MouseScrollEvent, success: Callback, failure: Callback) {
         this.postEvent(eventData, "mouse-scroll-events", success, failure);
     }
 
+    /**
+     * Post a window resolution event to the database.
+     * @param eventData     The data to post to the database.
+     * @param success       Callback, which is called once the call has succeeded.
+     * @param failure       Callback, which is called once the call has failed.
+     */
     public postWindowResolution(eventData: WindowResolutionEvent, success: Callback, failure: Callback) {
         this.postEvent(eventData, "window-resolution-events", success, failure);
     }
 
     /**
-     * Post an event to the database.
+     * Post a semantic event to the database.
      * @param eventData     The data to post to the database.
      * @param success       Callback, which is called once the call has succeeded.
      * @param failure       Callback, which is called once the call has failed.
@@ -84,17 +114,31 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
         }, "semantic-events", success, failure);
     }
 
+    /**
+     * Post any event data object to the database.
+     * @param eventData     The data to post to the database.
+     * @param eventURL      The event will be posted to `<database>/api/<eventURL>/`.
+     * @param success       Callback, which is called once the call has succeeded.
+     * @param failure       Callback, which is called once the call has failed.
+     */
     private postEvent(eventData: any, eventURL: string, success: Callback, failure: Callback) {
-        const postData = this.createJSONPost(eventData);
-        this.postWithAjax(postData, eventURL, success, failure);
-    }
-
-    private postWithAjax(postData: JQueryAjaxSettings, eventURL: string, success: Callback, failure: Callback) {
         if (!this.isInitialized) {
             Logger.warn("The database has not been initialized yet!");
             failure();
             return;
         }
+        const postData = this.createJSONPost(eventData);
+        this.postWithAjax(postData, eventURL, success, failure);
+    }
+
+    /**
+     * Perform an AJAX call which posts the event data to the database..
+     * @param postData      A JQueryAjaxSettings object to pass to the AJAX call.
+     * @param eventURL      The event will be posted to `<database>/api/<eventURL>/`.
+     * @param success       Callback, which is called once the call has succeeded.
+     * @param failure       Callback, which is called once the call has failed.
+     */
+    private postWithAjax(postData: JQueryAjaxSettings, eventURL: string, success: Callback, failure: Callback) {
         $.ajax(`${this._databaseUrl}api/${eventURL}/`, postData)
             .done((data, status, jqXHR) => {
                 if (this._debug) {
@@ -127,6 +171,10 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
         };
     }
 
+    /**
+     * Get a session object based on the URL of the Pull Request and the username.
+     * @returns {Object} a Session object that complies with the REST API: `/api/sessions`
+     */
     private getSession() {
         return {
             "pull_request": {
