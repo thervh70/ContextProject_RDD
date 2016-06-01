@@ -10,6 +10,7 @@
 /// <reference path="../../content/ElementSelectionBehaviour/ElementSelectionBehaviour.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/AbstractElementSelectionBehaviour.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/ElementSelectionBehaviourData.ts"/>
+/// <reference path="../../content/ElementSelectionBehaviour/ElementSelectionBehaviourFactory.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/ButtonElementSelectionBehaviour/AddEmoticonButtonElementSelectionBehaviour.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/ButtonElementSelectionBehaviour/CancelEditPRNameButtonElementSelectionBehaviour.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/ButtonElementSelectionBehaviour/CancelInlineCommentButtonElementSelectionBehaviour.ts"/>
@@ -51,6 +52,7 @@ type ElementXEventCreatable = {
 /**
  * Class for indicating all internal options of the application.
  */
+const factory = new ElementSelectionBehaviourFactory();
 // tslint:disable-next-line:no-unused-variable
 const DoNotWatchOptions = new (class DoNotWatchOptions {
     /**
@@ -60,9 +62,9 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
     public getElements() {
         let doNotWatchElements: ElementSelectionBehaviourData[] = [];
         if (Options.getDoNotWatchCommentElements()) {
-            doNotWatchElements.push(CommentInlineCommentButtonElementSelectionBehaviour);
-            doNotWatchElements.push(CreatePRCommentButtonElementSelectionBehaviour);
-            doNotWatchElements.push(EditCommentButtonElementSelectionBehaviour);
+            doNotWatchElements.push(factory.findElementSelectionBehaviourData(ElementID.CONFIRM_INLINE_COMMENT));
+            doNotWatchElements.push(factory.findElementSelectionBehaviourData(ElementID.CREATE_PR_COMMENT));
+            doNotWatchElements.push(factory.findElementSelectionBehaviourData(ElementID.EDIT_COMMENT));
         }
         return doNotWatchElements;
     }

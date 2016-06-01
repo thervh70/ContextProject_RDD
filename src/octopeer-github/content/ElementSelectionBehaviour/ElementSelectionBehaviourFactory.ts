@@ -25,12 +25,9 @@ class ElementSelectionBehaviourFactory {
      * @returns {any}
      */
     public create(database: DatabaseAdaptable, ID: ElementID) {
-        let data: ElementSelectionBehaviourData;
-
-        for (data of this.elementSelectionBehaviourData) {
-            if (data.elementID === ID) {
-                return new GenericElementSelectionBehaviour(database, data);
-            }
+        let elementSelectionBehaviourData = this.findElementSelectionBehaviourData(ID);
+        if (elementSelectionBehaviourData != null) {
+            return new GenericElementSelectionBehaviour(database, elementSelectionBehaviourData);
         }
         return null;
     }
@@ -41,6 +38,22 @@ class ElementSelectionBehaviourFactory {
      */
     public getElementSelectionBehaviourData() {
         return this.elementSelectionBehaviourData;
+    }
+
+    /**
+     * Find the correct ElementSelectionBehaviourData from the sorted list by ID.
+     * @param ID The ID that corresponds with the Data to be found.
+     * @returns {any} The Data, or null if not present in the sorted list.
+     */
+    public findElementSelectionBehaviourData(ID: ElementID) {
+        let elementSelectionBehaviourData: ElementSelectionBehaviourData;
+
+        for (elementSelectionBehaviourData of this.elementSelectionBehaviourData) {
+            if ( elementSelectionBehaviourData.elementID === ID) {
+                return elementSelectionBehaviourData;
+            }
+        }
+        return null;
     }
 
     /**
