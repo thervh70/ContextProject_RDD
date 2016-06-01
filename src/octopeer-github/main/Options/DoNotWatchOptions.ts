@@ -54,30 +54,15 @@ type ElementXEventCreatable = {
 const DoNotWatchOptions = new (class DoNotWatchOptions {
 
     public shouldElementBeLogged(element: ElementSelectionBehaviourCreatable) {
-        for (let e of this.getElements()) {
-            if (e === element) {
-                return false;
-            }
-        }
-        return true;
+        return !this.getElements().contains(element);
     }
 
     public shouldEventBeLogged(event: ElementEventBindingCreatable) {
-        for (let e of this.getEvents()) {
-            if (e === event) {
-                return false;
-            }
-        }
-        return true;
+        return !this.getEvents().contains(event);
     }
 
     public shouldCombinationBeLogged(combination: ElementXEventCreatable) {
-        for (let e of this.getCombinations()) {
-            if (e === combination) {
-                return false;
-            }
-        }
-        return true;
+        return !this.getCombinations().contains(combination);
     }
 
     /**
