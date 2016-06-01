@@ -48,56 +48,25 @@ describe("The Options class", function() {
         expect(spyNotify).not.toHaveBeenCalled();
     });
 
-    it("should get the logging value", function() {
-        expect(Options.getOption("logging")).toBe(true);
+    it("should get the option value", function() {
+        let optionList: string[] = Options.generateOptionList();
+        // Boundary between regular options and doNotWatchOptions.
+        let optionBoundary = 7;
+        for (let i = 0; i < optionBoundary; i++) {
+            expect(Options.getOption(optionList[i])).toBe(true);
+        }
+        for (let i = optionBoundary; i < optionList.length; i++) {
+            expect(Options.getOption(optionList[i])).toBe(false);
+        }
     });
 
-    it("should get the tabs value", function() {
-        expect(Options.getOption("tabs")).toBe(true);
-    });
-
-    it("should get the comments value", function() {
-        expect(Options.getOption("comments")).toBe(true);
-    });
-
-    it("should get the peerComments value", function() {
-        expect(Options.getOption("peerComments")).toBe(true);
-    });
-
-    it("should get the focus value", function() {
-        expect(Options.getOption("peerComments")).toBe(true);
-    });
-
-    it("should get the username value", function() {
-        expect(Options.getOption("username")).toBe(true);
-    });
-
-    it("should get the repo value", function() {
-        expect(Options.getOption("repo")).toBe(true);
-    });
-
-    it("should get the file value", function() {
-        expect(Options.getOption("file")).toBe(false);
-    });
-
-    it("should get the screenevents value", function() {
-        expect(Options.getOption("doNotWatchOnScreenEvents")).toBe(false);
-    });
-
-    it("should get the watchhover value", function() {
-        expect(Options.getOption("doNotWatchHoverEvents")).toBe(false);
-    });
-
-    it("should get the watchcomment value", function() {
-        expect(Options.getOption("doNotWatchCommentElements")).toBe(false);
-    });
-
-    it("should get the watchkeyboard value", function() {
-        expect(Options.getOption("doNotWatchKeyboardShortcutEvents")).toBe(false);
+    it("should return false for a bad weather (non-existing) option value", function() {
+        expect(Options.getOption("Hi there!")).toBe(false);
     });
 
     it("should generate a list of its options", function() {
-        expect(Options.generateOptionList()).toEqual(["logging", "tabs", "comments", "peerComments", "focus", "username", "repo", "file",
-        "doNotWatchOnScreenEvents", "doNotWatchHoverEvents", "doNotWatchCommentElements", "doNotWatchKeyboardShortcutEvents"]);
+        expect(Options.generateOptionList()).toEqual(["loggingEnabled", "trackTabs", "trackComments", "trackPeerComments", "trackFocus",
+            "hashUsername", "hashRepo", "hashFile", "doNotWatchOnScreenEvents", "doNotWatchHoverEvents", "doNotWatchCommentElements",
+            "doNotWatchKeyboardShortcutEvents"]);
     });
 });
