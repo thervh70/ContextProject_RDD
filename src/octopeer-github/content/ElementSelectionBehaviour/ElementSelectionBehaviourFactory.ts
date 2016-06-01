@@ -50,7 +50,7 @@ class ElementSelectionBehaviourFactory {
         let elementSelectionBehaviourData: ElementSelectionBehaviourData;
 
         for (elementSelectionBehaviourData of this.elementSelectionBehaviourData) {
-            if ( elementSelectionBehaviourData.elementID === ID) {
+            if (elementSelectionBehaviourData.elementID.getElementID() === ID.getElementID()) {
                 return elementSelectionBehaviourData;
             }
         }

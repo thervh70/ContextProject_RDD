@@ -131,7 +131,7 @@ const unsortedElementSelectionBehaviourData: ElementSelectionBehaviourData[] = [
         elementID: ElementID.COMMIT_NAME,
         foundOnPages: null,
         name: "Commit message name",
-        selector: ".js-merge-branch-action",
+        selector: "a.message",
     },
     {
         elementID: ElementID.OTHER_CONTRIBUTOR,

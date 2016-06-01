@@ -56,10 +56,10 @@ describe("The ContentController", function() {
         spyCheckListeners = spyOn(chrome.runtime.onMessage, "hasListeners").and.returnValue(false);
         testContentController.start();
 
+        console.log("\n" + testContentController + "\n\n");
         // Checks whether the object contains the right properties.
         expect(testContentController.start()).toEqual(jasmine.objectContaining({
             elementEventBindingList: elementEventBindingList,
-            elementSelectionBindingList: elementSelectionBehaviourList,
             messageSendDatabaseAdapter : new MessageSendDatabaseAdapter(),
         }));
     });
