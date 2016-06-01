@@ -9,6 +9,7 @@
 /// <reference path="../../content/ElementEventBinding/ScrollOutOfViewElementEventBinding.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/ElementSelectionBehaviour.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/AbstractElementSelectionBehaviour.ts"/>
+/// <reference path="../../content/ElementSelectionBehaviour/ElementSelectionBehaviourData.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/ButtonElementSelectionBehaviour/AddEmoticonButtonElementSelectionBehaviour.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/ButtonElementSelectionBehaviour/CancelEditPRNameButtonElementSelectionBehaviour.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/ButtonElementSelectionBehaviour/CancelInlineCommentButtonElementSelectionBehaviour.ts"/>
@@ -43,7 +44,7 @@
  * Additional type for storing tuples of Element and Event Creatables.
  */
 type ElementXEventCreatable = {
-    element: ElementSelectionBehaviourCreatable,
+    element: ElementSelectionBehaviourData,
     event: ElementEventBindingCreatable
 };
 
@@ -57,7 +58,7 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
      * @returns {ElementSelectionBehaviourCreatable[]}
      */
     public getElements() {
-        let doNotWatchElements: ElementSelectionBehaviourCreatable[] = [];
+        let doNotWatchElements: ElementSelectionBehaviourData[] = [];
         if (Options.getDoNotWatchCommentElements()) {
             doNotWatchElements.push(CommentInlineCommentButtonElementSelectionBehaviour);
             doNotWatchElements.push(CreatePRCommentButtonElementSelectionBehaviour);

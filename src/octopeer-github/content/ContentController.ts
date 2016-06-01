@@ -136,7 +136,7 @@ class ContentController {
      */
     private hookToDOM(database: DatabaseAdaptable) {
         let elementEventBinding: ElementEventBindingCreatable;
-        let elementSelectionBinding: ElementSelectionBehaviourCreatable;
+        let elementSelectionBinding: ElementSelectionBehaviourData;
         let elementEventBindingHolder: ElementEventBinding;
         let elementSelectionBindingHolder: ElementSelectionBehaviour;
         let windowResolutionTracker: WindowResolutionTracker;
@@ -145,12 +145,13 @@ class ContentController {
         let mouseScrollTracker: MouseScrollTracker;
         let mousePositionTracker: MousePositionTracker;
 
-        for (elementSelectionBinding of this.elementSelectionBindingList) {
-            if (DoNotWatchOptions.getElements().indexOf(elementSelectionBinding) > 0) {
+        for (elementSelectionBinding of unsortedElementSelectionBehaviourData) {
+            if (DoNotWatchOptions.getElements().map(function (data) { return data.elementID.getElementID(); })
+                    .indexOf(elementSelectionBinding.elementID.getElementID()) >= 0) {
                 continue;
             }
 
-            elementSelectionBindingHolder = new elementSelectionBinding(database);
+            elementSelectionBindingHolder = new GenericElementSelectionBehaviour(database, elementSelectionBinding);
 
             for (elementEventBinding of this.elementEventBindingList) {
                 if (DoNotWatchOptions.getEvents().indexOf(elementEventBinding) > 0 ||

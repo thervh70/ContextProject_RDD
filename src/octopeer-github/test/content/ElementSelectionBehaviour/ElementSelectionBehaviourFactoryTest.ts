@@ -5,7 +5,7 @@
 describe("An ElementSelectionBehaviourFactory", function () {
 
     const elementSelectionBehaviourFactory = new ElementSelectionBehaviourFactory();
-    const database = new ConsoleLogDatabaseAdapter();
+    // const database = new ConsoleLogDatabaseAdapter();
     const unsortedList = unsortedElementSelectionBehaviourData;
 
     it("should sort the ElementSelectionBehaviourData list.", function () {
