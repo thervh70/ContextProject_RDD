@@ -7,7 +7,7 @@
 var options = ['logging', 'tabs', 'comments', 'peerComments', 'focus', 'username', 'repo', 'file'];
 
 // List that contains all subOptionID names that Octopeer provides.
-var subOptions = ['securitySub', 'privacySub', 'hintsSub'];
+var subOptions = ['securitySubOptions', 'privacySubOptions', 'hintsSubOptions'];
 
 // List that contains all cardElement names that Octopeer provides.
 var cards = ['security', 'privacy', 'hints'];
