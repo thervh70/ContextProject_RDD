@@ -8,6 +8,7 @@
  */
 interface Array<T> {
     equals(that: Array<T>): boolean;
+    contains(contains: any): boolean;
 }
 
 /**
@@ -22,4 +23,18 @@ Array.prototype.equals = function(that: Array<any>) {
         this.every(function(this_i: any, i: any) {
             return this_i === that[i];
         });
+};
+
+/**
+ * Checks whether this Array contains `element`
+ * @param element the element to check for
+ * @returns {boolean} true if `this` contains `element`, false otherwise.
+ */
+Array.prototype.contains = function(element: any) {
+    for (let e of this) {
+        if (e === element || Array.isArray(e) && (<Array<any>>e).equals(element)) {
+            return true;
+        }
+    }
+    return false;
 };
