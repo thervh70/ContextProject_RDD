@@ -52,6 +52,34 @@ type ElementXEventCreatable = {
  */
 // tslint:disable-next-line:no-unused-variable
 const DoNotWatchOptions = new (class DoNotWatchOptions {
+
+    public shouldElementBeLogged(element: ElementSelectionBehaviourCreatable) {
+        for (let e of this.getElements()) {
+            if (e === element) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public shouldEventBeLogged(event: ElementEventBindingCreatable) {
+        for (let e of this.getEvents()) {
+            if (e === event) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public shouldCombinationBeLogged(combination: ElementXEventCreatable) {
+        for (let e of this.getCombinations()) {
+            if (e === combination) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     /**
      * Gets Elements not to Log, from the chrome storage.
      * @returns {ElementSelectionBehaviourCreatable[]}

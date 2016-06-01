@@ -148,22 +148,21 @@ class ContentController {
         let mousePositionTracker: MousePositionTracker;
 
         for (elementSelectionBinding of this.elementSelectionBindingList) {
-            if (DoNotWatchOptions.getElements().indexOf(elementSelectionBinding) > 0) {
+            if (!DoNotWatchOptions.shouldElementBeLogged(elementSelectionBinding)) {
                 continue;
             }
 
             elementSelectionBindingHolder = new elementSelectionBinding(database);
 
             for (elementEventBinding of this.elementEventBindingList) {
-                if (DoNotWatchOptions.getEvents().indexOf(elementEventBinding) > 0 ||
-                    DoNotWatchOptions.getCombinations().indexOf({
+                if (DoNotWatchOptions.shouldEventBeLogged(elementEventBinding) &&
+                    DoNotWatchOptions.shouldCombinationBeLogged({
                         element: elementSelectionBinding,
                         event: elementEventBinding,
-                    }) > 0
+                    })
                 ) {
-                    continue;
+                    elementEventBindingHolder = new elementEventBinding(elementSelectionBindingHolder);
                 }
-                elementEventBindingHolder = new elementEventBinding(elementSelectionBindingHolder);
             }
         }
         windowResolutionTracker = new WindowResolutionTracker(database);
