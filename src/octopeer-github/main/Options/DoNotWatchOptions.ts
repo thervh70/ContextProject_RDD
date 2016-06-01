@@ -58,7 +58,7 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
      */
     public getElements() {
         let doNotWatchElements: ElementSelectionBehaviourCreatable[] = [];
-        if (Options.getDoNotWatchCommentElements()) {
+        if (Options.getOption("doNotWatchCommentElements")) {
             doNotWatchElements.push(CommentInlineCommentButtonElementSelectionBehaviour);
             doNotWatchElements.push(CommentPRButtonElementSelectionBehaviour);
             doNotWatchElements.push(EditCommentButtonElementSelectionBehaviour);
@@ -72,15 +72,15 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
     public getEvents() {
         let doNotWatchEvents: ElementEventBindingCreatable[] = [];
 
-        if (Options.getDoNotWatchOnScreenEvents()) {
+        if (Options.getOption("doNotWatchOnScreenEvents")) {
             doNotWatchEvents.push(ScrollIntoViewElementEventBinding);
             doNotWatchEvents.push(ScrollOutOfViewElementEventBinding);
         }
-        if (Options.getDoNotWatchHoverEvents()) {
+        if (Options.getOption("doNotWatchHoverEvents")) {
             doNotWatchEvents.push(MouseEnterElementEventBinding);
             doNotWatchEvents.push(MouseLeaveElementEventBinding);
         }
-        if (Options.getDoNotWatchKeyboardShortcutEvents()) {
+        if (Options.getOption("doNotWatchKeyboardShortcutEvents")) {
             doNotWatchEvents.push(KeystrokeElementEventBinding);
         }
         return doNotWatchEvents;
