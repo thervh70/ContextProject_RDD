@@ -29,42 +29,42 @@ class ConsoleLogDatabaseAdapter implements DatabaseAdaptable {
     /**
      * @param eventData The data to log to the console.
      */
-    public postSemantic(eventData: ISemanticEvent) {
+    public postSemantic(eventData: SemanticEvent) {
         Logger.database(eventData);
     }
 
     /**
      * @param eventData The data to log to the console.
      */
-    public postKeystroke(eventData: IKeystrokeEvent) {
+    public postKeystroke(eventData: KeystrokeEvent) {
         this.filterRawData(eventData);
     }
 
     /**
      * @param eventData The data to log to the console.
      */
-    public postMousePosition(eventData: IMousePositionEvent) {
+    public postMousePosition(eventData: MousePositionEvent) {
         this.filterRawData(eventData);
     }
 
     /**
      * @param eventData The data to log to the console.
      */
-    public postMouseClick(eventData: IMouseClickEvent) {
+    public postMouseClick(eventData: MouseClickEvent) {
         this.filterRawData(eventData);
     }
 
     /**
      * @param eventData The data to log to the console.
      */
-    public postMouseScroll(eventData: IMouseScrollEvent) {
+    public postMouseScroll(eventData: MouseScrollEvent) {
         this.filterRawData(eventData);
     }
 
     /**
      * @param eventData The data to log to the console.
      */
-    public postWindowResolution(eventData: IWindowResolutionEvent) {
+    public postWindowResolution(eventData: WindowResolutionEvent) {
         this.filterRawData(eventData);
     }
 
