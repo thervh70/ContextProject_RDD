@@ -36,12 +36,7 @@ function saveOptions() {
 
 // Restores the states of the checkboxes, using the preferences stored in chrome.storage.
 function restoreOptionsState() {
-    var defaultObject = {};
-    // Loops over all options and casts them to Booleans.
-    for (var i = 0; i < options.length; i++) {
-        defaultObject[options[i]] = Boolean;
-    }
-    chrome.storage.sync.get(defaultObject, function(items) {
+    chrome.storage.sync.get(options, function(items) {
         // Retrieves and restores the values by using the chrome.storage
         for (var i = 0; i < options.length; i++) {
             optionsElement(i).prop('checked', items[options[i]]);
