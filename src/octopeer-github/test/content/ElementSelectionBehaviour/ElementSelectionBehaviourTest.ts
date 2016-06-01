@@ -1,7 +1,6 @@
 /// <reference path="../../../main/Database/DatabaseAdaptable.ts"/>
 /// <reference path="../../../main/Database/ConsoleLogDatabaseAdapter.ts"/>
 /// <reference path="../../../content/ElementSelectionBehaviour/ElementSelectionBehaviour.ts"/>
-/// <reference path="../../../content/ElementSelectionBehaviour/AbstractElementSelectionBehaviour.ts"/>
 
 /**
  * Interface that enforces a tuple (ElementSelectionBehaviourCreatable, number).

@@ -8,7 +8,6 @@
 /// <reference path="ElementEventBinding/ScrollIntoViewElementEventBinding.ts"/>
 /// <reference path="ElementEventBinding/ScrollOutOfViewElementEventBinding.ts"/>
 /// <reference path="ElementSelectionBehaviour/ElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/AbstractElementSelectionBehaviour.ts"/>
 
 /**
  * The ContentController hooks the event handlers to the DOM-tree.

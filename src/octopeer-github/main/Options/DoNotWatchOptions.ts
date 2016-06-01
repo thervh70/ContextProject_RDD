@@ -7,7 +7,6 @@
 /// <reference path="../../content/ElementEventBinding/ScrollIntoViewElementEventBinding.ts"/>
 /// <reference path="../../content/ElementEventBinding/ScrollOutOfViewElementEventBinding.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/ElementSelectionBehaviour.ts"/>
-/// <reference path="../../content/ElementSelectionBehaviour/AbstractElementSelectionBehaviour.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/ElementSelectionBehaviourData.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/ElementSelectionBehaviourFactory.ts"/>
 
