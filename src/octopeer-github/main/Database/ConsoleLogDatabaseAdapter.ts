@@ -14,15 +14,15 @@ class ConsoleLogDatabaseAdapter implements DatabaseAdaptable {
      * By default the console will show raw data.
      * @logging the new value.
      */
-    public static setRawData(logging = true) {
+    public static setRawDataLogging(logging = true) {
         ConsoleLogDatabaseAdapter.rawDataLogging = logging;
     }
 
     /**
-     * Get raw data value.
-     * @returns raw data value.
+     * Get raw data logging value.
+     * @returns raw data logging value.
      */
-    public static getRawData() {
+    public static getRawDataLogging() {
         return ConsoleLogDatabaseAdapter.rawDataLogging;
     }
 

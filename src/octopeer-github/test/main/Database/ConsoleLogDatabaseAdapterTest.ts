@@ -61,19 +61,19 @@ describe("The ConsoleLogDatabaseAdapter", function() {
     });
 
     it("should output the raw data by default", function () {
-        expect(ConsoleLogDatabaseAdapter.getRawData()).toBe(true);
+        expect(ConsoleLogDatabaseAdapter.getRawDataLogging()).toBe(true);
     });
 
     it("should correctly set a new value", function () {
-        expect(ConsoleLogDatabaseAdapter.getRawData()).toBe(true);
+        expect(ConsoleLogDatabaseAdapter.getRawDataLogging()).toBe(true);
 
-        ConsoleLogDatabaseAdapter.setRawData(false);
+        ConsoleLogDatabaseAdapter.setRawDataLogging(false);
 
-        expect(ConsoleLogDatabaseAdapter.getRawData()).toBe(false);
+        expect(ConsoleLogDatabaseAdapter.getRawDataLogging()).toBe(false);
     });
 
     it("should filter if the output is disabled", function () {
-        ConsoleLogDatabaseAdapter.setRawData(false);
+        ConsoleLogDatabaseAdapter.setRawDataLogging(false);
 
         const data = new WindowResolutionEvent(0, 0, 0);
         CLDAdapter.postWindowResolution(data, EMPTY_CALLBACK, EMPTY_CALLBACK);
