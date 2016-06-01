@@ -1,4 +1,5 @@
 /// <reference path="../Types/ElementID.ts"/>
+/// <reference path="../Types/PageMask.ts"/>
 /**
  * Created by Mathias on 30-05-2016.
  * This interface enforces the Data elements of the ElementSelectionBehaviours.

@@ -57,39 +57,6 @@ class ContentController {
     ];
 
     /**
-     * List of ElementSelectors that should be matched with ElementEventBindings
-     */
-    private elementSelectionBindingList = [
-        AddEmoticonButtonElementSelectionBehaviour,
-        CancelEditPRNameButtonElementSelectionBehaviour,
-        CancelInlineCommentButtonElementSelectionBehaviour,
-        CheckDetailButtonElementSelectionBehaviour,
-        ClosePRButtonElementSelectionBehaviour,
-        CommentInlineCommentButtonElementSelectionBehaviour,
-        CreatePRCommentButtonElementSelectionBehaviour,
-        EditCommentButtonElementSelectionBehaviour,
-        EditPRNameButtonElementSelectionBehaviour,
-        InlineCommentButtonElementSelectionBehaviour,
-        MergePRButtonElementSelectionBehaviour,
-        SaveEditPRNameButtonElementSelectionBehaviour,
-        ShowChecksToggleButtonElementSelectionBehaviour,
-        DateMiscellaneousElementSelectionBehaviour,
-        CommitHashcodeNameElementSelectionBehaviour,
-        CommitMessageNameElementSelectionBehaviour,
-        OtherContributerNameElementSelectionBehaviour,
-        PRCreatorNameElementSelectionBehaviour,
-        PRParticipantNameElementSelectionBehaviour,
-        AssigneeSettingElementSelectionBehaviour,
-        LabelSettingElementSelectionBehaviour,
-        LockConversationSettingElementSelectionBehaviour,
-        MilestoneSettingElementSelectionBehaviour,
-        UnsubscribeSettingElementSelectionBehaviour,
-        CommitsTabHeaderElementSelectionBehaviour,
-        ConversationTabHeaderElementSelectionBehaviour,
-        FilesChangedTabHeaderElementSelectionBehaviour,
-    ];
-
-    /**
      * A private DatabaseAdaptable that sends messages to the background page.
      * @type {MessageSendDatabaseAdapter}
      */

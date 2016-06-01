@@ -1,3 +1,4 @@
+/// <reference path="GenericElementSelectionBehaviour.ts"/>
 /**
  * Created by Mathias on 2016-05-31.
  */
