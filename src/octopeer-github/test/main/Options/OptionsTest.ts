@@ -48,50 +48,50 @@ describe("The Options class", function() {
     });
 
     it("should get the logging value", function() {
-        expect(Options.getLogging()).toBe(true);
+        expect(Options.getOption("logging")).toBe(true);
     });
 
     it("should get the tabs value", function() {
-        expect(Options.getTabs()).toBe(true);
+        expect(Options.getOption("tabs")).toBe(true);
     });
 
     it("should get the comments value", function() {
-        expect(Options.getComments()).toBe(true);
+        expect(Options.getOption("comments")).toBe(true);
     });
 
     it("should get the peerComments value", function() {
-        expect(Options.getPeerComments()).toBe(true);
+        expect(Options.getOption("peerComments")).toBe(true);
     });
 
     it("should get the focus value", function() {
-        expect(Options.getFocus()).toBe(true);
+        expect(Options.getOption("peerComments")).toBe(true);
     });
 
     it("should get the username value", function() {
-        expect(Options.getUsername()).toBe(true);
+        expect(Options.getOption("username")).toBe(true);
     });
 
     it("should get the repo value", function() {
-        expect(Options.getRepo()).toBe(true);
+        expect(Options.getOption("repo")).toBe(true);
     });
 
     it("should get the file value", function() {
-        expect(Options.getFile()).toBe(false);
+        expect(Options.getOption("file")).toBe(false);
     });
 
     it("should get the screenevents value", function() {
-        expect(Options.getDoNotWatchOnScreenEvents()).toBe(false);
+        expect(Options.getOption("doNotWatchOnScreenEvents")).toBe(false);
     });
 
     it("should get the watchhover value", function() {
-        expect(Options.getDoNotWatchHoverEvents()).toBe(false);
+        expect(Options.getOption("doNotWatchHoverEvents")).toBe(false);
     });
 
     it("should get the watchcomment value", function() {
-        expect(Options.getDoNotWatchCommentElements()).toBe(false);
+        expect(Options.getOption("doNotWatchCommentElements")).toBe(false);
     });
 
     it("should get the watchkeyboard value", function() {
-        expect(Options.getDoNotWatchKeyboardShortcutEvents()).toBe(false);
+        expect(Options.getOption("doNotWatchKeyboardShortcutEvents")).toBe(false);
     });
 });
