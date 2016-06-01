@@ -11,14 +11,14 @@
 // tslint:disable-next-line:no-unused-variable
 const Options = new (class Options {
     private optionMap: { [key: string]: boolean; } = {
-        ["logging"]: true,
-        ["tabs"]: true,
-        ["comments"]: true,
-        ["peerComments"]: true,
-        ["focus"]: true,
-        ["username"]: true,
-        ["repo"]: true,
-        ["file"]: false,
+        ["loggingEnabled"]: true,
+        ["trackTabs"]: true,
+        ["trackComments"]: true,
+        ["trackPeerComments"]: true,
+        ["trackFocus"]: true,
+        ["hashUsername"]: true,
+        ["hashRepo"]: true,
+        ["hashFile"]: false,
         ["doNotWatchOnScreenEvents"]: false,
         ["doNotWatchHoverEvents"]: false,
         ["doNotWatchCommentElements"]: false,
