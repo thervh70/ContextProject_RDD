@@ -100,29 +100,28 @@
         </div>
     </div>
 
-    <!--TODO: Make text understandable to the user (will be done when backend is properly working.-->
     <div class="col s12 m6">
         <div class="card" id="donotwatch">
             <div class="card-content">
-                <span class="card-title">Feature selection</span> <br>
+                <span class="card-title">Tracking selection</span> <br>
                 <p style="font-family: Roboto,sans-serif; font-size:11pt">
-                    Certain tracking features can be disabled. Make a selection below.
+                    The checked elements and events will be tracked while Octopeer is running.
                 </p>
                 <ul id="donotwatch_sub">
                     <li>
-                        <input type="checkbox" id="dnwscreen">
+                        <input type="checkbox" id="dnwscreen" checked>
                         <label for="dnwscreen">Elements on the screen. </label>
                     </li>
                     <li>
-                        <input type="checkbox" id="dnwhover">
+                        <input type="checkbox" id="dnwhover" checked>
                         <label for="dnwhover">Elements I hover over with the cursor. </label>
                     </li>
                     <li>
-                        <input type="checkbox" id="dnwcomments">
+                        <input type="checkbox" id="dnwcomments" checked>
                         <label for="dnwcomments">Comments on my Pull Request. </label>
                     </li>
                     <li>
-                        <input type="checkbox" id="dnwkeyboardshortcut">
+                        <input type="checkbox" id="dnwkeyboardshortcut" checked>
                         <label for="dnwkeyboardshortcut">The keyboard shortcuts I use. </label>
                     </li>
                 </ul>
