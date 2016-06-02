@@ -72,7 +72,7 @@ class ContentController {
      * @param database   the database that should be used when logging.
      */
     private hookToDOM(database: DatabaseAdaptable) {
-        let elementEventBinding: ElementEventBindingCreatable;
+        let elementEventBinding: ElementEventBindingData;
         let elementSelectionBinding: ElementSelectionBehaviourData;
         let elementEventBindingHolder: ElementEventBinding;
         let elementSelectionBindingHolder: ElementSelectionBehaviour;

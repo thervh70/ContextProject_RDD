@@ -9,9 +9,9 @@ describe("The DoNotWatchOptions", function() {
         spyOn(Options, "getDoNotWatchCommentElements").and.returnValue(true);
         expect(DoNotWatchOptions.getElements()).toBeDefined();
         expect(DoNotWatchOptions.getElements()).toEqual([
-            factory.findElementSelectionBehaviourData(ElementID.CONFIRM_INLINE_COMMENT),
-            factory.findElementSelectionBehaviourData(ElementID.CREATE_PR_COMMENT),
-            factory.findElementSelectionBehaviourData(ElementID.EDIT_COMMENT),
+            esbFactory.findElementSelectionBehaviourData(ElementID.CONFIRM_INLINE_COMMENT),
+            esbFactory.findElementSelectionBehaviourData(ElementID.CREATE_PR_COMMENT),
+            esbFactory.findElementSelectionBehaviourData(ElementID.EDIT_COMMENT),
         ]);
     });
 

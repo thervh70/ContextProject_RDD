@@ -4,7 +4,7 @@
  * The utility class EventFactory can create the different EventObjects.
  * It seems redundant to have this, since TypeScript can infer an interface on any anonymous object.
  * However, so is stating the fieldnames of the objects every time a new EventObject is created.
- * These factory methods allow EventObjects to be instantiated based on an ordered tuple (parameter list) instead.
+ * These esbFactory methods allow EventObjects to be instantiated based on an ordered tuple (parameter list) instead.
  */
 abstract class EventFactory {
 

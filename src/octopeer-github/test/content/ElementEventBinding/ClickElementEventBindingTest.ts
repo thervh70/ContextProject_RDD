@@ -33,13 +33,13 @@ describe("An EventBinder that binds Click events", function() {
 describe("A ClickElementEventBinding's", function() {
 
     it("type should be retrieved when the getEventType function is called", function() {
-        selector = factory.create(database, ElementID.CREATE_INLINE_COMMENT);
+        selector = esbFactory.create(database, ElementID.CREATE_INLINE_COMMENT);
         binder = new ClickElementEventBinding(selector);
         expect(binder.getEventType()).toBe("click");
     });
 
     it("ID should be retrieved when the getEventID function is called", function() {
-        selector = factory.create(database, ElementID.CONFIRM_INLINE_COMMENT);
+        selector = esbFactory.create(database, ElementID.CONFIRM_INLINE_COMMENT);
         binder = new ClickElementEventBinding(selector);
         expect(binder.getEventID()).toEqual(new EventID(201));
     });

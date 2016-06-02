@@ -1,9 +1,10 @@
+/// <reference path="GenericElementEventBinding.ts"/>
 /**
  * Created by Mathias on 2016-06-02.
  */
 class ElementEventBindingFactory {
 
-    /** The list that contains all ElementEventBindingData, used by this factory. */
+    /** The list that contains all ElementEventBindingData, used by this esbFactory. */
     private elementEventBindingData: ElementEventBindingData[] = [];
 
     /**
