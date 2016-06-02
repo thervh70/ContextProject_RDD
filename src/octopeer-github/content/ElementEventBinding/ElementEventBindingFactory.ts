@@ -14,7 +14,6 @@ class ElementEventBindingFactory {
      */
     constructor() {
         let data: ElementEventBindingData;
-        console.log("LIJSTJE!  " + this.elementEventBindingData);
 
         for (data of elementEventBindingDataList) {
             this.elementEventBindingData[data.eventID.getEventID()] = data;
