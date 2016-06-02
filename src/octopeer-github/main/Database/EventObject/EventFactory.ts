@@ -1,3 +1,4 @@
+/// <reference path="../DatabaseAdaptable.ts"/>
 /**
  * Created by Maarten on 31-05-2016.
  *
@@ -82,9 +83,9 @@ abstract class EventFactory {
     /**
      * Returns the current timestamp, which is measured in an amount of seconds (with milliseconds in the fractional part)
      * since 1-1-1970 0:00.
-     * @returns {Unixtimestamp} the current timestamp.
+     * @returns {UnixTimestamp} the current timestamp.
      */
-    public static getTime(): Unixtimestamp {
+    public static getTime(): UnixTimestamp {
         return new Date().getTime() / 1000;
     }
 
