@@ -57,6 +57,7 @@ describe("The method 'contains' on an Array", function() {
     }
 
     const tests: ArrayContainsTestTuple[] = [
+        [[new ElementID(1)], new ElementID(1), true],
         [[1, 2, 3], 1,          true],
         [[1, 2, 3], 4,          false],
         [[1, 2, 3], [1, 2, 3],  false],

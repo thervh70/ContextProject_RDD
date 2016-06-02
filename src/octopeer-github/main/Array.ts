@@ -32,7 +32,7 @@ Array.prototype.equals = function(that: Array<any>) {
  */
 Array.prototype.contains = function(element: any) {
     for (let e of this) {
-        if (e === element || Array.isArray(e) && (<Array<any>>e).equals(element)) {
+        if (e.equals !== undefined && e.equals(element) || e === element) {
             return true;
         }
     }
