@@ -21,12 +21,12 @@ interface ElementThatShouldNotBeWatchedTuple extends Array<string | Array<Elemen
     1: Array<ElementID>;
 }
 
-interface EventThatShouldNotBeWatchedTuple extends Array<string | Array<ElementEventBindingCreatable>> {
+interface EventThatShouldNotBeWatchedTuple extends Array<string | Array<EventID>> {
     0: string;
     1: Array<EventID>;
 }
 
-interface CombinationsThatShouldNotBeWatchedTuple extends Array<string | Array<ElementXEventCreatable>> {
+interface CombinationsThatShouldNotBeWatchedTuple extends Array<string | Array<ElementXEventID>> {
     0: string;
     1: Array<ElementXEventID>;
 }
@@ -80,12 +80,13 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
         }
         return doNotWatchElements;
     }
+
     /**
      * Gets Events not to Log, from the chrome storage.
      * @returns {EventID[]}
      */
     public getEvents() {
-        let doNotWatchEvents: ElementEventBindingCreatable[] = [];
+        let doNotWatchEvents: EventID[] = [];
         for (let tuple of this.eventsThatShouldNotBeWatched) {
             if (Options.getOption(tuple[0])) {
                 for (let event of tuple[1]) {

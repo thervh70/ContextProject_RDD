@@ -10,7 +10,8 @@ describe("The DoNotWatchOptions", function() {
     interface DNWOTestTuple extends Array<any> {
         0: string;
         1: any[][];
-        2: (e: any) => boolean;
+        2: any[];
+        3: (e: any) => boolean;
     }
 
     const elementTestList: any[][] = [
@@ -20,19 +21,33 @@ describe("The DoNotWatchOptions", function() {
 
     const eventTestList: any[][] = [
         [{}, []],
-        ["doNotWatchOnScreenEvents", [EventID.SCROLL_INTO_VIEW, EventID.SCROLL_OUT_OF_VIEW]],
-        ["doNotWatchHoverEvents", [EventID.MOUSE_ENTER, EventID.MOUSE_LEAVE]],
-        ["doNotWatchKeyboardShortcutEvents", [EventID.KEYSTROKE]],
+        [{doNotWatchOnScreenEvents: true}, [EventID.SCROLL_INTO_VIEW, EventID.SCROLL_OUT_OF_VIEW]],
+        [{doNotWatchHoverEvents: true}, [EventID.MOUSE_ENTER, EventID.MOUSE_LEAVE]],
+        [{doNotWatchKeyboardShortcutEvents: true}, [EventID.KEYSTROKE]],
     ];
 
     const combinationTestList: any[][] = [
         [{}, []],
     ];
 
+    const elementList: ElementID[] = [];
+    const eventList: EventID[] = [];
+    const combinationList: ElementXEventID[] = [];
+
+    for (let element of unsortedElementSelectionBehaviourData) {
+        elementList.push(element.elementID);
+        for (let event of elementEventBindingDataList) {
+            combinationList.push({element: element.elementID, event: event.eventID});
+        }
+    }
+    for (let event of elementEventBindingDataList) {
+        eventList.push(event.eventID);
+    }
+
     const testList: DNWOTestTuple[] = [
-        ["element", elementTestList, (e) => DoNotWatchOptions.shouldElementBeWatched(e)],
-        ["event", eventTestList, (e) => DoNotWatchOptions.shouldEventBeWatched(e)],
-        ["combination", combinationTestList, (e) => DoNotWatchOptions.shouldCombinationBeWatched(e)],
+        ["element",     elementTestList,     elementList,     (e) => DoNotWatchOptions.shouldElementBeWatched(e)],
+        ["event",       eventTestList,       eventList,       (e) => DoNotWatchOptions.shouldEventBeWatched(e)],
+        ["combination", combinationTestList, combinationList, (e) => DoNotWatchOptions.shouldCombinationBeWatched(e)],
     ];
 
     beforeEach(function() {
@@ -49,12 +64,13 @@ describe("The DoNotWatchOptions", function() {
 
     for (let typeTuple of testList) {
         for (let tuple of typeTuple[1]) {
-            it(`should return ${tuple[1].length} ${typeTuple[0]}s when Options are set to ${tuple[0]}`, function() {
+            it(`should return ${tuple[1].length} ${typeTuple[0]}s when Options are set to ${JSON.stringify(tuple[0])}`, function() {
                 fakeOptions = tuple[0];
-                for (let e of tuple[1]) {
-                    expect(typeTuple[2](e)).toEqual(false);
+                for (let e of typeTuple[2]) {
+                    // expect(DoNotWatchOptions.should*BeWatched(e).toEqual(x)
+                    //      where x is true or false, depending on the lists defined above
+                    expect(typeTuple[3](e)).toEqual(!tuple[1].contains(e));
                 }
-                // TODO: for (all other ESBs, EEBs, Combinations) { expect(...).toEqual(true) } (done after #95: ESB lists)
             });
         }
     }
