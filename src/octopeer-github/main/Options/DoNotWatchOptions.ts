@@ -72,7 +72,7 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
     public getElements() {
         let doNotWatchElements: ElementID[] = [];
         for (let tuple of this.elementsThatShouldNotBeWatched) {
-            if (Options.getOption(tuple[0])) {
+            if (Options.get(tuple[0])) {
                 for (let element of tuple[1]) {
                     doNotWatchElements.push(element);
                 }
@@ -88,7 +88,7 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
     public getEvents() {
         let doNotWatchEvents: EventID[] = [];
         for (let tuple of this.eventsThatShouldNotBeWatched) {
-            if (Options.getOption(tuple[0])) {
+            if (Options.get(tuple[0])) {
                 for (let event of tuple[1]) {
                     doNotWatchEvents.push(event);
                 }
@@ -105,7 +105,7 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
     public getCombinations() {
         let doNotWatchCombinations: ElementXEventID[] = [];
         for (let tuple of this.combinationsThatShouldNotBeWatched) {
-            if (Options.getOption(tuple[0])) {
+            if (Options.get(tuple[0])) {
                 for (let combination of tuple[1]) {
                     doNotWatchCombinations.push(combination);
                 }

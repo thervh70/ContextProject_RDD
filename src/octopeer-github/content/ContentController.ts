@@ -19,7 +19,6 @@ class ContentController {
      */
     public start() {
         Options.init();
-        Options.update();
         if (!chrome.runtime.onMessage.hasListeners()) {
             chrome.runtime.onMessage.addListener(this.processMessageFromBackgroundPage());
         }

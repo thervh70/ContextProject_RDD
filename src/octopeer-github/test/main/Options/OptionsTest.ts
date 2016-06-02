@@ -50,29 +50,24 @@ describe("The Options class", function() {
 
     it("should get the option value", function() {
         let optionList: string[] = Options.generateOptionList();
-        // Boundary between regular options and doNotWatchOptions.
-        let optionBoundary = 7;
-        for (let i = 0; i < optionBoundary; i++) {
-            expect(Options.getOption(optionList[i])).toBe(true);
-        }
-        for (let i = optionBoundary; i < optionList.length; i++) {
-            expect(Options.getOption(optionList[i])).toBe(false);
+        // HashFile is false by default.
+        let turnedOff = 7;
+        for (let i = 0; i < optionList.length; i++) {
+            if (i !== turnedOff) {
+                expect(Options.get(optionList[i])).toBe(true);
+            } else {
+                expect(Options.get(optionList[turnedOff])).toBe(false);
+            }
         }
     });
 
     it("should return false for a bad weather (non-existing) option value", function() {
-        expect(Options.getOption("Hi there!")).toBe(false);
+        expect(Options.get("Hi there!")).toBe(false);
     });
 
     it("should generate a list of its options", function() {
         expect(Options.generateOptionList()).toEqual(["loggingEnabled", "trackTabs", "trackComments", "trackPeerComments", "trackFocus",
             "hashUsername", "hashRepo", "hashFile", "doNotWatchOnScreenEvents", "doNotWatchHoverEvents", "doNotWatchCommentElements",
             "doNotWatchKeyboardShortcutEvents"]);
-    });
-
-    it("should update the optionMap based on changed values from the chrome storage", function() {
-        let spy = spyOn(chrome.storage.onChanged, "addListener");
-        Options.update();
-        expect(spy).toHaveBeenCalled();
     });
 });
