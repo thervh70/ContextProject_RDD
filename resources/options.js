@@ -89,6 +89,7 @@ function hideCards() {
 
 // Switches availability of options.
 function switchDisable() {
+    // Starts at index 1, as the main option at index 0 doesn't need to be switched (just all other options).
     for(var i = 1; i < options.length; i++) {
         optionsElement(i).disabled = !optionsElement(i).disabled;
     }
@@ -98,6 +99,7 @@ function switchDisable() {
 // The availability depends on the value of the logging checkbox state.
 function restoreDisable() {
     var enabled = !items.loggingEnabled;
+    // Starts at index 1, as the main option at index 0 doesn't need to be restored (just all other options).
     for(var i = 1; i < options.length; i++) {
         optionsElement(i).disabled = enabled;
     }
