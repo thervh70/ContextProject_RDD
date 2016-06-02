@@ -15,18 +15,6 @@
 class ContentController {
 
     /**
-     * List of ElementEventBindings that should be matched with ElementSelectors
-     */
-    private elementEventBindingList = [
-        ClickElementEventBinding,
-        KeystrokeElementEventBinding,
-        MouseEnterElementEventBinding,
-        MouseLeaveElementEventBinding,
-        ScrollIntoViewElementEventBinding,
-        ScrollOutOfViewElementEventBinding,
-    ];
-
-    /**
      * A private DatabaseAdaptable that sends messages to the background page.
      * @type {MessageSendDatabaseAdapter}
      */
@@ -72,10 +60,11 @@ class ContentController {
      * @param database   the database that should be used when logging.
      */
     private hookToDOM(database: DatabaseAdaptable) {
+        let eebFactory = new ElementEventBindingFactory();
         let elementEventBinding: ElementEventBindingData;
         let elementSelectionBinding: ElementSelectionBehaviourData;
         let elementEventBindingHolder: ElementEventBinding;
-        let elementSelectionBindingHolder: ElementSelectionBehaviour;
+        let elementSelectionBindingHolder: GenericElementSelectionBehaviour;
         let windowResolutionTracker: WindowResolutionTracker;
         let keystrokeTracker: KeystrokeTracker;
         let mouseClickTracker: MouseClickTracker;
@@ -90,8 +79,9 @@ class ContentController {
 
             elementSelectionBindingHolder = new GenericElementSelectionBehaviour(database, elementSelectionBinding);
 
-            for (elementEventBinding of this.elementEventBindingList) {
-                if (DoNotWatchOptions.getEvents().indexOf(elementEventBinding) > 0 ||
+            for (elementEventBinding of elementEventBindingData) {
+                if (DoNotWatchOptions.getEvents().map(function (data) { return data.eventID.getEventID(); })
+                        .indexOf(elementEventBinding.eventID.getEventID()) >= 0 ||
                     DoNotWatchOptions.getCombinations().indexOf({
                         element: elementSelectionBinding,
                         event: elementEventBinding,
@@ -99,7 +89,7 @@ class ContentController {
                 ) {
                     continue;
                 }
-                elementEventBindingHolder = new elementEventBinding(elementSelectionBindingHolder);
+                elementEventBindingHolder = eebFactory.create(elementSelectionBindingHolder, elementEventBinding.eventID);
             }
         }
         windowResolutionTracker = new WindowResolutionTracker(database);
