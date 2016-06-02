@@ -72,6 +72,7 @@ class ContentController {
      * @param database   the database that should be used when logging.
      */
     private hookToDOM(database: DatabaseAdaptable) {
+        const esbFactory = new ElementSelectionBehaviourFactory();
         let elementEventBinding: ElementEventBindingCreatable;
         let elementSelectionBinding: ElementSelectionBehaviourData;
         let elementEventBindingHolder: ElementEventBinding;
@@ -88,7 +89,7 @@ class ContentController {
                 continue;
             }
 
-            elementSelectionBindingHolder = new GenericElementSelectionBehaviour(database, elementSelectionBinding);
+            elementSelectionBindingHolder = esbFactory.create(database, elementSelectionBinding.elementID);
 
             for (elementEventBinding of this.elementEventBindingList) {
                 if (DoNotWatchOptions.getEvents().indexOf(elementEventBinding) > 0 ||
