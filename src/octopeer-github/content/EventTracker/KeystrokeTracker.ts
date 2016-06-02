@@ -14,7 +14,8 @@ class KeystrokeTracker {
         bodyObject.off("keypress");
         bodyObject.on("keypress", function (eventObject: JQueryEventObject) {
             self.db.postKeystroke(EventFactory.keystroke(String.fromCharCode(eventObject.which),
-                new Date().getTime()), EMPTY_CALLBACK, EMPTY_CALLBACK);
+                // TODO: key_down_at and key_up_at should be set correctly.
+                EventFactory.getTime(), EventFactory.getTime()), EMPTY_CALLBACK, EMPTY_CALLBACK);
         });
     }
 }

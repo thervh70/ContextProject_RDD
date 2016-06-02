@@ -30,7 +30,7 @@ class MousePositionTracker {
                 viewportX = windowObject.scrollLeft();
                 viewportY = windowObject.scrollTop();
                 self.db.postMousePosition(EventFactory.mousePosition(viewportX + mouseX, viewportY + mouseY,
-                    viewportX, viewportY, new Date().getTime()), EMPTY_CALLBACK, EMPTY_CALLBACK);
+                    viewportX, viewportY), EMPTY_CALLBACK, EMPTY_CALLBACK);
             });
         }, MousePositionTracker.TIMEOUT);
     }

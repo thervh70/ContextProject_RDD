@@ -32,7 +32,7 @@ class MouseClickTracker {
             mouseY = eventObject.pageY;
             viewportX = windowObject.scrollLeft();
             viewportY = windowObject.scrollTop();
-            const time = new Date().getTime();
+            const time = EventFactory.getTime();
             self.dbClick.postMouseClick(EventFactory.mouseClick(time), EMPTY_CALLBACK, EMPTY_CALLBACK);
             self.dbPosition.postMousePosition(EventFactory.mousePosition(viewportX + mouseX, viewportY + mouseY,
                 viewportX, viewportY, time), EMPTY_CALLBACK, EMPTY_CALLBACK);
