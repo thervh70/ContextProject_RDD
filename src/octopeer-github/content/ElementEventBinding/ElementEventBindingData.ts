@@ -1,3 +1,4 @@
+/// <reference path="../Types/EventID.ts"/>
 /**
  * Created by Mathias on 02-06-2016.
  * This interface enforces the data elements of the ElementEventBindings.
@@ -15,7 +16,7 @@ interface ElementEventBindingData {
  * @type {{eventID: EventID, name: string}[]}
  */
 // tslint:disable-next-line:no-unused-variable
-const elementEventBindingData = [
+const elementEventBindingData: ElementEventBindingData[] = [
     {
         eventID: EventID.CLICK,
         name: "click",
