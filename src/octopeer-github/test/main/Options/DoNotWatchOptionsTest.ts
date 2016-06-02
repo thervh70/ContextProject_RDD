@@ -34,7 +34,7 @@ describe("The DoNotWatchOptions", function() {
     const eventList: EventID[] = [];
     const combinationList: ElementXEventID[] = [];
 
-    for (let element of unsortedElementSelectionBehaviourData) {
+    for (let element of elementSelectionBehaviourDataList) {
         elementList.push(element.elementID);
         for (let event of elementEventBindingDataList) {
             combinationList.push({element: element.elementID, event: event.eventID});
