@@ -19,50 +19,45 @@ describe("The DoNotWatchOptions", function() {
         });
     });
 
-    it("should return elements that should not be watched, when comment elements is switched on", function () {
-        fakeOptions.doNotWatchCommentElements = true;
-        expect(DoNotWatchOptions.getElements()).toBeDefined();
-        expect(DoNotWatchOptions.getElements()).toEqual([CommentInlineCommentButtonElementSelectionBehaviour,
-            CommentPRButtonElementSelectionBehaviour, EditCommentButtonElementSelectionBehaviour]);
-    });
+    const elementTestList: any[][] = [
+        [{}, []],
+        [{doNotWatchCommentElements: true}, [CommentInlineCommentButtonElementSelectionBehaviour,
+            CommentPRButtonElementSelectionBehaviour, EditCommentButtonElementSelectionBehaviour]],
+    ];
 
-    it("should return elements that should not be watched, when comment elements is switched off", function () {
-        fakeOptions.doNotWatchCommentElements = false;
-        expect(DoNotWatchOptions.getElements()).toBeDefined();
-        expect(DoNotWatchOptions.getElements()).toEqual([]);
-    });
+    for (let tuple of elementTestList) {
+        it(`should return ${tuple[1].length} elements when Options are set to ${tuple[0]}`, function() {
+            fakeOptions = tuple[0];
+            expect(DoNotWatchOptions.getElements()).toBeDefined();
+            expect(DoNotWatchOptions.getElements()).toEqual(tuple[1]);
+        });
+    }
 
-    it("should return events that should not be watched, when on screen events are switched on", function () {
-        fakeOptions.doNotWatchOnScreenEvents = true;
-        fakeOptions.doNotWatchHoverEvents = false;
-        fakeOptions.doNotWatchKeyboardShortcutEvents = false;
-        expect(DoNotWatchOptions.getEvents()).toBeDefined();
-        expect(DoNotWatchOptions.getEvents()).toEqual([ScrollIntoViewElementEventBinding, ScrollOutOfViewElementEventBinding]);
-    });
+    const eventTestList: any[][] = [
+        [{}, []],
+        [{doNotWatchOnScreenEvents: true}, [ScrollIntoViewElementEventBinding, ScrollOutOfViewElementEventBinding]],
+        [{doNotWatchHoverEvents: true}, [MouseEnterElementEventBinding, MouseLeaveElementEventBinding]],
+        [{doNotWatchKeyboardShortcutEvents: true}, [KeystrokeElementEventBinding]],
+    ];
 
-    it("should return events that should not be watched, when the on screen events are switched on", function () {
-        fakeOptions.doNotWatchOnScreenEvents = false;
-        fakeOptions.doNotWatchHoverEvents = true;
-        fakeOptions.doNotWatchKeyboardShortcutEvents = false;
-        expect(DoNotWatchOptions.getEvents()).toBeDefined();
-        expect(DoNotWatchOptions.getEvents()).toEqual([MouseEnterElementEventBinding, MouseLeaveElementEventBinding]);
-    });
+    for (let tuple of eventTestList) {
+        it(`should return ${tuple[1].length} events when Options are set to ${tuple[0]}`, function() {
+            fakeOptions = tuple[0];
+            expect(DoNotWatchOptions.getEvents()).toBeDefined();
+            expect(DoNotWatchOptions.getEvents()).toEqual(tuple[1]);
+        });
+    }
 
-    it("should return events that should not be watched, when the keyboard shortcut events are switched on", function () {
-        fakeOptions.doNotWatchOnScreenEvents = false;
-        fakeOptions.doNotWatchHoverEvents = false;
-        fakeOptions.doNotWatchKeyboardShortcutEvents = true;
-        expect(DoNotWatchOptions.getEvents()).toBeDefined();
-        expect(DoNotWatchOptions.getEvents()).toEqual([KeystrokeElementEventBinding]);
-    });
+    const combinationTestList: any[][] = [
+        [{}, []],
+    ];
 
-    it("should return events that should not be watched, when all events options are switched off", function () {
-        expect(DoNotWatchOptions.getEvents()).toBeDefined();
-        expect(DoNotWatchOptions.getEvents()).toEqual([]);
-    });
+    for (let tuple of combinationTestList) {
+        it(`should return ${tuple[1].length} combinations when Options are set to ${tuple[0]}`, function() {
+            fakeOptions = tuple[0];
+            expect(DoNotWatchOptions.getCombinations()).toBeDefined();
+            expect(DoNotWatchOptions.getCombinations()).toEqual(tuple[1]);
+        });
+    }
 
-    it("should return combinations that should not be watched, yet a placeholder", function () {
-        expect(DoNotWatchOptions.getCombinations()).toBeDefined();
-        expect(DoNotWatchOptions.getCombinations()).toEqual([]);
-    });
 });
