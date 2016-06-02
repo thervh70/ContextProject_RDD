@@ -1,3 +1,4 @@
+/// <reference path="../../main/Database/EventObject/EventFactory.ts"/>
 /**
  * Created by Mathias on 2016-05-27.
  */
@@ -28,8 +29,8 @@ class MousePositionTracker {
                 mouseY = eventObject.pageY;
                 viewportX = windowObject.scrollLeft();
                 viewportY = windowObject.scrollTop();
-                self.db.postMousePosition(new MousePositionEvent(viewportX + mouseX, viewportY + mouseY,
-                    viewportX, viewportY, new Date().getTime()), EMPTY_CALLBACK, EMPTY_CALLBACK);
+                self.db.postMousePosition(EventFactory.mousePosition(viewportX + mouseX, viewportY + mouseY,
+                    viewportX, viewportY), EMPTY_CALLBACK, EMPTY_CALLBACK);
             });
         }, MousePositionTracker.TIMEOUT);
     }

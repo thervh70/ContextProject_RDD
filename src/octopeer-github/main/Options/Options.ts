@@ -32,7 +32,8 @@ const Options = new (class Options {
         const self = this;
         this.observers = [];
         chrome.storage.sync.get(["loggingEnabled", "trackTabs", "trackComments", "trackPeerComments",
-        "trackFocus", "hashUsername", "hashRepo", "hashFile"], function (obj) {
+        "trackFocus", "hashUsername", "hashRepo", "hashFile", "doNotWatchOnScreenEvents", "doNotWatchHoverEvents",
+        "doNotWatchCommentElements", "doNotWatchKeyboardShortcutEvents"], function (obj) {
             const object = <any> obj;
             self.logging = object.loggingEnabled;
             self.tabs = object.trackTabs;
@@ -184,7 +185,7 @@ const Options = new (class Options {
 
     /**
      * Gets doNotWatch preference about onscreen elements, from the chrome storage.
-     * User persepective: Do not watch what elements are on my screen.
+     * User perspective: Do not watch what elements are on my screen.
      * @returns {Boolean}
      */
     public getDoNotWatchOnScreenEvents() {
@@ -193,7 +194,7 @@ const Options = new (class Options {
 
     /**
      * Gets doNotWatch preference about hovering above elements, from the chrome storage.
-     * User persepective: Do not watch what elements I hover over.
+     * User perspective: Do not watch what elements I hover over.
      * @returns {Boolean}
      */
     public getDoNotWatchHoverEvents() {
@@ -202,7 +203,7 @@ const Options = new (class Options {
 
     /**
      * Gets doNotWatch preference about comments, from the chrome storage.
-     * User persepective: Do not watch the comments of my pull request.
+     * User perspective: Do not watch the comments of my pull request.
      * @returns {Boolean}
      */
     public getDoNotWatchCommentElements() {
@@ -211,7 +212,7 @@ const Options = new (class Options {
 
     /**
      * Gets doNotWatch preference about keyboard shortcuts, from the chrome storage.
-     * User persepective: Do not watch my keyboard shortcuts.
+     * User perspective: Do not watch my keyboard shortcuts.
      * @returns {Boolean}
      */
     public getDoNotWatchKeyboardShortcutEvents() {

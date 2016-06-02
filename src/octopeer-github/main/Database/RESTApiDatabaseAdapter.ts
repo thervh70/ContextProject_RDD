@@ -4,7 +4,7 @@
  * This class connects to the RESTful API made by Aaron.
  */
 
-class RESTApiDatabaseAdapter implements SemanticDatabaseAdaptable { // TODO implement Database in another branch
+class RESTApiDatabaseAdapter implements DatabaseAdaptable {
 
     private _initialized: boolean = false;
     private _owner: string;
@@ -51,30 +51,105 @@ class RESTApiDatabaseAdapter implements SemanticDatabaseAdaptable { // TODO impl
     }
 
     /**
-     * Post an event to the database.
+     * Post a keystroke event to the database.
      * @param eventData     The data to post to the database.
      * @param success       Callback, which is called once the call has succeeded.
      * @param failure       Callback, which is called once the call has failed.
      */
-    public postSemantic(eventData: ISemanticEvent, success: Callback, failure: Callback): void {
-        const self = this;
+    public postKeystroke(eventData: KeystrokeEvent, success: Callback, failure: Callback) {
+        this.postEvent(eventData, "keystroke-events", success, failure);
+    }
+
+    /**
+     * Post a mouse click event to the database.
+     * @param eventData     The data to post to the database.
+     * @param success       Callback, which is called once the call has succeeded.
+     * @param failure       Callback, which is called once the call has failed.
+     */
+    public postMouseClick(eventData: MouseClickEvent, success: Callback, failure: Callback) {
+        this.postEvent(eventData, "mouse-click-events", success, failure);
+    }
+
+    /**
+     * Post a mouse position event to the database.
+     * @param eventData     The data to post to the database.
+     * @param success       Callback, which is called once the call has succeeded.
+     * @param failure       Callback, which is called once the call has failed.
+     */
+    public postMousePosition(eventData: MousePositionEvent, success: Callback, failure: Callback) {
+        this.postEvent(eventData, "mouse-position-events", success, failure);
+    }
+
+    /**
+     * Post a mouse scroll event to the database.
+     * @param eventData     The data to post to the database.
+     * @param success       Callback, which is called once the call has succeeded.
+     * @param failure       Callback, which is called once the call has failed.
+     */
+    public postMouseScroll(eventData: MouseScrollEvent, success: Callback, failure: Callback) {
+        this.postEvent(eventData, "mouse-scroll-events", success, failure);
+    }
+
+    /**
+     * Post a window resolution event to the database.
+     * @param eventData     The data to post to the database.
+     * @param success       Callback, which is called once the call has succeeded.
+     * @param failure       Callback, which is called once the call has failed.
+     */
+    public postWindowResolution(eventData: WindowResolutionEvent, success: Callback, failure: Callback) {
+        this.postEvent(eventData, "window-resolution-events", success, failure);
+    }
+
+    /**
+     * Post a semantic event to the database.
+     * @param eventData     The data to post to the database.
+     * @param success       Callback, which is called once the call has succeeded.
+     * @param failure       Callback, which is called once the call has failed.
+     */
+    public postSemantic(eventData: SemanticEvent, success: Callback, failure: Callback): void {
+        this.postEvent({
+            "event_type": `${this._databaseUrl}api/event-types/${eventData.eventID}/`,
+            "element_type": `${this._databaseUrl}api/element-types/${eventData.elementID}/`,
+            "created_at": eventData.created_at,
+        }, "semantic-events", success, failure);
+    }
+
+    /**
+     * Post any event data object to the database.
+     * @param eventData     The data to post to the database.
+     * @param eventURL      The event will be posted to `<database>/api/<eventURL>/`.
+     * @param success       Callback, which is called once the call has succeeded.
+     * @param failure       Callback, which is called once the call has failed.
+     */
+    private postEvent(eventData: any, eventURL: string, success: Callback, failure: Callback) {
         if (!this.isInitialized) {
             Logger.warn("The database has not been initialized yet!");
             failure();
             return;
         }
-        const postData = self.createPostData(eventData);
-        $.ajax(`${this._databaseUrl}api/semantic-events/`, postData)
-            .done(function(data, status, jqXHR) {
-                if (self._debug) {
+        const postData = this.createJSONPost(eventData);
+        this.postWithAjax(postData, eventURL, success, failure);
+    }
+
+    /**
+     * Perform an AJAX call which posts the event data to the database..
+     * @param postData      A JQueryAjaxSettings object to pass to the AJAX call.
+     * @param eventURL      The event will be posted to `<database>/api/<eventURL>/`.
+     * @param success       Callback, which is called once the call has succeeded.
+     * @param failure       Callback, which is called once the call has failed.
+     */
+    private postWithAjax(postData: JQueryAjaxSettings, eventURL: string, success: Callback, failure: Callback) {
+        $.ajax(`${this._databaseUrl}api/${eventURL}/`, postData)
+            .done((data, status, jqXHR) => {
+                if (this._debug) {
                     Logger.debug(`Call success, status: ${status}`);
                     Logger.debug(jqXHR);
                     Logger.debug(postData);
                 }
                 success(data, status, jqXHR);
             })
-            .fail(function(jqXHR, status) {
-                Logger.warn(`Database post failed, status: ${status}`);
+            .fail((jqXHR, status) => {
+                Logger.warn(`Database post to ${eventURL} failed, status: ${status}`);
                 Logger.debug(jqXHR);
                 Logger.debug(postData);
                 failure(jqXHR, status);
@@ -82,43 +157,37 @@ class RESTApiDatabaseAdapter implements SemanticDatabaseAdaptable { // TODO impl
     }
 
     /**
-     * Creates a Settings Object that can be used in an AJAX request when posting an event.
-     * @param eventData                 The data to post to the database.
-     * @returns {JQueryAjaxSettings}    A Settings Object that can be used in an AJAX request.
-     */
-    private createPostData(eventData: ISemanticEvent) {
-        return this.createJSONPost({
-            "session": {
-                "pull_request": {
-                    "repository": {
-                        "owner": this._owner,
-                        "name": this._repo,
-                        "platform": "GitHub",
-                    },
-                    "pull_request_number": this._pr,
-                },
-                "user": {
-                    "username": this._user,
-                },
-            },
-            "event_type": `${this._databaseUrl}api/event-types/${eventData.eventID}/`,
-            "element_type": `${this._databaseUrl}api/element-types/${eventData.elementID}/`,
-            "started_at": eventData.start / 1000,
-            "duration": eventData.duration,
-        });
-    }
-
-    /**
      * Creates a Settings Object that can be used in an AJAX request.
      * @param data                  The data that will be posted to the server.
      * @returns JQueryAjaxSettings  A Settings Object that can be used in an AJAX request.
      */
-    private createJSONPost(data: Object): JQueryAjaxSettings {
+    private createJSONPost(data: any): JQueryAjaxSettings {
+        data.session = this.getSession();
         return {
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(data),
             dataType: "json",
             type: "POST",
+        };
+    }
+
+    /**
+     * Get a session object based on the URL of the Pull Request and the username.
+     * @returns {Object} a Session object that complies with the REST API: `/api/sessions`
+     */
+    private getSession() {
+        return {
+            "pull_request": {
+                "repository": {
+                    "owner": this._owner,
+                    "name": this._repo,
+                    "platform": "GitHub",
+                },
+                "pull_request_number": this._pr,
+            },
+            "user": {
+                "username": this._user,
+            },
         };
     }
 

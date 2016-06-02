@@ -5,7 +5,12 @@ const defaultEventID = new EventID(1);
 const defaultElementID = new ElementID(1);
 
 describe("A RESTApiDatabaseAdapter", function() {
-    const defaultSemanticEvent = new SemanticEvent(defaultElementID, defaultEventID, new Date().getTime(), 100);
+    const defaultSemanticEvent = EventFactory.semantic(defaultElementID, defaultEventID);
+    const defaultKeystrokeEvent = EventFactory.keystroke("q", EventFactory.getTime(), EventFactory.getTime());
+    const defaultMouseClickEvent = EventFactory.mouseClick();
+    const defaultMousePositionEvent = EventFactory.mousePosition(1, 2, 3, 4);
+    const defaultMouseScrollEvent = EventFactory.mouseScroll(1, 2);
+    const defaultWindowResolutionEvent = EventFactory.windowResolution(1, 2);
 
     let adapter: RESTApiDatabaseAdapter;
     let consoleSpy: jasmine.Spy;
@@ -32,20 +37,30 @@ describe("A RESTApiDatabaseAdapter", function() {
         expect(adapter.isInitialized).toBe(true);
     });
 
-    it("can post to the API", function() {
-        const spyFunc = jasmine.createSpy("success");
+    const spyFunc = jasmine.createSpy("success");
+    const eventTypes = [
+        ["semantic-events", () => adapter.postSemantic(defaultSemanticEvent, spyFunc, EMPTY_CALLBACK)],
+        ["keystroke-events", () => adapter.postKeystroke(defaultKeystrokeEvent, spyFunc, EMPTY_CALLBACK)],
+        ["mouse-click-events", () => adapter.postMouseClick(defaultMouseClickEvent, spyFunc, EMPTY_CALLBACK)],
+        ["mouse-position-events", () => adapter.postMousePosition(defaultMousePositionEvent, spyFunc, EMPTY_CALLBACK)],
+        ["mouse-scroll-events", () => adapter.postMouseScroll(defaultMouseScrollEvent, spyFunc, EMPTY_CALLBACK)],
+        ["window-resolution-events", () => adapter.postWindowResolution(defaultWindowResolutionEvent, spyFunc, EMPTY_CALLBACK)],
+    ];
+    for (let tuple of eventTypes) {
+        it(`can post ${tuple[0]} to the API`, function () {
+            (<() => void>tuple[1])();
 
-        adapter.postSemantic(defaultSemanticEvent, spyFunc, EMPTY_CALLBACK);
+            jasmine.Ajax.requests.mostRecent().respondWith({
+                contentType: "text/json",
+                responseText: JSON.stringify({success: true}),
+                status: 201,
+            });
 
-        jasmine.Ajax.requests.mostRecent().respondWith({
-            contentType: "text/json",
-            responseText: JSON.stringify({success: true}),
-            status: 201,
+            expect(spyFunc).toHaveBeenCalled();
+            expect(spyFunc.calls.mostRecent().args[0]).toEqual({success: true});
+            expect(jasmine.Ajax.requests.mostRecent().url).toEqual(`http://localhost:8000/api/${tuple[0]}/`);
         });
-
-        expect(spyFunc).toHaveBeenCalled();
-        expect(spyFunc.calls.mostRecent().args[0]).toEqual({success: true});
-    });
+    }
 
     it("calls the failure callback when the API responds with failure", function() {
         const successSpy = jasmine.createSpy("success");
