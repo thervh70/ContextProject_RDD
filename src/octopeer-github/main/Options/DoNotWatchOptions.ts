@@ -62,14 +62,29 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
 
     private combinationsThatShouldNotBeWatched: CombinationsThatShouldNotBeWatchedTuple[] = [];
 
+    /**
+     * Checks whether an element should be watched.
+     * @param element the element to check for.
+     * @returns {boolean} whether the element should be watched.
+     */
     public shouldElementBeWatched(element: ElementID) {
         return !this.getElements().contains(element);
     }
 
+    /**
+     * Checks whether an event should be watched.
+     * @param event the event to check for.
+     * @returns {boolean} whether the event should be watched.
+     */
     public shouldEventBeWatched(event: EventID) {
         return !this.getEvents().contains(event);
     }
 
+    /**
+     * Checks whether an combination should be watched.
+     * @param combination the combination to check for.
+     * @returns {boolean} whether the combination should be watched.
+     */
     public shouldCombinationBeWatched(combination: ElementXEventID) {
         return !this.getCombinations().contains(combination);
     }
