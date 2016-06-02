@@ -15,7 +15,6 @@ class MainController implements OptionsObserver {
         Logger.setDebug(); // TODO remove this on release
         this.connectToContentScript();
         Status.standby();
-        // TODO: Options.update actually means "add a listener to the storage" so can be merged into init
         Options.init();
         Options.addObserver(this);
         return this;
