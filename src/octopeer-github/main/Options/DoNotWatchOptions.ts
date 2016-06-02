@@ -20,9 +20,9 @@ type ElementXEventCreatable = {
     event: ElementEventBindingCreatable
 };
 
-interface ElementThatShouldNotBeWatchedTuple extends Array<string | Array<ElementSelectionBehaviourCreatable>> {
+interface ElementThatShouldNotBeWatchedTuple extends Array<string | Array<ElementID>> {
     0: string;
-    1: Array<ElementSelectionBehaviourCreatable>;
+    1: Array<ElementID>;
 }
 
 interface EventThatShouldNotBeWatchedTuple extends Array<string | Array<ElementEventBindingCreatable>> {
@@ -38,15 +38,14 @@ interface CombinationsThatShouldNotBeWatchedTuple extends Array<string | Array<E
 /**
  * Class for indicating all internal options of the application.
  */
-const factory = new ElementSelectionBehaviourFactory();
 // tslint:disable-next-line:no-unused-variable
 const DoNotWatchOptions = new (class DoNotWatchOptions {
 
     private elementsThatShouldNotBeWatched: ElementThatShouldNotBeWatchedTuple[] = [
         ["doNotWatchCommentElements", [
-            CommentInlineCommentButtonElementSelectionBehaviour,
-            CommentPRButtonElementSelectionBehaviour,
-            EditCommentButtonElementSelectionBehaviour,
+            ElementID.CONFIRM_INLINE_COMMENT,
+            ElementID.CREATE_PR_COMMENT,
+            ElementID.EDIT_COMMENT,
         ]],
     ];
 
@@ -58,7 +57,7 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
 
     private combinationsThatShouldNotBeWatched: CombinationsThatShouldNotBeWatchedTuple[] = [];
 
-    public shouldElementBeWatched(element: ElementSelectionBehaviourCreatable) {
+    public shouldElementBeWatched(element: ElementID) {
         return !this.getElements().contains(element);
     }
 
@@ -75,21 +74,13 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
      * @returns {ElementSelectionBehaviourCreatable[]}
      */
     public getElements() {
-<<<<<<< HEAD
-        let doNotWatchElements: ElementSelectionBehaviourCreatable[] = [];
+        let doNotWatchElements: ElementID[] = [];
         for (let tuple of this.elementsThatShouldNotBeWatched) {
             if (Options.getOption(tuple[0])) {
                 for (let element of tuple[1]) {
                     doNotWatchElements.push(element);
                 }
             }
-=======
-        let doNotWatchElements: ElementSelectionBehaviourData[] = [];
-        if (Options.getDoNotWatchCommentElements()) {
-            doNotWatchElements.push(factory.findElementSelectionBehaviourData(ElementID.CONFIRM_INLINE_COMMENT));
-            doNotWatchElements.push(factory.findElementSelectionBehaviourData(ElementID.CREATE_PR_COMMENT));
-            doNotWatchElements.push(factory.findElementSelectionBehaviourData(ElementID.EDIT_COMMENT));
->>>>>>> 95-esb-lists
         }
         return doNotWatchElements;
     }

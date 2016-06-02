@@ -31,6 +31,7 @@ describe("An EventBinder that binds Click events", function() {
 });
 
 describe("A ClickElementEventBinding's", function() {
+    const factory = new ElementSelectionBehaviourFactory();
 
     it("type should be retrieved when the getEventType function is called", function() {
         selector = factory.create(database, ElementID.CREATE_INLINE_COMMENT);

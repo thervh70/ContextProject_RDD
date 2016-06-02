@@ -85,9 +85,7 @@ class ContentController {
         let mousePositionTracker: MousePositionTracker;
 
         for (elementSelectionBinding of unsortedElementSelectionBehaviourData) {
-            // TODO if (!DoNotWatchOptions.shouldElementBeWatched(elementSelectionBinding)) {
-            if (DoNotWatchOptions.getElements().map(function (data) { return data.elementID.getElementID(); })
-                    .indexOf(elementSelectionBinding.elementID.getElementID()) >= 0) {
+            if (!DoNotWatchOptions.shouldElementBeWatched(elementSelectionBinding.elementID)) {
                 continue;
             }
 

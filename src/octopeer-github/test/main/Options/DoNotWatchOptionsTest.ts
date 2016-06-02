@@ -5,7 +5,6 @@
 
 describe("The DoNotWatchOptions", function() {
 
-<<<<<<< HEAD
     let fakeOptions: any;
 
     interface DNWOTestTuple extends Array<any> {
@@ -16,8 +15,7 @@ describe("The DoNotWatchOptions", function() {
 
     const elementTestList: any[][] = [
         [{}, []],
-        [{doNotWatchCommentElements: true}, [CommentInlineCommentButtonElementSelectionBehaviour,
-            CommentPRButtonElementSelectionBehaviour, EditCommentButtonElementSelectionBehaviour]],
+        [{doNotWatchCommentElements: true}, [ElementID.CONFIRM_INLINE_COMMENT, ElementID.CREATE_PR_COMMENT, ElementID.EDIT_COMMENT]],
     ];
 
     const eventTestList: any[][] = [
@@ -47,16 +45,6 @@ describe("The DoNotWatchOptions", function() {
                 return fakeOptions[optionName];
             }
         });
-=======
-    it("should return elements that should not be watched, when comment elements is switched on", function () {
-        spyOn(Options, "getDoNotWatchCommentElements").and.returnValue(true);
-        expect(DoNotWatchOptions.getElements()).toBeDefined();
-        expect(DoNotWatchOptions.getElements()).toEqual([
-            factory.findElementSelectionBehaviourData(ElementID.CONFIRM_INLINE_COMMENT),
-            factory.findElementSelectionBehaviourData(ElementID.CREATE_PR_COMMENT),
-            factory.findElementSelectionBehaviourData(ElementID.EDIT_COMMENT),
-        ]);
->>>>>>> 95-esb-lists
     });
 
     for (let typeTuple of testList) {
