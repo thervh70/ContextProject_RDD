@@ -4,7 +4,7 @@
  */
 
 describe("A MessageSendDatabaseAdapter", function() {
-    let data: ISemanticEvent;
+    let data: SemanticEvent;
     let MSDAdapter: DatabaseAdaptable;
     let spy: jasmine.Spy;
     let spyObj: jasmine.Spy;
@@ -13,7 +13,7 @@ describe("A MessageSendDatabaseAdapter", function() {
         MSDAdapter = new MessageSendDatabaseAdapter();
         spy = spyOn(chrome.runtime, "sendMessage");
         spyObj = jasmine.createSpy("success");
-        data = new SemanticEvent(defaultElementID, defaultEventID, new Date().getTime(), 42);
+        data = EventFactory.semantic(defaultElementID, defaultEventID, new Date().getTime(), 42);
         MSDAdapter.postSemantic(data, spyObj, EMPTY_CALLBACK);
 
         expect(spy).toHaveBeenCalledWith(JSON.stringify({data, type: "postSemantic"}));

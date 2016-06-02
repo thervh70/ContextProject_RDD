@@ -4,13 +4,16 @@
  */
 
 // List that contains all optionID names that Octopeer provides.
-var options = ['loggingEnabled', 'trackTabs', 'trackComments', 'trackPeerComments', 'trackFocus', 'hashUsername', 'hashRepo', 'hashFile'];
+var options = ['loggingEnabled',
+    'trackTabs', 'trackComments', 'trackPeerComments', 'trackFocus',
+    'hashUsername', 'hashRepo', 'hashFile',
+    'dnwScreen', 'dnwHover', 'dnwComments', 'dnwKeyboardShortcut'];
 
 // List that contains all subOptionID names that Octopeer provides.
-var subOptions = ['securitySubOptions', 'privacySubOptions', 'hintsSubOptions'];
+var subOptions = ['securitySubOptions', 'privacySubOptions', 'hintsSubOptions', 'doNotWatchSubOptions'];
 
 // List that contains all cardElement names that Octopeer provides.
-var cards = ['security', 'privacy', 'hints'];
+var cards = ['security', 'privacy', 'hints', 'doNotWatch'];
 
 // Listens for changes in the loggingEnabled flag.
 // This boolean might be switched using the popup.
@@ -61,28 +64,28 @@ function restoreOptionsAvailability() {
 
 // Shows the sub-options.
 function showSubOptions() {
-    for(var i = 0; i < subOptions.length; i++) {
+    for (var i = 0; i < subOptions.length; i++) {
         subOptionsElement(i).show();
     }
 }
 
 // Hides the sub-options.
 function hideSubOptions() {
-    for(var i = 0; i < subOptions.length; i++) {
+    for (var i = 0; i < subOptions.length; i++) {
         subOptionsElement(i).hide();
     }
 }
 
 // Shows the option cards.
 function showCards() {
-    for(var i = 0; i < cards.length; i++) {
+    for (var i = 0; i < cards.length; i++) {
         cardElement(i).show();
     }
 }
 
 // Hides the option cards.
 function hideCards() {
-    for(var i = 0; i < cards.length; i++) {
+    for (var i = 0; i < cards.length; i++) {
         cardElement(i).hide();
     }
 }
@@ -90,7 +93,7 @@ function hideCards() {
 // Disables availability of options.
 function showDisable() {
     // Starts at index 1, as the main option at index 0 doesn't need to be disabled (just all other options).
-    for(var i = 1; i < options.length; i++) {
+    for (var i = 1; i < options.length; i++) {
         optionsElement(i).disabled = false;
     }
 }
@@ -127,7 +130,7 @@ function elementGenerator(index, array){
 // When clicking on the main option, switchOptions is also called.
 function addOptionClickEvents() {
     optionsElement(0).click(switchOptions);
-    for(var i = 0; i < options.length; i++) {
+    for (var i = 0; i < options.length; i++) {
         optionsElement(i).click(saveOptions);
     }
 }

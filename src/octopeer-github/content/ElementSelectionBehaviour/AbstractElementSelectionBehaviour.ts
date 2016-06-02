@@ -1,5 +1,6 @@
 /// <reference path="ElementSelectionBehaviour.ts"/>
 /// <reference path="../ElementEventBinding/ElementEventBinding.ts"/>
+/// <reference path="../../main/Database/EventObject/EventFactory.ts"/>
 /**
  * Created by Mathias on 2016-05-17.
  * The main abstract class for ElementSelectionBehaviours.
@@ -51,7 +52,7 @@ abstract class AbstractElementSelectionBehaviour implements ElementSelectionBeha
         const self = this;
         return (function(eventObject: JQueryEventObject) {
             // TODO: check when the new Date is triggered.
-            self.database.postSemantic(new SemanticEvent(self.getElementID(), eventID, new Date().getTime(), 0),
+            self.database.postSemantic(EventFactory.semantic(self.getElementID(), eventID, new Date().getTime(), 0),
                 EMPTY_CALLBACK, EMPTY_CALLBACK);
         });
     }
