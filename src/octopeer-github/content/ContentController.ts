@@ -1,13 +1,6 @@
 /// <reference path="../main/Options/DoNotWatchOptions.ts"/>
 /// <reference path="../main/Database/ConsoleLogDatabaseAdapter.ts"/>
 /// <reference path="ElementEventBinding/ElementEventBinding.ts"/>
-/// <reference path="ElementEventBinding/ClickElementEventBinding.ts"/>
-/// <reference path="ElementEventBinding/KeystrokeElementEventBinding.ts"/>
-/// <reference path="ElementEventBinding/MouseEnterElementEventBinding.ts"/>
-/// <reference path="ElementEventBinding/MouseLeaveElementEventBinding.ts"/>
-/// <reference path="ElementEventBinding/ScrollIntoViewElementEventBinding.ts"/>
-/// <reference path="ElementEventBinding/ScrollOutOfViewElementEventBinding.ts"/>
-/// <reference path="ElementSelectionBehaviour/ElementSelectionBehaviour.ts"/>
 
 /**
  * The ContentController hooks the event handlers to the DOM-tree.

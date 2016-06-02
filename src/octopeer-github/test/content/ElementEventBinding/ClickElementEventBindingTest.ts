@@ -1,6 +1,5 @@
 /// <reference path="../../../main/Database/DatabaseAdaptable.ts"/>
 /// <reference path="../../../main/Database/ConsoleLogDatabaseAdapter.ts"/>
-/// <reference path="../../../content/ElementEventBinding/ClickElementEventBinding.ts"/>\
 
 /**
  * Created by Mitchell on 25-5-2016.
