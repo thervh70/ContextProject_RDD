@@ -91,18 +91,18 @@ function hideCards() {
 }
 
 // Disables availability of options.
-function showDisable() {
+function showWithDisable() {
     // Starts at index 1, as the main option at index 0 doesn't need to be disabled (just all other options).
     for (var i = 1; i < options.length; i++) {
-        optionsElement(i).disabled = false;
+        optionsElement(i).removeAttr("disabled");
     }
 }
 
 // Enables availability of options.
-function hideDisable() {
+function hideWithDisable() {
     // Starts at index 1, as the main option at index 0 doesn't need to be enabled (just all other options).
-    for(var i = 1; i < options.length; i++) {
-        optionsElement(i).disabled = true;
+    for (var i = 1; i < options.length; i++) {
+        optionsElement(i).attr("disabled", true);
     }
 }
 
@@ -138,8 +138,8 @@ function addOptionClickEvents() {
 // Constants that define the function that will be called.
 // Different show/hide (or disable switch) methods can be called from here.
 // These different implementations are there for user testing.
-const show = showCards;
-const hide = hideCards;
+const show = showWithDisable;
+const hide = hideWithDisable;
 
 // Disables the (sub)options when the user doesn't want Octopeer to log data and
 // enables the (sub)options when the user does.
