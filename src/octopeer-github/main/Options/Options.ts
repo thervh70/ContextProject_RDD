@@ -10,6 +10,7 @@
  */
 // tslint:disable-next-line:no-unused-variable
 const Options = new (class Options {
+    // A map that contains all option names and their default (boolean) values.
     private optionMap: { [key: string]: boolean; } = {
         ["loggingEnabled"]: true,
         ["trackTabs"]: true,
@@ -36,6 +37,7 @@ const Options = new (class Options {
         let options: string[] = this.generateOptionList();
         chrome.storage.sync.get(options, function (obj) {
             const object = <any> obj;
+            // For every option in optionMap, assign the values from the storage to them.
             for (let option in self.optionMap) {
                 if (self.optionMap.hasOwnProperty(option)) {
                     self.optionMap[option] = object[option];
@@ -54,6 +56,7 @@ const Options = new (class Options {
         chrome.storage.onChanged.addListener(function (changes, areaName) {
             if (areaName === "sync") {
                 const changeObject = <any> changes;
+                // For every option in optionMap, assign only the new values from the storage to them.
                 for (let option in self.optionMap) {
                     if (self.optionMap.hasOwnProperty(option)) {
                         self.optionMap[option] = changeObject[option] ? changeObject[option].newValue : self.optionMap[option];
@@ -107,6 +110,7 @@ const Options = new (class Options {
      */
     public generateOptionList(): string[] {
         let options: string[] = [];
+        // For every key in optionMap, push the optionName (thus key) to the to be outputted options array.
         for (let key in this.optionMap) {
             if (this.optionMap.hasOwnProperty(key)) {
                 options.push(key);
