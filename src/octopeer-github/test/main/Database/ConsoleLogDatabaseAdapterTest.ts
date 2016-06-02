@@ -13,7 +13,7 @@ describe("The ConsoleLogDatabaseAdapter", function() {
     });
 
     it("should 'post' data to the console by calling the post function", function () {
-        const data = EventFactory.semantic(defaultElementID, defaultEventID, 0, 0);
+        const data = EventFactory.semantic(defaultElementID, defaultEventID);
         CLDAdapter.postSemantic(data, EMPTY_CALLBACK, EMPTY_CALLBACK);
 
         expect(spy).toHaveBeenCalled();
@@ -21,7 +21,7 @@ describe("The ConsoleLogDatabaseAdapter", function() {
     });
 
     it("should 'post' a keystroke event", function () {
-        const data = EventFactory.keystroke("0", 0);
+        const data = EventFactory.keystroke("0", 0, 0);
         CLDAdapter.postKeystroke(data, EMPTY_CALLBACK, EMPTY_CALLBACK);
 
         expect(spy).toHaveBeenCalled();
@@ -29,7 +29,7 @@ describe("The ConsoleLogDatabaseAdapter", function() {
     });
 
     it("should 'post' a mouse position event", function () {
-        const data = EventFactory.mousePosition(1, 2, 3, 4, 0);
+        const data = EventFactory.mousePosition(1, 2, 3, 4);
         CLDAdapter.postMousePosition(data, EMPTY_CALLBACK, EMPTY_CALLBACK);
 
         expect(spy).toHaveBeenCalled();
@@ -37,7 +37,7 @@ describe("The ConsoleLogDatabaseAdapter", function() {
     });
 
     it("should 'post' a mouse click event", function () {
-        const data = EventFactory.mouseClick(0);
+        const data = EventFactory.mouseClick();
         CLDAdapter.postMouseClick(data, EMPTY_CALLBACK, EMPTY_CALLBACK);
 
         expect(spy).toHaveBeenCalled();
@@ -45,7 +45,7 @@ describe("The ConsoleLogDatabaseAdapter", function() {
     });
 
     it("should 'post' a mouse scroll event", function () {
-        const data = EventFactory.mouseScroll(1, 2, 0);
+        const data = EventFactory.mouseScroll(1, 2);
         CLDAdapter.postMouseScroll(data, EMPTY_CALLBACK, EMPTY_CALLBACK);
 
         expect(spy).toHaveBeenCalled();
@@ -53,7 +53,7 @@ describe("The ConsoleLogDatabaseAdapter", function() {
     });
 
     it("should 'post' a window resize event", function () {
-        const data = EventFactory.windowResolution(1, 2, 0);
+        const data = EventFactory.windowResolution(1, 2);
         CLDAdapter.postWindowResolution(data, EMPTY_CALLBACK, EMPTY_CALLBACK);
 
         expect(spy).toHaveBeenCalled();
@@ -75,7 +75,7 @@ describe("The ConsoleLogDatabaseAdapter", function() {
     it("should filter if the output is disabled", function () {
         ConsoleLogDatabaseAdapter.setRawDataLogging(false);
 
-        const data = EventFactory.mouseClick(0);
+        const data = EventFactory.mouseClick();
         CLDAdapter.postMouseClick(data, EMPTY_CALLBACK, EMPTY_CALLBACK);
 
         expect(spy).not.toHaveBeenCalled();
