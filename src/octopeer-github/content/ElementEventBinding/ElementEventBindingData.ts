@@ -3,12 +3,12 @@
  * Created by Mathias on 02-06-2016.
  * This interface enforces the data elements of the ElementEventBindings.
  * eventID is the corresponding ID given in the eventID class.
- * hookToDOM is an optional override of the default callback function.
+ * initDOMEvent is an optional override of the default callback function.
  * name is the descriptive string that belongs to the event.
  */
 interface ElementEventBindingData {
     eventID: EventID;
-    hookToDOM?: (elementSelectionBehaviour: GenericElementSelectionBehaviour) => void;
+    initDOMEvent?: (elementSelectionBehaviour: GenericElementSelectionBehaviour) => void;
     name: string;
 }
 
