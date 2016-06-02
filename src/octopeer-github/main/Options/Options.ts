@@ -10,19 +10,22 @@
  */
 // tslint:disable-next-line:no-unused-variable
 const Options = new (class Options {
-    private logging = true;
-    private tabs = true;
-    private comments = true;
-    private peerComments = true;
-    private focus = true;
-    private username = true;
-    private repo = true;
-    private file = false;
-    private doNotWatchOnScreenEvents = false;
-    private doNotWatchHoverEvents = false;
-    private doNotWatchCommentElements = false;
-    private doNotWatchKeyboardShortcutEvents = false;
-    [key: string]: any;
+
+    // A map that contains all option names and their default (boolean) values.
+    private optionMap: { [key: string]: boolean; } = {
+        ["loggingEnabled"]: true,
+        ["trackTabs"]: true,
+        ["trackComments"]: true,
+        ["trackPeerComments"]: true,
+        ["trackFocus"]: true,
+        ["hashUsername"]: true,
+        ["hashRepo"]: true,
+        ["hashFile"]: false,
+        ["doNotWatchOnScreenEvents"]: false,
+        ["doNotWatchHoverEvents"]: false,
+        ["doNotWatchCommentElements"]: false,
+        ["doNotWatchKeyboardShortcutEvents"]: false,
+    };
 
     private observers: OptionsObserver[];
 
@@ -32,22 +35,16 @@ const Options = new (class Options {
     public init() {
         const self = this;
         this.observers = [];
-        chrome.storage.sync.get(["loggingEnabled", "trackTabs", "trackComments", "trackPeerComments",
-        "trackFocus", "hashUsername", "hashRepo", "hashFile", "doNotWatchOnScreenEvents", "doNotWatchHoverEvents",
-        "doNotWatchCommentElements", "doNotWatchKeyboardShortcutEvents"], function (obj) {
+        let options: string[] = this.generateOptionList();
+        chrome.storage.sync.get(options, function (obj) {
             const object = <any> obj;
-            self.logging = object.loggingEnabled;
-            self.tabs = object.trackTabs;
-            self.comments = object.trackComments;
-            self.peerComments = object.trackPeerComments;
-            self.focus = object.trackFocus;
-            self.username = object.hashUsername;
-            self.repo = object.hashRepo;
-            self.file = object.hashFile;
-            self.doNotWatchOnScreenEvents = object.doNotWatchOnScreenEvents;
-            self.doNotWatchHoverEvents = object.doNotWatchHoverEvents;
-            self.doNotWatchCommentElements = object.doNotWatchCommentElements;
-            self.doNotWatchKeyboardShortcutEvents = object.doNotWatchKeyboardShortcutEvents;
+            // For every option in optionMap, assign the values from the storage to them.
+            for (let option in self.optionMap) {
+                if (self.optionMap.hasOwnProperty(option)) {
+                    self.optionMap[option] = object[option];
+                }
+            }
+            self.update();
             self.notifyObservers();
         });
     }
@@ -61,22 +58,12 @@ const Options = new (class Options {
         chrome.storage.onChanged.addListener(function (changes, areaName) {
             if (areaName === "sync") {
                 const changeObject = <any> changes;
-                self.logging = changeObject.loggingEnabled ? changeObject.loggingEnabled.newValue : self.logging;
-                self.tabs = changeObject.trackTabs ? changeObject.trackTabs.newValue : self.tabs;
-                self.comments = changeObject.trackComments ? changeObject.trackComments.newValue : self.comments;
-                self.peerComments = changeObject.trackPeerComments ? changeObject.trackPeerComments.newValue : self.peerComments;
-                self.focus = changeObject.trackFocus ? changeObject.trackFocus.newValue : self.focus;
-                self.username = changeObject.hashUsername ? changeObject.hashUsername.newValue : self.username;
-                self.repo = changeObject.hashRepo ? changeObject.hashRepo.newValue : self.repo;
-                self.file = changeObject.hashFile ? changeObject.hashFile.newValue : self.file;
-                self.doNotWatchOnScreenEvents = changeObject.doNotWatchOnScreenEvents ?
-                    changeObject.doNotWatchOnScreenEvents.newValue : self.doNotWatchOnScreenEvents;
-                self.doNotWatchHoverEvents = changeObject.doNotWatchHoverEvents ?
-                    changeObject.doNotWatchHoverEvents.newValue : self.doNotWatchHoverEvents;
-                self.doNotWatchCommentElements = changeObject.doNotWatchCommentElements ?
-                    changeObject.doNotWatchCommentElements.newValue : self.doNotWatchCommentElements;
-                self.doNotWatchKeyboardShortcutEvents = changeObject.doNotWatchKeyboardShortcutEvents ?
-                    changeObject.doNotWatchKeyboardShortcutEvents.newValue : self.doNotWatchKeyboardShortcutEvents;
+                // For every option in optionMap, assign only the new values from the storage to them.
+                for (let option in self.optionMap) {
+                    if (self.optionMap.hasOwnProperty(option)) {
+                        self.optionMap[option] = changeObject[option] ? changeObject[option].newValue : self.optionMap[option];
+                    }
+                }
                 self.notifyObservers();
             }
         });
@@ -111,7 +98,6 @@ const Options = new (class Options {
         }
     }
 
-
     /**
      * Returns the list of observers.
      * @returns {Array<OptionsObserver>}
@@ -120,111 +106,32 @@ const Options = new (class Options {
         return this.observers;
     }
 
-    public get(option: string): boolean {
-        if (typeof this[option] === "boolean") {
-            return this[option];
-        } else {
-            return undefined;
+    /**
+     * Generates an array containing all option names, based on the optionMap.
+     * @returns {Array<String>} the list of option names.
+     */
+    public generateOptionList(): string[] {
+        let options: string[] = [];
+        // For every key in optionMap, push the optionName (thus key) to the to be outputted options array.
+        for (let key in this.optionMap) {
+            if (this.optionMap.hasOwnProperty(key)) {
+                options.push(key);
+            }
         }
+        return options;
     }
 
     /**
-     * Gets the logging preference, from the chrome storage.
-     * @returns {Boolean}
+     * Gets the preference of an option, based on the name, from the chrome storage.
+     * If the name doesn't exist, false is simply returned.
+     * @param optionName the given name of an option.
+     * @returns {boolean} the user preference in terms of a boolean.
      */
-    public getLogging() {
-        return this.logging;
-    }
-
-    /**
-     * Gets the tab tracking preference, from the chrome storage.
-     * @returns {Boolean}
-     */
-    public getTabs() {
-        return this.tabs;
-    }
-
-    /**
-     * Gets the comment tracking preference, from the chrome storage.
-     * @returns {Boolean}
-     */
-    public getComments() {
-        return this.comments;
-    }
-
-    /**
-     * Gets the peer comments tracking preference, from the chrome storage.
-     * @returns {Boolean}
-     */
-    public getPeerComments() {
-        return this.peerComments;
-    }
-
-    /**
-     * Gets the focus tracking preference, from the chrome storage.
-     * @returns {Boolean}
-     */
-    public getFocus() {
-        return this.focus;
-    }
-
-    /**
-     * Gets the username encryption preference, from the chrome storage.
-     * @returns {Boolean}
-     */
-    public getUsername() {
-        return this.username;
-    }
-
-    /**
-     * Gets the repository encryption preference, from the chrome storage.
-     * @returns {Boolean}
-     */
-    public getRepo() {
-        return this.repo;
-    }
-
-    /**
-     * Gets the file encryption preference, from the chrome storage.
-     * @returns {Boolean}
-     */
-    public getFile() {
-        return this.file;
-    }
-
-    /**
-     * Gets doNotWatch preference about onscreen elements, from the chrome storage.
-     * User perspective: Do not watch what elements are on my screen.
-     * @returns {Boolean}
-     */
-    public getDoNotWatchOnScreenEvents() {
-        return this.doNotWatchOnScreenEvents;
-    }
-
-    /**
-     * Gets doNotWatch preference about hovering above elements, from the chrome storage.
-     * User perspective: Do not watch what elements I hover over.
-     * @returns {Boolean}
-     */
-    public getDoNotWatchHoverEvents() {
-        return this.doNotWatchHoverEvents;
-    }
-
-    /**
-     * Gets doNotWatch preference about comments, from the chrome storage.
-     * User perspective: Do not watch the comments of my pull request.
-     * @returns {Boolean}
-     */
-    public getDoNotWatchCommentElements() {
-        return this.doNotWatchCommentElements;
-    }
-
-    /**
-     * Gets doNotWatch preference about keyboard shortcuts, from the chrome storage.
-     * User perspective: Do not watch my keyboard shortcuts.
-     * @returns {Boolean}
-     */
-    public getDoNotWatchKeyboardShortcutEvents() {
-        return this.doNotWatchKeyboardShortcutEvents;
+    public getOption(optionName: string) {
+        let res: Boolean = false;
+        if (optionName in this.optionMap) {
+            res = this.optionMap[optionName];
+        }
+        return res;
     }
 })();

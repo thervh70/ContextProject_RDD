@@ -15,9 +15,7 @@ class MainController implements OptionsObserver {
         Logger.setDebug(); // TODO remove this on release
         this.connectToContentScript();
         Status.standby();
-        // TODO: Options.update actually means "add a listener to the storage" so can be merged into init
         Options.init();
-        Options.update();
         Options.addObserver(this);
         return this;
     }
@@ -102,17 +100,17 @@ class MainController implements OptionsObserver {
             };
             switch (dataMessage.type) {
                 case "postSemantic":
-                    database.postSemantic(        <ISemanticEvent>dataMessage.data,         success, failure); break;
+                    database.postSemantic(        <SemanticEvent>dataMessage.data,         success, failure); break;
                 case "postKeystroke":
-                    database.postKeystroke(       <IKeystrokeEvent>dataMessage.data,        success, failure); break;
+                    database.postKeystroke(       <KeystrokeEvent>dataMessage.data,        success, failure); break;
                 case "postMousePosition":
-                    database.postMousePosition(   <IMousePositionEvent>dataMessage.data,    success, failure); break;
+                    database.postMousePosition(   <MousePositionEvent>dataMessage.data,    success, failure); break;
                 case "postMouseClick":
-                    database.postMouseClick(      <IMouseClickEvent>dataMessage.data,       success, failure); break;
+                    database.postMouseClick(      <MouseClickEvent>dataMessage.data,       success, failure); break;
                 case "postMouseScroll":
-                    database.postMouseScroll(     <IMouseScrollEvent>dataMessage.data,      success, failure); break;
+                    database.postMouseScroll(     <MouseScrollEvent>dataMessage.data,      success, failure); break;
                 case "postWindowResolution":
-                    database.postWindowResolution(<IWindowResolutionEvent>dataMessage.data, success, failure); break;
+                    database.postWindowResolution(<WindowResolutionEvent>dataMessage.data, success, failure); break;
             }
             sendResponse({});
         });

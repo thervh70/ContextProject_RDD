@@ -56,7 +56,7 @@ class RESTApiDatabaseAdapter implements SemanticDatabaseAdaptable { // TODO impl
      * @param success       Callback, which is called once the call has succeeded.
      * @param failure       Callback, which is called once the call has failed.
      */
-    public postSemantic(eventData: ISemanticEvent, success: Callback, failure: Callback): void {
+    public postSemantic(eventData: SemanticEvent, success: Callback, failure: Callback): void {
         const self = this;
         if (!this.isInitialized) {
             Logger.warn("The database has not been initialized yet!");
@@ -86,7 +86,7 @@ class RESTApiDatabaseAdapter implements SemanticDatabaseAdaptable { // TODO impl
      * @param eventData                 The data to post to the database.
      * @returns {JQueryAjaxSettings}    A Settings Object that can be used in an AJAX request.
      */
-    private createPostData(eventData: ISemanticEvent) {
+    private createPostData(eventData: SemanticEvent) {
         return this.createJSONPost({
             "session": {
                 "pull_request": {

@@ -1,4 +1,4 @@
-/// <reference path="../EventObject/IKeystrokeEvent.ts"/>
+/// <reference path="../EventObject/KeystrokeEvent.ts"/>
 /**
  * Created by Maarten on 26-05-2016.
  */
@@ -10,5 +10,5 @@
  * @param failure       Callback, which is called once the call has failed.
  */
 interface KeystrokeDatabaseAdaptable {
-    postKeystroke(eventData: IKeystrokeEvent, success: Callback, failure: Callback): void;
+    postKeystroke(eventData: KeystrokeEvent, success: Callback, failure: Callback): void;
 }

@@ -63,7 +63,7 @@ describe("The Status, when the state is changed", function() {
 describe("The Status, when set", function() {
 
     it("by the set function, should call helper method setter with the given status, if Octopeer is allowed to log", function () {
-        let spyOptions = spyOn(Options, "getLogging").and.returnValue(true);
+        let spyOptions = spyOn(Options, "getOption").and.returnValue(true);
         let spySetter = spyOn(Status, "setter");
         let statusCode = StatusCode.ERROR;
         Status.set(statusCode);
@@ -72,7 +72,7 @@ describe("The Status, when set", function() {
     });
 
     it("by the set function, should call helper method setter with the StatusCode off, if Octopeer is not allowed to log", function () {
-        let spyOptions = spyOn(Options, "getLogging").and.returnValue(false);
+        let spyOptions = spyOn(Options, "getOption").and.returnValue(false);
         let spySetter = spyOn(Status, "setter");
         Status.set(StatusCode.ERROR);
         expect(spyOptions).toHaveBeenCalled();
@@ -84,7 +84,7 @@ describe("The Status, when set", function() {
         const spyRT = spyOn(chrome.runtime, "sendMessage");
         const spyLST = spyOn(chrome.storage.local, "set");
         const spyBA = spyOn(chrome.browserAction, "setIcon");
-        const spyLog = spyOn(Options, "getLogging").and.returnValue(false);
+        const spyLog = spyOn(Options, "getOption").and.returnValue(false);
         const line = "Octopeer is turned off.";
         const path = "img/icon/off.png";
         Status.set(StatusCode.ERROR);

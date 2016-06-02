@@ -1,5 +1,6 @@
 /**
- * Created by Robin on 24-5-2016.
+ * Created by Robin and Mitchell on 24-5-2016.
+ * Behaviour unit tests for the Options class.
  */
 
 describe("The Options class", function() {
@@ -47,63 +48,31 @@ describe("The Options class", function() {
         expect(spyNotify).not.toHaveBeenCalled();
     });
 
-    it("should get an option by passing a string as parameter", function() {
-        expect(Options.get("logging")).toBe(true);
+    it("should get the option value", function() {
+        let optionList: string[] = Options.generateOptionList();
+        // Boundary between regular options and doNotWatchOptions.
+        let optionBoundary = 7;
+        for (let i = 0; i < optionBoundary; i++) {
+            expect(Options.getOption(optionList[i])).toBe(true);
+        }
+        for (let i = optionBoundary; i < optionList.length; i++) {
+            expect(Options.getOption(optionList[i])).toBe(false);
+        }
     });
 
-    it("should return undefined when a non-existing property is get", function() {
-        expect(Options.get("IdoNOTexist")).toBe(undefined);
+    it("should return false for a bad weather (non-existing) option value", function() {
+        expect(Options.getOption("Hi there!")).toBe(false);
     });
 
-    it("should return undefined when a non-boolean property is get", function() {
-        expect(Options.get("addObserver")).toBe(undefined);
-});
-
-    it("should get the logging value", function() {
-        expect(Options.getLogging()).toBe(true);
+    it("should generate a list of its options", function() {
+        expect(Options.generateOptionList()).toEqual(["loggingEnabled", "trackTabs", "trackComments", "trackPeerComments", "trackFocus",
+            "hashUsername", "hashRepo", "hashFile", "doNotWatchOnScreenEvents", "doNotWatchHoverEvents", "doNotWatchCommentElements",
+            "doNotWatchKeyboardShortcutEvents"]);
     });
 
-    it("should get the tabs value", function() {
-        expect(Options.getTabs()).toBe(true);
-    });
-
-    it("should get the comments value", function() {
-        expect(Options.getComments()).toBe(true);
-    });
-
-    it("should get the peerComments value", function() {
-        expect(Options.getPeerComments()).toBe(true);
-    });
-
-    it("should get the focus value", function() {
-        expect(Options.getFocus()).toBe(true);
-    });
-
-    it("should get the username value", function() {
-        expect(Options.getUsername()).toBe(true);
-    });
-
-    it("should get the repo value", function() {
-        expect(Options.getRepo()).toBe(true);
-    });
-
-    it("should get the file value", function() {
-        expect(Options.getFile()).toBe(false);
-    });
-
-    it("should get the screenevents value", function() {
-        expect(Options.getDoNotWatchOnScreenEvents()).toBe(false);
-    });
-
-    it("should get the watchhover value", function() {
-        expect(Options.getDoNotWatchHoverEvents()).toBe(false);
-    });
-
-    it("should get the watchcomment value", function() {
-        expect(Options.getDoNotWatchCommentElements()).toBe(false);
-    });
-
-    it("should get the watchkeyboard value", function() {
-        expect(Options.getDoNotWatchKeyboardShortcutEvents()).toBe(false);
+    it("should update the optionMap based on changed values from the chrome storage", function() {
+        let spy = spyOn(chrome.storage.onChanged, "addListener");
+        Options.update();
+        expect(spy).toHaveBeenCalled();
     });
 });

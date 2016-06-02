@@ -1,5 +1,6 @@
 /* tslint:disable:max-line-length */
 /// <reference path="Options.ts"/>
+/// <reference path="../Array.ts"/>
 /// <reference path="../../content/ElementEventBinding/ElementEventBinding.ts"/>
 /// <reference path="../../content/ElementEventBinding/ClickElementEventBinding.ts"/>
 /// <reference path="../../content/ElementEventBinding/KeystrokeElementEventBinding.ts"/>
@@ -103,7 +104,7 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
     public getElements() {
         let doNotWatchElements: ElementSelectionBehaviourCreatable[] = [];
         for (let tuple of this.elementsThatShouldNotBeWatched) {
-            if (Options.get(tuple[0])) {
+            if (Options.getOption(tuple[0])) {
                 for (let element of tuple[1]) {
                     doNotWatchElements.push(element);
                 }
@@ -118,7 +119,7 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
     public getEvents() {
         let doNotWatchEvents: ElementEventBindingCreatable[] = [];
         for (let tuple of this.eventsThatShouldNotBeWatched) {
-            if (Options.get(tuple[0])) {
+            if (Options.getOption(tuple[0])) {
                 for (let element of tuple[1]) {
                     doNotWatchEvents.push(element);
                 }
@@ -135,7 +136,7 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
     public getCombinations() {
         let doNotWatchCombinations: ElementXEventCreatable[] = [];
         for (let tuple of this.combinationsThatShouldNotBeWatched) {
-            if (Options.get(tuple[0])) {
+            if (Options.getOption(tuple[0])) {
                 for (let element of tuple[1]) {
                     doNotWatchCombinations.push(element);
                 }
