@@ -51,9 +51,7 @@ abstract class AbstractElementSelectionBehaviour implements ElementSelectionBeha
     public getCallback(eventID: EventID) {
         const self = this;
         return (function(eventObject: JQueryEventObject) {
-            // TODO: check when the new Date is triggered.
-            self.database.postSemantic(EventFactory.semantic(self.getElementID(), eventID, new Date().getTime(), 0),
-                EMPTY_CALLBACK, EMPTY_CALLBACK);
+            self.database.postSemantic(EventFactory.semantic(self.getElementID(), eventID), EMPTY_CALLBACK, EMPTY_CALLBACK);
         });
     }
 }

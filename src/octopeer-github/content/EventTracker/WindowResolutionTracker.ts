@@ -18,8 +18,8 @@ class WindowResolutionTracker {
         windowObject.resize(function (eventObject: JQueryEventObject) {
             clearTimeout(resizeTimer);
             resizeTimer = setTimeout(function () {
-                self.db.postWindowResolution(EventFactory.windowResolution(windowObject.width(), windowObject.height(),
-                    new Date().getTime()), EMPTY_CALLBACK, EMPTY_CALLBACK);
+                self.db.postWindowResolution(EventFactory.windowResolution(windowObject.width(), windowObject.height()),
+                    EMPTY_CALLBACK, EMPTY_CALLBACK);
             }, WindowResolutionTracker.TIMEOUT);
         });
     }

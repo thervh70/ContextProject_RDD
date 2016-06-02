@@ -18,8 +18,8 @@ class MouseScrollTracker {
         windowObject.scroll(function (eventObject: JQueryEventObject) {
             clearTimeout(resizeTimer);
             resizeTimer = setTimeout(function () {
-                self.db.postMouseScroll(EventFactory.mouseScroll(windowObject.scrollLeft(), windowObject.scrollTop(),
-                    new Date().getTime()), EMPTY_CALLBACK, EMPTY_CALLBACK);
+                self.db.postMouseScroll(EventFactory.mouseScroll(windowObject.scrollLeft(), windowObject.scrollTop()),
+                    EMPTY_CALLBACK, EMPTY_CALLBACK);
             }, MouseScrollTracker.TIMEOUT);
         });
     }
