@@ -1,4 +1,5 @@
 /// <reference path="../../main/Database/DatabaseAdaptable/MouseClickDatabaseAdaptable.ts"/>
+/// <reference path="../../main/Database/EventObject/EventFactory.ts"/>
 /**
  * Created by Mathias on 2016-05-27.
  */
@@ -31,9 +32,9 @@ class MouseClickTracker {
             mouseY = eventObject.pageY;
             viewportX = windowObject.scrollLeft();
             viewportY = windowObject.scrollTop();
-            const time = new Date().getTime();
-            self.dbClick.postMouseClick(new MouseClickEvent(time), EMPTY_CALLBACK, EMPTY_CALLBACK);
-            self.dbPosition.postMousePosition(new MousePositionEvent(viewportX + mouseX, viewportY + mouseY,
+            const time = EventFactory.getTime();
+            self.dbClick.postMouseClick(EventFactory.mouseClick(time), EMPTY_CALLBACK, EMPTY_CALLBACK);
+            self.dbPosition.postMousePosition(EventFactory.mousePosition(viewportX + mouseX, viewportY + mouseY,
                 viewportX, viewportY, time), EMPTY_CALLBACK, EMPTY_CALLBACK);
         });
     }

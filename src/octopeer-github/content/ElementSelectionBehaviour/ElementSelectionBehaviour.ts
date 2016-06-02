@@ -24,16 +24,3 @@ interface ElementSelectionBehaviour {
      */
     getCallback(eventID: EventID): EventHandler;
 }
-
-
-/**
- * Makes it so we can instantiate by class name, for reference see:
- * http://stackoverflow.com/questions/13407036/how-does-typescript-interfaces-with-construct-signatures-work
- */
-interface ElementSelectionBehaviourCreatable {
-    /**
-     * Creates a ElementSelectionBehaviour object.
-     * @param database the database to push to.
-     */
-    new (database: DatabaseAdaptable): ElementSelectionBehaviour;
-}

@@ -1,5 +1,6 @@
 /**
- * Created by Robin on 24-5-2016.
+ * Created by Robin and Mitchell on 24-5-2016.
+ * Behaviour unit tests for the Options class.
  */
 
 describe("The Options class", function() {
@@ -7,6 +8,21 @@ describe("The Options class", function() {
     let spySyncStorage: jasmine.Spy;
     let controller: MainController;
     let spyNotify: jasmine.Spy;
+
+    let mockedStorageObject: { [key: string]: boolean; } = {
+        [this.LOGGING]: false,
+        [this.TRACK_TABS]: true,
+        [this.TRACK_COMMENTS]: false,
+        [this.TRACK_PEER_COMMENTS]: true,
+        [this.TRACK_FOCUS]: false,
+        [this.HASH_USERNAME]: true,
+        [this.HASH_REPO]: false,
+        [this.HASH_FILE]: true,
+        [this.DNW_ON_SCREEN_EVENTS]: true,
+        [this.DNW_HOVER_EVENTS]: false,
+        [this.DNW_COMMENT_ELEMENTS]: true,
+        [this.DNW_KEYBOARD_EVENTS]: false,
+    };
 
     beforeEach(function () {
         controller = new MainController();
@@ -47,51 +63,38 @@ describe("The Options class", function() {
         expect(spyNotify).not.toHaveBeenCalled();
     });
 
-    it("should get the logging value", function() {
-        expect(Options.getLogging()).toBe(true);
+    it("should get the option value", function() {
+        let optionList: string[] = Options.generateOptionList();
+        // HashFile is false by default.
+        let turnedOff = 7;
+        for (let i = 0; i < optionList.length; i++) {
+            if (i !== turnedOff) {
+                expect(Options.get(optionList[i])).toBe(true);
+            } else {
+                expect(Options.get(optionList[turnedOff])).toBe(false);
+            }
+        }
     });
 
-    it("should get the tabs value", function() {
-        expect(Options.getTabs()).toBe(true);
+    it("should return false for a bad weather (non-existing) option value", function() {
+        expect(Options.get("Hi there!")).toBe(false);
     });
 
-    it("should get the comments value", function() {
-        expect(Options.getComments()).toBe(true);
+    it("should generate a list of its options", function() {
+        expect(Options.generateOptionList()).toEqual(["loggingEnabled", "trackTabs", "trackComments", "trackPeerComments", "trackFocus",
+            "hashUsername", "hashRepo", "hashFile", "doNotWatchOnScreenEvents", "doNotWatchHoverEvents", "doNotWatchCommentElements",
+            "doNotWatchKeyboardShortcutEvents"]);
     });
 
-    it("should get the peerComments value", function() {
-        expect(Options.getPeerComments()).toBe(true);
-    });
+    it("should be able to synchronize the optionMap when a storage object with different option values is given", function() {
+        spyNotify = spyOn(Options, "notifyObservers");
+        Options.syncOptionMap(mockedStorageObject);
 
-    it("should get the focus value", function() {
-        expect(Options.getFocus()).toBe(true);
-    });
-
-    it("should get the username value", function() {
-        expect(Options.getUsername()).toBe(true);
-    });
-
-    it("should get the repo value", function() {
-        expect(Options.getRepo()).toBe(true);
-    });
-
-    it("should get the file value", function() {
-        expect(Options.getFile()).toBe(false);
-    });
-
-    it("should get the screenevents value", function() {
-        expect(Options.getDoNotWatchOnScreenEvents()).toBe(false);
-    });
-
-    it("should get the watchhover value", function() {
-        expect(Options.getDoNotWatchHoverEvents()).toBe(false);
-    });
-
-    it("should get the watchcomment value", function() {
-        expect(Options.getDoNotWatchCommentElements()).toBe(false);
-    });
-
-    it("should get the watchkeyboard value", function() {
-        expect(Options.getDoNotWatchKeyboardShortcutEvents()).toBe(false);
+        for (let key in mockedStorageObject) {
+            if (mockedStorageObject.hasOwnProperty(key)) {
+                expect(mockedStorageObject[key]).toEqual(Options.get(key));
+            }
+        }
+        expect(spyNotify).toHaveBeenCalled();
     });
 });

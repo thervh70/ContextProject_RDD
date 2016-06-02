@@ -33,11 +33,20 @@ class EventID {
     constructor(private eventID: number) {}
 
     /**
-     * get the value of the element ID.
+     * get the value of the event ID.
      * @returns {number}
      */
     public getEventID(): number {
         return this.eventID;
+    }
+
+    /**
+     * Checks whether two EventIDs are equal.
+     * @param that EventID to compare with.
+     * @returns {boolean} true if the EventIDs are equal, false otherwise.
+     */
+    public equals(that: EventID) {
+        return this.eventID === that.eventID;
     }
 
     /**

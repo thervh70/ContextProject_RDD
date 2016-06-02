@@ -4,16 +4,18 @@
  */
 
 describe("A MouseLeaveElementEventBinding's", function() {
+    const esbFactory = new ElementSelectionBehaviourFactory();
+    const eebFactory = new ElementEventBindingFactory();
 
     it("type should be retrieved when the getEventType function is called", function() {
-        selector = new PRParticipantNameElementSelectionBehaviour(database);
-        binder = new MouseLeaveElementEventBinding(selector);
+        selector = esbFactory.create(database, ElementID.PR_PARTICIPANT);
+        binder = eebFactory.create(selector, EventID.MOUSE_LEAVE);
         expect(binder.getEventType()).toBe("mouseleave");
     });
 
     it("ID should be retrieved when the getEventID function is called", function() {
-        selector = new CommentTextFieldElementSelectionBehaviour(database);
-        binder = new MouseLeaveElementEventBinding(selector);
+        selector = esbFactory.create(database, ElementID.COMMENT_TEXTFIELD);
+        binder = eebFactory.create(selector, EventID.MOUSE_LEAVE);
         expect(binder.getEventID()).toEqual(new EventID(203));
     });
 });

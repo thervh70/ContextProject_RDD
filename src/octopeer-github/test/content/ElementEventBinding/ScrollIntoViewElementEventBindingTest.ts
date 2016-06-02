@@ -4,16 +4,18 @@
  */
 
 describe("A ScrollIntoViewElementEventBinding's", function() {
+    const esbFactory = new ElementSelectionBehaviourFactory();
+    const eebFactory = new ElementEventBindingFactory();
 
     it("type should be retrieved when the getEventType function is called", function() {
-        selector = new InlineCommentTextFieldElementSelectionBehaviour(database);
-        binder = new ScrollIntoViewElementEventBinding(selector);
+        selector = esbFactory.create(database, ElementID.INLINE_COMMENT_TEXTFIELD);
+        binder = eebFactory.create(selector, EventID.SCROLL_INTO_VIEW);
         expect(binder.getEventType()).toBe("scrollintoview");
     });
 
     it("ID should be retrieved when the getEventID function is called", function() {
-        selector = new PRCreatorNameElementSelectionBehaviour(database);
-        binder = new ScrollIntoViewElementEventBinding(selector);
+        selector = esbFactory.create(database, ElementID.PR_CREATOR);
+        binder = eebFactory.create(selector, EventID.SCROLL_INTO_VIEW);
         expect(binder.getEventID()).toEqual(new EventID(301));
     });
 });
