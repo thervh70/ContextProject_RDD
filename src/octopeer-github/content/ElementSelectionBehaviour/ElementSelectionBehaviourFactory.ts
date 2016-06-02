@@ -39,14 +39,6 @@ class ElementSelectionBehaviourFactory {
     }
 
     /**
-     * Get the sorted ElementSelectionBehaviourData list
-     * @returns {ElementSelectionBehaviourData[]}
-     */
-    public getElementSelectionBehaviourData() {
-        return this.elementSelectionBehaviourData;
-    }
-
-    /**
      * Find the correct ElementSelectionBehaviourData from the sorted list by ID.
      * @param ID The ID that corresponds with the Data to be found.
      * @returns {any} The Data.
