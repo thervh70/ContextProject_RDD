@@ -53,7 +53,9 @@ const Options = new (class Options {
     public init() {
         this.observers = [];
         let options: string[] = this.generateOptionList();
-        chrome.storage.sync.get(options, this.syncOptionMap);
+
+        // just passing 'this.syncOptionMap' as callback won't work, because "this" inside the callback will be scoped to the Chrome API.
+        chrome.storage.sync.get(options, (obj) => this.syncOptionMap(obj));
         chrome.storage.onChanged.addListener((obj, area) => {if (area === "sync") {this.syncOptionMap(obj); }});
     }
 

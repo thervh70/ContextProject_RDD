@@ -18,6 +18,7 @@ class ContentController {
      * @return this
      */
     public start() {
+        Options.init();
         if (!chrome.runtime.onMessage.hasListeners()) {
             chrome.runtime.onMessage.addListener(this.processMessageFromBackgroundPage());
         }
@@ -66,24 +67,21 @@ class ContentController {
         let mousePositionTracker: MousePositionTracker;
 
         for (elementSelectionBinding of elementSelectionBehaviourDataList) {
-            if (DoNotWatchOptions.getElements().map(function (data) { return data.elementID.getElementID(); })
-                    .indexOf(elementSelectionBinding.elementID.getElementID()) >= 0) {
+            if (!DoNotWatchOptions.shouldElementBeWatched(elementSelectionBinding.elementID)) {
                 continue;
             }
 
             elementSelectionBindingHolder = esbFactory.create(database, elementSelectionBinding.elementID);
 
             for (elementEventBinding of elementEventBindingDataList) {
-                if (DoNotWatchOptions.getEvents().map(function (data) { return data.eventID.getEventID(); })
-                        .indexOf(elementEventBinding.eventID.getEventID()) >= 0 ||
-                    DoNotWatchOptions.getCombinations().indexOf({
-                        element: elementSelectionBinding,
-                        event: elementEventBinding,
-                    }) > 0
+                if (DoNotWatchOptions.shouldEventBeWatched(elementEventBinding.eventID) &&
+                    DoNotWatchOptions.shouldCombinationBeWatched({
+                        element: elementSelectionBinding.elementID,
+                        event: elementEventBinding.eventID,
+                    })
                 ) {
-                    continue;
+                    elementEventBindingHolder = eebFactory.create(elementSelectionBindingHolder, elementEventBinding.eventID);
                 }
-                elementEventBindingHolder = eebFactory.create(elementSelectionBindingHolder, elementEventBinding.eventID);
             }
         }
         windowResolutionTracker = new WindowResolutionTracker(database);

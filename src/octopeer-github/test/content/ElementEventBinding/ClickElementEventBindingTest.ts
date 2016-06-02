@@ -31,6 +31,8 @@ describe("An EventBinder that binds Click events", function() {
 });
 
 describe("A ClickElementEventBinding's", function() {
+    const esbFactory = new ElementSelectionBehaviourFactory();
+    const eebFactory = new ElementEventBindingFactory();
 
     it("type should be retrieved when the getEventType function is called", function() {
         selector = esbFactory.create(database, ElementID.CREATE_INLINE_COMMENT);

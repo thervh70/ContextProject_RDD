@@ -10,39 +10,44 @@ describe("The DoNotWatchOptions", function() {
     interface DNWOTestTuple extends Array<any> {
         0: string;
         1: any[][];
-        2: () => void;
+        2: any[];
+        3: (e: any) => boolean;
     }
 
     const elementTestList: any[][] = [
         [{}, []],
-        [{doNotWatchCommentElements: true}, [
-            esbFactory.findElementSelectionBehaviourData(ElementID.CONFIRM_INLINE_COMMENT),
-            esbFactory.findElementSelectionBehaviourData(ElementID.CREATE_PR_COMMENT),
-            esbFactory.findElementSelectionBehaviourData(ElementID.EDIT_COMMENT),
-        ]],
+        [{doNotWatchCommentElements: true}, [ElementID.CONFIRM_INLINE_COMMENT, ElementID.CREATE_PR_COMMENT, ElementID.EDIT_COMMENT]],
     ];
 
     const eventTestList: any[][] = [
         [{}, []],
-        [{doNotWatchOnScreenEvents: true}, [
-            eebFactory.findElementEventBindingData(EventID.SCROLL_INTO_VIEW),
-            eebFactory.findElementEventBindingData(EventID.SCROLL_OUT_OF_VIEW),
-        ]],
-        [{doNotWatchHoverEvents: true}, [
-            eebFactory.findElementEventBindingData(EventID.MOUSE_ENTER),
-            eebFactory.findElementEventBindingData(EventID.MOUSE_LEAVE),
-        ]],
-        [{doNotWatchKeyboardShortcutEvents: true}, [eebFactory.findElementEventBindingData(EventID.KEYSTROKE)]],
+        [{doNotWatchOnScreenEvents: true}, [EventID.SCROLL_INTO_VIEW, EventID.SCROLL_OUT_OF_VIEW]],
+        [{doNotWatchHoverEvents: true}, [EventID.MOUSE_ENTER, EventID.MOUSE_LEAVE]],
+        [{doNotWatchKeyboardShortcutEvents: true}, [EventID.KEYSTROKE]],
     ];
 
     const combinationTestList: any[][] = [
         [{}, []],
     ];
 
+    const elementList: ElementID[] = [];
+    const eventList: EventID[] = [];
+    const combinationList: ElementXEventID[] = [];
+
+    for (let element of elementSelectionBehaviourDataList) {
+        elementList.push(element.elementID);
+        for (let event of elementEventBindingDataList) {
+            combinationList.push({element: element.elementID, event: event.eventID});
+        }
+    }
+    for (let event of elementEventBindingDataList) {
+        eventList.push(event.eventID);
+    }
+
     const testList: DNWOTestTuple[] = [
-        ["element", elementTestList, () => DoNotWatchOptions.getElements()],
-        ["event", eventTestList, () => DoNotWatchOptions.getEvents()],
-        ["combination", combinationTestList, () => DoNotWatchOptions.getCombinations()],
+        ["element",     elementTestList,     elementList,     (e) => DoNotWatchOptions.shouldElementBeWatched(e)],
+        ["event",       eventTestList,       eventList,       (e) => DoNotWatchOptions.shouldEventBeWatched(e)],
+        ["combination", combinationTestList, combinationList, (e) => DoNotWatchOptions.shouldCombinationBeWatched(e)],
     ];
 
     beforeEach(function() {
@@ -59,10 +64,13 @@ describe("The DoNotWatchOptions", function() {
 
     for (let typeTuple of testList) {
         for (let tuple of typeTuple[1]) {
-            it(`should return ${tuple[1].length} ${typeTuple[0]}s when Options are set to ${tuple[0]}`, function() {
+            it(`should return ${tuple[1].length} ${typeTuple[0]}s when Options are set to ${JSON.stringify(tuple[0])}`, function() {
                 fakeOptions = tuple[0];
-                expect(typeTuple[2]()).toBeDefined();
-                expect(typeTuple[2]()).toEqual(tuple[1]);
+                for (let e of typeTuple[2]) {
+                    // expect(DoNotWatchOptions.should*BeWatched(e).toEqual(x)
+                    //      where x is true or false, depending on the lists defined above
+                    expect(typeTuple[3](e)).toEqual(!tuple[1].contains(e));
+                }
             });
         }
     }
