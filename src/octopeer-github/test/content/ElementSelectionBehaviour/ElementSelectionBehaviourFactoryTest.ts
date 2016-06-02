@@ -4,31 +4,20 @@
  */
 describe("An ElementSelectionBehaviourFactory", function () {
 
-    const elementSelectionBehaviourFactory = new ElementSelectionBehaviourFactory();
-    // const database = new ConsoleLogDatabaseAdapter();
-    const unsortedList = unsortedElementSelectionBehaviourData;
+    const factory = new ElementSelectionBehaviourFactory();
+    const database = new ConsoleLogDatabaseAdapter();
 
-    it("should sort the ElementSelectionBehaviourData list.", function () {
-        let sortedList = elementSelectionBehaviourFactory.getElementSelectionBehaviourData();
-        let data: ElementSelectionBehaviourData;
-        let i = 0;
+    it("should create ElementSelectionBehaviours", function () {
+        let esb = factory.create(database, ElementID.ADD_EMOTICON);
 
-        expect(unsortedList.length === sortedList.length);
-        for (data of sortedList) {
-            // No such thing as Array.prototype.contains
-            expect(unsortedList.indexOf(data) >= 0);
-        }
-
-        for (i = 0; i < sortedList.length - 1; i++) {
-            expect(sortedList[i].elementID < sortedList[i + 1].elementID);
-        }
+        expect(esb.getData().name).toEqual("Add emoticon");
+        expect(esb.getElementID()).toEqual(ElementID.ADD_EMOTICON);
     });
 
-    // it("should create ElementSelectionBehaviours", function () {
-    //     expect(equals(elementSelectionBehaviourFactory.create(database, ElementID.ADD_EMOTICON)
-    //         .getData, ($.grep(unsortedList, function (e: ElementSelectionBehaviourData) {
-    //             return e.elementID === ElementID.ADD_EMOTICON;
-    //         }))));
-    // });
+    it("should find the proper ESBData when given an ElementID", function () {
+        let esb = factory.findElementSelectionBehaviourData(ElementID.MERGE_PR);
+
+        expect(esb.elementID.getElementID()).toEqual(ElementID.MERGE_PR.getElementID());
+    });
 });
 

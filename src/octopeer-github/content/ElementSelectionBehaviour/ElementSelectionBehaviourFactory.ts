@@ -8,13 +8,18 @@ class ElementSelectionBehaviourFactory {
      * The ElementSelectionBehaviourData list, sorted by ElementID.
      * Sorting is done in the constructor.
      */
-    private elementSelectionBehaviourData: ElementSelectionBehaviourData[];
+    private elementSelectionBehaviourData: ElementSelectionBehaviourData[] = [];
 
     /**
-     * Create a ElementSelectionBehaviourFactory and sort the ElementSelectionBehaviourData list.
+     * Create a ElementSelectionBehaviourFactory and puts the ESBData objects at the index
+     * corresponding to their ElementID (for easier retrieval of ESBData).
      */
     constructor() {
-        this.elementSelectionBehaviourData = unsortedElementSelectionBehaviourData.sort(this.compare);
+        let data: ElementSelectionBehaviourData;
+
+        for (data of unsortedElementSelectionBehaviourData) {
+            this.elementSelectionBehaviourData[data.elementID.getElementID()] = data;
+        }
     }
 
     /**
@@ -44,27 +49,9 @@ class ElementSelectionBehaviourFactory {
     /**
      * Find the correct ElementSelectionBehaviourData from the sorted list by ID.
      * @param ID The ID that corresponds with the Data to be found.
-     * @returns {any} The Data, or null if not present in the sorted list.
+     * @returns {any} The Data.
      */
     public findElementSelectionBehaviourData(ID: ElementID) {
-        let elementSelectionBehaviourData: ElementSelectionBehaviourData;
-
-        for (elementSelectionBehaviourData of this.elementSelectionBehaviourData) {
-            if (elementSelectionBehaviourData.elementID.getElementID() === ID.getElementID()) {
-                return elementSelectionBehaviourData;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Compare two ElementSelectionBehaviourDatas by ElementID.
-     * Used to sort the ElementSelectionBehaviourData list.
-     * @param esb1 The first ElementSelectionBehaviourData
-     * @param esb2 The second ElementSelectionBehaviourData.
-     * @returns {number}
-     */
-    private compare(esb1: ElementSelectionBehaviourData, esb2: ElementSelectionBehaviourData) {
-        return esb1.elementID.getElementID() - esb2.elementID.getElementID();
+        return this.elementSelectionBehaviourData[ID.getElementID()];
     }
 }
