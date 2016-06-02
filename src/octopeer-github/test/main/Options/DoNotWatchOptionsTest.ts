@@ -8,8 +8,11 @@ describe("The DoNotWatchOptions", function() {
     it("should return elements that should not be watched, when comment elements is switched on", function () {
         spyOn(Options, "getDoNotWatchCommentElements").and.returnValue(true);
         expect(DoNotWatchOptions.getElements()).toBeDefined();
-        expect(DoNotWatchOptions.getElements()).toEqual([CommentInlineCommentButtonElementSelectionBehaviour,
-            CommentPRButtonElementSelectionBehaviour, EditCommentButtonElementSelectionBehaviour]);
+        expect(DoNotWatchOptions.getElements()).toEqual([
+            factory.findElementSelectionBehaviourData(ElementID.CONFIRM_INLINE_COMMENT),
+            factory.findElementSelectionBehaviourData(ElementID.CREATE_PR_COMMENT),
+            factory.findElementSelectionBehaviourData(ElementID.EDIT_COMMENT),
+        ]);
     });
 
     it("should return elements that should not be watched, when comment elements is switched off", function () {

@@ -6,8 +6,7 @@
  * The main abstract class for ElementSelectionBehaviours.
  * It implements the ElementSelectionBehaviour interface and all ElementSelectionBehaviours
  * inherit from this abstract class.
- */
-abstract class AbstractElementSelectionBehaviour implements ElementSelectionBehaviour {
+ */abstract class AbstractElementSelectionBehaviour implements ElementSelectionBehaviour {
 
     /**
      * The description of the Element
