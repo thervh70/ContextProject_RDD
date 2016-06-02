@@ -1,28 +1,25 @@
 /// <reference path="Options.ts"/>
 /// <reference path="../../content/ElementEventBinding/ElementEventBinding.ts"/>
-/// <reference path="../../content/ElementEventBinding/ClickElementEventBinding.ts"/>
-/// <reference path="../../content/ElementEventBinding/KeystrokeElementEventBinding.ts"/>
-/// <reference path="../../content/ElementEventBinding/MouseEnterElementEventBinding.ts"/>
-/// <reference path="../../content/ElementEventBinding/MouseLeaveElementEventBinding.ts"/>
-/// <reference path="../../content/ElementEventBinding/ScrollIntoViewElementEventBinding.ts"/>
-/// <reference path="../../content/ElementEventBinding/ScrollOutOfViewElementEventBinding.ts"/>
+/// <reference path="../../content/ElementEventBinding/ElementEventBindingData.ts"/>
+/// <reference path="../../content/ElementEventBinding/ElementEventBindingFactory.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/ElementSelectionBehaviour.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/ElementSelectionBehaviourData.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/ElementSelectionBehaviourFactory.ts"/>
 
 /**
  * Created by Youri on 19-5-2016.
- * Additional type for storing tuples of Element and Event Creatables.
+ * Additional type for storing tuples of Element and Event Data.
  */
 type ElementXEventCreatable = {
     element: ElementSelectionBehaviourData,
-    event: ElementEventBindingCreatable
+    event: ElementEventBindingData
 };
 
 /**
  * Class for indicating all internal options of the application.
  */
-const factory = new ElementSelectionBehaviourFactory();
+const esbFactory = new ElementSelectionBehaviourFactory();
+const eebFactory = new ElementEventBindingFactory();
 // tslint:disable-next-line:no-unused-variable
 const DoNotWatchOptions = new (class DoNotWatchOptions {
     /**
@@ -31,10 +28,11 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
      */
     public getElements() {
         let doNotWatchElements: ElementSelectionBehaviourData[] = [];
+
         if (Options.get(Options.DNW_COMMENT_ELEMENTS)) {
-            doNotWatchElements.push(factory.findElementSelectionBehaviourData(ElementID.CONFIRM_INLINE_COMMENT));
-            doNotWatchElements.push(factory.findElementSelectionBehaviourData(ElementID.CREATE_PR_COMMENT));
-            doNotWatchElements.push(factory.findElementSelectionBehaviourData(ElementID.EDIT_COMMENT));
+            doNotWatchElements.push(esbFactory.findElementSelectionBehaviourData(ElementID.CONFIRM_INLINE_COMMENT));
+            doNotWatchElements.push(esbFactory.findElementSelectionBehaviourData(ElementID.CREATE_PR_COMMENT));
+            doNotWatchElements.push(esbFactory.findElementSelectionBehaviourData(ElementID.EDIT_COMMENT));
         }
         return doNotWatchElements;
     }
@@ -43,18 +41,18 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
      * @returns {ElementEventBindingCreatable[]}
      */
     public getEvents() {
-        let doNotWatchEvents: ElementEventBindingCreatable[] = [];
+        let doNotWatchEvents: ElementEventBindingData[] = [];
 
         if (Options.get(Options.DNW_ON_SCREEN_EVENTS)) {
-            doNotWatchEvents.push(ScrollIntoViewElementEventBinding);
-            doNotWatchEvents.push(ScrollOutOfViewElementEventBinding);
+            doNotWatchEvents.push(eebFactory.findElementEventBindingData(EventID.SCROLL_INTO_VIEW));
+            doNotWatchEvents.push(eebFactory.findElementEventBindingData(EventID.SCROLL_OUT_OF_VIEW));
         }
         if (Options.get(Options.DNW_HOVER_EVENTS)) {
-            doNotWatchEvents.push(MouseEnterElementEventBinding);
-            doNotWatchEvents.push(MouseLeaveElementEventBinding);
+            doNotWatchEvents.push(eebFactory.findElementEventBindingData(EventID.MOUSE_ENTER));
+            doNotWatchEvents.push(eebFactory.findElementEventBindingData(EventID.MOUSE_LEAVE));
         }
         if (Options.get(Options.DNW_KEYBOARD_EVENTS)) {
-            doNotWatchEvents.push(KeystrokeElementEventBinding);
+            doNotWatchEvents.push(eebFactory.findElementEventBindingData(EventID.KEYSTROKE));
         }
         return doNotWatchEvents;
     }

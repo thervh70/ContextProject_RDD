@@ -1,30 +1,11 @@
 /// <reference path="../main/Options/DoNotWatchOptions.ts"/>
 /// <reference path="../main/Database/ConsoleLogDatabaseAdapter.ts"/>
 /// <reference path="ElementEventBinding/ElementEventBinding.ts"/>
-/// <reference path="ElementEventBinding/ClickElementEventBinding.ts"/>
-/// <reference path="ElementEventBinding/KeystrokeElementEventBinding.ts"/>
-/// <reference path="ElementEventBinding/MouseEnterElementEventBinding.ts"/>
-/// <reference path="ElementEventBinding/MouseLeaveElementEventBinding.ts"/>
-/// <reference path="ElementEventBinding/ScrollIntoViewElementEventBinding.ts"/>
-/// <reference path="ElementEventBinding/ScrollOutOfViewElementEventBinding.ts"/>
-/// <reference path="ElementSelectionBehaviour/ElementSelectionBehaviour.ts"/>
 
 /**
  * The ContentController hooks the event handlers to the DOM-tree.
  */
 class ContentController {
-
-    /**
-     * List of ElementEventBindings that should be matched with ElementSelectors
-     */
-    private elementEventBindingList = [
-        ClickElementEventBinding,
-        KeystrokeElementEventBinding,
-        MouseEnterElementEventBinding,
-        MouseLeaveElementEventBinding,
-        ScrollIntoViewElementEventBinding,
-        ScrollOutOfViewElementEventBinding,
-    ];
 
     /**
      * A private DatabaseAdaptable that sends messages to the background page.
@@ -73,7 +54,8 @@ class ContentController {
      */
     private hookToDOM(database: DatabaseAdaptable) {
         const esbFactory = new ElementSelectionBehaviourFactory();
-        let elementEventBinding: ElementEventBindingCreatable;
+        const eebFactory = new ElementEventBindingFactory();
+        let elementEventBinding: ElementEventBindingData;
         let elementSelectionBinding: ElementSelectionBehaviourData;
         let elementEventBindingHolder: ElementEventBinding;
         let elementSelectionBindingHolder: ElementSelectionBehaviour;
@@ -83,7 +65,7 @@ class ContentController {
         let mouseScrollTracker: MouseScrollTracker;
         let mousePositionTracker: MousePositionTracker;
 
-        for (elementSelectionBinding of unsortedElementSelectionBehaviourData) {
+        for (elementSelectionBinding of elementSelectionBehaviourDataList) {
             if (DoNotWatchOptions.getElements().map(function (data) { return data.elementID.getElementID(); })
                     .indexOf(elementSelectionBinding.elementID.getElementID()) >= 0) {
                 continue;
@@ -91,8 +73,9 @@ class ContentController {
 
             elementSelectionBindingHolder = esbFactory.create(database, elementSelectionBinding.elementID);
 
-            for (elementEventBinding of this.elementEventBindingList) {
-                if (DoNotWatchOptions.getEvents().indexOf(elementEventBinding) > 0 ||
+            for (elementEventBinding of elementEventBindingDataList) {
+                if (DoNotWatchOptions.getEvents().map(function (data) { return data.eventID.getEventID(); })
+                        .indexOf(elementEventBinding.eventID.getEventID()) >= 0 ||
                     DoNotWatchOptions.getCombinations().indexOf({
                         element: elementSelectionBinding,
                         event: elementEventBinding,
@@ -100,7 +83,7 @@ class ContentController {
                 ) {
                     continue;
                 }
-                elementEventBindingHolder = new elementEventBinding(elementSelectionBindingHolder);
+                elementEventBindingHolder = eebFactory.create(elementSelectionBindingHolder, elementEventBinding.eventID);
             }
         }
         windowResolutionTracker = new WindowResolutionTracker(database);

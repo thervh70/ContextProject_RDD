@@ -16,17 +16,23 @@ describe("The DoNotWatchOptions", function() {
     const elementTestList: any[][] = [
         [{}, []],
         [{doNotWatchCommentElements: true}, [
-            factory.findElementSelectionBehaviourData(ElementID.CONFIRM_INLINE_COMMENT),
-            factory.findElementSelectionBehaviourData(ElementID.CREATE_PR_COMMENT),
-            factory.findElementSelectionBehaviourData(ElementID.EDIT_COMMENT),
+            esbFactory.findElementSelectionBehaviourData(ElementID.CONFIRM_INLINE_COMMENT),
+            esbFactory.findElementSelectionBehaviourData(ElementID.CREATE_PR_COMMENT),
+            esbFactory.findElementSelectionBehaviourData(ElementID.EDIT_COMMENT),
         ]],
     ];
 
     const eventTestList: any[][] = [
         [{}, []],
-        [{doNotWatchOnScreenEvents: true}, [ScrollIntoViewElementEventBinding, ScrollOutOfViewElementEventBinding]],
-        [{doNotWatchHoverEvents: true}, [MouseEnterElementEventBinding, MouseLeaveElementEventBinding]],
-        [{doNotWatchKeyboardShortcutEvents: true}, [KeystrokeElementEventBinding]],
+        [{doNotWatchOnScreenEvents: true}, [
+            eebFactory.findElementEventBindingData(EventID.SCROLL_INTO_VIEW),
+            eebFactory.findElementEventBindingData(EventID.SCROLL_OUT_OF_VIEW),
+        ]],
+        [{doNotWatchHoverEvents: true}, [
+            eebFactory.findElementEventBindingData(EventID.MOUSE_ENTER),
+            eebFactory.findElementEventBindingData(EventID.MOUSE_LEAVE),
+        ]],
+        [{doNotWatchKeyboardShortcutEvents: true}, [eebFactory.findElementEventBindingData(EventID.KEYSTROKE)]],
     ];
 
     const combinationTestList: any[][] = [
@@ -60,5 +66,4 @@ describe("The DoNotWatchOptions", function() {
             });
         }
     }
-
 });
