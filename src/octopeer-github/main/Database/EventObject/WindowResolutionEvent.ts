@@ -3,7 +3,7 @@
  */
 
 /**
- * An WindowResolutionEvent contains the data that should be posted to a Database.
+ * A WindowResolutionEvent contains the data that should be posted to a Database.
  * @param width         the new width of the window.
  * @param height        the new height of the window.
  * @param timestamp     when the event was created.
@@ -13,5 +13,5 @@ interface WindowResolutionEvent {
     width: number;
     height: number;
 
-    timestamp: UnixTimestamp;
+    created_at: UnixTimestamp;
 }

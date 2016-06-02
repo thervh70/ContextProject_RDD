@@ -1,6 +1,7 @@
 /// <reference path="GenericElementSelectionBehaviour.ts"/>
 /**
  * Created by Mathias on 2016-05-31.
+ * Used to create GenericElementSelectionBehaviours based on their ElementID.
  */
 class ElementSelectionBehaviourFactory {
 
@@ -36,14 +37,6 @@ class ElementSelectionBehaviourFactory {
             return new GenericElementSelectionBehaviour(database, elementSelectionBehaviourData);
         }
         return null;
-    }
-
-    /**
-     * Get the sorted ElementSelectionBehaviourData list
-     * @returns {ElementSelectionBehaviourData[]}
-     */
-    public getElementSelectionBehaviourData() {
-        return this.elementSelectionBehaviourData;
     }
 
     /**

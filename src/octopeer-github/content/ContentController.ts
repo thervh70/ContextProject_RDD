@@ -53,11 +53,12 @@ class ContentController {
      * @param database   the database that should be used when logging.
      */
     private hookToDOM(database: DatabaseAdaptable) {
-        let eebFactory = new ElementEventBindingFactory();
+        const esbFactory = new ElementSelectionBehaviourFactory();
+        const eebFactory = new ElementEventBindingFactory();
         let elementEventBinding: ElementEventBindingData;
         let elementSelectionBinding: ElementSelectionBehaviourData;
         let elementEventBindingHolder: ElementEventBinding;
-        let elementSelectionBindingHolder: GenericElementSelectionBehaviour;
+        let elementSelectionBindingHolder: ElementSelectionBehaviour;
         let windowResolutionTracker: WindowResolutionTracker;
         let keystrokeTracker: KeystrokeTracker;
         let mouseClickTracker: MouseClickTracker;
@@ -70,7 +71,7 @@ class ContentController {
                 continue;
             }
 
-            elementSelectionBindingHolder = new GenericElementSelectionBehaviour(database, elementSelectionBinding);
+            elementSelectionBindingHolder = esbFactory.create(database, elementSelectionBinding.elementID);
 
             for (elementEventBinding of elementEventBindingDataList) {
                 if (DoNotWatchOptions.getEvents().map(function (data) { return data.eventID.getEventID(); })

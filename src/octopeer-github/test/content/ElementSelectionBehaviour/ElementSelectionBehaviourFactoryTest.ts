@@ -14,6 +14,11 @@ describe("An ElementSelectionBehaviourFactory", function () {
         expect(esb.getElementID()).toEqual(ElementID.ADD_EMOTICON);
     });
 
+    it("should return null when a non-existing ElementID is given to the create function", function () {
+        let esb = factory.create(database, new ElementID(-1));
+        expect(esb).toEqual(null);
+    });
+
     it("should find the proper ESBData when given an ElementID", function () {
         let esb = factory.findElementSelectionBehaviourData(ElementID.MERGE_PR);
 
