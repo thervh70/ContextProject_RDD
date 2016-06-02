@@ -83,7 +83,7 @@ const Status = new (class Status {
      * @param status
      */
     public set(status: StatusCode) {
-        if (Options.getOption("loggingEnabled")) {
+        if (Options.getOption(Options.LOGGING)) {
             this.setter(status);
         } else {
             this.setter(StatusCode.OFF);

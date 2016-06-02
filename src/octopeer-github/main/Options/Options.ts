@@ -1,5 +1,4 @@
 /// <reference path="OptionsObserver.ts"/>
-
 /**
  * Created by Mitchell on 12-5-2016.
  * Class from which user options can be retrieved.
@@ -10,20 +9,38 @@
  */
 // tslint:disable-next-line:no-unused-variable
 const Options = new (class Options {
+
+    /**
+     * All strings that are used in the Chrome Storage are hidden behind these public static final fields.
+     * The implementation is not with static, because Options is a Singleton.
+     */
+    public get LOGGING() {return "loggingEnabled"; }
+    public get TRACK_TABS() {return "trackTabs"; }
+    public get TRACK_COMMENTS() {return "trackComments"; }
+    public get TRACK_PEER_COMMENTS() {return "trackPeerComments"; }
+    public get TRACK_FOCUS() {return "trackFocus"; }
+    public get HASH_USERNAME() {return "hashUsername"; }
+    public get HASH_REPO() {return "hashRepo"; }
+    public get HASH_FILE() {return "hashFile"; }
+    public get DNW_ON_SCREEN_EVENTS() {return "doNotWatchOnScreenEvents"; }
+    public get DNW_HOVER_EVENTS() {return "doNotWatchHoverEvents"; }
+    public get DNW_COMMENT_ELEMENTS() {return "doNotWatchCommentElements"; }
+    public get DNW_KEYBOARD_EVENTS() {return "doNotWatchKeyboardShortcutEvents"; }
+
     // A map that contains all option names and their default (boolean) values.
     private optionMap: { [key: string]: boolean; } = {
-        ["loggingEnabled"]: true,
-        ["trackTabs"]: true,
-        ["trackComments"]: true,
-        ["trackPeerComments"]: true,
-        ["trackFocus"]: true,
-        ["hashUsername"]: true,
-        ["hashRepo"]: true,
-        ["hashFile"]: false,
-        ["doNotWatchOnScreenEvents"]: true,
-        ["doNotWatchHoverEvents"]: true,
-        ["doNotWatchCommentElements"]: true,
-        ["doNotWatchKeyboardShortcutEvents"]: true,
+        [this.LOGGING]: true,
+        [this.TRACK_TABS]: true,
+        [this.TRACK_COMMENTS]: true,
+        [this.TRACK_PEER_COMMENTS]: true,
+        [this.TRACK_FOCUS]: true,
+        [this.HASH_USERNAME]: true,
+        [this.HASH_REPO]: true,
+        [this.HASH_FILE]: false,
+        [this.DNW_ON_SCREEN_EVENTS]: true,
+        [this.DNW_HOVER_EVENTS]: true,
+        [this.DNW_COMMENT_ELEMENTS]: true,
+        [this.DNW_KEYBOARD_EVENTS]: true,
     };
 
     private observers: OptionsObserver[];
@@ -119,4 +136,5 @@ const Options = new (class Options {
         }
         return res;
     }
+
 })();
