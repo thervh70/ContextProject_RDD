@@ -1,4 +1,4 @@
-/// <reference path="../EventObject/IMouseScrollEvent.ts"/>
+/// <reference path="../EventObject/MouseScrollEvent.ts"/>
 /**
  * Created by Maarten on 26-05-2016.
  */
@@ -10,5 +10,5 @@
  * @param failure       Callback, which is called once the call has failed.
  */
 interface MouseScrollDatabaseAdaptable {
-    postMouseScroll(eventData: IMouseScrollEvent, success: Callback, failure: Callback): void;
+    postMouseScroll(eventData: MouseScrollEvent, success: Callback, failure: Callback): void;
 }

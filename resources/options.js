@@ -28,7 +28,12 @@ function saveOptions() {
         // Security
         hashUsername: $('#username').prop('checked'),
         hashRepo: $('#repo').prop('checked'),
-        hashFile: $('#file').prop('checked')
+        hashFile: $('#file').prop('checked'),
+        // Do Not Watch Options
+        doNotWatchOnScreenEvents: $('#dnwScreen').prop('checked'),
+        doNotWatchHoverEvents: $('#dnwHover').prop('checked'),
+        doNotWatchCommentElements: $('#dnwComments').prop('checked'),
+        doNotWatchKeyboardShortcutEvents: $('#dnwKeyboardShortcut').prop('checked')
         // Hints
     }, function() {
         Materialize.toast("Options saved!", 2000);
@@ -45,7 +50,11 @@ function restoreOptionsState() {
         trackFocus: Boolean,
         hashUsername: Boolean,
         hashRepo: Boolean,
-        hashFile: Boolean
+        hashFile: Boolean,
+        doNotWatchOnScreenEvents: Boolean,
+        doNotWatchHoverEvents: Boolean,
+        doNotWatchCommentElements: Boolean,
+        doNotWatchKeyboardShortcutEvents: Boolean
     }, function(items) {
         // Saved values from the chrome.storage
         $('#logging').prop('checked', items.loggingEnabled);
@@ -56,6 +65,10 @@ function restoreOptionsState() {
         $('#username').prop('checked', items.hashUsername);
         $('#repo').prop('checked', items.hashRepo);
         $('#file').prop('checked', items.hashFile);
+        $('#dnwScreen').prop('checked', items.doNotWatchOnScreenEvents);
+        $('#dnwHover').prop('checked', items.doNotWatchHoverEvents);
+        $('#dnwComments').prop('checked', items.doNotWatchCommentElements);
+        $('#dnwKeyboardShortcut').prop('checked', items.doNotWatchKeyboardShortcutEvents);
     });
 }
 
@@ -78,6 +91,7 @@ function restoreOptionsAvailability() {
 function showSubOptions() {
     $('#security_sub').show();
     $('#privacy_sub').show();
+    $('#doNotWatch_sub').show();
     $('#hints_sub').show();
 }
 
@@ -85,6 +99,7 @@ function showSubOptions() {
 function hideSubOptions() {
     $('#security_sub').hide();
     $('#privacy_sub').hide();
+    $('#doNotWatch_sub').hide();
     $('#hints_sub').hide();
 }
 
@@ -92,6 +107,7 @@ function hideSubOptions() {
 function showCards() {
     $('#security').show();
     $('#privacy').show();
+    $('#doNotWatch').show();
     $('#hints').show();
 }
 
@@ -99,6 +115,7 @@ function showCards() {
 function hideCards() {
     $('#security').hide();
     $('#privacy').hide();
+    $('#doNotWatch').hide();
     $('#hints').hide();
 }
 
@@ -111,6 +128,10 @@ function switchDisable() {
     $('#username').disabled = !$('#username').disabled;
     $('#repo').disabled = !$('#repo').disabled;
     $('#file').disabled = !$('#file').disabled;
+    $('#dnwScreen').disabled = !$('#dnwScreen').disabled;
+    $('#dnwHover').disabled = !$('#dnwHover').disabled;
+    $('#dnwComments').disabled = !$('#dnwComments').disabled;
+    $('#dnwKeyboardShortcut').disabled = !$('#dnwKeyboardShortcut').disabled;
 }
 
 // Restores availability of options.
@@ -119,7 +140,9 @@ function restoreDisable() {
     $('#tabs').disabled = $('#comments').disabled =
         $('#peerComments').disabled = $('#focus').disabled =
             $('#username').disabled = $('#repo').disabled =
-                $('#file').disabled = !items.loggingEnabled;
+                $('#file').disabled = $('#dnwScreen').disabled =
+                    $('#dnwHover').disabled = $('#dnwComments').disabled =
+                        $('#dnwKeyboardShortcut').disabled = !items.loggingEnabled;
 }
 
 // Constants that define the function that will be called.

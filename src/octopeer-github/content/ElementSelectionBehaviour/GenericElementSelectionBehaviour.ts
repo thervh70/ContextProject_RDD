@@ -50,7 +50,7 @@ class GenericElementSelectionBehaviour implements ElementSelectionBehaviour {
     public getCallback(eventID: EventID) {
         if (this.data.callback === undefined) {
             return (eventObject: JQueryEventObject) => {
-                this.database.postSemantic(new SemanticEvent(this.getElementID(), eventID, new Date().getTime(), 0),
+                this.database.postSemantic(EventFactory.semantic(this.getElementID(), eventID, new Date().getTime(), 0),
                     EMPTY_CALLBACK, EMPTY_CALLBACK);
             };
         } else {
