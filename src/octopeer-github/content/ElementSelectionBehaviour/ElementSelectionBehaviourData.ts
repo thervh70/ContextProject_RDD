@@ -26,7 +26,7 @@ interface ElementSelectionBehaviourData {
  * @type {ElementSelectionBehaviourData[]}
  */
 // tslint:disable-next-line:no-unused-variable
-const unsortedElementSelectionBehaviourData: ElementSelectionBehaviourData[] = [
+const elementSelectionBehaviourDataList: ElementSelectionBehaviourData[] = [
     /** Category: Button */
     {
         elementID: ElementID.ADD_EMOTICON,
