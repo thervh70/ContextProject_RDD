@@ -30,7 +30,7 @@ class ElementSelectionBehaviourFactory {
      * @param ID The ElementID the data should match
      * @returns {any}
      */
-    public create(database: DatabaseAdaptable, ID: ElementID) {
+    public create(database: DatabaseAdaptable, ID: ElementID): ElementSelectionBehaviour {
         let elementSelectionBehaviourData = this.findElementSelectionBehaviourData(ID);
         if (elementSelectionBehaviourData != null) {
             return new GenericElementSelectionBehaviour(database, elementSelectionBehaviourData);

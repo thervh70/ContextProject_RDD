@@ -12,11 +12,11 @@ interface ElementEventBindingData {
 }
 
 /**
- * elementEventBindingData contains all data about the different ElementEventBindings.
+ * elementEventBindingDataList contains all data about the different ElementEventBindings.
  * @type {{eventID: EventID, name: string}[]}
  */
 // tslint:disable-next-line:no-unused-variable
-const elementEventBindingData: ElementEventBindingData[] = [
+const elementEventBindingDataList: ElementEventBindingData[] = [
     {
         eventID: EventID.CLICK,
         name: "click",
@@ -27,18 +27,18 @@ const elementEventBindingData: ElementEventBindingData[] = [
     },
     {
         eventID: EventID.MOUSE_ENTER,
-        name: "mouse enter",
+        name: "mouseenter",
     },
     {
         eventID: EventID.MOUSE_LEAVE,
-        name: "mouse leave",
+        name: "mouseleave",
     },
     {
         eventID: EventID.SCROLL_INTO_VIEW,
-        name: "scroll into view",
+        name: "scrollintoview",
     },
     {
         eventID: EventID.SCROLL_OUT_OF_VIEW,
-        name: "scroll out of view",
+        name: "scrolloutofview",
     },
 ];

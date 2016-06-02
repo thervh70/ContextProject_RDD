@@ -9,15 +9,6 @@ describe("The ContentController", function() {
 
     let testContentController: ContentController;
 
-    const elementEventBindingList = [
-        ClickElementEventBinding,
-        KeystrokeElementEventBinding,
-        MouseEnterElementEventBinding,
-        MouseLeaveElementEventBinding,
-        ScrollIntoViewElementEventBinding,
-        ScrollOutOfViewElementEventBinding,
-    ];
-
     beforeEach(function() {
         testContentController = new ContentController();
     });
@@ -29,7 +20,6 @@ describe("The ContentController", function() {
         console.log("\n" + testContentController + "\n\n");
         // Checks whether the object contains the right properties.
         expect(testContentController.start()).toEqual(jasmine.objectContaining({
-            elementEventBindingList: elementEventBindingList,
             messageSendDatabaseAdapter : new MessageSendDatabaseAdapter(),
         }));
     });

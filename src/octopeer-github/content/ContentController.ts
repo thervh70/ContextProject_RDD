@@ -79,7 +79,7 @@ class ContentController {
 
             elementSelectionBindingHolder = new GenericElementSelectionBehaviour(database, elementSelectionBinding);
 
-            for (elementEventBinding of elementEventBindingData) {
+            for (elementEventBinding of elementEventBindingDataList) {
                 if (DoNotWatchOptions.getEvents().map(function (data) { return data.eventID.getEventID(); })
                         .indexOf(elementEventBinding.eventID.getEventID()) >= 0 ||
                     DoNotWatchOptions.getCombinations().indexOf({

@@ -9,13 +9,14 @@ class ElementEventBindingFactory {
 
     /**
      * Construct a ElementEventBindingFactory.
-     * Place the Data objects in the elementEventBindingData array on the index
+     * Place the Data objects in the elementEventBindingDataList array on the index
      * corresponding to the EventID.
      */
     constructor() {
         let data: ElementEventBindingData;
+        console.log("LIJSTJE!  " + this.elementEventBindingData);
 
-        for (data of elementEventBindingData) {
+        for (data of elementEventBindingDataList) {
             this.elementEventBindingData[data.eventID.getEventID()] = data;
         }
     }
@@ -26,7 +27,7 @@ class ElementEventBindingFactory {
      * @returns {ElementEventBindingData}
      */
     public findElementEventBindingData(eventID: EventID) {
-        return elementEventBindingData[eventID.getEventID()];
+        return this.elementEventBindingData[eventID.getEventID()];
     }
 
     /**
@@ -35,7 +36,7 @@ class ElementEventBindingFactory {
      * @param eventID The event
      * @returns {GenericElementEventBinding} A GenericElementEventBinding
      */
-    public create(elementSelectionBehaviour: GenericElementSelectionBehaviour, eventID: EventID) {
+    public create(elementSelectionBehaviour: ElementSelectionBehaviour, eventID: EventID) {
         let data = this.findElementEventBindingData(eventID);
         return new GenericElementEventBinding(elementSelectionBehaviour, data);
     }

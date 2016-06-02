@@ -8,7 +8,7 @@ describe("An ElementSelectionBehaviourFactory", function () {
     const database = new ConsoleLogDatabaseAdapter();
 
     it("should create ElementSelectionBehaviours", function () {
-        let esb = factory.create(database, ElementID.ADD_EMOTICON);
+        let esb = <GenericElementSelectionBehaviour> esbFactory.create(database, ElementID.ADD_EMOTICON);
 
         expect(esb.getData().name).toEqual("Add emoticon");
         expect(esb.getElementID()).toEqual(ElementID.ADD_EMOTICON);
