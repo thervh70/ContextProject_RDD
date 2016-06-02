@@ -1,7 +1,6 @@
 /// <reference path="../../../main/Database/DatabaseAdaptable.ts"/>
 /// <reference path="../../../main/Database/ConsoleLogDatabaseAdapter.ts"/>
 /// <reference path="../../../content/ElementEventBinding/ClickElementEventBinding.ts"/>\
-/// <reference path="../../../content/ElementSelectionBehaviour/ButtonElementSelectionBehaviour/MergePRButtonElementSelectionBehaviour.ts"/>
 
 /**
  * Created by Mitchell on 25-5-2016.
@@ -13,12 +12,13 @@ let database: DatabaseAdaptable;
 let selector: ElementSelectionBehaviour;
 
 describe("An EventBinder that binds Click events", function() {
+    const factory = new ElementSelectionBehaviourFactory();
     let logSpy: jasmine.Spy;
 
     beforeEach(function () {
         setFixtures("<div><button id='bt1' class='js-merge-branch-action'></button><button id='bt2' class='btn2'></button></div>");
         database = new ConsoleLogDatabaseAdapter();
-        selector = new MergePRButtonElementSelectionBehaviour(database);
+        selector = factory.create(database, ElementID.MERGE_PR);
         logSpy = spyOn(database, "postSemantic");
     });
 
@@ -33,13 +33,13 @@ describe("An EventBinder that binds Click events", function() {
 describe("A ClickElementEventBinding's", function() {
 
     it("type should be retrieved when the getEventType function is called", function() {
-        selector = new InlineCommentButtonElementSelectionBehaviour(database);
+        selector = factory.create(database, ElementID.CREATE_INLINE_COMMENT);
         binder = new ClickElementEventBinding(selector);
         expect(binder.getEventType()).toBe("click");
     });
 
     it("ID should be retrieved when the getEventID function is called", function() {
-        selector = new CommentInlineCommentButtonElementSelectionBehaviour(database);
+        selector = factory.create(database, ElementID.CONFIRM_INLINE_COMMENT);
         binder = new ClickElementEventBinding(selector);
         expect(binder.getEventID()).toEqual(new EventID(201));
     });
