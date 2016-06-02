@@ -79,7 +79,12 @@ abstract class EventFactory {
         return {created_at: created_at, height: height, width: width};
     }
 
-    public static getTime() {
+    /**
+     * Returns the current timestamp, which is measured in an amount of seconds (with milliseconds in the fractional part)
+     * since 1-1-1970 0:00.
+     * @returns {Unixtimestamp} the current timestamp.
+     */
+    public static getTime(): Unixtimestamp {
         return new Date().getTime() / 1000;
     }
 
