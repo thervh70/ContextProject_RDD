@@ -6,7 +6,13 @@ class GenericElementEventBinding implements ElementEventBinding {
     /** The EventID. */
     private eventID: EventID;
     /** The name. */
-    private eventName: string;
+    private eventType: string;
+
+    constructor(elementSelectionBehaviour: GenericElementSelectionBehaviour, data: ElementEventBindingData) {
+        this.eventID = data.eventID;
+        this.eventType = data.name;
+        this.initDOMEvent(elementSelectionBehaviour);
+    }
 
     /**
      * Get the EventID.
@@ -21,6 +27,20 @@ class GenericElementEventBinding implements ElementEventBinding {
      * @returns {string}
      */
     public getEventType() {
-        return this.eventName;
+        return this.eventType;
+    }
+
+    /**
+     * Make sure the Event is hooked to the DOM.
+     * @param elementSelectionBehaviour The GenericElementSelectionBehaviour
+     * whose callback should be used on the firing of this Event.
+     */
+    private initDOMEvent(elementSelectionBehaviour: GenericElementSelectionBehaviour) {
+        const elements = elementSelectionBehaviour.getElements();
+        elements.off(this.eventType);
+        elements.on(
+            this.eventType,
+            elementSelectionBehaviour.getCallback(this.eventID)
+        );
     }
 }
