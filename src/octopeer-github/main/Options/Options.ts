@@ -54,7 +54,7 @@ const Options = new (class Options {
         this.observers = [];
         let options: string[] = this.generateOptionList();
 
-        chrome.storage.sync.get(options, this.syncOptionMap);
+        chrome.storage.sync.get(options, (obj) => this.syncOptionMap(obj));
         chrome.storage.onChanged.addListener((obj, area) => {if (area === "sync") {this.syncOptionMap(obj); }});
     }
 
