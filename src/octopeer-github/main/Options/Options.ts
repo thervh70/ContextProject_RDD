@@ -129,12 +129,11 @@ const Options = new (class Options {
      * @param optionName the given name of an option.
      * @returns {boolean} the user preference in terms of a boolean.
      */
-    public getOption(optionName: string) {
-        let res: Boolean = false;
+    public get(optionName: string) {
         if (optionName in this.optionMap) {
-            res = this.optionMap[optionName];
+            return this.optionMap[optionName];
         }
-        return res;
+        return false;
     }
 
 })();

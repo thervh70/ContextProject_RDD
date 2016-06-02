@@ -39,7 +39,7 @@ describe("The DoNotWatchOptions", function() {
     beforeEach(function() {
         // reset the mocked options before every test
         fakeOptions = {};
-        spyOn(Options, "getOption").and.callFake(function(optionName: string) {
+        spyOn(Options, "get").and.callFake(function(optionName: string) {
             if (fakeOptions[optionName] === undefined) {
                 return false;
             } else {
