@@ -41,6 +41,15 @@ class EventID {
     }
 
     /**
+     * Checks whether two EventIDs are equal.
+     * @param that EventID to compare with.
+     * @returns {boolean} true if the EventIDs are equal, false otherwise.
+     */
+    public equals(that: EventID) {
+        return this.eventID === that.eventID;
+    }
+
+    /**
      * @returns {string} A string containing only the eventID.
      */
     public toString(): string {

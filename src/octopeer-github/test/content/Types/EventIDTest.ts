@@ -2,18 +2,20 @@
  * Created by Youri and Mitchell on 08/05/2016.
  * Behaviour unit tests for the EventID class.
  */
-const numericalValueforEventID = 401; // randomly chosen.
 
 describe("An Idenfifier for an event", function() {
+    const numericalValueforEventID = 401; // randomly chosen.
     let eventID: EventID;
 
-    it("should return the value of instantiation", function () {
+    beforeEach(function() {
         eventID = new EventID(numericalValueforEventID);
+    });
+
+    it("should return the value of instantiation", function () {
         expect(eventID.getEventID()).toBe(numericalValueforEventID);
     });
 
     it("should return a string of the eventID, when toString is called", function () {
-        eventID = new EventID(numericalValueforEventID);
         expect(eventID.toString()).toBe(numericalValueforEventID.toString());
     });
 
@@ -27,5 +29,13 @@ describe("An Idenfifier for an event", function() {
     it("of which the binding in not yet implemented, for STOP_WATCHING_PR, is connected to the right EventID", function () {
         eventID = EventID.STOP_WATCHING_PR;
         expect(eventID.getEventID()).toBe(402);
+    });
+
+    it("should say that two equivalent eventIDs are equal", function() {
+        expect(eventID.equals(new EventID(numericalValueforEventID))).toBe(true);
+    });
+
+    it("should say that two different eventIDs are not equal", function() {
+        expect(eventID.equals(new EventID(numericalValueforEventID + 1))).toBe(false);
     });
 });

@@ -2,9 +2,9 @@
  * Created by Youri and Mitchell on 08/05/2016.
  * Behaviour unit tests for the ElementID class.
  */
-const numericalValueforElementID = 4; // randomly chosen.
 
 describe("An Identifier for an element", function() {
+    const numericalValueforElementID = 4; // randomly chosen.
     let elementID: ElementID;
 
     beforeEach(function() {
