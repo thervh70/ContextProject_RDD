@@ -50,21 +50,25 @@ class ContentController {
     }
 
     /**
-     * Hook the product of ElementBindings and ElementSelectors to the DOM-tree.
+     * Hook both the semantic and syntactic elements and events to the DOM.
      * @param database   the database that should be used when logging.
      */
     private hookToDOM(database: DatabaseAdaptable) {
+        this.hookSemanticToDOM(database);
+        this.hookSyntacticToDOM(database);
+    }
+
+    /**
+     * Hook the product of ElementBindings and ElementSelectors to the DOM-tree.
+     * @param database   the database that should be used when logging.
+     */
+    private hookSemanticToDOM(database: DatabaseAdaptable) {
         const esbFactory = new ElementSelectionBehaviourFactory();
         const eebFactory = new ElementEventBindingFactory();
         let elementEventBinding: ElementEventBindingData;
         let elementSelectionBinding: ElementSelectionBehaviourData;
         let elementEventBindingHolder: ElementEventBinding;
         let elementSelectionBindingHolder: ElementSelectionBehaviour;
-        let windowResolutionTracker: WindowResolutionTracker;
-        let keystrokeTracker: KeystrokeTracker;
-        let mouseClickTracker: MouseClickTracker;
-        let mouseScrollTracker: MouseScrollTracker;
-        let mousePositionTracker: MousePositionTracker;
 
         for (elementSelectionBinding of elementSelectionBehaviourDataList) {
             if (!DoNotWatchOptions.shouldElementBeWatched(elementSelectionBinding.elementID)) {
@@ -84,11 +88,23 @@ class ContentController {
                 }
             }
         }
+    }
+
+    /**
+     * Hook the different rawdata trackers to DOM.
+     * @param database   the database that should be used when logging.
+     */
+    private hookSyntacticToDOM(database: DatabaseAdaptable) {
+        let windowResolutionTracker: WindowResolutionTracker;
+        let keystrokeTracker: KeystrokeTracker;
+        let mouseClickTracker: MouseClickTracker;
+        let mouseScrollTracker: MouseScrollTracker;
+        let mousePositionTracker: MousePositionTracker;
+
         windowResolutionTracker = new WindowResolutionTracker(database);
         keystrokeTracker = new KeystrokeTracker(database);
         mouseClickTracker = new MouseClickTracker(database);
         mouseScrollTracker = new MouseScrollTracker(database);
         mousePositionTracker = new MousePositionTracker(database);
     }
-
 }
