@@ -50,14 +50,12 @@ describe("The Options class", function() {
 
     it("should get the option value", function() {
         let optionList: string[] = Options.generateOptionList();
-        // Boundary between regular options and doNotWatchOptions.
-        let optionBoundary = 7;
-        for (let i = 0; i < optionBoundary; i++) {
+        // HashFile is false by default.
+        let turnedOff = 7;
+        for (let i = 0; i < optionList.length && i !== 7; i++) {
             expect(Options.getOption(optionList[i])).toBe(true);
         }
-        for (let i = optionBoundary; i < optionList.length; i++) {
-            expect(Options.getOption(optionList[i])).toBe(false);
-        }
+        expect(Options.getOption(optionList[turnedOff])).toBe(false);
     });
 
     it("should return false for a bad weather (non-existing) option value", function() {
