@@ -53,9 +53,12 @@ describe("The Options class", function() {
         // HashFile is false by default.
         let turnedOff = 7;
         for (let i = 0; i < optionList.length && i !== 7; i++) {
-            expect(Options.get(optionList[i])).toBe(true);
+            if (i !== turnedOff) {
+                expect(Options.get(optionList[i])).toBe(true);
+            } else {
+                expect(Options.get(optionList[turnedOff])).toBe(false);
+            }
         }
-        expect(Options.get(optionList[turnedOff])).toBe(false);
     });
 
     it("should return false for a bad weather (non-existing) option value", function() {
