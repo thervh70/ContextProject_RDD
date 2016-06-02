@@ -30,42 +30,28 @@ const Options = new (class Options {
 
     /**
      * Initialization fetches the current settings and stores them in this class.
+     * Besides, enables a listener that listens for changes in the sync storage area.
+     * This means that any items that was changed (newValue) is set if changed;
      */
     public init() {
-        const self = this;
         this.observers = [];
         let options: string[] = this.generateOptionList();
-        chrome.storage.sync.get(options, function (obj) {
-            const object = <any> obj;
-            // For every option in optionMap, assign the values from the storage to them.
-            for (let option in self.optionMap) {
-                if (self.optionMap.hasOwnProperty(option)) {
-                    self.optionMap[option] = object[option];
-                }
-            }
-            self.update();
-            self.notifyObservers();
-        });
+        chrome.storage.sync.get(options, this.syncOptionMap);
+        chrome.storage.onChanged.addListener((obj, area) => {if (area === "sync") {this.syncOptionMap(obj); }});
     }
 
     /**
-     * Enables a listener that listens for changes in the sync storage area.
-     * This means that any items that was changed (newValue) is set if changed;
+     * Handles synchronization of the optionMap by retrieving values from the chrome storage on initialization and on update.
+     * @param changeObject set of chrome storage properties.s
      */
-    public update() {
-        const self = this;
-        chrome.storage.onChanged.addListener(function (changes, areaName) {
-            if (areaName === "sync") {
-                const changeObject = <any> changes;
-                // For every option in optionMap, assign only the new values from the storage to them.
-                for (let option in self.optionMap) {
-                    if (self.optionMap.hasOwnProperty(option)) {
-                        self.optionMap[option] = changeObject[option] ? changeObject[option].newValue : self.optionMap[option];
-                    }
-                }
-                self.notifyObservers();
+    public syncOptionMap (changeObject: any) {
+        // For every option in optionMap, assign only the new values from the storage to them.
+        for (let option in this.optionMap) {
+            if (this.optionMap.hasOwnProperty(option)) {
+                this.optionMap[option] = changeObject[option] ? changeObject[option].newValue : this.optionMap[option];
             }
-        });
+        }
+        this.notifyObservers();
     }
 
     /**
