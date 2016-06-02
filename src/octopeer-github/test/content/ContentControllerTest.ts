@@ -18,36 +18,6 @@ describe("The ContentController", function() {
         ScrollOutOfViewElementEventBinding,
     ];
 
-    const elementSelectionBehaviourList = [
-        AddEmoticonButtonElementSelectionBehaviour,
-        CancelEditPRNameButtonElementSelectionBehaviour,
-        CancelInlineCommentButtonElementSelectionBehaviour,
-        CheckDetailButtonElementSelectionBehaviour,
-        ClosePRButtonElementSelectionBehaviour,
-        CommentInlineCommentButtonElementSelectionBehaviour,
-        CommentPRButtonElementSelectionBehaviour,
-        EditCommentButtonElementSelectionBehaviour,
-        EditPRNameButtonElementSelectionBehaviour,
-        InlineCommentButtonElementSelectionBehaviour,
-        MergePRButtonElementSelectionBehaviour,
-        SaveEditPRNameButtonElementSelectionBehaviour,
-        ShowChecksToggleButtonElementSelectionBehaviour,
-        DateMiscellaneousElementSelectionBehaviour,
-        CommitHashcodeNameElementSelectionBehaviour,
-        CommitMessageNameElementSelectionBehaviour,
-        OtherContributerNameElementSelectionBehaviour,
-        PRCreatorNameElementSelectionBehaviour,
-        PRParticipantNameElementSelectionBehaviour,
-        AssigneeSettingElementSelectionBehaviour,
-        LabelSettingElementSelectionBehaviour,
-        LockConversationSettingElementSelectionBehaviour,
-        MilestoneSettingElementSelectionBehaviour,
-        UnsubscribeSettingElementSelectionBehaviour,
-        CommitsTabHeaderElementSelectionBehaviour,
-        ConversationTabHeaderElementSelectionBehaviour,
-        FilesChangedTabHeaderElementSelectionBehaviour,
-    ];
-
     beforeEach(function() {
         testContentController = new ContentController();
     });
@@ -56,10 +26,10 @@ describe("The ContentController", function() {
         spyCheckListeners = spyOn(chrome.runtime.onMessage, "hasListeners").and.returnValue(false);
         testContentController.start();
 
+        console.log("\n" + testContentController + "\n\n");
         // Checks whether the object contains the right properties.
         expect(testContentController.start()).toEqual(jasmine.objectContaining({
             elementEventBindingList: elementEventBindingList,
-            elementSelectionBindingList: elementSelectionBehaviourList,
             messageSendDatabaseAdapter : new MessageSendDatabaseAdapter(),
         }));
     });

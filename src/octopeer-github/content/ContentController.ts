@@ -1,4 +1,3 @@
-/* tslint:disable:max-line-length */
 /// <reference path="../main/Options/DoNotWatchOptions.ts"/>
 /// <reference path="../main/Database/ConsoleLogDatabaseAdapter.ts"/>
 /// <reference path="ElementEventBinding/ElementEventBinding.ts"/>
@@ -9,35 +8,6 @@
 /// <reference path="ElementEventBinding/ScrollIntoViewElementEventBinding.ts"/>
 /// <reference path="ElementEventBinding/ScrollOutOfViewElementEventBinding.ts"/>
 /// <reference path="ElementSelectionBehaviour/ElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/AbstractElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/AddEmoticonButtonElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/CancelEditPRNameButtonElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/CancelInlineCommentButtonElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/ShowCIDetailsButtonElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/ClosePRButtonElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/ConfirmInlineCommentButtonElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/CommentPRButtonElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/EditCommentButtonElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/EditPRNameButtonElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/CreateInlineCommentButtonElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/MergePRButtonElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/SavePRNameButtonElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/ButtonElementSelectionBehaviour/ShowChecksToggleButtonElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/MiscellaneousElementSelectionBehaviour/DateMiscellaneousElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/NameElementSelectionBehaviour/CommitHashcodeNameElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/NameElementSelectionBehaviour/CommitMessageNameElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/NameElementSelectionBehaviour/OtherContributerNameElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/NameElementSelectionBehaviour/PRCreatorNameElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/NameElementSelectionBehaviour/PRParticipantNameElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/SettingElementSelectionBehaviour/AssigneeSettingElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/SettingElementSelectionBehaviour/LabelSettingElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/SettingElementSelectionBehaviour/LockConversationSettingElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/SettingElementSelectionBehaviour/MilestoneSettingElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/SettingElementSelectionBehaviour/UnsubscribeSettingElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/TabHeaderElementSelectionBehaviour/CommitsTabHeaderElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/TabHeaderElementSelectionBehaviour/ConversationTabHeaderElementSelectionBehaviour.ts"/>
-/// <reference path="ElementSelectionBehaviour/TabHeaderElementSelectionBehaviour/FilesChangedTabHeaderElementSelectionBehaviour.ts"/>
-/* tslint:enable:max-line-length */
 
 /**
  * The ContentController hooks the event handlers to the DOM-tree.
@@ -54,39 +24,6 @@ class ContentController {
         MouseLeaveElementEventBinding,
         ScrollIntoViewElementEventBinding,
         ScrollOutOfViewElementEventBinding,
-    ];
-
-    /**
-     * List of ElementSelectors that should be matched with ElementEventBindings
-     */
-    private elementSelectionBindingList = [
-        AddEmoticonButtonElementSelectionBehaviour,
-        CancelEditPRNameButtonElementSelectionBehaviour,
-        CancelInlineCommentButtonElementSelectionBehaviour,
-        CheckDetailButtonElementSelectionBehaviour,
-        ClosePRButtonElementSelectionBehaviour,
-        CommentInlineCommentButtonElementSelectionBehaviour,
-        CommentPRButtonElementSelectionBehaviour,
-        EditCommentButtonElementSelectionBehaviour,
-        EditPRNameButtonElementSelectionBehaviour,
-        InlineCommentButtonElementSelectionBehaviour,
-        MergePRButtonElementSelectionBehaviour,
-        SaveEditPRNameButtonElementSelectionBehaviour,
-        ShowChecksToggleButtonElementSelectionBehaviour,
-        DateMiscellaneousElementSelectionBehaviour,
-        CommitHashcodeNameElementSelectionBehaviour,
-        CommitMessageNameElementSelectionBehaviour,
-        OtherContributerNameElementSelectionBehaviour,
-        PRCreatorNameElementSelectionBehaviour,
-        PRParticipantNameElementSelectionBehaviour,
-        AssigneeSettingElementSelectionBehaviour,
-        LabelSettingElementSelectionBehaviour,
-        LockConversationSettingElementSelectionBehaviour,
-        MilestoneSettingElementSelectionBehaviour,
-        UnsubscribeSettingElementSelectionBehaviour,
-        CommitsTabHeaderElementSelectionBehaviour,
-        ConversationTabHeaderElementSelectionBehaviour,
-        FilesChangedTabHeaderElementSelectionBehaviour,
     ];
 
     /**
@@ -136,7 +73,7 @@ class ContentController {
      */
     private hookToDOM(database: DatabaseAdaptable) {
         let elementEventBinding: ElementEventBindingCreatable;
-        let elementSelectionBinding: ElementSelectionBehaviourCreatable;
+        let elementSelectionBinding: ElementSelectionBehaviourData;
         let elementEventBindingHolder: ElementEventBinding;
         let elementSelectionBindingHolder: ElementSelectionBehaviour;
         let windowResolutionTracker: WindowResolutionTracker;
@@ -145,12 +82,13 @@ class ContentController {
         let mouseScrollTracker: MouseScrollTracker;
         let mousePositionTracker: MousePositionTracker;
 
-        for (elementSelectionBinding of this.elementSelectionBindingList) {
-            if (DoNotWatchOptions.getElements().indexOf(elementSelectionBinding) > 0) {
+        for (elementSelectionBinding of unsortedElementSelectionBehaviourData) {
+            if (DoNotWatchOptions.getElements().map(function (data) { return data.elementID.getElementID(); })
+                    .indexOf(elementSelectionBinding.elementID.getElementID()) >= 0) {
                 continue;
             }
 
-            elementSelectionBindingHolder = new elementSelectionBinding(database);
+            elementSelectionBindingHolder = new GenericElementSelectionBehaviour(database, elementSelectionBinding);
 
             for (elementEventBinding of this.elementEventBindingList) {
                 if (DoNotWatchOptions.getEvents().indexOf(elementEventBinding) > 0 ||
