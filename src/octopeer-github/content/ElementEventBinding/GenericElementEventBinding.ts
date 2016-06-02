@@ -1,5 +1,7 @@
 /**
  * Created by Mathias on 2016-06-02.
+ * This is the Generic implementation of the ElementEventBinding interface.
+ * These GenericElementEventBinding objects are created in the ElementEventBindingFactory.
  */
 class GenericElementEventBinding implements ElementEventBinding {
 
@@ -14,12 +16,9 @@ class GenericElementEventBinding implements ElementEventBinding {
      * @param elementSelectionBehaviour
      * @param data
      */
-    constructor(elementSelectionBehaviour: ElementSelectionBehaviour, data: ElementEventBindingData) {
+    constructor(elementSelectionBehaviour: ElementSelectionBehaviour, private data: ElementEventBindingData) {
         this.eventID = data.eventID;
         this.eventType = data.name;
-        if (data.hookToDOM !== undefined) {
-            this.initDOMEvent = data.hookToDOM;
-        }
         this.initDOMEvent(elementSelectionBehaviour);
     }
 
@@ -45,11 +44,15 @@ class GenericElementEventBinding implements ElementEventBinding {
      * whose callback should be used on the firing of this Event.
      */
     private initDOMEvent = function (elementSelectionBehaviour: ElementSelectionBehaviour) {
-        const elements = elementSelectionBehaviour.getElements();
-        elements.off(this.eventType);
-        elements.on(
-            this.eventType,
-            elementSelectionBehaviour.getCallback(this.eventID)
-        );
+        if (this.data.initDOMEvent === undefined) {
+            const elements = elementSelectionBehaviour.getElements();
+            elements.off(this.eventType);
+            elements.on(
+                this.eventType,
+                elementSelectionBehaviour.getCallback(this.eventID)
+            );
+        } else {
+            this.data.initDOMEvent(elementSelectionBehaviour);
+        }
     };
 }

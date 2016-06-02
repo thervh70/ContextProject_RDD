@@ -1,6 +1,7 @@
 /// <reference path="GenericElementEventBinding.ts"/>
 /**
  * Created by Mathias on 2016-06-02.
+ * This factory creates GenericElementEventBindings.
  */
 class ElementEventBindingFactory {
 
@@ -35,7 +36,7 @@ class ElementEventBindingFactory {
      * @param eventID The event
      * @returns {GenericElementEventBinding} A GenericElementEventBinding
      */
-    public create(elementSelectionBehaviour: ElementSelectionBehaviour, eventID: EventID) {
+    public create(elementSelectionBehaviour: ElementSelectionBehaviour, eventID: EventID): ElementEventBinding {
         let data = this.findElementEventBindingData(eventID);
         return new GenericElementEventBinding(elementSelectionBehaviour, data);
     }
