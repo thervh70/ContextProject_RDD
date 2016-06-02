@@ -50,45 +50,57 @@ class ContentController {
     }
 
     /**
-     * Hook the product of ElementBindings and ElementSelectors to the DOM-tree.
+     * Hook both the semantic and syntactic elements and events to the DOM.
      * @param database   the database that should be used when logging.
      */
     private hookToDOM(database: DatabaseAdaptable) {
+        this.hookSemanticToDOM(database);
+        this.hookSyntacticToDOM(database);
+    }
+
+    /**
+     * Hook the product of ElementBindings and ElementSelectors to the DOM-tree.
+     * @param database   the database that should be used when logging.
+     */
+    private hookSemanticToDOM(database: DatabaseAdaptable) {
         const esbFactory = new ElementSelectionBehaviourFactory();
         const eebFactory = new ElementEventBindingFactory();
-        let elementEventBinding: ElementEventBindingData;
-        let elementSelectionBinding: ElementSelectionBehaviourData;
-        let elementEventBindingHolder: ElementEventBinding;
-        let elementSelectionBindingHolder: ElementSelectionBehaviour;
-        let windowResolutionTracker: WindowResolutionTracker;
-        let keystrokeTracker: KeystrokeTracker;
-        let mouseClickTracker: MouseClickTracker;
-        let mouseScrollTracker: MouseScrollTracker;
-        let mousePositionTracker: MousePositionTracker;
+        let elementEventBindingData: ElementEventBindingData;
+        let elementSelectionBehaviourData: ElementSelectionBehaviourData;
+        let elementEventBinding: ElementEventBinding;
+        let elementSelectionBehaviour: ElementSelectionBehaviour;
 
-        for (elementSelectionBinding of elementSelectionBehaviourDataList) {
-            if (!DoNotWatchOptions.shouldElementBeWatched(elementSelectionBinding.elementID)) {
+        for (elementSelectionBehaviourData of elementSelectionBehaviourDataList) {
+            if (!DoNotWatchOptions.shouldElementBeWatched(elementSelectionBehaviourData.elementID)) {
                 continue;
             }
 
-            elementSelectionBindingHolder = esbFactory.create(database, elementSelectionBinding.elementID);
+            elementSelectionBehaviour = esbFactory.create(database, elementSelectionBehaviourData.elementID);
 
-            for (elementEventBinding of elementEventBindingDataList) {
-                if (DoNotWatchOptions.shouldEventBeWatched(elementEventBinding.eventID) &&
+            for (elementEventBindingData of elementEventBindingDataList) {
+                if (DoNotWatchOptions.shouldEventBeWatched(elementEventBindingData.eventID) &&
                     DoNotWatchOptions.shouldCombinationBeWatched({
-                        element: elementSelectionBinding.elementID,
-                        event: elementEventBinding.eventID,
+                        element: elementSelectionBehaviourData.elementID,
+                        event: elementEventBindingData.eventID,
                     })
                 ) {
-                    elementEventBindingHolder = eebFactory.create(elementSelectionBindingHolder, elementEventBinding.eventID);
+                    elementEventBinding = eebFactory.create(elementSelectionBehaviour, elementEventBindingData.eventID);
                 }
             }
         }
-        windowResolutionTracker = new WindowResolutionTracker(database);
-        keystrokeTracker = new KeystrokeTracker(database);
-        mouseClickTracker = new MouseClickTracker(database);
-        mouseScrollTracker = new MouseScrollTracker(database);
-        mousePositionTracker = new MousePositionTracker(database);
     }
 
+    /**
+     * Hook the different rawdata trackers to DOM.
+     * @param database   the database that should be used when logging.
+     */
+    private hookSyntacticToDOM(database: DatabaseAdaptable) {
+        // tslint:disable:no-unused-variable
+        let windowResolutionTracker = new WindowResolutionTracker(database);
+        let keystrokeTracker = new KeystrokeTracker(database);
+        let mouseClickTracker = new MouseClickTracker(database);
+        let mouseScrollTracker = new MouseScrollTracker(database);
+        let mousePositionTracker = new MousePositionTracker(database);
+        // tslint:enable:no-unused-variable
+    }
 }
