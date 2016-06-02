@@ -9,6 +9,21 @@ describe("The Options class", function() {
     let controller: MainController;
     let spyNotify: jasmine.Spy;
 
+    let mockedStorageObject: { [key: string]: boolean; } = {
+        [this.LOGGING]: false,
+        [this.TRACK_TABS]: true,
+        [this.TRACK_COMMENTS]: false,
+        [this.TRACK_PEER_COMMENTS]: true,
+        [this.TRACK_FOCUS]: false,
+        [this.HASH_USERNAME]: true,
+        [this.HASH_REPO]: false,
+        [this.HASH_FILE]: true,
+        [this.DNW_ON_SCREEN_EVENTS]: true,
+        [this.DNW_HOVER_EVENTS]: false,
+        [this.DNW_COMMENT_ELEMENTS]: true,
+        [this.DNW_KEYBOARD_EVENTS]: false,
+    };
+
     beforeEach(function () {
         controller = new MainController();
         spySyncStorage = spyOn(chrome.storage.sync, "get");
@@ -69,5 +84,17 @@ describe("The Options class", function() {
         expect(Options.generateOptionList()).toEqual(["loggingEnabled", "trackTabs", "trackComments", "trackPeerComments", "trackFocus",
             "hashUsername", "hashRepo", "hashFile", "doNotWatchOnScreenEvents", "doNotWatchHoverEvents", "doNotWatchCommentElements",
             "doNotWatchKeyboardShortcutEvents"]);
+    });
+
+    it("should be able to synchronize the optionMap when a storage object with different option values is given", function() {
+        spyNotify = spyOn(Options, "notifyObservers");
+        Options.syncOptionMap(mockedStorageObject);
+
+        for (let key in mockedStorageObject) {
+            if (mockedStorageObject.hasOwnProperty(key)) {
+                expect(mockedStorageObject[key]).toEqual(Options.get(key));
+            }
+        }
+        expect(spyNotify).toHaveBeenCalled();
     });
 });
