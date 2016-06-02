@@ -20,10 +20,10 @@ const Options = new (class Options {
         ["hashUsername"]: true,
         ["hashRepo"]: true,
         ["hashFile"]: false,
-        ["doNotWatchOnScreenEvents"]: false,
-        ["doNotWatchHoverEvents"]: false,
-        ["doNotWatchCommentElements"]: false,
-        ["doNotWatchKeyboardShortcutEvents"]: false,
+        ["doNotWatchOnScreenEvents"]: true,
+        ["doNotWatchHoverEvents"]: true,
+        ["doNotWatchCommentElements"]: true,
+        ["doNotWatchKeyboardShortcutEvents"]: true,
     };
 
     private observers: OptionsObserver[];
