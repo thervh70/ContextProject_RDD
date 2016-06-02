@@ -69,4 +69,10 @@ describe("The Options class", function() {
             "hashUsername", "hashRepo", "hashFile", "doNotWatchOnScreenEvents", "doNotWatchHoverEvents", "doNotWatchCommentElements",
             "doNotWatchKeyboardShortcutEvents"]);
     });
+
+    it("should update the optionMap based on changed values from the chrome storage", function() {
+        let spy = spyOn(chrome.storage.onChanged, "addListener");
+        Options.update();
+        expect(spy).toHaveBeenCalled();
+    });
 });
