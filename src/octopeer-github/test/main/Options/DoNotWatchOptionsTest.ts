@@ -15,8 +15,11 @@ describe("The DoNotWatchOptions", function() {
 
     const elementTestList: any[][] = [
         [{}, []],
-        [{doNotWatchCommentElements: true}, [CommentInlineCommentButtonElementSelectionBehaviour,
-            CommentPRButtonElementSelectionBehaviour, EditCommentButtonElementSelectionBehaviour]],
+        [{doNotWatchCommentElements: true}, [
+            factory.findElementSelectionBehaviourData(ElementID.CONFIRM_INLINE_COMMENT),
+            factory.findElementSelectionBehaviourData(ElementID.CREATE_PR_COMMENT),
+            factory.findElementSelectionBehaviourData(ElementID.EDIT_COMMENT),
+        ]],
     ];
 
     const eventTestList: any[][] = [
