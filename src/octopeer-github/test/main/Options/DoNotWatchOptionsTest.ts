@@ -5,60 +5,53 @@
 
 describe("The DoNotWatchOptions", function() {
 
+    let fakeOptions: any;
+
+    beforeEach(function() {
+        // reset the mocked options before every test
+        fakeOptions = {};
+        spyOn(Options, "getOption").and.callFake(function(optionName: string) {
+            if (fakeOptions[optionName] === undefined) {
+                return false;
+            } else {
+                return fakeOptions[optionName];
+            }
+        });
+    });
+
     it("should return elements that should not be watched, when comment elements is switched on", function () {
-        spyOn(Options, "getOption").and.returnValue(true);
+        fakeOptions.doNotWatchCommentElements = true;
         expect(DoNotWatchOptions.getElements()).toBeDefined();
         expect(DoNotWatchOptions.getElements()).toEqual([CommentInlineCommentButtonElementSelectionBehaviour,
             CommentPRButtonElementSelectionBehaviour, EditCommentButtonElementSelectionBehaviour]);
     });
 
     it("should return elements that should not be watched, when comment elements is switched off", function () {
-        spyOn(Options, "getOption").and.returnValue(false);
+        fakeOptions.doNotWatchCommentElements = false;
         expect(DoNotWatchOptions.getElements()).toBeDefined();
         expect(DoNotWatchOptions.getElements()).toEqual([]);
     });
 
     it("should return events that should not be watched, when on screen events are switched on", function () {
-        spyOn(Options, "getOption").and.callFake(function(optionName: string) {
-            if (optionName === "doNotWatchOnScreenEvents") {
-                return true;
-            } else if (optionName === "doNotWatchHoverEvents" || optionName === "doNotWatchKeyboardShortcutEvents") {
-                return false;
-            } else {
-                // else a non-existing string is used, so throw an error.
-                throw EvalError;
-            }
-        });
+        fakeOptions.doNotWatchOnScreenEvents = true;
+        fakeOptions.doNotWatchHoverEvents = false;
+        fakeOptions.doNotWatchKeyboardShortcutEvents = false;
         expect(DoNotWatchOptions.getEvents()).toBeDefined();
         expect(DoNotWatchOptions.getEvents()).toEqual([ScrollIntoViewElementEventBinding, ScrollOutOfViewElementEventBinding]);
     });
 
     it("should return events that should not be watched, when the on screen events are switched on", function () {
-        spyOn(Options, "getOption").and.callFake(function(optionName: string) {
-            if (optionName === "doNotWatchHoverEvents") {
-                return true;
-            } else if (optionName === "doNotWatchOnScreenEvents" || optionName === "doNotWatchKeyboardShortcutEvents") {
-                return false;
-            } else {
-                // else a non-existing string is used, so throw an error.
-                throw EvalError;
-            }
-        });
+        fakeOptions.doNotWatchOnScreenEvents = false;
+        fakeOptions.doNotWatchHoverEvents = true;
+        fakeOptions.doNotWatchKeyboardShortcutEvents = false;
         expect(DoNotWatchOptions.getEvents()).toBeDefined();
         expect(DoNotWatchOptions.getEvents()).toEqual([MouseEnterElementEventBinding, MouseLeaveElementEventBinding]);
     });
 
     it("should return events that should not be watched, when the keyboard shortcut events are switched on", function () {
-        spyOn(Options, "getOption").and.callFake(function(optionName: string) {
-            if (optionName === "doNotWatchKeyboardShortcutEvents") {
-                return true;
-            } else if (optionName === "doNotWatchOnScreenEvents" || optionName === "doNotWatchHoverEvents") {
-                return false;
-            } else {
-                // else a non-existing string is used, so throw an error.
-                throw EvalError;
-            }
-        });
+        fakeOptions.doNotWatchOnScreenEvents = false;
+        fakeOptions.doNotWatchHoverEvents = false;
+        fakeOptions.doNotWatchKeyboardShortcutEvents = true;
         expect(DoNotWatchOptions.getEvents()).toBeDefined();
         expect(DoNotWatchOptions.getEvents()).toEqual([KeystrokeElementEventBinding]);
     });
