@@ -18,7 +18,7 @@ class ElementSelectionBehaviourFactory {
     constructor() {
         let data: ElementSelectionBehaviourData;
 
-        for (data of unsortedElementSelectionBehaviourData) {
+        for (data of elementSelectionBehaviourDataList) {
             this.elementSelectionBehaviourData[data.elementID.getElementID()] = data;
         }
     }

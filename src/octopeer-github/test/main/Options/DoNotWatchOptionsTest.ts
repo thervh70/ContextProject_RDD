@@ -74,5 +74,4 @@ describe("The DoNotWatchOptions", function() {
             });
         }
     }
-
 });
