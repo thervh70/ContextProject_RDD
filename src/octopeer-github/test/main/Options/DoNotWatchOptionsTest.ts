@@ -10,7 +10,7 @@ describe("The DoNotWatchOptions", function() {
     interface DNWOTestTuple extends Array<any> {
         0: string;
         1: any[][];
-        2: () => void;
+        2: (e: any) => boolean;
     }
 
     const elementTestList: any[][] = [
@@ -31,9 +31,9 @@ describe("The DoNotWatchOptions", function() {
     ];
 
     const testList: DNWOTestTuple[] = [
-        ["element", elementTestList, () => DoNotWatchOptions.getElements()],
-        ["event", eventTestList, () => DoNotWatchOptions.getEvents()],
-        ["combination", combinationTestList, () => DoNotWatchOptions.getCombinations()],
+        ["element", elementTestList, (e) => DoNotWatchOptions.shouldElementBeWatched(e)],
+        ["event", eventTestList, (e) => DoNotWatchOptions.shouldEventBeWatched(e)],
+        ["combination", combinationTestList, (e) => DoNotWatchOptions.shouldCombinationBeWatched(e)],
     ];
 
     beforeEach(function() {
@@ -52,8 +52,10 @@ describe("The DoNotWatchOptions", function() {
         for (let tuple of typeTuple[1]) {
             it(`should return ${tuple[1].length} ${typeTuple[0]}s when Options are set to ${tuple[0]}`, function() {
                 fakeOptions = tuple[0];
-                expect(typeTuple[2]()).toBeDefined();
-                expect(typeTuple[2]()).toEqual(tuple[1]);
+                for (let e of tuple[1]) {
+                    expect(typeTuple[2](e)).toEqual(false);
+                }
+                // TODO: for (all other ESBs, EEBs, Combinations) { expect(...).toEqual(true) } (done after #95: ESB lists)
             });
         }
     }
