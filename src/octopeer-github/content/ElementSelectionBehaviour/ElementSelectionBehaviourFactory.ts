@@ -1,6 +1,7 @@
 /// <reference path="GenericElementSelectionBehaviour.ts"/>
 /**
  * Created by Mathias on 2016-05-31.
+ * Used to create GenericElementSelectionBehaviours based on their ElementID.
  */
 class ElementSelectionBehaviourFactory {
 
@@ -30,7 +31,7 @@ class ElementSelectionBehaviourFactory {
      * @param ID The ElementID the data should match
      * @returns {any}
      */
-    public create(database: DatabaseAdaptable, ID: ElementID) {
+    public create(database: DatabaseAdaptable, ID: ElementID): ElementSelectionBehaviour {
         let elementSelectionBehaviourData = this.findElementSelectionBehaviourData(ID);
         if (elementSelectionBehaviourData != null) {
             return new GenericElementSelectionBehaviour(database, elementSelectionBehaviourData);

@@ -1,30 +1,11 @@
 /// <reference path="../main/Options/DoNotWatchOptions.ts"/>
 /// <reference path="../main/Database/ConsoleLogDatabaseAdapter.ts"/>
 /// <reference path="ElementEventBinding/ElementEventBinding.ts"/>
-/// <reference path="ElementEventBinding/ClickElementEventBinding.ts"/>
-/// <reference path="ElementEventBinding/KeystrokeElementEventBinding.ts"/>
-/// <reference path="ElementEventBinding/MouseEnterElementEventBinding.ts"/>
-/// <reference path="ElementEventBinding/MouseLeaveElementEventBinding.ts"/>
-/// <reference path="ElementEventBinding/ScrollIntoViewElementEventBinding.ts"/>
-/// <reference path="ElementEventBinding/ScrollOutOfViewElementEventBinding.ts"/>
-/// <reference path="ElementSelectionBehaviour/ElementSelectionBehaviour.ts"/>
 
 /**
  * The ContentController hooks the event handlers to the DOM-tree.
  */
 class ContentController {
-
-    /**
-     * List of ElementEventBindings that should be matched with ElementSelectors
-     */
-    private elementEventBindingList = [
-        ClickElementEventBinding,
-        KeystrokeElementEventBinding,
-        MouseEnterElementEventBinding,
-        MouseLeaveElementEventBinding,
-        ScrollIntoViewElementEventBinding,
-        ScrollOutOfViewElementEventBinding,
-    ];
 
     /**
      * A private DatabaseAdaptable that sends messages to the background page.
@@ -74,7 +55,9 @@ class ContentController {
      * @param database   the database that should be used when logging.
      */
     private hookToDOM(database: DatabaseAdaptable) {
-        let elementEventBinding: ElementEventBindingCreatable;
+        const esbFactory = new ElementSelectionBehaviourFactory();
+        const eebFactory = new ElementEventBindingFactory();
+        let elementEventBinding: ElementEventBindingData;
         let elementSelectionBinding: ElementSelectionBehaviourData;
         let elementEventBindingHolder: ElementEventBinding;
         let elementSelectionBindingHolder: ElementSelectionBehaviour;
@@ -89,16 +72,16 @@ class ContentController {
                 continue;
             }
 
-            elementSelectionBindingHolder = new GenericElementSelectionBehaviour(database, elementSelectionBinding);
+            elementSelectionBindingHolder = esbFactory.create(database, elementSelectionBinding.elementID);
 
-            for (elementEventBinding of this.elementEventBindingList) {
-                if (DoNotWatchOptions.shouldEventBeWatched(elementEventBinding) &&
+            for (elementEventBinding of elementEventBindingDataList) {
+                if (DoNotWatchOptions.shouldEventBeWatched(elementEventBinding.eventID) &&
                     DoNotWatchOptions.shouldCombinationBeWatched({
-                        element: elementSelectionBinding,
-                        event: elementEventBinding,
+                        element: elementSelectionBinding.elementID,
+                        event: elementEventBinding.eventID,
                     })
                 ) {
-                    elementEventBindingHolder = new elementEventBinding(elementSelectionBindingHolder);
+                    elementEventBindingHolder = eebFactory.create(elementSelectionBindingHolder, elementEventBinding.eventID);
                 }
             }
         }

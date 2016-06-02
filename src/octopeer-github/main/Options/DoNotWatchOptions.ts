@@ -1,23 +1,19 @@
 /// <reference path="Options.ts"/>
 /// <reference path="../Array.ts"/>
 /// <reference path="../../content/ElementEventBinding/ElementEventBinding.ts"/>
-/// <reference path="../../content/ElementEventBinding/ClickElementEventBinding.ts"/>
-/// <reference path="../../content/ElementEventBinding/KeystrokeElementEventBinding.ts"/>
-/// <reference path="../../content/ElementEventBinding/MouseEnterElementEventBinding.ts"/>
-/// <reference path="../../content/ElementEventBinding/MouseLeaveElementEventBinding.ts"/>
-/// <reference path="../../content/ElementEventBinding/ScrollIntoViewElementEventBinding.ts"/>
-/// <reference path="../../content/ElementEventBinding/ScrollOutOfViewElementEventBinding.ts"/>
+/// <reference path="../../content/ElementEventBinding/ElementEventBindingData.ts"/>
+/// <reference path="../../content/ElementEventBinding/ElementEventBindingFactory.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/ElementSelectionBehaviour.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/ElementSelectionBehaviourData.ts"/>
 /// <reference path="../../content/ElementSelectionBehaviour/ElementSelectionBehaviourFactory.ts"/>
 
 /**
  * Created by Youri on 19-5-2016.
- * Additional type for storing tuples of Element and Event Creatables.
+ * Additional type for storing tuples of Element and Event ID.
  */
-type ElementXEventCreatable = {
-    element: ElementSelectionBehaviourData,
-    event: ElementEventBindingCreatable
+type ElementXEventID = {
+    element: ElementID,
+    event: EventID
 };
 
 interface ElementThatShouldNotBeWatchedTuple extends Array<string | Array<ElementID>> {
@@ -27,12 +23,12 @@ interface ElementThatShouldNotBeWatchedTuple extends Array<string | Array<Elemen
 
 interface EventThatShouldNotBeWatchedTuple extends Array<string | Array<ElementEventBindingCreatable>> {
     0: string;
-    1: Array<ElementEventBindingCreatable>;
+    1: Array<EventID>;
 }
 
 interface CombinationsThatShouldNotBeWatchedTuple extends Array<string | Array<ElementXEventCreatable>> {
     0: string;
-    1: Array<ElementXEventCreatable>;
+    1: Array<ElementXEventID>;
 }
 
 /**
@@ -50,9 +46,9 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
     ];
 
     private eventsThatShouldNotBeWatched: EventThatShouldNotBeWatchedTuple[] = [
-        ["doNotWatchOnScreenEvents", [ScrollIntoViewElementEventBinding, ScrollOutOfViewElementEventBinding]],
-        ["doNotWatchHoverEvents", [MouseEnterElementEventBinding, MouseLeaveElementEventBinding]],
-        ["doNotWatchKeyboardShortcutEvents", [KeystrokeElementEventBinding]],
+        ["doNotWatchOnScreenEvents", [EventID.SCROLL_INTO_VIEW, EventID.SCROLL_OUT_OF_VIEW]],
+        ["doNotWatchHoverEvents", [EventID.MOUSE_ENTER, EventID.MOUSE_LEAVE]],
+        ["doNotWatchKeyboardShortcutEvents", [EventID.KEYSTROKE]],
     ];
 
     private combinationsThatShouldNotBeWatched: CombinationsThatShouldNotBeWatchedTuple[] = [];
@@ -61,17 +57,17 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
         return !this.getElements().contains(element);
     }
 
-    public shouldEventBeWatched(event: ElementEventBindingCreatable) {
+    public shouldEventBeWatched(event: EventID) {
         return !this.getEvents().contains(event);
     }
 
-    public shouldCombinationBeWatched(combination: ElementXEventCreatable) {
+    public shouldCombinationBeWatched(combination: ElementXEventID) {
         return !this.getCombinations().contains(combination);
     }
 
     /**
      * Gets Elements not to Log, from the chrome storage.
-     * @returns {ElementSelectionBehaviourCreatable[]}
+     * @returns {ElementID[]}
      */
     public getElements() {
         let doNotWatchElements: ElementID[] = [];
@@ -86,14 +82,14 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
     }
     /**
      * Gets Events not to Log, from the chrome storage.
-     * @returns {ElementEventBindingCreatable[]}
+     * @returns {EventID[]}
      */
     public getEvents() {
         let doNotWatchEvents: ElementEventBindingCreatable[] = [];
         for (let tuple of this.eventsThatShouldNotBeWatched) {
             if (Options.getOption(tuple[0])) {
-                for (let element of tuple[1]) {
-                    doNotWatchEvents.push(element);
+                for (let event of tuple[1]) {
+                    doNotWatchEvents.push(event);
                 }
             }
         }
@@ -103,14 +99,14 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
     /**
      * Gets Combinations not to Log, from the chrome storage.
      * This is currently just a placeholder for the structure to be used.
-     * @returns {ElementXEventCreatable[]}
+     * @returns {ElementXEventID[]}
      */
     public getCombinations() {
-        let doNotWatchCombinations: ElementXEventCreatable[] = [];
+        let doNotWatchCombinations: ElementXEventID[] = [];
         for (let tuple of this.combinationsThatShouldNotBeWatched) {
             if (Options.getOption(tuple[0])) {
-                for (let element of tuple[1]) {
-                    doNotWatchCombinations.push(element);
+                for (let combination of tuple[1]) {
+                    doNotWatchCombinations.push(combination);
                 }
             }
         }

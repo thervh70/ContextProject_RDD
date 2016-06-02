@@ -20,9 +20,9 @@ describe("The DoNotWatchOptions", function() {
 
     const eventTestList: any[][] = [
         [{}, []],
-        [{doNotWatchOnScreenEvents: true}, [ScrollIntoViewElementEventBinding, ScrollOutOfViewElementEventBinding]],
-        [{doNotWatchHoverEvents: true}, [MouseEnterElementEventBinding, MouseLeaveElementEventBinding]],
-        [{doNotWatchKeyboardShortcutEvents: true}, [KeystrokeElementEventBinding]],
+        ["doNotWatchOnScreenEvents", [EventID.SCROLL_INTO_VIEW, EventID.SCROLL_OUT_OF_VIEW]],
+        ["doNotWatchHoverEvents", [EventID.MOUSE_ENTER, EventID.MOUSE_LEAVE]],
+        ["doNotWatchKeyboardShortcutEvents", [EventID.KEYSTROKE]],
     ];
 
     const combinationTestList: any[][] = [

@@ -8,10 +8,15 @@ describe("An ElementSelectionBehaviourFactory", function () {
     const database = new ConsoleLogDatabaseAdapter();
 
     it("should create ElementSelectionBehaviours", function () {
-        let esb = factory.create(database, ElementID.ADD_EMOTICON);
+        let esb = <GenericElementSelectionBehaviour> esbFactory.create(database, ElementID.ADD_EMOTICON);
 
         expect(esb.getData().name).toEqual("Add emoticon");
         expect(esb.getElementID()).toEqual(ElementID.ADD_EMOTICON);
+    });
+
+    it("should return null when a non-existing ElementID is given to the create function", function () {
+        let esb = factory.create(database, new ElementID(-1));
+        expect(esb).toEqual(null);
     });
 
     it("should find the proper ESBData when given an ElementID", function () {

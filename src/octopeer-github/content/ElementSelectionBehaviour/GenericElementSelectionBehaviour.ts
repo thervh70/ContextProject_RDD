@@ -8,7 +8,7 @@
 class GenericElementSelectionBehaviour implements ElementSelectionBehaviour {
 
     /**
-     * Creates a ButtonsElementSelectionBehaviour object.
+     * Creates a GenericElementSelectionBehaviour object.
      * @param database the database to push to.
      * @param data The data of the ElementSelectionBehaviour
      */
@@ -23,8 +23,8 @@ class GenericElementSelectionBehaviour implements ElementSelectionBehaviour {
     }
 
     /**
-     * Get the buttons.
-     * @returns {JQuery} button elements.
+     * Get the elements that are selected by a jQuery selector.
+     * @returns {JQuery} elements
      */
     public getElements() {
         if (this.data.composedSelector === undefined) {

@@ -4,17 +4,18 @@
  */
 
 describe("A MouseEnterElementEventBinding's", function() {
-    const factory = new ElementSelectionBehaviourFactory();
+    const esbFactory = new ElementSelectionBehaviourFactory();
+    const eebFactory = new ElementEventBindingFactory();
 
     it("type should be retrieved when the getEventType function is called", function() {
-        selector = factory.create(database, ElementID.OTHER_CONTRIBUTOR);
-        binder = new MouseEnterElementEventBinding(selector);
+        selector = esbFactory.create(database, ElementID.OTHER_CONTRIBUTOR);
+        binder = eebFactory.create(selector, EventID.MOUSE_ENTER);
         expect(binder.getEventType()).toBe("mouseenter");
     });
 
     it("ID should be retrieved when the getEventID function is called", function() {
-        selector = factory.create(database, ElementID.PR_CREATOR);
-        binder = new MouseEnterElementEventBinding(selector);
+        selector = esbFactory.create(database, ElementID.PR_CREATOR);
+        binder = eebFactory.create(selector, EventID.MOUSE_ENTER);
         expect(binder.getEventID()).toEqual(new EventID(202));
     });
 });
