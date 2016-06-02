@@ -18,4 +18,24 @@ class ElementEventBindingFactory {
             this.elementEventBindingData[data.eventID.getEventID()] = data;
         }
     }
+
+    /**
+     * Find an ElementEventBindingData object that corresponds to the given EventID.
+     * @param eventID
+     * @returns {ElementEventBindingData}
+     */
+    public findElementEventBindingData(eventID: EventID) {
+        return elementEventBindingData[eventID.getEventID()];
+    }
+
+    /**
+     * Create a GenericElementEventBinding with the proper data.
+     * @param elementSelectionBehaviour The ElementSelectionBehaviour that should be bound to the event.
+     * @param eventID The event
+     * @returns {GenericElementEventBinding} A GenericElementEventBinding
+     */
+    public create(elementSelectionBehaviour: GenericElementSelectionBehaviour, eventID: EventID) {
+        let data = this.findElementEventBindingData(eventID);
+        return new GenericElementEventBinding(elementSelectionBehaviour, data);
+    }
 }
