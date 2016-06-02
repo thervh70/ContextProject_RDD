@@ -59,10 +59,10 @@ const Options = new (class Options {
 
     /**
      * Handles synchronization of the optionMap by retrieving values from the chrome storage on initialization and on update.
+     * For every option in optionMap, only the new values from the storage are assigned to them.
      * @param changeObject set of chrome storage properties.s
      */
     public syncOptionMap (changeObject: any) {
-        // For every option in optionMap, assign only the new values from the storage to them.
         for (let option in this.optionMap) {
             if (this.optionMap.hasOwnProperty(option)) {
                 this.optionMap[option] = changeObject[option] ? changeObject[option].newValue : this.optionMap[option];
@@ -110,11 +110,11 @@ const Options = new (class Options {
 
     /**
      * Generates an array containing all option names, based on the optionMap.
+     * For every key in optionMap, the optionName (thus key) is pushed to the to be outputted options array.
      * @returns {Array<String>} the list of option names.
      */
     public generateOptionList(): string[] {
         let options: string[] = [];
-        // For every key in optionMap, push the optionName (thus key) to the to be outputted options array.
         for (let key in this.optionMap) {
             if (this.optionMap.hasOwnProperty(key)) {
                 options.push(key);
