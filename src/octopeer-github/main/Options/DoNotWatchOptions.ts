@@ -24,11 +24,12 @@ const eebFactory = new ElementEventBindingFactory();
 const DoNotWatchOptions = new (class DoNotWatchOptions {
     /**
      * Gets Elements not to Log, from the chrome storage.
-     * @returns {ElementSelectionBehaviourCreatable[]}
+     * @returns {ElementSelectionBehaviourData[]}
      */
     public getElements() {
         let doNotWatchElements: ElementSelectionBehaviourData[] = [];
-        if (Options.getDoNotWatchCommentElements()) {
+
+        if (Options.get(Options.DNW_COMMENT_ELEMENTS)) {
             doNotWatchElements.push(esbFactory.findElementSelectionBehaviourData(ElementID.CONFIRM_INLINE_COMMENT));
             doNotWatchElements.push(esbFactory.findElementSelectionBehaviourData(ElementID.CREATE_PR_COMMENT));
             doNotWatchElements.push(esbFactory.findElementSelectionBehaviourData(ElementID.EDIT_COMMENT));
@@ -42,15 +43,15 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
     public getEvents() {
         let doNotWatchEvents: ElementEventBindingData[] = [];
 
-        if (Options.getDoNotWatchOnScreenEvents()) {
+        if (Options.get(Options.DNW_ON_SCREEN_EVENTS)) {
             doNotWatchEvents.push(eebFactory.findElementEventBindingData(EventID.SCROLL_INTO_VIEW));
             doNotWatchEvents.push(eebFactory.findElementEventBindingData(EventID.SCROLL_OUT_OF_VIEW));
         }
-        if (Options.getDoNotWatchHoverEvents()) {
+        if (Options.get(Options.DNW_HOVER_EVENTS)) {
             doNotWatchEvents.push(eebFactory.findElementEventBindingData(EventID.MOUSE_ENTER));
             doNotWatchEvents.push(eebFactory.findElementEventBindingData(EventID.MOUSE_LEAVE));
         }
-        if (Options.getDoNotWatchKeyboardShortcutEvents()) {
+        if (Options.get(Options.DNW_KEYBOARD_EVENTS)) {
             doNotWatchEvents.push(eebFactory.findElementEventBindingData(EventID.KEYSTROKE));
         }
         return doNotWatchEvents;
