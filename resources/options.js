@@ -87,21 +87,19 @@ function hideCards() {
     }
 }
 
-// Switches availability of options.
-function switchDisable() {
-    // Starts at index 1, as the main option at index 0 doesn't need to be switched (just all other options).
+// Disables availability of options.
+function showDisable() {
+    // Starts at index 1, as the main option at index 0 doesn't need to be disabled (just all other options).
     for(var i = 1; i < options.length; i++) {
-        optionsElement(i).disabled = !optionsElement(i).disabled;
+        optionsElement(i).disabled = false;
     }
 }
 
-// Restores availability of options.
-// The availability depends on the value of the logging checkbox state.
-function restoreDisable() {
-    var enabled = !items.loggingEnabled;
-    // Starts at index 1, as the main option at index 0 doesn't need to be restored (just all other options).
+// Enables availability of options.
+function hideDisable() {
+    // Starts at index 1, as the main option at index 0 doesn't need to be enabled (just all other options).
     for(var i = 1; i < options.length; i++) {
-        optionsElement(i).disabled = enabled;
+        optionsElement(i).disabled = true;
     }
 }
 
