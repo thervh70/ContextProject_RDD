@@ -4,7 +4,7 @@
  */
 describe("An ElementSelectionBehaviourFactory", function () {
 
-    const factory = new ElementSelectionBehaviourFactory();
+    const esbFactory = new ElementSelectionBehaviourFactory();
     const database = new ConsoleLogDatabaseAdapter();
 
     it("should create ElementSelectionBehaviours", function () {
@@ -15,12 +15,12 @@ describe("An ElementSelectionBehaviourFactory", function () {
     });
 
     it("should return null when a non-existing ElementID is given to the create function", function () {
-        let esb = factory.create(database, new ElementID(-1));
+        let esb = esbFactory.create(database, new ElementID(-1));
         expect(esb).toEqual(null);
     });
 
     it("should find the proper ESBData when given an ElementID", function () {
-        let esb = factory.findElementSelectionBehaviourData(ElementID.MERGE_PR);
+        let esb = esbFactory.findElementSelectionBehaviourData(ElementID.MERGE_PR);
 
         expect(esb.elementID.getElementID()).toEqual(ElementID.MERGE_PR.getElementID());
     });
