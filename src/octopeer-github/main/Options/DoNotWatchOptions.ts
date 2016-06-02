@@ -8,11 +8,11 @@
 
 /**
  * Created by Youri on 19-5-2016.
- * Additional type for storing tuples of Element and Event Creatables.
+ * Additional type for storing tuples of Element and Event Data.
  */
 type ElementXEventCreatable = {
     element: ElementSelectionBehaviourData,
-    event: ElementEventBindingCreatable
+    event: ElementEventBindingData
 };
 
 /**
