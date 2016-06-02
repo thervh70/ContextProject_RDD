@@ -16,16 +16,25 @@ type ElementXEventID = {
     event: EventID
 };
 
+/**
+ * Interface used to make sure that the elements of the tuples in the elementsThatShouldNotBeWatched list are typed.
+ */
 interface ElementThatShouldNotBeWatchedTuple extends Array<string | Array<ElementID>> {
     0: string;
     1: Array<ElementID>;
 }
 
+/**
+ * Interface used to make sure that the elements of the tuples in the eventsThatShouldNotBeWatched list are typed.
+ */
 interface EventThatShouldNotBeWatchedTuple extends Array<string | Array<EventID>> {
     0: string;
     1: Array<EventID>;
 }
 
+/**
+ * Interface used to make sure that the elements of the tuples in the combinationsThatShouldNotBeWatched list are typed.
+ */
 interface CombinationsThatShouldNotBeWatchedTuple extends Array<string | Array<ElementXEventID>> {
     0: string;
     1: Array<ElementXEventID>;
