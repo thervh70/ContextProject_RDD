@@ -1,5 +1,7 @@
 /**
  * Created by Mathias on 2016-06-02.
+ * This is the Generic implementation of the ElementEventBinding interface.
+ * These GenericElementEventBinding objects are created in the ElementEventBindingFactory.
  */
 class GenericElementEventBinding implements ElementEventBinding {
 
