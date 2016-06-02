@@ -52,7 +52,7 @@ describe("The Options class", function() {
         let optionList: string[] = Options.generateOptionList();
         // HashFile is false by default.
         let turnedOff = 7;
-        for (let i = 0; i < optionList.length && i !== 7; i++) {
+        for (let i = 0; i < optionList.length; i++) {
             if (i !== turnedOff) {
                 expect(Options.get(optionList[i])).toBe(true);
             } else {
