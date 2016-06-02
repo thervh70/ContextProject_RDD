@@ -39,8 +39,8 @@
         <div class="card">
             <div class="card-content">
                 <span class="card-title">General</span> <br>
-                <input type="checkbox" id="logging" checked>
-                <label for="logging">I accept Octopeer to log data from me while reviewing pull requests on GitHub.</label>
+                <input type="checkbox" id="loggingEnabled" checked>
+                <label for="loggingEnabled">I accept Octopeer to log data from me while reviewing pull requests on GitHub.</label>
             </div>
         </div>
     </div>
@@ -52,22 +52,22 @@
                 <p style="font-family: Roboto,sans-serif; font-size:11pt">
                 The following data can be tracked from me, while I'm reviewing pull requests on GitHub:
                 </p>
-                <ul id="privacy_sub">
+                <ul id="privacySubOptions">
                     <li>
-                        <input type="checkbox" id="tabs" checked>
-                        <label for="tabs">other active tabs that are used.</label>
+                        <input type="checkbox" id="trackTabs" checked>
+                        <label for="trackTabs">other active tabs that are used.</label>
                     </li>
                     <li>
-                        <input type="checkbox" id="comments" checked>
-                        <label for="comments"> the comments that I add to a pull request. </label>
+                        <input type="checkbox" id="trackComments" checked>
+                        <label for="trackComments"> the comments that I add to a pull request. </label>
                     </li>
                     <li>
-                        <input type="checkbox" id="peer_comments" checked>
-                        <label for="peer_comments"> the comments of my peers that have been added to a pull request. </label>
+                        <input type="checkbox" id="trackPeerComments" checked>
+                        <label for="trackPeerComments"> the comments of my peers that have been added to a pull request. </label>
                     </li>
                     <li>
-                        <input type="checkbox" id="focus" checked>
-                        <label for="focus"> what part of a page I'm focusing on (in terms of text hovering, selection, etc.). </label>
+                        <input type="checkbox" id="trackFocus" checked>
+                        <label for="trackFocus"> what part of a page I'm focusing on (in terms of text hovering, selection, etc.). </label>
                     </li>
                 </ul>
             </div>
@@ -82,19 +82,48 @@
                 If you allow Octopeer to log data from you, it will store this data and process it.
                 Would you like Octopeer to take the following security measures?
                 </p>
-                <ul id="security_sub">
+                <ul id="securitySubOptions">
                     <li>
-                        <input type="checkbox" id="username" checked>
-                        <label for="username"> Encrypt your username. </label>
+                        <input type="checkbox" id="hashUsername" checked>
+                        <label for="hashUsername"> Encrypt your username. </label>
                     </li>
                     <li>
-                        <input type="checkbox" id="repo" checked>
-                        <label for="repo"> Encrypt the names of repositories you're working in. </label>
+                        <input type="checkbox" id="hashRepo" checked>
+                        <label for="hashRepo"> Encrypt the names of repositories you're working in. </label>
                     </li>
                     <li>
-                        <input type="checkbox" id="file">
-                        <label for="file"> Encrypt the names of the files you're working on. </label>
+                        <input type="checkbox" id="hashFile">
+                        <label for="hashFile"> Encrypt the names of the files you're working on. </label>
                      </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col s12 m6">
+        <div class="card" id="doNotWatch">
+            <div class="card-content">
+                <span class="card-title">Tracking selection</span> <br>
+                <p style="font-family: Roboto,sans-serif; font-size:11pt">
+                    The checked elements and events will be tracked while Octopeer is running.
+                </p>
+                <ul id="doNotWatchSubOptions">
+                    <li>
+                        <input type="checkbox" id="dnwScreen" checked>
+                        <label for="dnwScreen">Elements on the screen. </label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="dnwHover" checked>
+                        <label for="dnwHover">Elements I hover over with the mouse. </label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="dnwComments" checked>
+                        <label for="dnwComments">Comments on my Pull Request. </label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="dnwKeyboardShortcut" checked>
+                        <label for="dnwKeyboardShortcut">The keyboard shortcuts I use. </label>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -108,7 +137,7 @@
                     The goal of Octopeer is to allow you to improve your pull request behavior. This is done in terms of hints.
                     Would you like Octopeer to deliver the hints in the following way?
                 </p>
-                <ul id="hints_sub">
+                <ul id="hintsSubOptions">
                     <li>
                         <input type="checkbox" id="something" disabled checked>
                         <label for="something">...</label>
@@ -119,16 +148,6 @@
     </div>
 
     </div>
-
-    <!--Div used for status update-->
-    <div id="status"></div>
-
-    <button class="btn waves-effect lime waves-light" type="submit" id="save">
-        <div>
-            <a style="font-family: Roboto,sans-serif; font-size:11pt; color:white">Submit</a>
-            <i class="material-icons right">send</i>
-        </div>
-    </button>
 </div>
 </body>
 </html>

@@ -3,6 +3,18 @@
  * Contains necessary functions for the Options page of Octopeer.
  */
 
+// List that contains all optionID names that Octopeer provides.
+var options = ['loggingEnabled',
+    'trackTabs', 'trackComments', 'trackPeerComments', 'trackFocus',
+    'hashUsername', 'hashRepo', 'hashFile',
+    'dnwScreen', 'dnwHover', 'dnwComments', 'dnwKeyboardShortcut'];
+
+// List that contains all subOptionID names that Octopeer provides.
+var subOptions = ['securitySubOptions', 'privacySubOptions', 'hintsSubOptions', 'doNotWatchSubOptions'];
+
+// List that contains all cardElement names that Octopeer provides.
+var cards = ['security', 'privacy', 'hints', 'doNotWatch'];
+
 // Listens for changes in the loggingEnabled flag.
 // This boolean might be switched using the popup.
 function changeListener() {
@@ -17,45 +29,21 @@ function changeListener() {
 // Saves options to chrome.storage.
 // A message will confirm this to the user.
 function saveOptions() {
-    chrome.storage.sync.set({
-        // General
-        loggingEnabled: $('#logging').prop('checked'),
-        // Privacy
-        trackTabs: $('#tabs').prop('checked'),
-        trackComments:  $('#comments').prop('checked'),
-        trackPeerComments: $('#peerComments').prop('checked'),
-        trackFocus: $('#focus').prop('checked'),
-        // Security
-        hashUsername: $('#username').prop('checked'),
-        hashRepo: $('#repo').prop('checked'),
-        hashFile: $('#file').prop('checked')
-        // Hints
-    }, function() {
-        Materialize.toast("Options saved!", 2000);
-    });
+    var saveObject = {};
+    // Loops over all options and adds the current value to the chrome storage.
+    for (var i = 0; i < options.length; i++) {
+        saveObject[options[i]] = optionsElement(i).prop('checked');
+    }
+    chrome.storage.sync.set(saveObject, function() {});
 }
 
 // Restores the states of the checkboxes, using the preferences stored in chrome.storage.
 function restoreOptionsState() {
-    chrome.storage.sync.get({
-        loggingEnabled: Boolean,
-        trackTabs: Boolean,
-        trackComments: Boolean,
-        trackPeerComments: Boolean,
-        trackFocus: Boolean,
-        hashUsername: Boolean,
-        hashRepo: Boolean,
-        hashFile: Boolean
-    }, function(items) {
-        // Saved values from the chrome.storage
-        $('#logging').prop('checked', items.loggingEnabled);
-        $('#tabs').prop('checked', items.trackTabs);
-        $('#comments').prop('checked', items.trackComments);
-        $('#peerComments').prop('checked', items.trackPeerComments);
-        $('#focus').prop('checked', items.trackFocus);
-        $('#username').prop('checked', items.hashUsername);
-        $('#repo').prop('checked', items.hashRepo);
-        $('#file').prop('checked', items.hashFile);
+    chrome.storage.sync.get(options, function(items) {
+        // Retrieves and restores the values by using the chrome.storage
+        for (var i = 0; i < options.length; i++) {
+            optionsElement(i).prop('checked', items[options[i]]);
+        }
     });
 }
 
@@ -76,50 +64,75 @@ function restoreOptionsAvailability() {
 
 // Shows the sub-options.
 function showSubOptions() {
-    $('#security_sub').show();
-    $('#privacy_sub').show();
-    $('#hints_sub').show();
+    for (var i = 0; i < subOptions.length; i++) {
+        subOptionsElement(i).show();
+    }
 }
 
 // Hides the sub-options.
 function hideSubOptions() {
-    $('#security_sub').hide();
-    $('#privacy_sub').hide();
-    $('#hints_sub').hide();
+    for (var i = 0; i < subOptions.length; i++) {
+        subOptionsElement(i).hide();
+    }
 }
 
 // Shows the option cards.
 function showCards() {
-    $('#security').show();
-    $('#privacy').show();
-    $('#hints').show();
+    for (var i = 0; i < cards.length; i++) {
+        cardElement(i).show();
+    }
 }
 
 // Hides the option cards.
 function hideCards() {
-    $('#security').hide();
-    $('#privacy').hide();
-    $('#hints').hide();
+    for (var i = 0; i < cards.length; i++) {
+        cardElement(i).hide();
+    }
 }
 
-// Switches availability of options.
-function switchDisable() {
-    $('#tabs').disabled = !$('#tabs').disabled;
-    $('#comments').disabled = !$('#comments').disabled;
-    $('#peerComments').disabled = !$('#peerComments').disabled;
-    $('#focus').disabled = !$('#focus').disabled;
-    $('#username').disabled = !$('#username').disabled;
-    $('#repo').disabled = !$('#repo').disabled;
-    $('#file').disabled = !$('#file').disabled;
+// Disables availability of options.
+function showWithDisable() {
+    // Starts at index 1, as the main option at index 0 doesn't need to be disabled (just all other options).
+    for (var i = 1; i < options.length; i++) {
+        optionsElement(i).removeAttr("disabled");
+    }
 }
 
-// Restores availability of options.
-// The availability depends on the value of the logging checkbox state.
-function restoreDisable() {
-    $('#tabs').disabled = $('#comments').disabled =
-        $('#peerComments').disabled = $('#focus').disabled =
-            $('#username').disabled = $('#repo').disabled =
-                $('#file').disabled = !items.loggingEnabled;
+// Enables availability of options.
+function hideWithDisable() {
+    // Starts at index 1, as the main option at index 0 doesn't need to be enabled (just all other options).
+    for (var i = 1; i < options.length; i++) {
+        optionsElement(i).attr("disabled", true);
+    }
+}
+
+// Retrieves the element of an option.
+function optionsElement(index){
+    return elementGenerator(index, options);
+}
+
+// Retrieves the element of a subOption.
+function subOptionsElement(index){
+    return elementGenerator(index, subOptions);
+}
+
+// Retrieves the element of a card.
+function cardElement(index){
+    return elementGenerator(index, cards);
+}
+
+// Helper function that creates an element based on an index and an array containing the option names.
+function elementGenerator(index, array){
+    return $('#' + array[index]);
+}
+
+// Adds click events to the checkboxes of the options.
+// When clicking on the main option, switchOptions is also called.
+function addOptionClickEvents() {
+    optionsElement(0).click(switchOptions);
+    for (var i = 0; i < options.length; i++) {
+        optionsElement(i).click(saveOptions);
+    }
 }
 
 // Constants that define the function that will be called.
@@ -132,12 +145,10 @@ const hide = hideCards;
 // enables the (sub)options when the user does.
 // A message will confirm this action to the user.
 function switchOptions() {
-    var logging = $('#logging').prop('checked');
+    var logging = optionsElement(0).prop('checked');
     if (logging) {
-        Materialize.toast("Logging has been enabled.", 2000);
         show();
     } else {
-        Materialize.toast("Logging has been disabled.", 2000);
         hide();
     }
 }
@@ -147,7 +158,6 @@ document.addEventListener('DOMContentLoaded', restoreOptionsAvailability);
 
 // Will execute once the page DOM is ready.
 $(document).ready(function() {
-    $('#save').click(saveOptions);
-    $('#logging').click(switchOptions);
+    addOptionClickEvents();
     changeListener();
 });
