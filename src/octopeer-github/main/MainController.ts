@@ -17,7 +17,6 @@ class MainController implements OptionsObserver {
         Status.standby();
         // TODO: Options.update actually means "add a listener to the storage" so can be merged into init
         Options.init();
-        Options.update();
         Options.addObserver(this);
         return this;
     }

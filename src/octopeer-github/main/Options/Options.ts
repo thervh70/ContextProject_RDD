@@ -43,6 +43,7 @@ const Options = new (class Options {
                     self.optionMap[option] = object[option];
                 }
             }
+            self.update();
             self.notifyObservers();
         });
     }
