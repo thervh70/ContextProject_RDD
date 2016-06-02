@@ -27,11 +27,11 @@ const factory = new ElementSelectionBehaviourFactory();
 const DoNotWatchOptions = new (class DoNotWatchOptions {
     /**
      * Gets Elements not to Log, from the chrome storage.
-     * @returns {ElementSelectionBehaviourCreatable[]}
+     * @returns {ElementSelectionBehaviourData[]}
      */
     public getElements() {
         let doNotWatchElements: ElementSelectionBehaviourData[] = [];
-        if (Options.getDoNotWatchCommentElements()) {
+        if (Options.get(Options.DNW_COMMENT_ELEMENTS)) {
             doNotWatchElements.push(factory.findElementSelectionBehaviourData(ElementID.CONFIRM_INLINE_COMMENT));
             doNotWatchElements.push(factory.findElementSelectionBehaviourData(ElementID.CREATE_PR_COMMENT));
             doNotWatchElements.push(factory.findElementSelectionBehaviourData(ElementID.EDIT_COMMENT));
@@ -45,15 +45,15 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
     public getEvents() {
         let doNotWatchEvents: ElementEventBindingCreatable[] = [];
 
-        if (Options.getDoNotWatchOnScreenEvents()) {
+        if (Options.get(Options.DNW_ON_SCREEN_EVENTS)) {
             doNotWatchEvents.push(ScrollIntoViewElementEventBinding);
             doNotWatchEvents.push(ScrollOutOfViewElementEventBinding);
         }
-        if (Options.getDoNotWatchHoverEvents()) {
+        if (Options.get(Options.DNW_HOVER_EVENTS)) {
             doNotWatchEvents.push(MouseEnterElementEventBinding);
             doNotWatchEvents.push(MouseLeaveElementEventBinding);
         }
-        if (Options.getDoNotWatchKeyboardShortcutEvents()) {
+        if (Options.get(Options.DNW_KEYBOARD_EVENTS)) {
             doNotWatchEvents.push(KeystrokeElementEventBinding);
         }
         return doNotWatchEvents;
