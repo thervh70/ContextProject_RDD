@@ -138,8 +138,8 @@ function addOptionClickEvents() {
 // Constants that define the function that will be called.
 // Different show/hide (or disable switch) methods can be called from here.
 // These different implementations are there for user testing.
-const show = showWithDisable;
-const hide = hideWithDisable;
+const show = showCards;
+const hide = hideCards;
 
 // Disables the (sub)options when the user doesn't want Octopeer to log data and
 // enables the (sub)options when the user does.
