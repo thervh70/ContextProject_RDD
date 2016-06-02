@@ -94,13 +94,13 @@ class ContentController {
      * Hook the different rawdata trackers to DOM.
      * @param database   the database that should be used when logging.
      */
-    // tslint:disable:no-unused-variable
     private hookSyntacticToDOM(database: DatabaseAdaptable) {
+        // tslint:disable:no-unused-variable
         let windowResolutionTracker = new WindowResolutionTracker(database);
         let keystrokeTracker = new KeystrokeTracker(database);
         let mouseClickTracker = new MouseClickTracker(database);
         let mouseScrollTracker = new MouseScrollTracker(database);
         let mousePositionTracker = new MousePositionTracker(database);
+        // tslint:enable:no-unused-variable
     }
-    // tslint:enable:no-unused-variable
 }
