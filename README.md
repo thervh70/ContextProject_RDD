@@ -12,6 +12,7 @@
   - [4](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Sprint_Backlog4.pdf)
   - [5](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Sprint_Backlog5.pdf)
   - [6](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Sprint_Backlog6.pdf)
+  - [7](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Sprint_Backlog7.pdf)
 
 - Sprint retrospectives:
   - [1](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/SprintRetrospective-1.pdf)
@@ -19,6 +20,7 @@
   - [3](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/SprintRetrospective-3.pdf)
   - [4](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/SprintRetrospective-4.pdf)
   - [5](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/SprintRetrospective-5.pdf)
+  - [6](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/SprintRetrospective-6.pdf)
 
 
 - Research Documents:
@@ -29,6 +31,7 @@
 - [Product Vision (final)](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Final_Product_Vision.pdf)
 - [Product Planning (final)](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Final_Product_Planning.pdf)
 - [Architecture Design Document](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Architecture_Design_Document.pdf)
+- [Test Report](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Test_Report.pdf)
 
 
 All documents can in general be found in the doc folder.

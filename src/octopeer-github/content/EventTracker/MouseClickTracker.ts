@@ -12,9 +12,9 @@ class MouseClickTracker {
      */
     constructor(private dbClick: MouseClickDatabaseAdaptable, private dbPosition: MousePositionDatabaseAdaptable = undefined) {
         if (dbPosition === undefined) {
-            try {
+            if ((<DatabaseAdaptable>dbClick).postMousePosition !== undefined) {
                 this.dbPosition = <DatabaseAdaptable>dbClick;
-            } catch (e) {
+            } else {
                 Logger.warn("MouseClickTracker was instantiated wrongly!");
                 return;
             }
