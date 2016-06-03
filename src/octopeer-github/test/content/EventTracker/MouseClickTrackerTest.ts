@@ -33,4 +33,14 @@ describe("A MouseClickTracker", function() {
         expect(dbSpyClick).toHaveBeenCalledTimes(1);
         expect(dbSpyPosition).toHaveBeenCalledTimes(1);
     });
+
+    it("should be instantiated in the right way and the Logger should warn when an exception is thrown", function() {
+        let objAdapter = jasmine.createSpyObj("RESTApiDatabaseAdapter", ["constructor", "postMouseClick"]);
+        let logMock = spyOn(Logger, "warn");
+        // tslint:disable-next-line:no-unused-expression
+        new MouseClickTracker(objAdapter);
+
+        $("body").trigger($.Event("click", {pageX: 42, pageY: 84}));
+        expect(logMock).toHaveBeenCalled();
+    });
 });
