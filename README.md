@@ -12,6 +12,7 @@
   - [4](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Sprint_Backlog4.pdf)
   - [5](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Sprint_Backlog5.pdf)
   - [6](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Sprint_Backlog6.pdf)
+  - [7](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Sprint_Backlog7.pdf)
 
 - Sprint retrospectives:
   - [1](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/SprintRetrospective-1.pdf)
@@ -19,6 +20,7 @@
   - [3](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/SprintRetrospective-3.pdf)
   - [4](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/SprintRetrospective-4.pdf)
   - [5](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/SprintRetrospective-5.pdf)
+  - [6](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/SprintRetrospective-6.pdf)
 
 
 - Research Documents:
