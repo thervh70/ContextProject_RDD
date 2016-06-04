@@ -62,3 +62,17 @@ Total: ****
 | Code Review            |      |
 
 ##Notes
+* ADD
+	* 1.1 Reliability - how does an adapter ensure a reliable connection?
+	* 1.1 Securability - have these security options been implemented (username encryption etc)?
+		* also the database still works on http, so how secure is this tool?
+	* Diagrams make the flow through the extension much clearer, thanks
+* Good work on the test coverage report!
+* MessageSendDatabaseAdapter
+	* (copy-pasting is bad, mmkay), lol - good to keep in mind
+	* `postKeystroke` - `postWindowResolution`
+		* contain identical code except for the type value, include the type in the event and pass a generic Event
+		* makes the switch in the `MainController` smaller as well
+* `URLHandler`
+	* contains only public static functions but isn't singleton?
+* Good job handling the feedback from last time
