@@ -23,6 +23,10 @@ Total: ****
 | reflection            |    |
 
 ## Notes
+* Several unfinished tasks (like bug fixes) aren't explained
+* Task #64
+	* Estimated effort is 0 but cost 3 hours? Not very good estimation
+* Thanks for fixing the layout problems and for keeping things clear 
 
 #Code Evolution Quality Feedback
 
