@@ -6,7 +6,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" >
 
+    <script src="jquery.min.js"></script>
     <script src="materialize.min.js"></script>
+
+    <script src="about.js"></script>
 </head>
 <body>
 
@@ -16,10 +19,16 @@
             <a>Octopeer</a>
         </div>
 
-        <ul id="nav-mobile" class="right hide-on-small-only">
+        <ul class="right hide-on-small-only">
             <li><a href="options.html">Options</a></li>
-            <li class="active"><a href="about.html">About</a></li>
+            <li class="active"><a href="#">About</a></li>
         </ul>
+        <ul id="slide-out" class="side-nav">
+            <li><a href="options.html">Options</a></li>
+            <li class="active"><a href="#">About</a></li>
+        </ul>
+        <a href="#" data-activates="slide-out" class="right button-collapse hide-on-med-and-up"><i class="material-icons">menu</i></a>
+
     </div>
 </nav>
 
@@ -30,27 +39,31 @@
 
     <div class="row">
 
-    <div class="col s12 m6">
-        <p class="flow-text">Left Text</p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam at rhoncus nisi.
-        Pellentesque sed auctor dui. Pellentesque quis libero sollicitudin, dignissim mi eget,
-        tempor erat. Praesent cursus massa nec lectus tincidunt, vitae hendrerit libero vulputate.
-        Suspendisse malesuada tempor volutpat. Duis malesuada ante convallis lorem pellentesque sodales.
-        Donec metus urna, eleifend et neque quis, placerat scelerisque turpis. Integer eu aliquet lectus.
-        Nulla vel pellentesque nisl, a imperdiet leo. Maecenas et semper dui, ac viverra mi.
-        Etiam vel elit urna. Maecenas vehicula elit vel maximus molestie.
-    </div>
+        <div class="col s12 m6">
+            <p class="flow-text">Left Text</p>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam at rhoncus nisi.
+                Pellentesque sed auctor dui. Pellentesque quis libero sollicitudin, dignissim mi eget,
+                tempor erat. Praesent cursus massa nec lectus tincidunt, vitae hendrerit libero vulputate.
+                Suspendisse malesuada tempor volutpat. Duis malesuada ante convallis lorem pellentesque sodales.
+                Donec metus urna, eleifend et neque quis, placerat scelerisque turpis. Integer eu aliquet lectus.
+                Nulla vel pellentesque nisl, a imperdiet leo. Maecenas et semper dui, ac viverra mi.
+                Etiam vel elit urna. Maecenas vehicula elit vel maximus molestie.
+            </p>
+        </div>
 
-    <div class="col s12 m6">
-        <p class="flow-text">Right Text</p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam at rhoncus nisi.
-        Pellentesque sed auctor dui. Pellentesque quis libero sollicitudin, dignissim mi eget,
-        tempor erat. Praesent cursus massa nec lectus tincidunt, vitae hendrerit libero vulputate.
-        Suspendisse malesuada tempor volutpat. Duis malesuada ante convallis lorem pellentesque sodales.
-        Donec metus urna, eleifend et neque quis, placerat scelerisque turpis. Integer eu aliquet lectus.
-        Nulla vel pellentesque nisl, a imperdiet leo. Maecenas et semper dui, ac viverra mi.
-        Etiam vel elit urna. Maecenas vehicula elit vel maximus molestie.
-    </div>
+        <div class="col s12 m6">
+            <p class="flow-text">Right Text</p>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam at rhoncus nisi.
+                Pellentesque sed auctor dui. Pellentesque quis libero sollicitudin, dignissim mi eget,
+                tempor erat. Praesent cursus massa nec lectus tincidunt, vitae hendrerit libero vulputate.
+                Suspendisse malesuada tempor volutpat. Duis malesuada ante convallis lorem pellentesque sodales.
+                Donec metus urna, eleifend et neque quis, placerat scelerisque turpis. Integer eu aliquet lectus.
+                Nulla vel pellentesque nisl, a imperdiet leo. Maecenas et semper dui, ac viverra mi.
+                Etiam vel elit urna. Maecenas vehicula elit vel maximus molestie.
+            </p>
+        </div>
 
     </div>
 </div>
