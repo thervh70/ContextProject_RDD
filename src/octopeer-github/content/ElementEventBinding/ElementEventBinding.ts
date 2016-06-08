@@ -21,7 +21,6 @@ interface ElementEventBinding {
      */
     addDOMEvent(elementSelectionBehaviour: ElementSelectionBehaviour): void;
 
-
     /**
      * When called, the ElementEventBinding should remove itself from the DOM tree.
      */
