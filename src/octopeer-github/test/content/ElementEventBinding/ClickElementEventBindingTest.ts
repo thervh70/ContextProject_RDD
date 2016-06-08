@@ -55,7 +55,10 @@ describe("A ClickElementEventBinding's", function() {
             },
             eventID: new EventID(9999),
             name: "testevent",
+            removeDOMEvent: () => {
+                console.log("removed");
+            },
         });
-        expect(consoleSpy).toHaveBeenCalledTimes(1);
+        expect(consoleSpy).toHaveBeenCalledTimes(2);
     });
 });
