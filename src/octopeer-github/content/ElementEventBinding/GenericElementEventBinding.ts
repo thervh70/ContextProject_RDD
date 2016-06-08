@@ -48,13 +48,13 @@ class GenericElementEventBinding implements ElementEventBinding {
      * whose callback should be used on the firing of this Event.
      */
     public addDOMEvent(elementSelectionBehaviour: ElementSelectionBehaviour) {
-        if (this.data.addDOMEvent === undefined) {
+        if (this.hasBothOverrides()) {
+            this.data.addDOMEvent(elementSelectionBehaviour);
+        } else {
             this.elements.on(
                 this.eventType,
                 elementSelectionBehaviour.getCallback(this.eventID)
             );
-        } else {
-            this.data.addDOMEvent(elementSelectionBehaviour);
         }
     };
 
@@ -62,10 +62,15 @@ class GenericElementEventBinding implements ElementEventBinding {
      * Make sure the Event is unhooked from the DOM.
      */
     public removeDOMEvent() {
-        if (this.data.removeDOMEvent === undefined) {
-            this.elements.off(this.eventType);
-        } else {
+        if (this.hasBothOverrides()) {
             this.data.removeDOMEvent();
+        } else {
+            this.elements.off(this.eventType);
         }
     };
+
+    private hasBothOverrides() {
+        return this.data.addDOMEvent !== undefined && this.data.removeDOMEvent !== undefined;
+    }
+
 }
