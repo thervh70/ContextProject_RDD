@@ -1,6 +1,8 @@
 // Use the toggle button on the popup to switch the loggingEnabled option.
 function toggle() {
-    chrome.storage.sync.get("loggingEnabled", function (res) {
+    chrome.storage.sync.get({
+        loggingEnabled: true
+    }, function (res) {
         chrome.storage.sync.set({
             loggingEnabled: !(res.loggingEnabled)
         })
