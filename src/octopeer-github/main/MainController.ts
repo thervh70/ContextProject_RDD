@@ -133,7 +133,7 @@ class MainController implements OptionsObserver {
         Status.running();
         Logger.debug(`[Tab] Owner: ${urlInfo[1]}, Repo: ${urlInfo[2]}, PR-number: ${urlInfo[3]}`);
         chrome.tabs.sendMessage(tab.id, {
-            hookToDom: Options.getLogging(),
+            hookToDom: Options.get(Options.LOGGING),
         }, function (result) {
             if (!result) {
                 chrome.tabs.reload(tab.id);
