@@ -1,30 +1,11 @@
 /// <reference path="../main/Options/DoNotWatchOptions.ts"/>
 /// <reference path="../main/Database/ConsoleLogDatabaseAdapter.ts"/>
 /// <reference path="ElementEventBinding/ElementEventBinding.ts"/>
-/// <reference path="ElementEventBinding/ClickElementEventBinding.ts"/>
-/// <reference path="ElementEventBinding/KeystrokeElementEventBinding.ts"/>
-/// <reference path="ElementEventBinding/MouseEnterElementEventBinding.ts"/>
-/// <reference path="ElementEventBinding/MouseLeaveElementEventBinding.ts"/>
-/// <reference path="ElementEventBinding/ScrollIntoViewElementEventBinding.ts"/>
-/// <reference path="ElementEventBinding/ScrollOutOfViewElementEventBinding.ts"/>
-/// <reference path="ElementSelectionBehaviour/ElementSelectionBehaviour.ts"/>
 
 /**
  * The ContentController hooks the event handlers to the DOM-tree.
  */
 class ContentController {
-
-    /**
-     * List of ElementEventBindings that should be matched with ElementSelectors
-     */
-    private elementEventBindingList = [
-        ClickElementEventBinding,
-        KeystrokeElementEventBinding,
-        MouseEnterElementEventBinding,
-        MouseLeaveElementEventBinding,
-        ScrollIntoViewElementEventBinding,
-        ScrollOutOfViewElementEventBinding,
-    ];
 
     /**
      * A private DatabaseAdaptable that sends messages to the background page.
@@ -37,6 +18,7 @@ class ContentController {
      * @return this
      */
     public start() {
+        Options.init();
         if (!chrome.runtime.onMessage.hasListeners()) {
             chrome.runtime.onMessage.addListener(this.processMessageFromBackgroundPage());
         }
@@ -69,45 +51,57 @@ class ContentController {
     }
 
     /**
-     * Hook the product of ElementBindings and ElementSelectors to the DOM-tree.
+     * Hook both the semantic and syntactic elements and events to the DOM.
      * @param database   the database that should be used when logging.
      */
     private hookToDOM(database: DatabaseAdaptable) {
-        let elementEventBinding: ElementEventBindingCreatable;
-        let elementSelectionBinding: ElementSelectionBehaviourData;
-        let elementEventBindingHolder: ElementEventBinding;
-        let elementSelectionBindingHolder: ElementSelectionBehaviour;
-        let windowResolutionTracker: WindowResolutionTracker;
-        let keystrokeTracker: KeystrokeTracker;
-        let mouseClickTracker: MouseClickTracker;
-        let mouseScrollTracker: MouseScrollTracker;
-        let mousePositionTracker: MousePositionTracker;
+        this.hookSemanticToDOM(database);
+        this.hookSyntacticToDOM(database);
+    }
 
-        for (elementSelectionBinding of unsortedElementSelectionBehaviourData) {
-            if (DoNotWatchOptions.getElements().map(function (data) { return data.elementID.getElementID(); })
-                    .indexOf(elementSelectionBinding.elementID.getElementID()) >= 0) {
+    /**
+     * Hook the product of ElementBindings and ElementSelectors to the DOM-tree.
+     * @param database   the database that should be used when logging.
+     */
+    private hookSemanticToDOM(database: DatabaseAdaptable) {
+        const esbFactory = new ElementSelectionBehaviourFactory();
+        const eebFactory = new ElementEventBindingFactory();
+        let elementEventBindingData: ElementEventBindingData;
+        let elementSelectionBehaviourData: ElementSelectionBehaviourData;
+        let elementEventBinding: ElementEventBinding;
+        let elementSelectionBehaviour: ElementSelectionBehaviour;
+
+        for (elementSelectionBehaviourData of elementSelectionBehaviourDataList) {
+            if (!DoNotWatchOptions.shouldElementBeWatched(elementSelectionBehaviourData.elementID)) {
                 continue;
             }
 
-            elementSelectionBindingHolder = new GenericElementSelectionBehaviour(database, elementSelectionBinding);
+            elementSelectionBehaviour = esbFactory.create(database, elementSelectionBehaviourData.elementID);
 
-            for (elementEventBinding of this.elementEventBindingList) {
-                if (DoNotWatchOptions.getEvents().indexOf(elementEventBinding) > 0 ||
-                    DoNotWatchOptions.getCombinations().indexOf({
-                        element: elementSelectionBinding,
-                        event: elementEventBinding,
-                    }) > 0
+            for (elementEventBindingData of elementEventBindingDataList) {
+                if (DoNotWatchOptions.shouldEventBeWatched(elementEventBindingData.eventID) &&
+                    DoNotWatchOptions.shouldCombinationBeWatched({
+                        element: elementSelectionBehaviourData.elementID,
+                        event: elementEventBindingData.eventID,
+                    })
                 ) {
-                    continue;
+                    elementEventBinding = eebFactory.create(elementSelectionBehaviour, elementEventBindingData.eventID);
                 }
-                elementEventBindingHolder = new elementEventBinding(elementSelectionBindingHolder);
             }
         }
-        windowResolutionTracker = new WindowResolutionTracker(database);
-        keystrokeTracker = new KeystrokeTracker(database);
-        mouseClickTracker = new MouseClickTracker(database);
-        mouseScrollTracker = new MouseScrollTracker(database);
-        mousePositionTracker = new MousePositionTracker(database);
     }
 
+    /**
+     * Hook the different rawdata trackers to DOM.
+     * @param database   the database that should be used when logging.
+     */
+    private hookSyntacticToDOM(database: DatabaseAdaptable) {
+        // tslint:disable:no-unused-variable
+        let windowResolutionTracker = new WindowResolutionTracker(database);
+        let keystrokeTracker = new KeystrokeTracker(database);
+        let mouseClickTracker = new MouseClickTracker(database);
+        let mouseScrollTracker = new MouseScrollTracker(database);
+        let mousePositionTracker = new MousePositionTracker(database);
+        // tslint:enable:no-unused-variable
+    }
 }

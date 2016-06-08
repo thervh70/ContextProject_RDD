@@ -87,6 +87,15 @@ class ElementID {
     }
 
     /**
+     * Checks whether two ElementIDs are equal.
+     * @param that ElementID to compare with.
+     * @returns {boolean} true if the ElementIDs are equal, false otherwise.
+     */
+    public equals(that: ElementID) {
+        return this.elementID === that.elementID;
+    }
+
+    /**
      * @returns {string} A string containing only the elementID.
      */
     public toString(): string {

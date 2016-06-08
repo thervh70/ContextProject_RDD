@@ -108,8 +108,8 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
      */
     public postSemantic(eventData: SemanticEvent, success: Callback, failure: Callback): void {
         this.postEvent({
-            "event_type": `${this._databaseUrl}api/event-types/${eventData.eventID}/`,
-            "element_type": `${this._databaseUrl}api/element-types/${eventData.elementID}/`,
+            "event_type": eventData.eventID,
+            "element_type": eventData.elementID,
             "created_at": eventData.created_at,
         }, "semantic-events", success, failure);
     }
