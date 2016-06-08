@@ -9,6 +9,8 @@ class GenericElementEventBinding implements ElementEventBinding {
     private eventID: EventID;
     /** The name. */
     private eventType: string;
+    /** The elements that should be bound to. Stored as fields so that elements are not re-queried every time. */
+    private elements: JQuery;
 
     /**
      * Construct a GenericElementEventBinding, assign the proper values to the field (from the data)
@@ -19,6 +21,7 @@ class GenericElementEventBinding implements ElementEventBinding {
     constructor(elementSelectionBehaviour: ElementSelectionBehaviour, private data: ElementEventBindingData) {
         this.eventID = data.eventID;
         this.eventType = data.name;
+        this.elements = elementSelectionBehaviour.getElements();
         this.initDOMEvent(elementSelectionBehaviour);
     }
 
@@ -45,9 +48,8 @@ class GenericElementEventBinding implements ElementEventBinding {
      */
     private initDOMEvent = function (elementSelectionBehaviour: ElementSelectionBehaviour) {
         if (this.data.initDOMEvent === undefined) {
-            const elements = elementSelectionBehaviour.getElements();
-            elements.off(this.eventType);
-            elements.on(
+            this.elements.off(this.eventType);
+            this.elements.on(
                 this.eventType,
                 elementSelectionBehaviour.getCallback(this.eventID)
             );
