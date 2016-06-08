@@ -15,6 +15,8 @@ class ContentController {
 
     private oldElementEventBindings: ElementEventBinding[] = [];
 
+    private oldEventTrackers: EventTracker[] = [];
+
     /**
      * Starts the ContentController. After calling this, all event handlers are hooked to the DOM-tree.
      * @return this
@@ -37,18 +39,22 @@ class ContentController {
                 sendResponse(`did nothing (${location.href})`);
                 return;
             }
-            // TODO: when hookToDom is false, it should remove from DOM. ATM, EEBs and EventTrackers do not support this.
             try {
-                self.hookToDOM(self.messageSendDatabaseAdapter);
-                $("body").click(function () {
+                if (request.hookToDom) {
                     self.hookToDOM(self.messageSendDatabaseAdapter);
-                });
+                    $("body").click(function () {
+                        self.hookToDOM(self.messageSendDatabaseAdapter);
+                    });
+                    sendResponse(`hooked to DOM (${location.href})`);
+                } else {
+                    self.unhookFromDom();
+                    sendResponse(`unhooked from DOM (${location.href})`);
+                }
             } catch (e) {
                 sendResponse(`has errored (${location.href})\n[ERR] ${e}`);
                 console.error(e);
                 return;
             }
-            sendResponse(`hooked to DOM (${location.href})`);
         };
     }
 
@@ -57,8 +63,28 @@ class ContentController {
      * @param database   the database that should be used when logging.
      */
     private hookToDOM(database: DatabaseAdaptable) {
+        this.unhookFromDom();
         this.hookSemanticToDOM(database);
-        this.hookSyntacticToDOM(database);
+        this.hookTrackersToDOM(database);
+    }
+
+    private unhookFromDom() {
+        this.unhookSemanticFromDOM();
+        this.unhookTrackersFromDOM();
+    }
+
+    private unhookSemanticFromDOM() {
+        for (let elementEventBinding of this.oldElementEventBindings) {
+            elementEventBinding.removeDOMEvent();
+        }
+        this.oldElementEventBindings = [];
+    }
+
+    private unhookTrackersFromDOM() {
+        for (let eventTracker of this.oldEventTrackers) {
+            eventTracker.removeDOMEvent();
+        }
+        this.oldEventTrackers = [];
     }
 
     /**
@@ -72,11 +98,6 @@ class ContentController {
         let elementSelectionBehaviourData: ElementSelectionBehaviourData;
         let elementEventBinding: ElementEventBinding;
         let elementSelectionBehaviour: ElementSelectionBehaviour;
-
-        for (elementEventBinding of this.oldElementEventBindings) {
-            elementEventBinding.removeDOMEvent();
-        }
-        this.oldElementEventBindings = [];
 
         for (elementSelectionBehaviourData of elementSelectionBehaviourDataList) {
             if (!DoNotWatchOptions.shouldElementBeWatched(elementSelectionBehaviourData.elementID)) {
@@ -104,13 +125,16 @@ class ContentController {
      * Hook the different rawdata trackers to DOM.
      * @param database   the database that should be used when logging.
      */
-    private hookSyntacticToDOM(database: DatabaseAdaptable) {
-        // tslint:disable:no-unused-variable
-        let windowResolutionTracker = new WindowResolutionTracker(database);
-        let keystrokeTracker = new KeystrokeTracker(database);
-        let mouseClickTracker = new MouseClickTracker(database);
-        let mouseScrollTracker = new MouseScrollTracker(database);
-        let mousePositionTracker = new MousePositionTracker(database);
-        // tslint:enable:no-unused-variable
+    private hookTrackersToDOM(database: DatabaseAdaptable) {
+        const list: EventTracker[] = [
+            new WindowResolutionTracker(database),
+            new KeystrokeTracker(database),
+            new MouseClickTracker(database),
+            new MouseScrollTracker(database),
+            new MousePositionTracker(database),
+        ];
+        for (let tracker of list) {
+            tracker.addDOMEvent();
+        }
     }
 }

@@ -2,7 +2,7 @@
 /**
  * Created by Mathias on 2016-05-27.
  */
-class MousePositionTracker {
+class MousePositionTracker extends EventTracker {
 
     /** Private static final for the timeout between logs. */
     private static get TIMEOUT() { return 500; }
@@ -10,28 +10,42 @@ class MousePositionTracker {
     /** This intervalTimer field is static, because there should only be one timer at any given time. */
     private static intervalTimer: number;
 
+    private x: number;
+    private y: number;
+    private prevX: number;
+    private prevY: number;
+
     /**
      * Initialize a MousePositionTracker that contains a MousePositionDatabaseAdaptable.
      * @param db The DatabaseAdaptable for the Tracker.
      */
     constructor(private db: MousePositionDatabaseAdaptable) {
-        const self = this;
-        let windowObject: JQuery;
-        let mouseX: number;
-        let mouseY: number;
-        let viewportX: number;
-        let viewportY: number;
-        clearInterval(MousePositionTracker.intervalTimer);
-        MousePositionTracker.intervalTimer = setInterval(function () {
-            $(document).one("mousemove", function (eventObject: JQueryEventObject) {
-                windowObject = $(window);
-                mouseX = eventObject.pageX;
-                mouseY = eventObject.pageY;
-                viewportX = windowObject.scrollLeft();
-                viewportY = windowObject.scrollTop();
-                self.db.postMousePosition(EventFactory.mousePosition(viewportX + mouseX, viewportY + mouseY,
-                    viewportX, viewportY), EMPTY_CALLBACK, EMPTY_CALLBACK);
-            });
+        super();
+    }
+
+    public addDOMEvent() {
+        this.removeDOMEvent();
+        $(document).on("mousemove", (eventObject: JQueryEventObject) => {
+            this.x = eventObject.pageX;
+            this.y = eventObject.pageY;
+        });
+        MousePositionTracker.intervalTimer = setInterval(() => {
+            if (this.prevX === this.x && this.prevY === this.y) {
+                return;
+            }
+            const windowObject = $(window);
+            const viewportX = windowObject.scrollLeft();
+            const viewportY = windowObject.scrollTop();
+            this.db.postMousePosition(EventFactory.mousePosition(viewportX + this.x, viewportY + this.y,
+                viewportX, viewportY), EMPTY_CALLBACK, EMPTY_CALLBACK);
+            this.prevX = this.x;
+            this.prevY = this.y;
         }, MousePositionTracker.TIMEOUT);
     }
+
+    public removeDOMEvent() {
+        $(document).off("mousemove");
+        clearInterval(MousePositionTracker.intervalTimer);
+    }
+
 }

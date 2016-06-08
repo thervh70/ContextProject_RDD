@@ -13,7 +13,7 @@ describe("A KeystrokeTracker", function() {
    it("should", function() {
        const dbSpy = spyOn(db, "postKeystroke");
        // tslint:disable-next-line:no-unused-expression
-       new KeystrokeTracker(db);
+       new KeystrokeTracker(db).addDOMEvent();
 
        $("body").trigger($.Event("keypress", {which: " "}));
 

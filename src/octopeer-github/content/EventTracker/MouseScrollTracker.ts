@@ -2,25 +2,34 @@
 /**
  * Created by Mathias on 2016-05-27.
  */
-class MouseScrollTracker {
+class MouseScrollTracker extends EventTracker {
 
     /** Private static final for the timeout between logs. */
     private static get TIMEOUT() { return 1000; }
+
+    private resizeTimer: number;
 
     /**
      * Initialize a MouseScrollTracker that contains a MouseScrollDatabaseAdaptable.
      * @param db The DatabaseAdaptable for the Tracker.
      */
     constructor(private db: MouseScrollDatabaseAdaptable) {
-        const self = this;
+        super();
+    }
+
+    public addDOMEvent() {
         const windowObject = $(window);
-        let resizeTimer: number;
-        windowObject.scroll(function (eventObject: JQueryEventObject) {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(function () {
-                self.db.postMouseScroll(EventFactory.mouseScroll(windowObject.scrollLeft(), windowObject.scrollTop()),
+        windowObject.scroll((eventObject: JQueryEventObject) => {
+            clearTimeout(this.resizeTimer);
+            this.resizeTimer = setTimeout(() => {
+                this.db.postMouseScroll(EventFactory.mouseScroll(windowObject.scrollLeft(), windowObject.scrollTop()),
                     EMPTY_CALLBACK, EMPTY_CALLBACK);
             }, MouseScrollTracker.TIMEOUT);
         });
+    }
+
+    public removeDOMEvent() {
+        $(window).off("scroll");
+        clearTimeout(this.resizeTimer);
     }
 }

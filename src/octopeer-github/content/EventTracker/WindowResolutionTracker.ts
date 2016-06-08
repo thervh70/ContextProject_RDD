@@ -2,25 +2,34 @@
 /**
  * Created by Mathias on 2016-05-26.
  */
-class WindowResolutionTracker {
+class WindowResolutionTracker extends EventTracker {
 
     /** Private static final for the timeout between logs. */
     private static get TIMEOUT() { return 500; }
+
+    private static resizeTimer: number;
 
     /**
      * Initialize a WindowResolutionTracker that contains a WindowResolutionDatabaseAdaptable.
      * @param db The DatabaseAdaptable for the Tracker.
      */
     constructor(private db: WindowResolutionDatabaseAdaptable) {
-        const self = this;
+        super();
+    }
+
+    public addDOMEvent() {
         let windowObject: JQuery = $(window);
-        let resizeTimer: number;
-        windowObject.resize(function (eventObject: JQueryEventObject) {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(function () {
-                self.db.postWindowResolution(EventFactory.windowResolution(windowObject.width(), windowObject.height()),
+        windowObject.resize((eventObject: JQueryEventObject) => {
+            clearTimeout(WindowResolutionTracker.resizeTimer);
+            WindowResolutionTracker.resizeTimer = setTimeout(() => {
+                this.db.postWindowResolution(EventFactory.windowResolution(windowObject.width(), windowObject.height()),
                     EMPTY_CALLBACK, EMPTY_CALLBACK);
             }, WindowResolutionTracker.TIMEOUT);
         });
+    }
+
+    public removeDOMEvent() {
+        $(window).off("resize");
+        clearTimeout(WindowResolutionTracker.resizeTimer);
     }
 }

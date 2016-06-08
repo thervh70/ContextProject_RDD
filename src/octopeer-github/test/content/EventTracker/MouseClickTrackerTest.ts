@@ -16,7 +16,7 @@ describe("A MouseClickTracker", function() {
 
     it("should be instantiated in the right way, with default dbPosition", function() {
         // tslint:disable-next-line:no-unused-expression
-        new MouseClickTracker(db);
+        new MouseClickTracker(db).addDOMEvent();
 
         $("body").trigger($.Event("click", {pageX: 42, pageY: 84}));
 
@@ -26,7 +26,7 @@ describe("A MouseClickTracker", function() {
 
     it("should be instantiated in the right way, with a different dbPosition", function() {
         // tslint:disable-next-line:no-unused-expression
-        new MouseClickTracker(db, db);
+        new MouseClickTracker(db, db).addDOMEvent();
 
         $("body").trigger($.Event("click", {pageX: 42, pageY: 84}));
 
