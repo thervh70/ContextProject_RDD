@@ -7,9 +7,9 @@
  * name is the descriptive string that belongs to the event.
  */
 interface ElementEventBindingData {
-    addDOMEvent?: (elementSelectionBehaviour: ElementSelectionBehaviour) => void;
+    addDOMEvent?: (elementSelectionBehaviour?: ElementSelectionBehaviour) => void;
     eventID: EventID;
-    removeDOMEvent?: () => void;
+    removeDOMEvent?: (elementSelectionBehaviour?: ElementSelectionBehaviour) => void;
     name: string;
 }
 

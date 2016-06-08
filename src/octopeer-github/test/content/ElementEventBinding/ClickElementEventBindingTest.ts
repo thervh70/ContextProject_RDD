@@ -29,6 +29,15 @@ describe("An EventBinder that binds Click events", function() {
         expect(logSpy).toHaveBeenCalledTimes(1);
         delete binder;
     });
+
+    it("should be unbound from the buttons when removeDOMEvent is called", function() {
+        binder = eebFactory.create(selector, EventID.CLICK);
+        binder.addDOMEvent();
+        binder.removeDOMEvent();
+        $(".js-merge-branch-action").click();
+        expect(logSpy).not.toHaveBeenCalled();
+        delete binder;
+    });
 });
 
 describe("A ClickElementEventBinding's", function() {

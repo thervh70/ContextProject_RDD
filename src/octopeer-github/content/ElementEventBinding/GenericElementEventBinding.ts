@@ -9,8 +9,6 @@ class GenericElementEventBinding implements ElementEventBinding {
     private eventID: EventID;
     /** The name. */
     private eventType: string;
-    /** The elements that should be bound to. Stored as fields so that elements are not re-queried every time. */
-    private elements: JQuery;
 
     /**
      * Construct a GenericElementEventBinding, assign the proper values to the field (from the data)
@@ -21,7 +19,6 @@ class GenericElementEventBinding implements ElementEventBinding {
     constructor(private elementSelectionBehaviour: ElementSelectionBehaviour, private data: ElementEventBindingData) {
         this.eventID = data.eventID;
         this.eventType = data.name;
-        this.elements = elementSelectionBehaviour.getElements();
         this.checkOverrides();
     }
 
@@ -53,8 +50,8 @@ class GenericElementEventBinding implements ElementEventBinding {
     /**
      * Make sure the Event is unhooked from the DOM.
      */
-    public removeDOMEvent() {
-        this.data.removeDOMEvent();
+    public removeDOMEvent(elementSelectionBehaviour: ElementSelectionBehaviour = this.elementSelectionBehaviour) {
+        this.data.removeDOMEvent(elementSelectionBehaviour);
     };
 
     /**
@@ -64,13 +61,10 @@ class GenericElementEventBinding implements ElementEventBinding {
     private checkOverrides() {
         if (!this.hasBothOverrides()) {
             this.data.addDOMEvent = (esb: ElementSelectionBehaviour) => {
-                this.elements.on(
-                    this.eventType,
-                    esb.getCallback(this.eventID)
-                );
+                esb.getElements().on(this.eventType, esb.getCallback(this.eventID));
             };
-            this.data.removeDOMEvent = () => {
-                this.elements.off(this.eventType);
+            this.data.removeDOMEvent = (esb: ElementSelectionBehaviour) => {
+                esb.getElements().off(this.eventType);
             };
         }
     }

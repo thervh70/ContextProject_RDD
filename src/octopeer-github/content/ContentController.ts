@@ -13,6 +13,8 @@ class ContentController {
      */
     private messageSendDatabaseAdapter = new MessageSendDatabaseAdapter();
 
+    private oldElementEventBindings: ElementEventBinding[] = [];
+
     /**
      * Starts the ContentController. After calling this, all event handlers are hooked to the DOM-tree.
      * @return this
@@ -71,6 +73,11 @@ class ContentController {
         let elementEventBinding: ElementEventBinding;
         let elementSelectionBehaviour: ElementSelectionBehaviour;
 
+        for (elementEventBinding of this.oldElementEventBindings) {
+            elementEventBinding.removeDOMEvent();
+        }
+        this.oldElementEventBindings = [];
+
         for (elementSelectionBehaviourData of elementSelectionBehaviourDataList) {
             if (!DoNotWatchOptions.shouldElementBeWatched(elementSelectionBehaviourData.elementID)) {
                 continue;
@@ -86,8 +93,8 @@ class ContentController {
                     })
                 ) {
                     elementEventBinding = eebFactory.create(elementSelectionBehaviour, elementEventBindingData.eventID);
-                    elementEventBinding.removeDOMEvent();
                     elementEventBinding.addDOMEvent();
+                    this.oldElementEventBindings.push(elementEventBinding);
                 }
             }
         }

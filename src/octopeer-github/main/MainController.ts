@@ -13,10 +13,10 @@ class MainController implements OptionsObserver {
      */
     public start() {
         Logger.setDebug(); // TODO remove this on release
-        this.connectToContentScript();
-        Status.standby();
         Options.init();
         Options.addObserver(this);
+        Status.standby();
+        this.connectToContentScript();
         return this;
     }
 
