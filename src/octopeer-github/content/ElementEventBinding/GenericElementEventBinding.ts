@@ -22,7 +22,8 @@ class GenericElementEventBinding implements ElementEventBinding {
         this.eventID = data.eventID;
         this.eventType = data.name;
         this.elements = elementSelectionBehaviour.getElements();
-        this.initDOMEvent(elementSelectionBehaviour);
+        this.removeDOMEvent(elementSelectionBehaviour);
+        this.addDOMEvent(elementSelectionBehaviour);
     }
 
     /**
@@ -46,15 +47,26 @@ class GenericElementEventBinding implements ElementEventBinding {
      * @param elementSelectionBehaviour The GenericElementSelectionBehaviour
      * whose callback should be used on the firing of this Event.
      */
-    private initDOMEvent = function (elementSelectionBehaviour: ElementSelectionBehaviour) {
-        if (this.data.initDOMEvent === undefined) {
+    private addDOMEvent(elementSelectionBehaviour: ElementSelectionBehaviour) {
+        if (this.data.addDOMEvent === undefined) {
             this.elements.off(this.eventType);
             this.elements.on(
                 this.eventType,
                 elementSelectionBehaviour.getCallback(this.eventID)
             );
         } else {
-            this.data.initDOMEvent(elementSelectionBehaviour);
+            this.data.addDOMEvent(elementSelectionBehaviour);
+        }
+    };
+
+    /**
+     * Make sure the Event is unhooked from the DOM.
+     */
+    private removeDOMEvent(elementSelectionBehaviour: ElementSelectionBehaviour) {
+        if (this.data.removeDOMEvent === undefined) {
+            this.elements.off(this.eventType);
+        } else {
+            this.data.removeDOMEvent();
         }
     };
 }
