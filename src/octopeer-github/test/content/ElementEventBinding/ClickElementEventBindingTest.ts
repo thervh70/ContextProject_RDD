@@ -24,6 +24,7 @@ describe("An EventBinder that binds Click events", function() {
 
     it("should be bound to the right type of buttons", function() {
         binder = eebFactory.create(selector, EventID.CLICK);
+        binder.addDOMEvent();
         $(".js-merge-branch-action").click();
         expect(logSpy).toHaveBeenCalledTimes(1);
         delete binder;
@@ -59,6 +60,7 @@ describe("A ClickElementEventBinding's", function() {
                 console.log("removed");
             },
         });
-        expect(consoleSpy).toHaveBeenCalledTimes(2);
+        binder.addDOMEvent();
+        expect(consoleSpy).toHaveBeenCalledTimes(1);
     });
 });

@@ -86,6 +86,8 @@ class ContentController {
                     })
                 ) {
                     elementEventBinding = eebFactory.create(elementSelectionBehaviour, elementEventBindingData.eventID);
+                    elementEventBinding.removeDOMEvent();
+                    elementEventBinding.addDOMEvent();
                 }
             }
         }

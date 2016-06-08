@@ -18,13 +18,11 @@ class GenericElementEventBinding implements ElementEventBinding {
      * @param elementSelectionBehaviour
      * @param data
      */
-    constructor(elementSelectionBehaviour: ElementSelectionBehaviour, private data: ElementEventBindingData) {
+    constructor(private elementSelectionBehaviour: ElementSelectionBehaviour, private data: ElementEventBindingData) {
         this.eventID = data.eventID;
         this.eventType = data.name;
         this.elements = elementSelectionBehaviour.getElements();
         this.checkOverrides();
-        this.removeDOMEvent();
-        this.addDOMEvent(elementSelectionBehaviour);
     }
 
     /**
@@ -48,7 +46,7 @@ class GenericElementEventBinding implements ElementEventBinding {
      * @param elementSelectionBehaviour The GenericElementSelectionBehaviour
      * whose callback should be used on the firing of this Event.
      */
-    public addDOMEvent(elementSelectionBehaviour: ElementSelectionBehaviour) {
+    public addDOMEvent(elementSelectionBehaviour: ElementSelectionBehaviour = this.elementSelectionBehaviour) {
         this.data.addDOMEvent(elementSelectionBehaviour);
     };
 
