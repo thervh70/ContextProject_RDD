@@ -85,6 +85,7 @@ const Status = new (class Status {
      * @param status
      */
     public set(status: StatusCode) {
+        this.status = status;
         if (Options.get(Options.LOGGING)) {
             this.setter(status);
         } else {
