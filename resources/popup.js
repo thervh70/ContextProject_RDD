@@ -2,11 +2,14 @@
 function toggle() {
     chrome.storage.sync.get({
         loggingEnabled: true
-    }, function (res) {
-        chrome.storage.sync.set({
-            loggingEnabled: !(res.loggingEnabled)
-        })
-    });
+    }, function (res) { toggleSetter(res) });
+}
+
+// Helper function that sets loggingEnabled to the right new value.
+function toggleSetter(obj) {
+    chrome.storage.sync.set({
+        loggingEnabled: !(obj.loggingEnabled)
+    })
 }
 
 $(document).ready(function () {
