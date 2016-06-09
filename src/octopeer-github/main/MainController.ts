@@ -96,15 +96,7 @@ class MainController implements OptionsObserver {
             // IP for testing locally: 10.0.22.6
             // TODO: get name from context
             this.database = new RESTApiDatabaseAdapter("http://146.185.128.124", sender.tab.url, "Travis");
-            const success = function() {
-                Logger.debug(`Successfully logged to database: ${message}`);
-            };
-            const failure = function() {
-                Logger.warn("Log to database of following object failed:");
-                Logger.warn(message);
-                Logger.warn(`Original sender: ${sender}`);
-            };
-            this.database.post(this.readMessage(message), success, failure);
+            this.postToDatabase(this.readMessage(message));
             sendResponse({});
         });
     }
@@ -118,6 +110,18 @@ class MainController implements OptionsObserver {
             eventObject.data = semanticEvent;
         }
         return eventObject;
+    }
+
+    private postToDatabase(message: EventObject) {
+        const success = function() {
+            Logger.debug(`Successfully logged to database: ${message}`);
+        };
+        const failure = function() {
+            Logger.warn("Log to database of following object failed:");
+            Logger.warn(message);
+            Logger.warn(`Original sender: ${sender}`);
+        };
+        this.database.post(message, success, failure);
     }
 
     /**
