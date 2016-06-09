@@ -63,10 +63,10 @@ describe("A ClickElementEventBinding's", function() {
             addDOMEvent: (elementSelectionBehaviour: ElementSelectionBehaviour) => {
                 console.log(elementSelectionBehaviour);
             },
-            eventID: new EventID(9999),
+            eventID: new EventID(0),
             name: "testevent",
             removeDOMEvent: () => {
-                console.log("removed");
+                console.log("removed from DOM");
             },
         });
         binder.addDOMEvent();
