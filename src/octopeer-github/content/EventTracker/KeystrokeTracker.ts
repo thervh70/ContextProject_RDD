@@ -5,7 +5,7 @@
 class KeystrokeTracker implements EventTracker {
 
     /**
-     * Initialize a KeystrokeTracker that contains a KeystrokeDatabaseAdaptable.
+     * Initialize a KeystrokeTracker that contains a DatabaseAdaptable.
      * @param db The DatabaseAdaptable for the Tracker.
      */
     constructor(private db: DatabaseAdaptable) { }

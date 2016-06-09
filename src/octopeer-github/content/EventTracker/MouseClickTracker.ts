@@ -6,7 +6,7 @@
 class MouseClickTracker implements EventTracker {
 
     /**
-     * Initialize a MouseClickTracker that contains a MouseClickDatabaseAdaptable.
+     * Initialize a MouseClickTracker that contains a DatabaseAdaptable.
      * @param db The DatabaseAdaptable for the Tracker to post click and position events.
      */
     constructor(private db: DatabaseAdaptable) { }

@@ -23,7 +23,7 @@ class MousePositionTracker implements EventTracker {
     private prevY: number;
 
     /**
-     * Initialize a MousePositionTracker that contains a MousePositionDatabaseAdaptable.
+     * Initialize a MousePositionTracker that contains a DatabaseAdaptable.
      * @param db The DatabaseAdaptable for the Tracker.
      */
     constructor(private db: DatabaseAdaptable) { }

@@ -14,7 +14,7 @@ class WindowResolutionTracker implements EventTracker {
     private static resizeTimer: number;
 
     /**
-     * Initialize a WindowResolutionTracker that contains a WindowResolutionDatabaseAdaptable.
+     * Initialize a WindowResolutionTracker that contains a DatabaseAdaptable.
      * @param db The DatabaseAdaptable for the Tracker.
      */
     constructor(private db: DatabaseAdaptable) { }
