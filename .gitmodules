@@ -1,0 +1,3 @@
+[submodule "TI2806"]
+	path = TI2806
+	url = https://github.com/mboom/TI2806.git

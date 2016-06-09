@@ -11,8 +11,16 @@ fi
 if [ ! -d "build/octopeer-github" ]; then
     mkdir build/octopeer-github
 fi
+if [ ! -d "build/octopeer-github/analytics" ]; then
+    mkdir build/octopeer-github/analytics
+fi
+if [ ! -d "build/octopeer-github/libs" ]; then
+    mkdir build/octopeer-github/libs
+fi
 
 cp -u -r resources/* build/octopeer-github
+cp -u -r TI2806/src/* build/octopeer-github/analytics
+cp -u -r TI2806/libs/* build/octopeer-github/libs
 echo "Copied resources"
 
 echo "Transpiling TypeScript..."
