@@ -14,6 +14,18 @@ class ContentController {
     private messageSendDatabaseAdapter = new MessageSendDatabaseAdapter();
 
     /**
+     * A list used to store the old EEBs, in order to remove them later.
+     * @type {Array}
+     */
+    private oldElementEventBindings: ElementEventBinding[] = [];
+
+    /**
+     * A list used to store the old EventTrackers, in order to remove them later.
+     * @type {Array}
+     */
+    private oldEventTrackers: EventTracker[] = [];
+
+    /**
      * Starts the ContentController. After calling this, all event handlers are hooked to the DOM-tree.
      * @return this
      */
@@ -31,31 +43,66 @@ class ContentController {
     private processMessageFromBackgroundPage() {
         const self = this;
         return function (request: any, sender: any, sendResponse: Function) {
-            if (!request.hookToDom) {
+            if (request.hookToDom === undefined) {
                 sendResponse(`did nothing (${location.href})`);
                 return;
             }
             try {
-                self.hookToDOM(self.messageSendDatabaseAdapter);
-                $("body").click(function () {
+                if (request.hookToDom) {
                     self.hookToDOM(self.messageSendDatabaseAdapter);
-                });
+                    $("body").click(function () {
+                        self.hookToDOM(self.messageSendDatabaseAdapter);
+                    });
+                    sendResponse(`hooked to DOM (${location.href})`);
+                } else {
+                    self.unhookFromDOM();
+                    sendResponse(`unhooked from DOM (${location.href})`);
+                }
             } catch (e) {
                 sendResponse(`has errored (${location.href})\n[ERR] ${e}`);
                 console.error(e);
                 return;
             }
-            sendResponse(`hooked to DOM (${location.href})`);
         };
     }
 
     /**
-     * Hook both the semantic and syntactic elements and events to the DOM.
+     * Hook both the semantic and raw data trackers to the DOM.
+     * Calls unhookFromDOM first to make sure no events will be logged multiple times.
      * @param database   the database that should be used when logging.
      */
     private hookToDOM(database: DatabaseAdaptable) {
+        this.unhookFromDOM();
         this.hookSemanticToDOM(database);
-        this.hookSyntacticToDOM(database);
+        this.hookTrackersToDOM(database);
+    }
+
+    /**
+     * Unhook both semantic and raw data trackers from DOM.
+     */
+    private unhookFromDOM() {
+        this.unhookSemanticFromDOM();
+        this.unhookTrackersFromDOM();
+    }
+
+    /**
+     * Unhooks the semantic trackers from DOM, based on the EEBs previously saved in an array.
+     */
+    private unhookSemanticFromDOM() {
+        for (let elementEventBinding of this.oldElementEventBindings) {
+            elementEventBinding.removeDOMEvent();
+        }
+        this.oldElementEventBindings = [];
+    }
+
+    /**
+     * Unhooks the raw data trackers from DOM, based on the EventTrackers previously saved in an array.
+     */
+    private unhookTrackersFromDOM() {
+        for (let eventTracker of this.oldEventTrackers) {
+            eventTracker.removeDOMEvent();
+        }
+        this.oldEventTrackers = [];
     }
 
     /**
@@ -85,6 +132,8 @@ class ContentController {
                     })
                 ) {
                     elementEventBinding = eebFactory.create(elementSelectionBehaviour, elementEventBindingData.eventID);
+                    elementEventBinding.addDOMEvent();
+                    this.oldElementEventBindings.push(elementEventBinding);
                 }
             }
         }
@@ -94,13 +143,17 @@ class ContentController {
      * Hook the different rawdata trackers to DOM.
      * @param database   the database that should be used when logging.
      */
-    private hookSyntacticToDOM(database: DatabaseAdaptable) {
-        // tslint:disable:no-unused-variable
-        let windowResolutionTracker = new WindowResolutionTracker(database);
-        let keystrokeTracker = new KeystrokeTracker(database);
-        let mouseClickTracker = new MouseClickTracker(database);
-        let mouseScrollTracker = new MouseScrollTracker(database);
-        let mousePositionTracker = new MousePositionTracker(database);
-        // tslint:enable:no-unused-variable
+    private hookTrackersToDOM(database: DatabaseAdaptable) {
+        const list: EventTracker[] = [
+            new WindowResolutionTracker(database),
+            new KeystrokeTracker(database),
+            new MouseClickTracker(database),
+            new MouseScrollTracker(database),
+            new MousePositionTracker(database),
+        ];
+        for (let tracker of list) {
+            tracker.addDOMEvent();
+            this.oldEventTrackers.push(tracker);
+        }
     }
 }

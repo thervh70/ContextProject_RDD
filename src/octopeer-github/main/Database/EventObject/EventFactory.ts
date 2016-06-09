@@ -19,8 +19,11 @@ abstract class EventFactory {
      * @returns {SemanticEvent} A SemanticEvent object that can be posted to the database.
      */
     public static semantic(elementID: ElementID, eventID: EventID,
-                           filename?: FileName, lineNumber?: LineNumber, created_at = EventFactory.getTime()): SemanticEvent {
-        return {created_at: created_at, elementID: elementID, eventID: eventID, filename: filename, lineNumber: lineNumber};
+                           filename?: FileName, lineNumber?: LineNumber, created_at = EventFactory.getTime()): EventObject {
+        return {
+            data: {created_at: created_at, elementID: elementID, eventID: eventID, filename: filename, lineNumber: lineNumber},
+            type: "SemanticEvent",
+        };
     }
 
     /**
@@ -30,8 +33,11 @@ abstract class EventFactory {
      * @param key_up_at     the timestamp when the key went up.
      * @returns {KeystrokeEvent} A KeystrokeEvent object that can be posted to the database.
      */
-    public static keystroke(keystroke: string, key_down_at: UnixTimestamp, key_up_at: UnixTimestamp): KeystrokeEvent {
-        return {key_down_at: key_down_at, key_up_at: key_up_at, keystroke: keystroke};
+    public static keystroke(keystroke: string, key_down_at: UnixTimestamp, key_up_at: UnixTimestamp): EventObject {
+        return {
+            data: {key_down_at: key_down_at, key_up_at: key_up_at, keystroke: keystroke},
+            type: "KeystrokeEvent",
+        };
     }
 
     /**
@@ -39,8 +45,11 @@ abstract class EventFactory {
      * @param created_at    the timestamp at which the event was created. Defaults to the current timestamp.
      * @returns {MouseClickEvent} A MouseClickEvent object that can be posted to the database.
      */
-    public static mouseClick(created_at = EventFactory.getTime()): MouseClickEvent {
-        return {created_at: created_at};
+    public static mouseClick(created_at = EventFactory.getTime()): EventObject {
+        return {
+            data: {created_at: created_at},
+            type: "MouseClickEvent",
+        };
     }
 
     /**
@@ -53,9 +62,12 @@ abstract class EventFactory {
      * @returns {MousePositionEvent} A MousePositionEvent object that can be posted to the database.
      */
     public static mousePosition(position_x: number, position_y: number,
-                                viewport_x: number, viewport_y: number, created_at = EventFactory.getTime()): MousePositionEvent {
-        return {created_at: created_at, position_x: position_x, position_y: position_y,
-                viewport_x: viewport_x, viewport_y: viewport_y};
+                                viewport_x: number, viewport_y: number, created_at = EventFactory.getTime()): EventObject {
+        return {
+            data: {created_at: created_at, position_x: position_x, position_y: position_y,
+                viewport_x: viewport_x, viewport_y: viewport_y},
+            type: "MousePositionEvent",
+        };
     }
 
     /**
@@ -65,8 +77,11 @@ abstract class EventFactory {
      * @param created_at    the timestamp at which the event was created. Defaults to the current timestamp.
      * @returns {MouseScrollEvent} A MouseScrollEvent object that can be posted to the database.
      */
-    public static mouseScroll(viewport_x: number, viewport_y: number, created_at = EventFactory.getTime()): MouseScrollEvent {
-        return {created_at: created_at, viewport_x: viewport_x, viewport_y: viewport_y};
+    public static mouseScroll(viewport_x: number, viewport_y: number, created_at = EventFactory.getTime()): EventObject {
+        return {
+            data: {created_at: created_at, viewport_x: viewport_x, viewport_y: viewport_y},
+            type: "MouseScrollEvent",
+        };
     }
 
     /**
@@ -76,8 +91,11 @@ abstract class EventFactory {
      * @param created_at    the timestamp at which the event was created. Defaults to the current timestamp.
      * @returns {WindowResolutionEvent} A WindowResolutionEvent object that can be posted to the database.
      */
-    public static windowResolution(width: number, height: number, created_at = EventFactory.getTime()): WindowResolutionEvent {
-        return {created_at: created_at, height: height, width: width};
+    public static windowResolution(width: number, height: number, created_at = EventFactory.getTime()): EventObject {
+        return {
+            data: {created_at: created_at, height: height, width: width},
+            type: "WindowResolutionEvent",
+        };
     }
 
     /**

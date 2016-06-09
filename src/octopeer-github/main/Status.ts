@@ -116,7 +116,7 @@ const Status = new (class Status {
             path: this.getIcon(status),
         });
         chrome.browserAction.setIcon({
-            path: this.getIcon(status, 19),
+            path: `resources/` + this.getIcon(status, 19),
         });
     }
 })();

@@ -3,40 +3,36 @@
 /**
  * Created by Mathias on 2016-05-27.
  */
-class MouseClickTracker {
+class MouseClickTracker implements EventTracker {
 
     /**
      * Initialize a MouseClickTracker that contains a MouseClickDatabaseAdaptable.
-     * @param dbClick The DatabaseAdaptable for the Tracker to post click events.
-     * @param dbPosition The DatabaseAdaptable for the Tracker to post position events.
+     * @param db The DatabaseAdaptable for the Tracker to post click and position events.
      */
-    constructor(private dbClick: MouseClickDatabaseAdaptable, private dbPosition: MousePositionDatabaseAdaptable = undefined) {
-        if (dbPosition === undefined) {
-            if ((<DatabaseAdaptable>dbClick).postMousePosition !== undefined) {
-                this.dbPosition = <DatabaseAdaptable>dbClick;
-            } else {
-                Logger.warn("MouseClickTracker was instantiated wrongly!");
-                return;
-            }
-        }
-        const self = this;
-        let windowObject = $(window);
-        let mouseX: number;
-        let mouseY: number;
-        let viewportX: number;
-        let viewportY: number;
-        windowObject.off("click");
-        windowObject.on("click", function (eventObject: JQueryEventObject) {
-            windowObject = $(window);
-            mouseX = eventObject.pageX;
-            mouseY = eventObject.pageY;
-            viewportX = windowObject.scrollLeft();
-            viewportY = windowObject.scrollTop();
+    constructor(private db: DatabaseAdaptable) { }
+
+    /**
+     * Initiates this EventTracker to collect event data.
+     */
+    public addDOMEvent() {
+        const windowObject = $(window);
+        windowObject.on("click", (eventObject: JQueryEventObject) => {
+            const mouseX = eventObject.pageX;
+            const mouseY = eventObject.pageY;
+            const viewportX = windowObject.scrollLeft();
+            const viewportY = windowObject.scrollTop();
             const time = EventFactory.getTime();
-            self.dbClick.postMouseClick(EventFactory.mouseClick(time), EMPTY_CALLBACK, EMPTY_CALLBACK);
-            self.dbPosition.postMousePosition(EventFactory.mousePosition(viewportX + mouseX, viewportY + mouseY,
+            this.db.post(EventFactory.mouseClick(time), EMPTY_CALLBACK, EMPTY_CALLBACK);
+            this.db.post(EventFactory.mousePosition(viewportX + mouseX, viewportY + mouseY,
                 viewportX, viewportY, time), EMPTY_CALLBACK, EMPTY_CALLBACK);
         });
+    }
+
+    /**
+     * Stops this EventTracker from collecting event data.
+     */
+    public removeDOMEvent() {
+        $(window).off("click");
     }
 
 }

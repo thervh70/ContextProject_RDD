@@ -1,27 +1,36 @@
-$(document).ready(function () {
-    //Get from storage on start.
-    chrome.storage.local.get(["line", "path"], function(items) {
-        $("#status_text").html(items.line);
-        $("#status_image").attr("src", items.path);
-    });
+// Use the toggle button on the popup to switch the loggingEnabled option.
+function toggle() {
+    chrome.storage.sync.get({ loggingEnabled: true }, toggleSetter);
+}
 
-    //Reset status on change.
+// Helper function that sets loggingEnabled to the right new value.
+function toggleSetter(settingsObject) {
+    chrome.storage.sync.set({
+        loggingEnabled: !(settingsObject.loggingEnabled)
+    })
+}
+
+// Gets data from the storage on start.
+function getStatusInfo() {
+    chrome.storage.local.get(["line", "path"], function(items) {
+        $("#statusText").html(items.line);
+        $("#statusImage").attr("src", items.path);
+    });
+}
+
+// Resets the status on change.
+function addStatusListener() {
     chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
         if (message.line !== undefined) {
-            $("#status_text").html(message.line);
-            $("#status_image").attr("src", message.path);
+            $("#statusText").html(message.line);
+            $("#statusImage").attr("src", message.path);
         }
         sendResponse({});
     });
+}
 
-    //Use the toggle button on the popup to switch the loggingEnabled option.
-    function toggle() {
-        chrome.storage.sync.get("loggingEnabled", function (res) {
-            chrome.storage.sync.set({
-                loggingEnabled: !(res.loggingEnabled)
-            })
-        });
-    }
-
-    $('#status_toggle').click(toggle);
+$(document).ready(function () {
+    getStatusInfo();
+    addStatusListener();
+    $('#statusToggle').click(toggle);
 });

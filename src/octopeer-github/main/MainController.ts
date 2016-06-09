@@ -15,22 +15,26 @@ class MainController implements OptionsObserver {
      */
     public start() {
         Logger.setDebug(); // TODO remove this on release
-        this.connectToContentScript();
-        Status.standby();
         Options.init();
         Options.addObserver(this);
+        Status.standby();
+        this.connectToContentScript();
         return this;
     }
 
     /**
      * Listens for changes in Options.
-     * If changed, the MainController has to verify that the page is a PR or not.
+     * If changed, the MainController has to verify that the page is a PR or not, if the extension is allowed to log.
+     * Else the extension is set to off.
      */
     public notify() {
         const self = this;
         chrome.tabs.query({"active": true, "currentWindow": true}, function (tabs: Tab[]) {
             self.testAndSend(tabs[0]);
         });
+        if (!Options.get(Options.LOGGING)) {
+            Status.off();
+        }
     }
 
     /**
@@ -85,11 +89,10 @@ class MainController implements OptionsObserver {
      * When a tab sends a message, log it to the Database.
      */
     private listenToDatabaseMessages() {
-        chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+        chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             if (!sender.tab) {
                 return; // Only continue if message is sent from a content script
             }
-            const dataMessage = <DataMessage>JSON.parse(message);
             // IP for testing locally: 10.0.22.6
             // TODO: get name from context
             this.database = new RESTApiDatabaseAdapter("http://146.185.128.124", sender.tab.url, "Travis");
@@ -101,22 +104,20 @@ class MainController implements OptionsObserver {
                 Logger.warn(message);
                 Logger.warn(`Original sender: ${sender}`);
             };
-            switch (dataMessage.type) {
-                case "postSemantic":
-                    this.database.postSemantic(        <SemanticEvent>dataMessage.data,         success, failure); break;
-                case "postKeystroke":
-                    this.database.postKeystroke(       <KeystrokeEvent>dataMessage.data,        success, failure); break;
-                case "postMousePosition":
-                    this.database.postMousePosition(   <MousePositionEvent>dataMessage.data,    success, failure); break;
-                case "postMouseClick":
-                    this.database.postMouseClick(      <MouseClickEvent>dataMessage.data,       success, failure); break;
-                case "postMouseScroll":
-                    this.database.postMouseScroll(     <MouseScrollEvent>dataMessage.data,      success, failure); break;
-                case "postWindowResolution":
-                    this.database.postWindowResolution(<WindowResolutionEvent>dataMessage.data, success, failure); break;
-            }
+            this.database.post(this.readMessage(message), success, failure);
             sendResponse({});
         });
+    }
+
+    private readMessage(dataMessage: any): EventObject {
+        const eventObject = <EventObject>JSON.parse(dataMessage);
+        if (eventObject.type === "SemanticEvent") {
+            const semanticEvent = <any>eventObject.data;
+            semanticEvent.elementID = new ElementID(semanticEvent.elementID);
+            semanticEvent.eventID = new EventID(semanticEvent.eventID);
+            eventObject.data = semanticEvent;
+        }
+        return eventObject;
     }
 
     /**
@@ -126,6 +127,10 @@ class MainController implements OptionsObserver {
      * @param tab   the Tab to check for
      */
     private testAndSend(tab: Tab) {
+        if (tab === undefined || tab.url === undefined) {
+            Status.standby();
+            return;
+        }
         const url = tab.url;
         let urlInfo = URLHandler.isPullRequestUrl(url);
 
@@ -161,16 +166,14 @@ class MainController implements OptionsObserver {
         Status.running();
         Logger.debug(`[Tab] Owner: ${urlInfo[1]}, Repo: ${urlInfo[2]}, PR-number: ${urlInfo[3]}`);
         chrome.tabs.sendMessage(tab.id, {
-            hookToDom: true,
+            hookToDom: Options.get(Options.LOGGING),
         }, function (result) {
-            let str = result || `should be refreshed because content script is not loaded (${tab.url})`;
+            if (!result) {
+                chrome.tabs.reload(tab.id);
+            }
+            let str = result || `will be refreshed because content script is not loaded (${tab.url})`;
             Logger.debug(`[Tab] ${str}`);
         });
     }
 
-}
-
-interface DataMessage {
-    data: any;
-    type: string;
 }
