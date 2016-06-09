@@ -103,7 +103,7 @@ class MainController implements OptionsObserver {
             };
             switch (dataMessage.type) {
                 case "postSemantic":
-                    database.postSemantic(        <SemanticEvent>dataMessage.data,         success, failure); break;
+                    this.database.postSemantic(        <SemanticEvent>dataMessage.data,         success, failure); break;
                 case "postKeystroke":
                     database.postKeystroke(       <KeystrokeEvent>dataMessage.data,        success, failure); break;
                 case "postMousePosition":
