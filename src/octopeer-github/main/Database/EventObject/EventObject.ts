@@ -1,3 +1,9 @@
+/// <reference path="KeystrokeEvent.ts"/>
+/// <reference path="MouseClickEvent.ts"/>
+/// <reference path="MousePositionEvent.ts"/>
+/// <reference path="MouseScrollEvent.ts"/>
+/// <reference path="SemanticEvent.ts"/>
+/// <reference path="WindowResolutionEvent.ts"/>
 /**
  * Created by Maarten on 09-06-2016.
  *

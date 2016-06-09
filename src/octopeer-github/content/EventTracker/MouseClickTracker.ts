@@ -1,4 +1,3 @@
-/// <reference path="../../main/Database/DatabaseAdaptable/MouseClickDatabaseAdaptable.ts"/>
 /// <reference path="../../main/Database/EventObject/EventFactory.ts"/>
 /**
  * Created by Mathias on 2016-05-27.
@@ -6,7 +5,7 @@
 class MouseClickTracker implements EventTracker {
 
     /**
-     * Initialize a MouseClickTracker that contains a MouseClickDatabaseAdaptable.
+     * Initialize a MouseClickTracker that contains a DatabaseAdaptable.
      * @param db The DatabaseAdaptable for the Tracker to post click and position events.
      */
     constructor(private db: DatabaseAdaptable) { }

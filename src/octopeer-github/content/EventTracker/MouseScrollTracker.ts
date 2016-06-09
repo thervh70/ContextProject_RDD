@@ -14,7 +14,7 @@ class MouseScrollTracker implements EventTracker {
     private static scrollTimer: number;
 
     /**
-     * Initialize a MouseScrollTracker that contains a MouseScrollDatabaseAdaptable.
+     * Initialize a MouseScrollTracker that contains a DatabaseAdaptable.
      * @param db The DatabaseAdaptable for the Tracker.
      */
     constructor(private db: DatabaseAdaptable) { }

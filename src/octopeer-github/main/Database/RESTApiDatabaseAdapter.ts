@@ -1,5 +1,3 @@
-/// <reference path="./DatabaseAdaptable/SemanticDatabaseAdaptable.ts"/>
-
 /**
  * This class connects to the RESTful API made by Aaron.
  */
