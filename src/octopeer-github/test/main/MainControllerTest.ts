@@ -113,9 +113,20 @@ describe("The MainController, when started by the start function,", function() {
 
 describe("The MainController", function() {
 
-    it("should, when notify is being called, notify the current tab", function () {
+    beforeEach(function () {
         testMainController = new MainController();
+    });
+
+    it("should, when notify is being called, notify the current tab, if logging is enabled", function () {
         const spyChrome = spyOn(chrome.tabs, "query");
+        testMainController.notify();
+
+        expect(spyChrome).toHaveBeenCalled();
+    });
+
+    it("should, when notify is being called, set the status to off, if logging is disabled", function () {
+        const spyChrome = spyOn(Status, "off");
+        spyOn(Options, "get").and.returnValue(false);
         testMainController.notify();
 
         expect(spyChrome).toHaveBeenCalled();
