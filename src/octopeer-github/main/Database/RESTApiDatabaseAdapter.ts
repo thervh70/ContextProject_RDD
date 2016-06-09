@@ -12,6 +12,18 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
     private _pr: number;
 
     /**
+     * Maps EventObject.type to an API endpoint in the Database.
+     */
+    private endPoints: any = {
+        "KeystrokeEvent": "keystroke-events",
+        "MouseClickEvent": "mouse-click-events",
+        "MousePositionEvent": "mouse-position-events",
+        "MouseScrollEvent": "mouse-scroll-events",
+        "SemanticEvent": "semantic-events",
+        "WindowResolutionEvent": "window-resolution-events",
+    };
+
+    /**
      * Constructs the RESTApiDatabaseAdapter
      * @param _databaseUrl      The URL to connect to, on this address the server should be running.
      * @param _prUrl            A URL to a pull request.
@@ -57,21 +69,25 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
      * @param failure       Callback, which is called once the call has failed.
      */
     public post(eventData: EventObject, success: Callback, failure: Callback): void {
+        this.postEvent(this.processEventObject(eventData), this.endPoints[eventData.type], success, failure);
+    }
+
+    /**
+     * Formats the EventObject such that it can be posted to the database.
+     * EventID and ElementID objects are not compatible with the JSON representation in the database, so they are removed here.
+     * @param eventData the EventObject to process.
+     * @returns {any} the JSON-compatible formatted data that is going to be posted to the database.
+     */
+    private processEventObject(eventData: EventObject): any {
         if (eventData.type === "SemanticEvent") {
             const data = <SemanticEvent>eventData.data;
-            this.postEvent({
-                "event_type": data.eventID,
-                "element_type": data.elementID,
+            return {
+                "event_type": data.eventID.getEventID(),
+                "element_type": data.elementID.getElementID(),
                 "created_at": data.created_at,
-            }, "semantic-events", success, failure);
+            };
         } else {
-            this.postEvent(eventData.data, (<any>{
-                "KeystrokeEvent": "keystroke-events",
-                "MouseClickEvent": "mouse-click-events",
-                "MousePositionEvent": "mouse-position-events",
-                "MouseScrollEvent": "mouse-scroll-events",
-                "WindowResolutionEvent": "window-resolution-events",
-            })[eventData.type], success, failure);
+            return eventData.data;
         }
     }
 
