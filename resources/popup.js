@@ -10,14 +10,16 @@ function toggleSetter(settingsObject) {
     })
 }
 
-$(document).ready(function () {
-    // Get from storage on start.
+// Gets data from the storage on start.
+function getStatusInfo() {
     chrome.storage.local.get(["line", "path"], function(items) {
         $("#statusText").html(items.line);
         $("#statusImage").attr("src", items.path);
     });
+}
 
-    // Reset status on change.
+// Resets the status on change.
+function addStatusListener() {
     chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
         if (message.line !== undefined) {
             $("#statusText").html(message.line);
@@ -25,6 +27,10 @@ $(document).ready(function () {
         }
         sendResponse({});
     });
+}
 
+$(document).ready(function () {
+    getStatusInfo();
+    addStatusListener();
     $('#statusToggle').click(toggle);
 });
