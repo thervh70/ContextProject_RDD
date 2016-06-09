@@ -6,24 +6,24 @@
  * Behaviour unit tests for the ClickElementEventBinding class.
  */
 
-let binder: ElementEventBinding;
-let database: DatabaseAdaptable;
-let selector: ElementSelectionBehaviour;
 
-describe("An EventBinder that binds Click events", function() {
+describe("A GenericElementEventBinding", function() {
     const esbFactory = new ElementSelectionBehaviourFactory();
     const eebFactory = new ElementEventBindingFactory();
+    let binder: ElementEventBinding;
+    let database: DatabaseAdaptable;
+    let selector: ElementSelectionBehaviour;
     let logSpy: jasmine.Spy;
 
     beforeEach(function () {
         setFixtures("<div><button id='bt1' class='js-merge-branch-action'></button><button id='bt2' class='btn2'></button></div>");
         database = new ConsoleLogDatabaseAdapter();
         selector = esbFactory.create(database, ElementID.MERGE_PR);
+        binder = eebFactory.create(selector, EventID.CLICK);
         logSpy = spyOn(database, "postSemantic");
     });
 
     it("should be bound to the right type of buttons", function() {
-        binder = eebFactory.create(selector, EventID.CLICK);
         binder.addDOMEvent();
         $(".js-merge-branch-action").click();
         expect(logSpy).toHaveBeenCalledTimes(1);
@@ -31,34 +31,24 @@ describe("An EventBinder that binds Click events", function() {
     });
 
     it("should be unbound from the buttons when removeDOMEvent is called", function() {
-        binder = eebFactory.create(selector, EventID.CLICK);
         binder.addDOMEvent();
         binder.removeDOMEvent();
         $(".js-merge-branch-action").click();
         expect(logSpy).not.toHaveBeenCalled();
         delete binder;
     });
-});
 
-describe("A ClickElementEventBinding's", function() {
-    const esbFactory = new ElementSelectionBehaviourFactory();
-    const eebFactory = new ElementEventBindingFactory();
-
-    it("type should be retrieved when the getEventType function is called", function() {
-        selector = esbFactory.create(database, ElementID.CREATE_INLINE_COMMENT);
-        binder = eebFactory.create(selector, EventID.CLICK);
+    it("should return the right type when the getEventType function is called", function() {
         expect(binder.getEventType()).toBe("click");
     });
 
-    it("ID should be retrieved when the getEventID function is called", function() {
-        selector = esbFactory.create(database, ElementID.CONFIRM_INLINE_COMMENT);
-        binder = eebFactory.create(selector, EventID.CLICK);
-        expect(binder.getEventID()).toEqual(new EventID(201));
+    it("should return the right ID when the getEventID function is called", function() {
+        expect(binder.getEventID()).toEqual(EventID.CLICK);
     });
 
     it("addDOMEvent and removeDOMEvent function should be overridden when given another one", function() {
         const consoleSpy = spyOn(console, "log");
-        selector = esbFactory.create(database, ElementID.EDIT_COMMENT);
+
         binder = new GenericElementEventBinding(selector, {
             addDOMEvent: (elementSelectionBehaviour: ElementSelectionBehaviour) => {
                 console.log(elementSelectionBehaviour);
@@ -69,6 +59,7 @@ describe("A ClickElementEventBinding's", function() {
                 console.log("removed from DOM");
             },
         });
+
         binder.addDOMEvent();
         expect(consoleSpy).toHaveBeenCalledTimes(1);
         binder.removeDOMEvent();
