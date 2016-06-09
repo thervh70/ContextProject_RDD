@@ -27,11 +27,10 @@ class MainController implements OptionsObserver {
      */
     public notify() {
         const self = this;
-        if (Options.get(Options.LOGGING)) {
-            chrome.tabs.query({"active": true, "currentWindow": true}, function (tabs: Tab[]) {
-                self.testAndSend(tabs[0]);
-            });
-        } else {
+        chrome.tabs.query({"active": true, "currentWindow": true}, function (tabs: Tab[]) {
+            self.testAndSend(tabs[0]);
+        });
+        if (!Options.get(Options.LOGGING)) {
             Status.off();
         }
     }
