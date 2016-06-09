@@ -4,8 +4,8 @@
  */
 class MouseScrollTracker extends EventTracker {
 
-    /** Private static final for the timeout between logs. */
-    private static get TIMEOUT() { return 1000; }
+    /** Public static final for the timeout between logs. */
+    public static get TIMEOUT() { return 1000; }
 
     private resizeTimer: number;
 
