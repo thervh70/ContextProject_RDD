@@ -7,6 +7,8 @@ import Tab = chrome.tabs.Tab;
  */
 class MainController implements OptionsObserver {
 
+    private database: DatabaseAdaptable;
+
     /**
      * Starts the MainController. After calling this, all event handlers are hooked to the DOM-tree.
      * @return this
