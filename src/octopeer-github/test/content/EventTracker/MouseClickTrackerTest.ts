@@ -15,10 +15,6 @@ describe("A MouseClickTracker", function() {
         spyOn(Logger, "log"); // suppress all console logs
     });
 
-    afterEach(function() {
-        $("body").off("click"); // because remove
-    });
-
     it("should be instantiated in the right way, with default dbPosition", function() {
         // tslint:disable-next-line:no-unused-expression
         new MouseClickTracker(db).addDOMEvent();
