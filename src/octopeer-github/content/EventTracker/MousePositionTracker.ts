@@ -19,7 +19,7 @@ class MousePositionTracker implements EventTracker {
      * Initialize a MousePositionTracker that contains a MousePositionDatabaseAdaptable.
      * @param db The DatabaseAdaptable for the Tracker.
      */
-    constructor(private db: MousePositionDatabaseAdaptable) { }
+    constructor(private db: DatabaseAdaptable) { }
 
     /**
      * Initiates this EventTracker to collect event data.
@@ -37,7 +37,7 @@ class MousePositionTracker implements EventTracker {
             const windowObject = $(window);
             const viewportX = windowObject.scrollLeft();
             const viewportY = windowObject.scrollTop();
-            this.db.postMousePosition(EventFactory.mousePosition(viewportX + this.x, viewportY + this.y,
+            this.db.post(EventFactory.mousePosition(viewportX + this.x, viewportY + this.y,
                 viewportX, viewportY), EMPTY_CALLBACK, EMPTY_CALLBACK);
             this.prevX = this.x;
             this.prevY = this.y;

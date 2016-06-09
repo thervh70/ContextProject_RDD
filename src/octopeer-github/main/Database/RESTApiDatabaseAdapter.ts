@@ -51,67 +51,28 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
     }
 
     /**
-     * Post a keystroke event to the database.
+     * Post an event to the database.
      * @param eventData     The data to post to the database.
      * @param success       Callback, which is called once the call has succeeded.
      * @param failure       Callback, which is called once the call has failed.
      */
-    public postKeystroke(eventData: KeystrokeEvent, success: Callback, failure: Callback) {
-        this.postEvent(eventData, "keystroke-events", success, failure);
-    }
-
-    /**
-     * Post a mouse click event to the database.
-     * @param eventData     The data to post to the database.
-     * @param success       Callback, which is called once the call has succeeded.
-     * @param failure       Callback, which is called once the call has failed.
-     */
-    public postMouseClick(eventData: MouseClickEvent, success: Callback, failure: Callback) {
-        this.postEvent(eventData, "mouse-click-events", success, failure);
-    }
-
-    /**
-     * Post a mouse position event to the database.
-     * @param eventData     The data to post to the database.
-     * @param success       Callback, which is called once the call has succeeded.
-     * @param failure       Callback, which is called once the call has failed.
-     */
-    public postMousePosition(eventData: MousePositionEvent, success: Callback, failure: Callback) {
-        this.postEvent(eventData, "mouse-position-events", success, failure);
-    }
-
-    /**
-     * Post a mouse scroll event to the database.
-     * @param eventData     The data to post to the database.
-     * @param success       Callback, which is called once the call has succeeded.
-     * @param failure       Callback, which is called once the call has failed.
-     */
-    public postMouseScroll(eventData: MouseScrollEvent, success: Callback, failure: Callback) {
-        this.postEvent(eventData, "mouse-scroll-events", success, failure);
-    }
-
-    /**
-     * Post a window resolution event to the database.
-     * @param eventData     The data to post to the database.
-     * @param success       Callback, which is called once the call has succeeded.
-     * @param failure       Callback, which is called once the call has failed.
-     */
-    public postWindowResolution(eventData: WindowResolutionEvent, success: Callback, failure: Callback) {
-        this.postEvent(eventData, "window-resolution-events", success, failure);
-    }
-
-    /**
-     * Post a semantic event to the database.
-     * @param eventData     The data to post to the database.
-     * @param success       Callback, which is called once the call has succeeded.
-     * @param failure       Callback, which is called once the call has failed.
-     */
-    public postSemantic(eventData: SemanticEvent, success: Callback, failure: Callback): void {
-        this.postEvent({
-            "event_type": eventData.eventID,
-            "element_type": eventData.elementID,
-            "created_at": eventData.created_at,
-        }, "semantic-events", success, failure);
+    public post(eventData: EventObject, success: Callback, failure: Callback): void {
+        if (eventData.type === "SemanticEvent") {
+            const data = <SemanticEvent>eventData.data;
+            this.postEvent({
+                "event_type": data.eventID,
+                "element_type": data.elementID,
+                "created_at": data.created_at,
+            }, "semantic-events", success, failure);
+        } else {
+            this.postEvent(eventData.data, (<any>{
+                "KeystrokeEvent": "keystroke-events",
+                "MouseClickEvent": "mouse-click-events",
+                "MousePositionEvent": "mouse-position-events",
+                "MouseScrollEvent": "mouse-scroll-events",
+                "WindowResolutionEvent": "window-resolution-events",
+            })[eventData.type], success, failure);
+        }
     }
 
     /**

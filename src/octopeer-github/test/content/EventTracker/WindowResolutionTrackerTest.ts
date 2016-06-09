@@ -18,7 +18,7 @@ describe("A WindowResolutionTracker", function() {
     });
 
     it("should track window resizes every half a second, unless the position didn't change", function() {
-        const dbSpy = spyOn(db, "postWindowResolution");
+        const dbSpy = spyOn(db, "post");
         tracker.addDOMEvent();
 
         $(window).trigger($.Event("resize"));
@@ -31,7 +31,7 @@ describe("A WindowResolutionTracker", function() {
     });
 
     it("should track only one window resize event, when the times between them are less than a second", function() {
-        const dbSpy = spyOn(db, "postWindowResolution");
+        const dbSpy = spyOn(db, "post");
         tracker.addDOMEvent();
 
         $(window).trigger($.Event("resize"));
@@ -44,7 +44,7 @@ describe("A WindowResolutionTracker", function() {
     });
 
     it("should no longer track window resizes when removed from DOM", function() {
-        const dbSpy = spyOn(db, "postWindowResolution");
+        const dbSpy = spyOn(db, "post");
         tracker.addDOMEvent();
         tracker.removeDOMEvent();
 

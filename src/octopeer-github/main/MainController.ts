@@ -87,7 +87,13 @@ class MainController implements OptionsObserver {
             if (!sender.tab) {
                 return; // Only continue if message is sent from a content script
             }
-            const dataMessage = <DataMessage>JSON.parse(message);
+            const dataMessage = <EventObject>JSON.parse(message);
+            if (dataMessage.type === "SemanticEvent") {
+                const semanticEvent = <any>dataMessage.data;
+                semanticEvent.elementID = new EventID(semanticEvent.elementID);
+                semanticEvent.eventID = new EventID(semanticEvent.eventID);
+                dataMessage.data = semanticEvent;
+            }
             // IP for testing locally: 10.0.22.6
             // TODO: get name from context
             const database: DatabaseAdaptable = new RESTApiDatabaseAdapter("http://146.185.128.124", sender.tab.url, "Travis");
@@ -99,20 +105,7 @@ class MainController implements OptionsObserver {
                 Logger.warn(message);
                 Logger.warn(`Original sender: ${sender}`);
             };
-            switch (dataMessage.type) {
-                case "postSemantic":
-                    database.postSemantic(        <SemanticEvent>dataMessage.data,         success, failure); break;
-                case "postKeystroke":
-                    database.postKeystroke(       <KeystrokeEvent>dataMessage.data,        success, failure); break;
-                case "postMousePosition":
-                    database.postMousePosition(   <MousePositionEvent>dataMessage.data,    success, failure); break;
-                case "postMouseClick":
-                    database.postMouseClick(      <MouseClickEvent>dataMessage.data,       success, failure); break;
-                case "postMouseScroll":
-                    database.postMouseScroll(     <MouseScrollEvent>dataMessage.data,      success, failure); break;
-                case "postWindowResolution":
-                    database.postWindowResolution(<WindowResolutionEvent>dataMessage.data, success, failure); break;
-            }
+            database.post(dataMessage, success, failure);
             sendResponse({});
         });
     }
@@ -147,9 +140,4 @@ class MainController implements OptionsObserver {
         });
     }
 
-}
-
-interface DataMessage {
-    data: any;
-    type: string;
 }

@@ -7,19 +7,9 @@ class MouseClickTracker implements EventTracker {
 
     /**
      * Initialize a MouseClickTracker that contains a MouseClickDatabaseAdaptable.
-     * @param dbClick The DatabaseAdaptable for the Tracker to post click events.
-     * @param dbPosition The DatabaseAdaptable for the Tracker to post position events.
+     * @param db The DatabaseAdaptable for the Tracker to post click and position events.
      */
-    constructor(private dbClick: MouseClickDatabaseAdaptable, private dbPosition: MousePositionDatabaseAdaptable = undefined) {
-        if (dbPosition === undefined) {
-            if ((<DatabaseAdaptable>dbClick).postMousePosition !== undefined) {
-                this.dbPosition = <DatabaseAdaptable>dbClick;
-            } else {
-                Logger.warn("MouseClickTracker was instantiated wrongly!");
-                return;
-            }
-        }
-    }
+    constructor(private db: DatabaseAdaptable) { }
 
     /**
      * Initiates this EventTracker to collect event data.
@@ -32,8 +22,8 @@ class MouseClickTracker implements EventTracker {
             const viewportX = windowObject.scrollLeft();
             const viewportY = windowObject.scrollTop();
             const time = EventFactory.getTime();
-            this.dbClick.postMouseClick(EventFactory.mouseClick(time), EMPTY_CALLBACK, EMPTY_CALLBACK);
-            this.dbPosition.postMousePosition(EventFactory.mousePosition(viewportX + mouseX, viewportY + mouseY,
+            this.db.post(EventFactory.mouseClick(time), EMPTY_CALLBACK, EMPTY_CALLBACK);
+            this.db.post(EventFactory.mousePosition(viewportX + mouseX, viewportY + mouseY,
                 viewportX, viewportY, time), EMPTY_CALLBACK, EMPTY_CALLBACK);
         });
     }

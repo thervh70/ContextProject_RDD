@@ -24,8 +24,11 @@ const EMPTY_CALLBACK: Callback = function() {return; };
 type UnixTimestamp = number;
 
 /**
- * A DatabaseAdaptable implements all possible interfaces for a database.
- * It is used for short-hand.
+ * A DatabaseAdaptable should implement a method that posts to any real-life database.
+ * @param eventData     The data to post to the database.
+ * @param success       Callback, which is called once the call has succeeded.
+ * @param failure       Callback, which is called once the call has failed.
  */
-interface DatabaseAdaptable extends SemanticDatabaseAdaptable, KeystrokeDatabaseAdaptable, MousePositionDatabaseAdaptable,
-    MouseClickDatabaseAdaptable, MouseScrollDatabaseAdaptable, WindowResolutionDatabaseAdaptable { }
+interface DatabaseAdaptable {
+    post(eventData: EventObject, success: Callback, failure: Callback): void;
+}

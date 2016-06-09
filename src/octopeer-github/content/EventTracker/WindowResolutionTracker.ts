@@ -13,7 +13,7 @@ class WindowResolutionTracker implements EventTracker {
      * Initialize a WindowResolutionTracker that contains a WindowResolutionDatabaseAdaptable.
      * @param db The DatabaseAdaptable for the Tracker.
      */
-    constructor(private db: WindowResolutionDatabaseAdaptable) { }
+    constructor(private db: DatabaseAdaptable) { }
 
     /**
      * Initiates this EventTracker to collect event data.
@@ -23,7 +23,7 @@ class WindowResolutionTracker implements EventTracker {
         windowObject.resize((eventObject: JQueryEventObject) => {
             clearTimeout(WindowResolutionTracker.resizeTimer);
             WindowResolutionTracker.resizeTimer = setTimeout(() => {
-                this.db.postWindowResolution(EventFactory.windowResolution(windowObject.width(), windowObject.height()),
+                this.db.post(EventFactory.windowResolution(windowObject.width(), windowObject.height()),
                     EMPTY_CALLBACK, EMPTY_CALLBACK);
             }, WindowResolutionTracker.TIMEOUT);
         });

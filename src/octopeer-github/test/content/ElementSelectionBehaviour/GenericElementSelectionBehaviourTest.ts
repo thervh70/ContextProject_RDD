@@ -37,7 +37,7 @@ describe("A GenericElementSelectionBehaviour", function() {
     });
 
     it("should choose the default callback when no callback is specified", function() {
-        const databaseSpy = spyOn(CLDAdapter, "postSemantic");
+        const databaseSpy = spyOn(CLDAdapter, "post");
         makeGESB(ESBData).getCallback(new EventID(1))($.Event("click"));
         expect(databaseSpy).toHaveBeenCalledTimes(1);
     });

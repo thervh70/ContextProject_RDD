@@ -18,7 +18,7 @@ describe("A MousePositionTracker", function() {
     });
 
     it("should track mouse position every half a second, unless the position didn't change", function() {
-        const dbSpy = spyOn(db, "postMousePosition");
+        const dbSpy = spyOn(db, "post");
         tracker.addDOMEvent();
 
         $(document).trigger($.Event("mousemove", {pageX: 80, pageY: 80}));
@@ -31,7 +31,7 @@ describe("A MousePositionTracker", function() {
     });
 
     it("should no longer track mouse positions when removed from DOM", function() {
-        const dbSpy = spyOn(db, "postMousePosition");
+        const dbSpy = spyOn(db, "post");
         tracker.addDOMEvent();
         tracker.removeDOMEvent();
 
