@@ -149,6 +149,15 @@ class MainController implements OptionsObserver {
             Status.standby();
             return;
         }
+
+        if (!Status.isStatus(StatusCode.RUNNING)) {
+            this.database.postSemantic(
+                EventFactory.semantic(ElementID.NO_ELEMENT, EventID.START_WATCHING_PR),
+                function () { Logger.debug("Succesfully loged start watching PR."); },
+                function () { Logger.warn("Could nog log: start watching PR"); }
+            );
+        }
+
         Status.running();
         Logger.debug(`[Tab] Owner: ${urlInfo[1]}, Repo: ${urlInfo[2]}, PR-number: ${urlInfo[3]}`);
         chrome.tabs.sendMessage(tab.id, {
