@@ -1,4 +1,3 @@
-/// <reference path="../../main/Database/DatabaseAdaptable/MouseClickDatabaseAdaptable.ts"/>
 /// <reference path="../../main/Database/EventObject/EventFactory.ts"/>
 /**
  * Created by Mathias on 2016-05-27.

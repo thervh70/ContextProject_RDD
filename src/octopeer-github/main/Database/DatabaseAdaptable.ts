@@ -1,9 +1,3 @@
-/// <reference path="DatabaseAdaptable/KeystrokeDatabaseAdaptable.ts"/>
-/// <reference path="DatabaseAdaptable/SemanticDatabaseAdaptable.ts"/>
-/// <reference path="DatabaseAdaptable/MousePositionDatabaseAdaptable.ts"/>
-/// <reference path="DatabaseAdaptable/MouseClickDatabaseAdaptable.ts"/>
-/// <reference path="DatabaseAdaptable/MouseScrollDatabaseAdaptable.ts"/>
-/// <reference path="DatabaseAdaptable/WindowResolutionDatabaseAdaptable.ts"/>
 /**
  * Created by Maarten on 26-05-2016.
  */
