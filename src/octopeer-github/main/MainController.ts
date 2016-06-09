@@ -124,6 +124,10 @@ class MainController implements OptionsObserver {
      * @param tab   the Tab to check for
      */
     private testAndSend(tab: Tab) {
+        if (tab === undefined || tab.url === undefined) {
+            Status.standby();
+            return;
+        }
         const url = tab.url;
         let urlInfo = URLHandler.isPullRequestUrl(url);
         if (urlInfo.equals([])) {
