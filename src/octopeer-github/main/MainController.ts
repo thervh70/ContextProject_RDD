@@ -134,30 +134,35 @@ class MainController implements OptionsObserver {
      */
     private testAndSend(tab: Tab) {
         if (tab === undefined || tab.url === undefined) {
-            Status.standby();
+            this.setNewStatus(StatusCode.STANDBY);
             return;
         }
         const url = tab.url;
         let urlInfo = URLHandler.isPullRequestUrl(url);
 
-        // Only set DB is watching PR and databse hasen't been set yet
-        if (!urlInfo.equals([])) {
-            this.database = new RESTApiDatabaseAdapter("http://146.185.128.124", tab.url, "Travis");
-        }
-
         if (urlInfo.equals([])) {
-            if (!Status.isStatus(StatusCode.STANDBY)) {
-                this.postToDatabase(EventFactory.semantic(ElementID.NO_ELEMENT, EventID.STOP_WATCHING_PR));
-            }
-            Status.set(StatusCode.STANDBY);
+            // if URL is invalid, don't do anything.
+            this.setNewStatus(StatusCode.STANDBY);
             return;
+        } else {
+            // if URL is valid, update database and set status to running
+            this.database = new RESTApiDatabaseAdapter("http://146.185.128.124", tab.url, "Travis");
+            this.setNewStatus(StatusCode.RUNNING);
         }
-
-        if (!Status.isStatus(StatusCode.RUNNING)) {
-            this.postToDatabase(EventFactory.semantic(ElementID.NO_ELEMENT, EventID.START_WATCHING_PR));
-        }
-        Status.set(StatusCode.RUNNING);
         this.sendMessageToContentScript(tab, urlInfo);
+    }
+
+    private setNewStatus(status: StatusCode) {
+        let eventID: EventID;
+        switch (status) {
+            case StatusCode.RUNNING: eventID = EventID.START_WATCHING_PR; break;
+            case StatusCode.STANDBY: eventID = EventID.STOP_WATCHING_PR; break;
+            default: return;
+        }
+        if (!Status.isStatus(status)) {
+            this.postToDatabase(EventFactory.semantic(ElementID.NO_ELEMENT, eventID));
+        }
+        Status.set(status);
     }
 
     private sendMessageToContentScript(tab: Tab, urlInfo: Array<string>) {
