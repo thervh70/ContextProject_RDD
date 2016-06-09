@@ -7,6 +7,10 @@ class WindowResolutionTracker implements EventTracker {
     /** Public static final for the timeout between logs. */
     public static get TIMEOUT() { return 500; }
 
+    /**
+     * This resizeTimer field is static, because there should only be one timer at any given time.
+     * It stores the current timer that is active (and because of JavaScript, its type is a number).
+     */
     private static resizeTimer: number;
 
     /**
