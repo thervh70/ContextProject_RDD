@@ -83,16 +83,9 @@ class MainController implements OptionsObserver {
      * When a tab sends a message, log it to the Database.
      */
     private listenToDatabaseMessages() {
-        chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+        chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             if (!sender.tab) {
                 return; // Only continue if message is sent from a content script
-            }
-            const dataMessage = <EventObject>JSON.parse(message);
-            if (dataMessage.type === "SemanticEvent") {
-                const semanticEvent = <any>dataMessage.data;
-                semanticEvent.elementID = new EventID(semanticEvent.elementID);
-                semanticEvent.eventID = new EventID(semanticEvent.eventID);
-                dataMessage.data = semanticEvent;
             }
             // IP for testing locally: 10.0.22.6
             // TODO: get name from context
@@ -105,9 +98,20 @@ class MainController implements OptionsObserver {
                 Logger.warn(message);
                 Logger.warn(`Original sender: ${sender}`);
             };
-            database.post(dataMessage, success, failure);
+            database.post(this.readMessage(message), success, failure);
             sendResponse({});
         });
+    }
+
+    private readMessage(dataMessage: any): EventObject {
+        const eventObject = <EventObject>JSON.parse(dataMessage);
+        if (eventObject.type === "SemanticEvent") {
+            const semanticEvent = <any>eventObject.data;
+            semanticEvent.elementID = new ElementID(semanticEvent.elementID);
+            semanticEvent.eventID = new EventID(semanticEvent.eventID);
+            eventObject.data = semanticEvent;
+        }
+        return eventObject;
     }
 
     /**
