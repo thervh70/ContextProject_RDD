@@ -122,7 +122,6 @@ class MainController implements OptionsObserver {
         const failure = function() {
             Logger.warn("Log to database of following object failed:");
             Logger.warn(message);
-            Logger.warn(`Original sender: ${sender}`);
         };
         this.database.post(message, success, failure);
     }
