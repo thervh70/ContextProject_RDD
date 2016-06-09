@@ -128,6 +128,12 @@ class MainController implements OptionsObserver {
     private testAndSend(tab: Tab) {
         const url = tab.url;
         let urlInfo = URLHandler.isPullRequestUrl(url);
+
+        // Only set DB is watching PR and databse hasen't been set yet
+        if (this.database == null && !urlInfo.equals([])) {
+            this.database = new RESTApiDatabaseAdapter("http://146.185.128.124", tab.url, "Travis");
+        }
+
         if (urlInfo.equals([])) {
             Status.standby();
             return;
