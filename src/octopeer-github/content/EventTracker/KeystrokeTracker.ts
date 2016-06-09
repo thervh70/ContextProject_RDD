@@ -2,15 +2,13 @@
 /**
  * Created by Mathias on 2016-05-26.
  */
-class KeystrokeTracker extends EventTracker {
+class KeystrokeTracker implements EventTracker {
 
     /**
      * Initialize a KeystrokeTracker that contains a KeystrokeDatabaseAdaptable.
      * @param db The DatabaseAdaptable for the Tracker.
      */
-    constructor(private db: KeystrokeDatabaseAdaptable) {
-        super();
-    }
+    constructor(private db: KeystrokeDatabaseAdaptable) { }
 
     public addDOMEvent() {
         $("body").on("keypress", (eventObject: JQueryEventObject) => {

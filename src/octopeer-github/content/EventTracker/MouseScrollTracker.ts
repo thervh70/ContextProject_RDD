@@ -2,7 +2,7 @@
 /**
  * Created by Mathias on 2016-05-27.
  */
-class MouseScrollTracker extends EventTracker {
+class MouseScrollTracker implements EventTracker {
 
     /** Public static final for the timeout between logs. */
     public static get TIMEOUT() { return 1000; }
@@ -13,9 +13,7 @@ class MouseScrollTracker extends EventTracker {
      * Initialize a MouseScrollTracker that contains a MouseScrollDatabaseAdaptable.
      * @param db The DatabaseAdaptable for the Tracker.
      */
-    constructor(private db: MouseScrollDatabaseAdaptable) {
-        super();
-    }
+    constructor(private db: MouseScrollDatabaseAdaptable) { }
 
     public addDOMEvent() {
         const windowObject = $(window);

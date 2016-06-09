@@ -2,7 +2,7 @@
 /**
  * Created by Mathias on 2016-05-27.
  */
-class MousePositionTracker extends EventTracker {
+class MousePositionTracker implements EventTracker {
 
     /** Public static final for the timeout between logs. */
     public static get TIMEOUT() { return 500; }
@@ -19,9 +19,7 @@ class MousePositionTracker extends EventTracker {
      * Initialize a MousePositionTracker that contains a MousePositionDatabaseAdaptable.
      * @param db The DatabaseAdaptable for the Tracker.
      */
-    constructor(private db: MousePositionDatabaseAdaptable) {
-        super();
-    }
+    constructor(private db: MousePositionDatabaseAdaptable) { }
 
     public addDOMEvent() {
         this.removeDOMEvent();

@@ -2,7 +2,7 @@
 /**
  * Created by Mathias on 2016-05-26.
  */
-class WindowResolutionTracker extends EventTracker {
+class WindowResolutionTracker implements EventTracker {
 
     /** Public static final for the timeout between logs. */
     public static get TIMEOUT() { return 500; }
@@ -13,9 +13,7 @@ class WindowResolutionTracker extends EventTracker {
      * Initialize a WindowResolutionTracker that contains a WindowResolutionDatabaseAdaptable.
      * @param db The DatabaseAdaptable for the Tracker.
      */
-    constructor(private db: WindowResolutionDatabaseAdaptable) {
-        super();
-    }
+    constructor(private db: WindowResolutionDatabaseAdaptable) { }
 
     public addDOMEvent() {
         let windowObject: JQuery = $(window);

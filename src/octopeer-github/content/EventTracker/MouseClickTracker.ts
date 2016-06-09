@@ -3,7 +3,7 @@
 /**
  * Created by Mathias on 2016-05-27.
  */
-class MouseClickTracker extends EventTracker {
+class MouseClickTracker implements EventTracker {
 
     /**
      * Initialize a MouseClickTracker that contains a MouseClickDatabaseAdaptable.
@@ -11,7 +11,6 @@ class MouseClickTracker extends EventTracker {
      * @param dbPosition The DatabaseAdaptable for the Tracker to post position events.
      */
     constructor(private dbClick: MouseClickDatabaseAdaptable, private dbPosition: MousePositionDatabaseAdaptable = undefined) {
-        super();
         if (dbPosition === undefined) {
             if ((<DatabaseAdaptable>dbClick).postMousePosition !== undefined) {
                 this.dbPosition = <DatabaseAdaptable>dbClick;

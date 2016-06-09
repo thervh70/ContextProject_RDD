@@ -1,9 +1,9 @@
 /**
  * Created by Maarten on 08-06-2016.
  */
-abstract class EventTracker {
+interface EventTracker {
 
-    public abstract addDOMEvent(): void;
+    addDOMEvent: () => void;
 
-    public abstract removeDOMEvent(): void;
+    removeDOMEvent: () => void;
 }
