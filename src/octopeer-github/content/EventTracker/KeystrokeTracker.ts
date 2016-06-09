@@ -10,6 +10,9 @@ class KeystrokeTracker implements EventTracker {
      */
     constructor(private db: KeystrokeDatabaseAdaptable) { }
 
+    /**
+     * Initiates this EventTracker to collect event data.
+     */
     public addDOMEvent() {
         $("body").on("keypress", (eventObject: JQueryEventObject) => {
             this.db.postKeystroke(EventFactory.keystroke(String.fromCharCode(eventObject.which),
@@ -18,6 +21,9 @@ class KeystrokeTracker implements EventTracker {
         });
     }
 
+    /**
+     * Stops this EventTracker from collecting event data.
+     */
     public removeDOMEvent() {
         $("body").off("keypress");
     }

@@ -15,6 +15,9 @@ class WindowResolutionTracker implements EventTracker {
      */
     constructor(private db: WindowResolutionDatabaseAdaptable) { }
 
+    /**
+     * Initiates this EventTracker to collect event data.
+     */
     public addDOMEvent() {
         let windowObject: JQuery = $(window);
         windowObject.resize((eventObject: JQueryEventObject) => {
@@ -26,6 +29,9 @@ class WindowResolutionTracker implements EventTracker {
         });
     }
 
+    /**
+     * Stops this EventTracker from collecting event data.
+     */
     public removeDOMEvent() {
         $(window).off("resize");
         clearTimeout(WindowResolutionTracker.resizeTimer);

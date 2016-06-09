@@ -21,6 +21,9 @@ class MousePositionTracker implements EventTracker {
      */
     constructor(private db: MousePositionDatabaseAdaptable) { }
 
+    /**
+     * Initiates this EventTracker to collect event data.
+     */
     public addDOMEvent() {
         this.removeDOMEvent();
         $(document).on("mousemove", (eventObject: JQueryEventObject) => {
@@ -41,6 +44,9 @@ class MousePositionTracker implements EventTracker {
         }, MousePositionTracker.TIMEOUT);
     }
 
+    /**
+     * Stops this EventTracker from collecting event data.
+     */
     public removeDOMEvent() {
         $(document).off("mousemove");
         clearInterval(MousePositionTracker.intervalTimer);

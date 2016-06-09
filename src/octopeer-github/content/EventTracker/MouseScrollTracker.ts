@@ -15,6 +15,9 @@ class MouseScrollTracker implements EventTracker {
      */
     constructor(private db: MouseScrollDatabaseAdaptable) { }
 
+    /**
+     * Initiates this EventTracker to collect event data.
+     */
     public addDOMEvent() {
         const windowObject = $(window);
         windowObject.scroll((eventObject: JQueryEventObject) => {
@@ -26,6 +29,9 @@ class MouseScrollTracker implements EventTracker {
         });
     }
 
+    /**
+     * Stops this EventTracker from collecting event data.
+     */
     public removeDOMEvent() {
         $(window).off("scroll");
         clearTimeout(this.resizeTimer);

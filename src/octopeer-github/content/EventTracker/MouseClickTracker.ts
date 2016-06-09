@@ -21,6 +21,9 @@ class MouseClickTracker implements EventTracker {
         }
     }
 
+    /**
+     * Initiates this EventTracker to collect event data.
+     */
     public addDOMEvent() {
         const windowObject = $(window);
         windowObject.on("click", (eventObject: JQueryEventObject) => {
@@ -35,6 +38,9 @@ class MouseClickTracker implements EventTracker {
         });
     }
 
+    /**
+     * Stops this EventTracker from collecting event data.
+     */
     public removeDOMEvent() {
         $(window).off("click");
     }
