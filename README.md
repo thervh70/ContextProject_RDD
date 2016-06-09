@@ -42,7 +42,7 @@ All documents can in general be found in the doc folder.
 - Use WebStorm (or Git knowledge) to clone the repo to a local folder
 - Run `npm install`
 - Run `npm run-script travis` to check whether everything works correctly
-- Run `git submodule init && git submodule update -recursive` to make the analytics work
+- Run `git submodule init && git submodule update --recursive` to make the analytics work
 
 Congratulations, you can now start developing!
 
