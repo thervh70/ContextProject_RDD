@@ -149,15 +149,21 @@ class MainController implements OptionsObserver {
             if (!Status.isStatus(StatusCode.STANDBY)) {
                 this.postToDatabase(EventFactory.semantic(ElementID.NO_ELEMENT, EventID.STOP_WATCHING_PR));
             }
-            Status.standby();
+            Status.set(StatusCode.STANDBY);
             return;
         }
 
         if (!Status.isStatus(StatusCode.RUNNING)) {
             this.postToDatabase(EventFactory.semantic(ElementID.NO_ELEMENT, EventID.START_WATCHING_PR));
         }
+        Status.set(StatusCode.RUNNING);
+        this.sendMessageToContentScript(tab, urlInfo);
+    }
 
-        Status.running();
+    private sendMessageToContentScript(tab: Tab, urlInfo: Array<string>) {
+        if (!Status.isStatus(StatusCode.RUNNING)) {
+            return;
+        }
         Logger.debug(`[Tab] Owner: ${urlInfo[1]}, Repo: ${urlInfo[2]}, PR-number: ${urlInfo[3]}`);
         chrome.tabs.sendMessage(tab.id, {
             hookToDom: Options.get(Options.LOGGING),
