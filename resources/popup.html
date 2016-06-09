@@ -2,15 +2,15 @@
 <head>
     <title>OctoPeer popup</title>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+    <link rel="stylesheet" href="../libs/materialize/css/materialize.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" >
 
-    <script src="jquery.min.js"></script>
-    <script src="materialize.min.js"></script>
+    <script src="../libs/jquery-2.2.3.js"></script>
+    <script src="../libs/materialize/js/materialize.min.js"></script>
 
     <script src="popup.js"></script>
 </head>
-    <body style="min-width: 250px; min-height: 300px;">
+    <body style="min-width: 300px; min-height: 300px;">
 
     <nav>
         <div class="nav-wrapper lime">
@@ -31,12 +31,17 @@
         </div>
 
         <div class="row center">
-            <div class="col s6">
+            <div class="col s4">
                 <a id="statusToggle" class="btn waves-effect lime waves-light">
                     <i class="material-icons">power_settings_new</i>
                 </a>
             </div>
-            <div class="col s6">
+            <div class="col s4">
+                <a class="btn waves-effect lime waves-light" href="../analytics/index.html" target="_blank">
+                    <i class="material-icons">equalizer</i>
+                </a>
+            </div>
+            <div class="col s4">
                 <a class="btn waves-effect lime waves-light" href="options.html" target="_blank">
                     <i class="material-icons">settings</i>
                 </a>
