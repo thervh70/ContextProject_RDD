@@ -4,8 +4,8 @@
  */
 class WindowResolutionTracker extends EventTracker {
 
-    /** Private static final for the timeout between logs. */
-    private static get TIMEOUT() { return 500; }
+    /** Public static final for the timeout between logs. */
+    public static get TIMEOUT() { return 500; }
 
     private static resizeTimer: number;
 
