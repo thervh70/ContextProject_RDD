@@ -9,6 +9,8 @@ enum StatusCode {ERROR, RUNNING, OFF, STANDBY}
 // tslint:disable-next-line:no-unused-variable
 const Status = new (class Status {
 
+    private status: StatusCode = StatusCode.OFF;
+
     /**
      * Status.NAME: the internal names of the enum StatusCode.
      */
@@ -83,11 +85,21 @@ const Status = new (class Status {
      * @param status
      */
     public set(status: StatusCode) {
+        this.status = status;
         if (Options.get(Options.LOGGING)) {
             this.setter(status);
         } else {
             this.setter(StatusCode.OFF);
         }
+    }
+
+    /**
+     * Accepts a status and returns true if this is the current status
+     * @param s the status to check against
+     * @returns {boolean} i
+     */
+    public isStatus(s: StatusCode): Boolean {
+        return s === this.status;
     }
 
     /**
