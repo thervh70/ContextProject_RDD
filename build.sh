@@ -20,8 +20,8 @@ fi
 
 cp -u -r resources/* build/resources
 mv build/resources/manifest.json build/manifest.json
-cp -u -r TI2806/src/* build/analytics
-cp -u -r TI2806/libs/* build/libs
+cp -u -r analytics/src/* build/analytics
+cp -u -r analytics/libs/* build/libs
 echo "Copied resources"
 
 echo "Transpiling TypeScript..."
