@@ -13,8 +13,16 @@ class ContentController {
      */
     private messageSendDatabaseAdapter = new MessageSendDatabaseAdapter();
 
+    /**
+     * A list used to store the old EEBs, in order to remove them later.
+     * @type {Array}
+     */
     private oldElementEventBindings: ElementEventBinding[] = [];
 
+    /**
+     * A list used to store the old EventTrackers, in order to remove them later.
+     * @type {Array}
+     */
     private oldEventTrackers: EventTracker[] = [];
 
     /**
@@ -47,7 +55,7 @@ class ContentController {
                     });
                     sendResponse(`hooked to DOM (${location.href})`);
                 } else {
-                    self.unhookFromDom();
+                    self.unhookFromDOM();
                     sendResponse(`unhooked from DOM (${location.href})`);
                 }
             } catch (e) {
@@ -59,20 +67,27 @@ class ContentController {
     }
 
     /**
-     * Hook both the semantic and syntactic elements and events to the DOM.
+     * Hook both the semantic and raw data trackers to the DOM.
+     * Calls unhookFromDOM first to make sure no events will be logged multiple times.
      * @param database   the database that should be used when logging.
      */
     private hookToDOM(database: DatabaseAdaptable) {
-        this.unhookFromDom();
+        this.unhookFromDOM();
         this.hookSemanticToDOM(database);
         this.hookTrackersToDOM(database);
     }
 
-    private unhookFromDom() {
+    /**
+     * Unhook both semantic and raw data trackers from DOM.
+     */
+    private unhookFromDOM() {
         this.unhookSemanticFromDOM();
         this.unhookTrackersFromDOM();
     }
 
+    /**
+     * Unhooks the semantic trackers from DOM, based on the EEBs previously saved in an array.
+     */
     private unhookSemanticFromDOM() {
         for (let elementEventBinding of this.oldElementEventBindings) {
             elementEventBinding.removeDOMEvent();
@@ -80,6 +95,9 @@ class ContentController {
         this.oldElementEventBindings = [];
     }
 
+    /**
+     * Unhooks the raw data trackers from DOM, based on the EventTrackers previously saved in an array.
+     */
     private unhookTrackersFromDOM() {
         for (let eventTracker of this.oldEventTrackers) {
             eventTracker.removeDOMEvent();
