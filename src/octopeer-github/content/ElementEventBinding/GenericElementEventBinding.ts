@@ -12,9 +12,9 @@ class GenericElementEventBinding implements ElementEventBinding {
 
     /**
      * Construct a GenericElementEventBinding, assign the proper values to the field (from the data)
-     * and execute the initDOMEvent function
-     * @param elementSelectionBehaviour
-     * @param data
+     * @param elementSelectionBehaviour the elementSelectionBehaviour to use for its elements and callback
+     * @param data an element from the EEBData list
+     * @deprecated Use the EEBFactory to construct new GenericElementEventBindings.
      */
     constructor(private elementSelectionBehaviour: ElementSelectionBehaviour, private data: ElementEventBindingData) {
         this.eventID = data.eventID;
