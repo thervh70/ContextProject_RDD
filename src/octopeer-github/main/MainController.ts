@@ -113,6 +113,9 @@ class MainController implements OptionsObserver {
     }
 
     private postToDatabase(message: EventObject) {
+        if (!Options.get(Options.LOGGING)) {
+            return;
+        }
         const success = function() {
             Logger.debug(`Successfully logged to database: ${message}`);
         };
