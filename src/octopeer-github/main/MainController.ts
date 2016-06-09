@@ -22,13 +22,18 @@ class MainController implements OptionsObserver {
 
     /**
      * Listens for changes in Options.
-     * If changed, the MainController has to verify that the page is a PR or not.
+     * If changed, the MainController has to verify that the page is a PR or not, if the extension is allowed to log.
+     * Else the extension is set to off.
      */
     public notify() {
         const self = this;
-        chrome.tabs.query({"active": true, "currentWindow": true}, function (tabs: Tab[]) {
-            self.testAndSend(tabs[0]);
-        });
+        if (Options.get(Options.LOGGING)) {
+            chrome.tabs.query({"active": true, "currentWindow": true}, function (tabs: Tab[]) {
+                self.testAndSend(tabs[0]);
+            });
+        } else {
+            Status.off();
+        }
     }
 
     /**
