@@ -50,9 +50,6 @@ class ContentController {
             try {
                 if (request.hookToDom) {
                     self.hookToDOM(self.messageSendDatabaseAdapter);
-                    $("body").click(function () {
-                        self.hookToDOM(self.messageSendDatabaseAdapter);
-                    });
                     sendResponse(`hooked to DOM (${location.href})`);
                 } else {
                     self.unhookFromDOM();
