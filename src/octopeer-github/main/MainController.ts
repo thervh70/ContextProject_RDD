@@ -92,7 +92,7 @@ class MainController implements OptionsObserver {
             const dataMessage = <DataMessage>JSON.parse(message);
             // IP for testing locally: 10.0.22.6
             // TODO: get name from context
-            const database: DatabaseAdaptable = new RESTApiDatabaseAdapter("http://146.185.128.124", sender.tab.url, "Travis");
+            this.database = new RESTApiDatabaseAdapter("http://146.185.128.124", sender.tab.url, "Travis");
             const success = function() {
                 Logger.debug(`Successfully logged to database: ${message}`);
             };
