@@ -12,6 +12,7 @@ describe("A MouseClickTracker", function() {
         db = new ConsoleLogDatabaseAdapter();
         dbSpyClick = spyOn(db, "postMouseClick");
         dbSpyPosition = spyOn(db, "postMousePosition");
+        spyOn(Logger, "log"); // suppress all console logs
     });
 
     afterEach(function() {
@@ -49,9 +50,9 @@ describe("A MouseClickTracker", function() {
     });
 
     it("should no longer track mouseclick events when removed from DOM", function() {
-        // tslint:disable-next-line:no-unused-expression
-        new MouseClickTracker(db).addDOMEvent();
-        new MouseClickTracker(db).removeDOMEvent();
+        const tracker = new MouseClickTracker(db);
+        tracker.addDOMEvent();
+        tracker.removeDOMEvent();
 
         $("body").trigger($.Event("click", {pageX: 42, pageY: 84}));
 

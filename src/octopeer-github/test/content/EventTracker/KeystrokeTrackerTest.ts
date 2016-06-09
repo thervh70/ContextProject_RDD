@@ -5,15 +5,16 @@
 describe("A KeystrokeTracker", function() {
 
     let db: DatabaseAdaptable;
+    let tracker: KeystrokeTracker;
 
     beforeEach(function() {
         db = new ConsoleLogDatabaseAdapter();
+        tracker = new KeystrokeTracker(db);
     });
 
     it("should track keypress events", function() {
         const dbSpy = spyOn(db, "postKeystroke");
-        // tslint:disable-next-line:no-unused-expression
-        new KeystrokeTracker(db).addDOMEvent();
+        tracker.addDOMEvent();
 
         $("body").trigger($.Event("keypress", {which: " "}));
 
@@ -22,9 +23,8 @@ describe("A KeystrokeTracker", function() {
 
     it("should no longer track keypress events when removed from DOM", function() {
         const dbSpy = spyOn(db, "postKeystroke");
-        // tslint:disable-next-line:no-unused-expression
-        new KeystrokeTracker(db).addDOMEvent();
-        new KeystrokeTracker(db).removeDOMEvent();
+        tracker.addDOMEvent();
+        tracker.removeDOMEvent();
 
         $("body").trigger($.Event("keypress", {which: " "}));
 

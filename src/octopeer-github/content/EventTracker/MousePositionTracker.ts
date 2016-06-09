@@ -4,8 +4,8 @@
  */
 class MousePositionTracker extends EventTracker {
 
-    /** Private static final for the timeout between logs. */
-    private static get TIMEOUT() { return 500; }
+    /** Public static final for the timeout between logs. */
+    public static get TIMEOUT() { return 500; }
 
     /** This intervalTimer field is static, because there should only be one timer at any given time. */
     private static intervalTimer: number;
