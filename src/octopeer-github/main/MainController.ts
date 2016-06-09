@@ -145,26 +145,14 @@ class MainController implements OptionsObserver {
 
         if (urlInfo.equals([])) {
             if (!Status.isStatus(StatusCode.STANDBY)) {
-                this.database.post(
-                    EventFactory.semantic(ElementID.NO_ELEMENT, EventID.STOP_WATCHING_PR),
-                    function () {
-                        Logger.debug("Succesfully loged stop watching PR.");
-                    },
-                    function () {
-                        Logger.warn("Could nog log: stop watching PR");
-                    }
-                );
+                this.postToDatabase(EventFactory.semantic(ElementID.NO_ELEMENT, EventID.STOP_WATCHING_PR));
             }
             Status.standby();
             return;
         }
 
         if (!Status.isStatus(StatusCode.RUNNING)) {
-            this.database.post(
-                EventFactory.semantic(ElementID.NO_ELEMENT, EventID.START_WATCHING_PR),
-                function () { Logger.debug("Succesfully loged start watching PR."); },
-                function () { Logger.warn("Could nog log: start watching PR"); }
-            );
+            this.postToDatabase(EventFactory.semantic(ElementID.NO_ELEMENT, EventID.START_WATCHING_PR));
         }
 
         Status.running();
