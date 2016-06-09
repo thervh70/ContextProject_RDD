@@ -13,9 +13,10 @@ class MainController implements OptionsObserver {
      */
     public start() {
         Logger.setDebug(); // TODO remove this on release
-        this.connectToContentScript();
         Options.init();
         Options.addObserver(this);
+        Status.standby();
+        this.connectToContentScript();
         return this;
     }
 
@@ -26,11 +27,10 @@ class MainController implements OptionsObserver {
      */
     public notify() {
         const self = this;
-        if (Options.get(Options.LOGGING)) {
-            chrome.tabs.query({"active": true, "currentWindow": true}, function (tabs: Tab[]) {
-                self.testAndSend(tabs[0]);
-            });
-        } else {
+        chrome.tabs.query({"active": true, "currentWindow": true}, function (tabs: Tab[]) {
+            self.testAndSend(tabs[0]);
+        });
+        if (!Options.get(Options.LOGGING)) {
             Status.off();
         }
     }
@@ -141,9 +141,12 @@ class MainController implements OptionsObserver {
         Status.running();
         Logger.debug(`[Tab] Owner: ${urlInfo[1]}, Repo: ${urlInfo[2]}, PR-number: ${urlInfo[3]}`);
         chrome.tabs.sendMessage(tab.id, {
-            hookToDom: true,
+            hookToDom: Options.get(Options.LOGGING),
         }, function (result) {
-            let str = result || `should be refreshed because content script is not loaded (${tab.url})`;
+            if (!result) {
+                chrome.tabs.reload(tab.id);
+            }
+            let str = result || `will be refreshed because content script is not loaded (${tab.url})`;
             Logger.debug(`[Tab] ${str}`);
         });
     }

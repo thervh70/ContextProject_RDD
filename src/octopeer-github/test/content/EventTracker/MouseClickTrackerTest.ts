@@ -12,11 +12,12 @@ describe("A MouseClickTracker", function() {
         db = new ConsoleLogDatabaseAdapter();
         dbSpyClick = spyOn(db, "postMouseClick");
         dbSpyPosition = spyOn(db, "postMousePosition");
+        spyOn(Logger, "log"); // suppress all console logs
     });
 
     it("should be instantiated in the right way, with default dbPosition", function() {
         // tslint:disable-next-line:no-unused-expression
-        new MouseClickTracker(db);
+        new MouseClickTracker(db).addDOMEvent();
 
         $("body").trigger($.Event("click", {pageX: 42, pageY: 84}));
 
@@ -26,7 +27,7 @@ describe("A MouseClickTracker", function() {
 
     it("should be instantiated in the right way, with a different dbPosition", function() {
         // tslint:disable-next-line:no-unused-expression
-        new MouseClickTracker(db, db);
+        new MouseClickTracker(db, db).addDOMEvent();
 
         $("body").trigger($.Event("click", {pageX: 42, pageY: 84}));
 
@@ -42,5 +43,16 @@ describe("A MouseClickTracker", function() {
 
         $("body").trigger($.Event("click", {pageX: 42, pageY: 84}));
         expect(logMock).toHaveBeenCalled();
+    });
+
+    it("should no longer track mouseclick events when removed from DOM", function() {
+        const tracker = new MouseClickTracker(db);
+        tracker.addDOMEvent();
+        tracker.removeDOMEvent();
+
+        $("body").trigger($.Event("click", {pageX: 42, pageY: 84}));
+
+        expect(dbSpyClick).not.toHaveBeenCalled();
+        expect(dbSpyPosition).not.toHaveBeenCalled();
     });
 });
