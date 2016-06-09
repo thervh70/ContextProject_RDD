@@ -56,7 +56,7 @@ describe("A ClickElementEventBinding's", function() {
         expect(binder.getEventID()).toEqual(new EventID(201));
     });
 
-    it("addDOMEvent function should be overridden when given another one", function() {
+    it("addDOMEvent and removeDOMEvent function should be overridden when given another one", function() {
         const consoleSpy = spyOn(console, "log");
         selector = esbFactory.create(database, ElementID.EDIT_COMMENT);
         binder = new GenericElementEventBinding(selector, {
@@ -71,5 +71,7 @@ describe("A ClickElementEventBinding's", function() {
         });
         binder.addDOMEvent();
         expect(consoleSpy).toHaveBeenCalledTimes(1);
+        binder.removeDOMEvent();
+        expect(consoleSpy).toHaveBeenCalledTimes(2);
     });
 });

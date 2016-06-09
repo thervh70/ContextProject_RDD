@@ -135,6 +135,7 @@ class ContentController {
         ];
         for (let tracker of list) {
             tracker.addDOMEvent();
+            this.oldEventTrackers.push(tracker);
         }
     }
 }
