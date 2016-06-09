@@ -14,6 +14,10 @@ describe("A MouseClickTracker", function() {
         dbSpyPosition = spyOn(db, "postMousePosition");
     });
 
+    afterEach(function() {
+        $("body").off("click"); // because remove
+    });
+
     it("should be instantiated in the right way, with default dbPosition", function() {
         // tslint:disable-next-line:no-unused-expression
         new MouseClickTracker(db).addDOMEvent();
@@ -42,5 +46,16 @@ describe("A MouseClickTracker", function() {
 
         $("body").trigger($.Event("click", {pageX: 42, pageY: 84}));
         expect(logMock).toHaveBeenCalled();
+    });
+
+    it("should no longer track mouseclick events when removed from DOM", function() {
+        // tslint:disable-next-line:no-unused-expression
+        new MouseClickTracker(db).addDOMEvent();
+        new MouseClickTracker(db).removeDOMEvent();
+
+        $("body").trigger($.Event("click", {pageX: 42, pageY: 84}));
+
+        expect(dbSpyClick).not.toHaveBeenCalled();
+        expect(dbSpyPosition).not.toHaveBeenCalled();
     });
 });

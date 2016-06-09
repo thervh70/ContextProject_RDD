@@ -10,13 +10,24 @@ describe("A KeystrokeTracker", function() {
         db = new ConsoleLogDatabaseAdapter();
     });
 
-   it("should", function() {
-       const dbSpy = spyOn(db, "postKeystroke");
-       // tslint:disable-next-line:no-unused-expression
-       new KeystrokeTracker(db).addDOMEvent();
+    it("should track keypress events", function() {
+        const dbSpy = spyOn(db, "postKeystroke");
+        // tslint:disable-next-line:no-unused-expression
+        new KeystrokeTracker(db).addDOMEvent();
 
-       $("body").trigger($.Event("keypress", {which: " "}));
+        $("body").trigger($.Event("keypress", {which: " "}));
 
-       expect(dbSpy).toHaveBeenCalledTimes(1);
-   });
+        expect(dbSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it("should no longer track keypress events when removed from DOM", function() {
+        const dbSpy = spyOn(db, "postKeystroke");
+        // tslint:disable-next-line:no-unused-expression
+        new KeystrokeTracker(db).addDOMEvent();
+        new KeystrokeTracker(db).removeDOMEvent();
+
+        $("body").trigger($.Event("keypress", {which: " "}));
+
+        expect(dbSpy).not.toHaveBeenCalled();
+    });
 });
