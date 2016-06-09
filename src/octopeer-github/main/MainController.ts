@@ -109,7 +109,7 @@ class MainController implements OptionsObserver {
                 case "postMousePosition":
                     this.database.postMousePosition(   <MousePositionEvent>dataMessage.data,    success, failure); break;
                 case "postMouseClick":
-                    database.postMouseClick(      <MouseClickEvent>dataMessage.data,       success, failure); break;
+                    this.database.postMouseClick(      <MouseClickEvent>dataMessage.data,       success, failure); break;
                 case "postMouseScroll":
                     database.postMouseScroll(     <MouseScrollEvent>dataMessage.data,      success, failure); break;
                 case "postWindowResolution":
