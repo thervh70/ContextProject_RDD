@@ -24,6 +24,10 @@ describe("The Options class", function() {
         [this.DNW_KEYBOARD_EVENTS]: false,
     };
 
+    let mockedStorageDiffValues: { [key: string]: any; } = {
+        [this.LOGGING]: { newValue: true, oldValue: false },
+    };
+
     beforeEach(function () {
         controller = new MainController();
         spySyncStorage = spyOn(chrome.storage.sync, "get");
@@ -86,7 +90,7 @@ describe("The Options class", function() {
             "doNotWatchKeyboardShortcutEvents"]);
     });
 
-    it("should be able to synchronize the optionMap when a storage object with different option values is given", function() {
+    it("should be able to synchronize the optionMap when a storage object with different (boolean) option values is given", function() {
         spyNotify = spyOn(Options, "notifyObservers");
         Options.syncOptionMap(mockedStorageObject);
 
@@ -95,6 +99,14 @@ describe("The Options class", function() {
                 expect(mockedStorageObject[key]).toEqual(Options.get(key));
             }
         }
+        expect(spyNotify).toHaveBeenCalled();
+    });
+
+    it("should be able to synchronize the optionMap with a storage containing an object with an old and a new value", function() {
+        spyNotify = spyOn(Options, "notifyObservers");
+        Options.syncOptionMap(mockedStorageDiffValues);
+
+        expect(Options.get(Options.LOGGING)).toBe(true);
         expect(spyNotify).toHaveBeenCalled();
     });
 });
