@@ -10,6 +10,7 @@ enum StatusCode {ERROR, RUNNING, OFF, STANDBY}
 const Status = new (class Status {
 
     private status: StatusCode = StatusCode.OFF;
+
     /**
      * Status.NAME: the internal names of the enum StatusCode.
      */
