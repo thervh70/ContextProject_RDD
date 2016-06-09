@@ -7,13 +7,11 @@ let testMainController: MainController;
 
 describe("The MainController, when started by the start function,", function() {
     let spyConnectCS: jasmine.Spy;
-    let spyStandby: jasmine.Spy;
     let spyOptionsInit: jasmine.Spy;
     let spyOptionsObserver: jasmine.Spy;
 
     beforeEach(function () {
         testMainController = new MainController();
-        spyStandby = spyOn(Status, "standby");
         spyOptionsInit = spyOn(Options, "init");
         spyOptionsObserver = spyOn(Options, "addObserver");
     });
@@ -23,7 +21,6 @@ describe("The MainController, when started by the start function,", function() {
         testMainController.start();
 
         expect(spyConnectCS).toHaveBeenCalled();
-        expect(spyStandby).toHaveBeenCalled();
         expect(spyOptionsInit).toHaveBeenCalled();
         expect(spyOptionsObserver).toHaveBeenCalled();
         expect(spyOptionsObserver).toHaveBeenCalledWith(testMainController);
