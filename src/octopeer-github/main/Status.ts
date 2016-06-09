@@ -9,6 +9,7 @@ enum StatusCode {ERROR, RUNNING, OFF, STANDBY}
 // tslint:disable-next-line:no-unused-variable
 const Status = new (class Status {
 
+    private status: StatusCode = StatusCode.OFF;
     /**
      * Status.NAME: the internal names of the enum StatusCode.
      */
