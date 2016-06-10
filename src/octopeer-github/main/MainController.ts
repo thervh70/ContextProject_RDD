@@ -138,13 +138,13 @@ class MainController implements OptionsObserver {
         }
 
         let urlInfo = URLHandler.isPullRequestUrl(tab.url);
+        this.sendMessageToContentScript(tab, Options.get(Options.LOGGING) && !urlInfo.equals([]));
         if (urlInfo.equals([])) {
             // if URL is invalid, don't do anything.
             this.setNewStatus(StatusCode.STANDBY, isActiveTab);
             return;
         } else {
             // if URL is valid, update database and set status to running
-            this.sendMessageToContentScript(tab, urlInfo);
             this.database = new RESTApiDatabaseAdapter("http://146.185.128.124", tab.url, "Travis");
             this.setNewStatus(StatusCode.RUNNING, isActiveTab);
         }
@@ -166,10 +166,9 @@ class MainController implements OptionsObserver {
         Status.set(status);
     }
 
-    private sendMessageToContentScript(tab: Tab, urlInfo: Array<string>) {
-        Logger.debug(`[Tab] Owner: ${urlInfo[1]}, Repo: ${urlInfo[2]}, PR-number: ${urlInfo[3]}`);
+    private sendMessageToContentScript(tab: Tab, hookToDom: boolean) {
         chrome.tabs.sendMessage(tab.id, {
-            hookToDom: Options.get(Options.LOGGING),
+            hookToDom: hookToDom,
         }, function (result) {
             if (!result) {
                 chrome.tabs.reload(tab.id);
