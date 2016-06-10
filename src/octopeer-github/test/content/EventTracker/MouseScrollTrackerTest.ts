@@ -18,7 +18,7 @@ describe("A MouseScrollTracker", function() {
     });
 
     it("should track mouse scrolls every second, unless the position didn't change", function() {
-        const dbSpy = spyOn(db, "postMouseScroll");
+        const dbSpy = spyOn(db, "post");
         tracker.addDOMEvent();
 
         $(window).trigger($.Event("scroll", {pageX: 80, pageY: 80}));
@@ -31,7 +31,7 @@ describe("A MouseScrollTracker", function() {
     });
 
     it("should track only one mouse scroll event, when the times between them are less than a second", function() {
-        const dbSpy = spyOn(db, "postMouseScroll");
+        const dbSpy = spyOn(db, "post");
         tracker.addDOMEvent();
 
         $(window).trigger($.Event("scroll", {pageX: 80, pageY: 80}));
@@ -44,7 +44,7 @@ describe("A MouseScrollTracker", function() {
     });
 
     it("should no longer track mouse positions when removed from DOM", function() {
-        const dbSpy = spyOn(db, "postMouseScroll");
+        const dbSpy = spyOn(db, "post");
         tracker.addDOMEvent();
         tracker.removeDOMEvent();
 

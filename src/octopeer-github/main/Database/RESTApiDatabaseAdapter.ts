@@ -1,5 +1,3 @@
-/// <reference path="./DatabaseAdaptable/SemanticDatabaseAdaptable.ts"/>
-
 /**
  * This class connects to the RESTful API made by Aaron.
  */
@@ -10,6 +8,18 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
     private _owner: string;
     private _repo: string;
     private _pr: number;
+
+    /**
+     * Maps EventObject.type to an API endpoint in the Database.
+     */
+    private endPoints: any = {
+        "KeystrokeEvent": "keystroke-events",
+        "MouseClickEvent": "mouse-click-events",
+        "MousePositionEvent": "mouse-position-events",
+        "MouseScrollEvent": "mouse-scroll-events",
+        "SemanticEvent": "semantic-events",
+        "WindowResolutionEvent": "window-resolution-events",
+    };
 
     /**
      * Constructs the RESTApiDatabaseAdapter
@@ -51,67 +61,32 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
     }
 
     /**
-     * Post a keystroke event to the database.
+     * Post an event to the database.
      * @param eventData     The data to post to the database.
      * @param success       Callback, which is called once the call has succeeded.
      * @param failure       Callback, which is called once the call has failed.
      */
-    public postKeystroke(eventData: KeystrokeEvent, success: Callback, failure: Callback) {
-        this.postEvent(eventData, "keystroke-events", success, failure);
+    public post(eventData: EventObject, success: Callback, failure: Callback): void {
+        this.postEvent(this.processEventObject(eventData), this.endPoints[eventData.type], success, failure);
     }
 
     /**
-     * Post a mouse click event to the database.
-     * @param eventData     The data to post to the database.
-     * @param success       Callback, which is called once the call has succeeded.
-     * @param failure       Callback, which is called once the call has failed.
+     * Formats the EventObject such that it can be posted to the database.
+     * EventID and ElementID objects are not compatible with the JSON representation in the database, so they are removed here.
+     * @param eventData the EventObject to process.
+     * @returns {any} the JSON-compatible formatted data that is going to be posted to the database.
      */
-    public postMouseClick(eventData: MouseClickEvent, success: Callback, failure: Callback) {
-        this.postEvent(eventData, "mouse-click-events", success, failure);
-    }
-
-    /**
-     * Post a mouse position event to the database.
-     * @param eventData     The data to post to the database.
-     * @param success       Callback, which is called once the call has succeeded.
-     * @param failure       Callback, which is called once the call has failed.
-     */
-    public postMousePosition(eventData: MousePositionEvent, success: Callback, failure: Callback) {
-        this.postEvent(eventData, "mouse-position-events", success, failure);
-    }
-
-    /**
-     * Post a mouse scroll event to the database.
-     * @param eventData     The data to post to the database.
-     * @param success       Callback, which is called once the call has succeeded.
-     * @param failure       Callback, which is called once the call has failed.
-     */
-    public postMouseScroll(eventData: MouseScrollEvent, success: Callback, failure: Callback) {
-        this.postEvent(eventData, "mouse-scroll-events", success, failure);
-    }
-
-    /**
-     * Post a window resolution event to the database.
-     * @param eventData     The data to post to the database.
-     * @param success       Callback, which is called once the call has succeeded.
-     * @param failure       Callback, which is called once the call has failed.
-     */
-    public postWindowResolution(eventData: WindowResolutionEvent, success: Callback, failure: Callback) {
-        this.postEvent(eventData, "window-resolution-events", success, failure);
-    }
-
-    /**
-     * Post a semantic event to the database.
-     * @param eventData     The data to post to the database.
-     * @param success       Callback, which is called once the call has succeeded.
-     * @param failure       Callback, which is called once the call has failed.
-     */
-    public postSemantic(eventData: SemanticEvent, success: Callback, failure: Callback): void {
-        this.postEvent({
-            "event_type": eventData.eventID,
-            "element_type": eventData.elementID,
-            "created_at": eventData.created_at,
-        }, "semantic-events", success, failure);
+    private processEventObject(eventData: EventObject): any {
+        if (eventData.type === "SemanticEvent") {
+            const data = <SemanticEvent>eventData.data;
+            return {
+                "event_type": data.eventID.getEventID(),
+                "element_type": data.elementID.getElementID(),
+                "created_at": data.created_at,
+            };
+        } else {
+            return eventData.data;
+        }
     }
 
     /**
