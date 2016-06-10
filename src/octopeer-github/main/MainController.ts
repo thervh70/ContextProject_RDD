@@ -33,6 +33,9 @@ class MainController implements OptionsObserver {
             self.testAndSend(tabs[0]);
         });
         if (!Options.get(Options.LOGGING)) {
+            if (Status.isStatus(StatusCode.RUNNING)) {
+                this.postToDatabase(EventFactory.semantic(ElementID.NO_ELEMENT, EventID.STOP_WATCHING_PR));
+            }
             Status.off();
         }
     }
@@ -111,9 +114,6 @@ class MainController implements OptionsObserver {
     }
 
     private postToDatabase(message: EventObject) {
-        if (!Options.get(Options.LOGGING)) {
-            return;
-        }
         const success = function() {
             Logger.debug(`Successfully logged to database: ${JSON.stringify(message)}`);
         };
@@ -158,8 +158,9 @@ class MainController implements OptionsObserver {
         }
         let eventID = isPullRequest ? EventID.START_WATCHING_PR : EventID.STOP_WATCHING_PR;
         let status =  isPullRequest ? StatusCode.RUNNING        : StatusCode.STANDBY;
+        let wasItRunning = Status.isStatus(StatusCode.RUNNING);
 
-        if (!Status.isStatus(status)) {
+        if (isPullRequest && !wasItRunning || !isPullRequest && wasItRunning) { // XOR does not exist in JS :(
             this.postToDatabase(EventFactory.semantic(ElementID.NO_ELEMENT, eventID));
         }
         Status.set(status);
