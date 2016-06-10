@@ -12,12 +12,6 @@ type Callback = JQueryPromiseCallback<any>;
 const EMPTY_CALLBACK: Callback = function() {return; };
 
 /**
- * An amount of seconds since the Unix Epoch (1-1-1970 0:00).
- * Since this type is used by all DatabaseAdaptables, I think the typedef belongs to this file.
- */
-type UnixTimestamp = number;
-
-/**
  * A DatabaseAdaptable should implement a method that posts to any real-life database.
  * @param eventData     The data to post to the database.
  * @param success       Callback, which is called once the call has succeeded.

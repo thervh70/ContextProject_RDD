@@ -12,5 +12,15 @@
  */
 interface EventObject {
     type: string;
-    data: KeystrokeEvent | MouseClickEvent | MousePositionEvent | MouseScrollEvent | SemanticEvent | WindowResolutionEvent;
+    data: EventObjectData;
 }
+
+/**
+ * An amount of seconds since the Unix Epoch (1-1-1970 0:00).
+ */
+type UnixTimestamp = number;
+
+/**
+ * A union type containing all possible event types. Makes the handling of EventObjects less of a hassle with types.
+ */
+type EventObjectData = KeystrokeEvent | MouseClickEvent | MousePositionEvent | MouseScrollEvent | SemanticEvent | WindowResolutionEvent;
