@@ -94,9 +94,9 @@ const Status = new (class Status {
     }
 
     /**
-     * Accepts a status and returns true if this is the current status
+     * Accepts a status and returns true if this is the current status.
      * @param s the status to check against
-     * @returns {boolean} i
+     * @returns {boolean} whether the current status equals s
      */
     public isStatus(s: StatusCode): Boolean {
         return s === this.status;
