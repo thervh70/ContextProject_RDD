@@ -136,23 +136,22 @@ class MainController implements OptionsObserver {
             this.setNewStatus(StatusCode.STANDBY, isActiveTab);
             return;
         }
-        const url = tab.url;
-        let urlInfo = URLHandler.isPullRequestUrl(url);
 
+        let urlInfo = URLHandler.isPullRequestUrl(tab.url);
         if (urlInfo.equals([])) {
             // if URL is invalid, don't do anything.
             this.setNewStatus(StatusCode.STANDBY, isActiveTab);
             return;
         } else {
             // if URL is valid, update database and set status to running
+            this.sendMessageToContentScript(tab, urlInfo);
             this.database = new RESTApiDatabaseAdapter("http://146.185.128.124", tab.url, "Travis");
             this.setNewStatus(StatusCode.RUNNING, isActiveTab);
         }
-        this.sendMessageToContentScript(tab, urlInfo);
     }
 
     private setNewStatus(status: StatusCode, isActiveTab: boolean) {
-        if (!isActiveTab) {
+        if (!isActiveTab || !Options.get(Options.LOGGING)) {
             return;
         }
         let eventID: EventID;
@@ -168,9 +167,6 @@ class MainController implements OptionsObserver {
     }
 
     private sendMessageToContentScript(tab: Tab, urlInfo: Array<string>) {
-        if (!Status.isStatus(StatusCode.RUNNING)) {
-            return;
-        }
         Logger.debug(`[Tab] Owner: ${urlInfo[1]}, Repo: ${urlInfo[2]}, PR-number: ${urlInfo[3]}`);
         chrome.tabs.sendMessage(tab.id, {
             hookToDom: Options.get(Options.LOGGING),
