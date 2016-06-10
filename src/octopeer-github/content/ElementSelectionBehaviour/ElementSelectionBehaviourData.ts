@@ -139,22 +139,36 @@ const elementSelectionBehaviourDataList: ElementSelectionBehaviourData[] = [
         selector: "a.message",
     },
     {
+        composedSelector: () => {
+            let prContributers: string[] = [];
+            $(".participation-avatars a").each(function() { prContributers.push($(this).attr("aria-label")); });
+            // Substring(1) is used because of the @ prefix
+            return $(".user-mention:not([rel])").filter(function() { return !prContributers.contains($(this).html().substring(1)); });
+        },
         elementID: ElementID.OTHER_CONTRIBUTOR,
         foundOnPages: PageMask.combine(PageMask.CONVERSATION, PageMask.FILES_CHANGED),
         name: "Contributor name: Other contributor",
-        selector: "teststss",
+        selector: "",
     },
     {
+        composedSelector: () => {
+            let prCreator = $.trim($(".pull-header-username").html());
+            return $("a.author, .user-mention").filter(function () { return $.trim($(this).html()) === prCreator; });
+        },
         elementID: ElementID.PR_CREATOR,
         foundOnPages: PageMask.ALL,
         name: "Contributor name: PR creator",
-        selector: "testtttt",
+        selector: "",
     },
     {
+        composedSelector: () => {
+            let prCreator = $.trim($(".pull-header-username").html());
+            return $("a.author").filter(function () { return $.trim($(this).html()) !== prCreator; });
+        },
         elementID: ElementID.PR_PARTICIPANT,
         foundOnPages: PageMask.ALL,
         name: "Contributor name: PR participant",
-        selector: "testtttt",
+        selector: "",
     },
     /** Category: Setting */
     {
