@@ -156,9 +156,9 @@ class MainController implements OptionsObserver {
         if (!isActiveTab || !Options.get(Options.LOGGING)) {
             return;
         }
-        let eventID = isPullRequest ? EventID.START_WATCHING_PR : EventID.STOP_WATCHING_PR;
-        let status =  isPullRequest ? StatusCode.RUNNING        : StatusCode.STANDBY;
-        let wasItRunning = Status.isStatus(StatusCode.RUNNING);
+        const eventID = isPullRequest ? EventID.START_WATCHING_PR : EventID.STOP_WATCHING_PR;
+        const status =  isPullRequest ? StatusCode.RUNNING        : StatusCode.STANDBY;
+        const wasItRunning = Status.isStatus(StatusCode.RUNNING);
 
         if (isPullRequest && !wasItRunning || !isPullRequest && wasItRunning) { // XOR does not exist in JS :(
             this.postToDatabase(EventFactory.semantic(ElementID.NO_ELEMENT, eventID));
