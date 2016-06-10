@@ -20,7 +20,7 @@ describe("A GenericElementEventBinding", function() {
         database = new ConsoleLogDatabaseAdapter();
         selector = esbFactory.create(database, ElementID.MERGE_PR);
         binder = eebFactory.create(selector, EventID.CLICK);
-        logSpy = spyOn(database, "postSemantic");
+        logSpy = spyOn(database, "post");
     });
 
     it("should be bound to the right type of buttons", function() {

@@ -1,9 +1,3 @@
-/// <reference path="DatabaseAdaptable/KeystrokeDatabaseAdaptable.ts"/>
-/// <reference path="DatabaseAdaptable/SemanticDatabaseAdaptable.ts"/>
-/// <reference path="DatabaseAdaptable/MousePositionDatabaseAdaptable.ts"/>
-/// <reference path="DatabaseAdaptable/MouseClickDatabaseAdaptable.ts"/>
-/// <reference path="DatabaseAdaptable/MouseScrollDatabaseAdaptable.ts"/>
-/// <reference path="DatabaseAdaptable/WindowResolutionDatabaseAdaptable.ts"/>
 /**
  * Created by Maarten on 26-05-2016.
  */
@@ -18,14 +12,11 @@ type Callback = JQueryPromiseCallback<any>;
 const EMPTY_CALLBACK: Callback = function() {return; };
 
 /**
- * An amount of seconds since the Unix Epoch (1-1-1970 0:00).
- * Since this type is used by all DatabaseAdaptables, I think the typedef belongs to this file.
+ * A DatabaseAdaptable should implement a method that posts to any real-life database.
+ * @param eventData     The data to post to the database.
+ * @param success       Callback, which is called once the call has succeeded.
+ * @param failure       Callback, which is called once the call has failed.
  */
-type UnixTimestamp = number;
-
-/**
- * A DatabaseAdaptable implements all possible interfaces for a database.
- * It is used for short-hand.
- */
-interface DatabaseAdaptable extends SemanticDatabaseAdaptable, KeystrokeDatabaseAdaptable, MousePositionDatabaseAdaptable,
-    MouseClickDatabaseAdaptable, MouseScrollDatabaseAdaptable, WindowResolutionDatabaseAdaptable { }
+interface DatabaseAdaptable {
+    post(eventData: EventObject, success: Callback, failure: Callback): void;
+}

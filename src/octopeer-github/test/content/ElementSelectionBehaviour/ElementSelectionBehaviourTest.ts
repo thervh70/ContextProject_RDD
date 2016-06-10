@@ -129,7 +129,7 @@ for (let i = 0; i < htmlsList.length; i++) {
             const selector = factory.create(database, selectorID);
 
             beforeEach(function () {
-                databaseSpy = spyOn(database, "postSemantic");
+                databaseSpy = spyOn(database, "post");
                 loadFixtures(htmlFile);
             });
 

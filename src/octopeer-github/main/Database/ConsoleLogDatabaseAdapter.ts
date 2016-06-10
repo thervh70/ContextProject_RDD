@@ -29,53 +29,8 @@ class ConsoleLogDatabaseAdapter implements DatabaseAdaptable {
     /**
      * @param eventData The data to log to the console.
      */
-    public postSemantic(eventData: SemanticEvent) {
-        Logger.database(eventData);
-    }
-
-    /**
-     * @param eventData The data to log to the console.
-     */
-    public postKeystroke(eventData: KeystrokeEvent) {
-        this.filterRawData(eventData);
-    }
-
-    /**
-     * @param eventData The data to log to the console.
-     */
-    public postMousePosition(eventData: MousePositionEvent) {
-        this.filterRawData(eventData);
-    }
-
-    /**
-     * @param eventData The data to log to the console.
-     */
-    public postMouseClick(eventData: MouseClickEvent) {
-        this.filterRawData(eventData);
-    }
-
-    /**
-     * @param eventData The data to log to the console.
-     */
-    public postMouseScroll(eventData: MouseScrollEvent) {
-        this.filterRawData(eventData);
-    }
-
-    /**
-     * @param eventData The data to log to the console.
-     */
-    public postWindowResolution(eventData: WindowResolutionEvent) {
-        this.filterRawData(eventData);
-    }
-
-    /**
-     * Raw data filter method.
-     * It checks whether the raw data logging is enabled and will then output the eventdata.
-     * If the raw data logging is disabled this method will do nothing.
-     * @param eventData The data that will be passed
-     */
-    private filterRawData(eventData: any) {
-        if (ConsoleLogDatabaseAdapter.rawDataLogging) {
+    public post(eventData: EventObject) {
+        if (eventData.type === "SemanticObject" || ConsoleLogDatabaseAdapter.rawDataLogging) {
             Logger.database(eventData);
         }
     }

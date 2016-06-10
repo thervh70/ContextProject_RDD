@@ -87,11 +87,10 @@ class MainController implements OptionsObserver {
      * When a tab sends a message, log it to the Database.
      */
     private listenToDatabaseMessages() {
-        chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+        chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             if (!sender.tab) {
                 return; // Only continue if message is sent from a content script
             }
-            const dataMessage = <DataMessage>JSON.parse(message);
             // IP for testing locally: 10.0.22.6
             // TODO: get name from context
             const database: DatabaseAdaptable = new RESTApiDatabaseAdapter("http://146.185.128.124", sender.tab.url, "Travis");
@@ -103,22 +102,20 @@ class MainController implements OptionsObserver {
                 Logger.warn(message);
                 Logger.warn(`Original sender: ${sender}`);
             };
-            switch (dataMessage.type) {
-                case "postSemantic":
-                    database.postSemantic(        <SemanticEvent>dataMessage.data,         success, failure); break;
-                case "postKeystroke":
-                    database.postKeystroke(       <KeystrokeEvent>dataMessage.data,        success, failure); break;
-                case "postMousePosition":
-                    database.postMousePosition(   <MousePositionEvent>dataMessage.data,    success, failure); break;
-                case "postMouseClick":
-                    database.postMouseClick(      <MouseClickEvent>dataMessage.data,       success, failure); break;
-                case "postMouseScroll":
-                    database.postMouseScroll(     <MouseScrollEvent>dataMessage.data,      success, failure); break;
-                case "postWindowResolution":
-                    database.postWindowResolution(<WindowResolutionEvent>dataMessage.data, success, failure); break;
-            }
+            database.post(this.readMessage(message), success, failure);
             sendResponse({});
         });
+    }
+
+    private readMessage(dataMessage: any): EventObject {
+        const eventObject = <EventObject>JSON.parse(dataMessage);
+        if (eventObject.type === "SemanticEvent") {
+            const semanticEvent = <any>eventObject.data;
+            semanticEvent.elementID = new ElementID(semanticEvent.elementID);
+            semanticEvent.eventID = new EventID(semanticEvent.eventID);
+            eventObject.data = semanticEvent;
+        }
+        return eventObject;
     }
 
     /**
@@ -151,9 +148,4 @@ class MainController implements OptionsObserver {
         });
     }
 
-}
-
-interface DataMessage {
-    data: any;
-    type: string;
 }

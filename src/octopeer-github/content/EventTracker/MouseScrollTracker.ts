@@ -14,10 +14,10 @@ class MouseScrollTracker implements EventTracker {
     private static scrollTimer: number;
 
     /**
-     * Initialize a MouseScrollTracker that contains a MouseScrollDatabaseAdaptable.
+     * Initialize a MouseScrollTracker that contains a DatabaseAdaptable.
      * @param db The DatabaseAdaptable for the Tracker.
      */
-    constructor(private db: MouseScrollDatabaseAdaptable) { }
+    constructor(private db: DatabaseAdaptable) { }
 
     /**
      * Initiates this EventTracker to collect event data.
@@ -27,7 +27,7 @@ class MouseScrollTracker implements EventTracker {
         windowObject.scroll((eventObject: JQueryEventObject) => {
             clearTimeout(MouseScrollTracker.scrollTimer);
             MouseScrollTracker.scrollTimer = setTimeout(() => {
-                this.db.postMouseScroll(EventFactory.mouseScroll(windowObject.scrollLeft(), windowObject.scrollTop()),
+                this.db.post(EventFactory.mouseScroll(windowObject.scrollLeft(), windowObject.scrollTop()),
                     EMPTY_CALLBACK, EMPTY_CALLBACK);
             }, MouseScrollTracker.TIMEOUT);
         });

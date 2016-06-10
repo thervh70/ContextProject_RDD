@@ -39,12 +39,12 @@ describe("A RESTApiDatabaseAdapter", function() {
 
     const spyFunc = jasmine.createSpy("success");
     const eventTypes = [
-        ["semantic-events", () => adapter.postSemantic(defaultSemanticEvent, spyFunc, EMPTY_CALLBACK)],
-        ["keystroke-events", () => adapter.postKeystroke(defaultKeystrokeEvent, spyFunc, EMPTY_CALLBACK)],
-        ["mouse-click-events", () => adapter.postMouseClick(defaultMouseClickEvent, spyFunc, EMPTY_CALLBACK)],
-        ["mouse-position-events", () => adapter.postMousePosition(defaultMousePositionEvent, spyFunc, EMPTY_CALLBACK)],
-        ["mouse-scroll-events", () => adapter.postMouseScroll(defaultMouseScrollEvent, spyFunc, EMPTY_CALLBACK)],
-        ["window-resolution-events", () => adapter.postWindowResolution(defaultWindowResolutionEvent, spyFunc, EMPTY_CALLBACK)],
+        ["semantic-events", () => adapter.post(defaultSemanticEvent, spyFunc, EMPTY_CALLBACK)],
+        ["keystroke-events", () => adapter.post(defaultKeystrokeEvent, spyFunc, EMPTY_CALLBACK)],
+        ["mouse-click-events", () => adapter.post(defaultMouseClickEvent, spyFunc, EMPTY_CALLBACK)],
+        ["mouse-position-events", () => adapter.post(defaultMousePositionEvent, spyFunc, EMPTY_CALLBACK)],
+        ["mouse-scroll-events", () => adapter.post(defaultMouseScrollEvent, spyFunc, EMPTY_CALLBACK)],
+        ["window-resolution-events", () => adapter.post(defaultWindowResolutionEvent, spyFunc, EMPTY_CALLBACK)],
     ];
     for (let tuple of eventTypes) {
         it(`can post ${tuple[0]} to the API`, function () {
@@ -66,7 +66,7 @@ describe("A RESTApiDatabaseAdapter", function() {
         const successSpy = jasmine.createSpy("success");
         const failureSpy = jasmine.createSpy("failure");
 
-        adapter.postSemantic(defaultSemanticEvent, successSpy, failureSpy);
+        adapter.post(defaultSemanticEvent, successSpy, failureSpy);
 
         jasmine.Ajax.requests.mostRecent().respondWith({
             contentType: "text/json",
@@ -86,7 +86,7 @@ describe("A RESTApiDatabaseAdapter", function() {
         const successSpy = jasmine.createSpy("success");
         const failureSpy = jasmine.createSpy("failure");
 
-        adapter.postSemantic(defaultSemanticEvent, successSpy, failureSpy);
+        adapter.post(defaultSemanticEvent, successSpy, failureSpy);
 
         expect(successSpy).not.toHaveBeenCalled();
         expect(failureSpy).toHaveBeenCalled();
@@ -98,7 +98,7 @@ describe("A RESTApiDatabaseAdapter", function() {
 
         adapter.setDebug();
 
-        adapter.postSemantic(defaultSemanticEvent, EMPTY_CALLBACK, EMPTY_CALLBACK);
+        adapter.post(defaultSemanticEvent, EMPTY_CALLBACK, EMPTY_CALLBACK);
         jasmine.Ajax.requests.mostRecent().respondWith({
             contentType: "text/json",
             responseText: JSON.stringify({success: true}),
@@ -115,7 +115,7 @@ describe("A RESTApiDatabaseAdapter", function() {
 
         adapter.setDebug(false);
 
-        adapter.postSemantic(defaultSemanticEvent, EMPTY_CALLBACK, EMPTY_CALLBACK);
+        adapter.post(defaultSemanticEvent, EMPTY_CALLBACK, EMPTY_CALLBACK);
         jasmine.Ajax.requests.mostRecent().respondWith({
             contentType: "text/json",
             responseText: JSON.stringify({success: true}),

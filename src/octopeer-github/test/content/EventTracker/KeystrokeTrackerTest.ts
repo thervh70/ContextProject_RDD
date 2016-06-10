@@ -13,7 +13,7 @@ describe("A KeystrokeTracker", function() {
     });
 
     it("should track keypress events", function() {
-        const dbSpy = spyOn(db, "postKeystroke");
+        const dbSpy = spyOn(db, "post");
         tracker.addDOMEvent();
 
         $("body").trigger($.Event("keypress", {which: " "}));
@@ -22,7 +22,7 @@ describe("A KeystrokeTracker", function() {
     });
 
     it("should no longer track keypress events when removed from DOM", function() {
-        const dbSpy = spyOn(db, "postKeystroke");
+        const dbSpy = spyOn(db, "post");
         tracker.addDOMEvent();
         tracker.removeDOMEvent();
 
