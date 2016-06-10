@@ -158,7 +158,7 @@ const elementSelectionBehaviourDataList: ElementSelectionBehaviourData[] = [
         elementID: ElementID.PR_CREATOR,
         foundOnPages: PageMask.ALL,
         name: "Contributor name: PR creator",
-        selector: "testtttt",
+        selector: "",
     },
     {
         composedSelector: () => {
@@ -168,7 +168,7 @@ const elementSelectionBehaviourDataList: ElementSelectionBehaviourData[] = [
         elementID: ElementID.PR_PARTICIPANT,
         foundOnPages: PageMask.ALL,
         name: "Contributor name: PR participant",
-        selector: "testtttt",
+        selector: "",
     },
     /** Category: Setting */
     {
