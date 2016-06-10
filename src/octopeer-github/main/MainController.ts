@@ -133,33 +133,32 @@ class MainController implements OptionsObserver {
      */
     private testAndSend(tab: Tab, isActiveTab = true) {
         if (tab === undefined || tab.url === undefined) {
-            this.setNewStatus(StatusCode.STANDBY, isActiveTab);
+            this.setNewStatus(false, isActiveTab);
             return;
         }
 
         let isPullRequest = URLHandler.isPullRequestUrl(tab.url);
-        this.sendMessageToContentScript(tab, Options.get(Options.LOGGING) && isPullRequest);
-        if (!isPullRequest) {
-            // if URL is invalid, don't do anything.
-            this.setNewStatus(StatusCode.STANDBY, isActiveTab);
-            return;
-        } else {
-            // if URL is valid, update database and set status to running
+        if (isPullRequest) {
             this.database = new RESTApiDatabaseAdapter("http://146.185.128.124", tab.url, "Travis");
-            this.setNewStatus(StatusCode.RUNNING, isActiveTab);
+            this.sendMessageToContentScript(tab, Options.get(Options.LOGGING) && isPullRequest);
         }
+        this.setNewStatus(isPullRequest, isActiveTab);
     }
 
-    private setNewStatus(status: StatusCode, isActiveTab: boolean) {
+    /**
+     * Sets the status to STANDBY or RUNNING based on isPullRequest.
+     * If isActiveTab or Options.LOGGING is false, nothing will happen.
+     * If new status is not equal to the previous status, post a start-/stop-watching PR event to the database.
+     * @param isPullRequest whether this method should behave like the handled tab is a PR.
+     * @param isActiveTab   whether this method should behave like the handled tab is active.
+     */
+    private setNewStatus(isPullRequest: boolean, isActiveTab: boolean) {
         if (!isActiveTab || !Options.get(Options.LOGGING)) {
             return;
         }
-        let eventID: EventID;
-        switch (status) {
-            case StatusCode.RUNNING: eventID = EventID.START_WATCHING_PR; break;
-            case StatusCode.STANDBY: eventID = EventID.STOP_WATCHING_PR; break;
-            default: return;
-        }
+        let eventID = isPullRequest ? EventID.START_WATCHING_PR : EventID.STOP_WATCHING_PR;
+        let status =  isPullRequest ? StatusCode.RUNNING        : StatusCode.STANDBY;
+
         if (!Status.isStatus(status)) {
             this.postToDatabase(EventFactory.semantic(ElementID.NO_ELEMENT, eventID));
         }
