@@ -160,11 +160,4 @@ document.addEventListener('DOMContentLoaded', restoreOptionsAvailability);
 $(document).ready(function() {
     addOptionClickEvents();
     changeListener();
-
-    //SideNav functionality
-    $('.button-collapse').sideNav({
-        edge: 'right',
-        closeOnClick: true
-    });
-
 });
