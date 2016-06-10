@@ -117,7 +117,7 @@ class MainController implements OptionsObserver {
             return;
         }
         const success = function() {
-            Logger.debug(`Successfully logged to database: ${message}`);
+            Logger.debug(`Successfully logged to database: ${JSON.stringify(message)}`);
         };
         const failure = function() {
             Logger.warn("Log to database of following object failed:");
@@ -174,7 +174,7 @@ class MainController implements OptionsObserver {
             hookToDom: Options.get(Options.LOGGING),
         }, function (result) {
             if (!result) {
-                chrome.tabs.reload(tab.id);
+                chrome.tabs.reload(tab.id); //TODO is watching PR when tab is reloaded outside tab
             }
             let str = result || `will be refreshed because content script is not loaded (${tab.url})`;
             Logger.debug(`[Tab] ${str}`);
