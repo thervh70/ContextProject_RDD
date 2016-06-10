@@ -9,6 +9,8 @@ class ElementID {
      * they are the closest thing TypeScript has to offer as
      * public static final fields.
      */
+    /** Instantiated ElementID for no element */
+    public static get NO_ELEMENT() { return new ElementID(0); }
     /** Instantiated ElementID for the MergePullRequestButton. */
     public static get MERGE_PR() { return new ElementID(101); }
     /** Instantiated ElementID for the ClosePullRequestButton. */

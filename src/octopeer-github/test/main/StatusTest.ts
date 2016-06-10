@@ -32,31 +32,35 @@ describe("The Status, when the state is changed", function() {
     let spy: jasmine.Spy;
 
     beforeEach(function() {
-        spy = spyOn(Status, "set");
+        spy = spyOn(Status, "set").and.callThrough();
     });
 
     it("to error, should call the set method with StatusCode error", function () {
         Status.error();
         expect(spy).toHaveBeenCalled();
         expect(spy).toHaveBeenCalledWith(StatusCode.ERROR);
+        expect(Status.isStatus(StatusCode.ERROR)).toBe(true);
     });
 
     it("to running, should call the set method with StatusCode running", function () {
         Status.running();
         expect(spy).toHaveBeenCalled();
         expect(spy).toHaveBeenCalledWith(StatusCode.RUNNING);
+        expect(Status.isStatus(StatusCode.RUNNING)).toBe(true);
     });
 
     it("to off, should call the set method with StatusCode running", function () {
         Status.off();
         expect(spy).toHaveBeenCalled();
         expect(spy).toHaveBeenCalledWith(StatusCode.OFF);
+        expect(Status.isStatus(StatusCode.OFF)).toBe(true);
     });
 
     it("to standby, should call the set method with StatusCode standby", function () {
         Status.standby();
         expect(spy).toHaveBeenCalled();
         expect(spy).toHaveBeenCalledWith(StatusCode.STANDBY);
+        expect(Status.isStatus(StatusCode.STANDBY)).toBe(true);
     });
 });
 
