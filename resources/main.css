@@ -3,3 +3,12 @@ p {
     font-size: 12pt;
     font-weight: 300;
 }
+
+.row.center {
+    margin-bottom: 10px;
+}
+
+#popupBody {
+    min-width: 200px;
+    min-height: 200px;
+}
