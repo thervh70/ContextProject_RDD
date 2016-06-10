@@ -4,13 +4,14 @@
 
     <link rel="stylesheet" href="../libs/materialize/css/materialize.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" >
+    <link rel="stylesheet" href="main.css">
 
     <script src="../libs/jquery-2.2.3.js"></script>
     <script src="../libs/materialize/js/materialize.min.js"></script>
 
     <script src="popup.js"></script>
 </head>
-    <body style="min-width: 300px; min-height: 300px;">
+    <body style="min-width: 200px; min-height: 200px;">
 
     <nav>
         <div class="nav-wrapper lime">
@@ -30,20 +31,27 @@
             <img id="statusImage" class="col s12" src="img/icon/off.png">
         </div>
 
-        <div class="row center">
-            <div class="col s4">
+        <div class="row center" style="margin-bottom: 10px">
+            <div class="col s6">
                 <a id="statusToggle" class="btn waves-effect lime waves-light">
                     <i class="material-icons">power_settings_new</i>
                 </a>
             </div>
-            <div class="col s4">
+            <div class="col s6">
                 <a class="btn waves-effect lime waves-light" href="../analytics/index.html" target="_blank">
                     <i class="material-icons">equalizer</i>
                 </a>
             </div>
-            <div class="col s4">
+        </div>
+        <div class="row center" style="margin-bottom: 10px">
+            <div class="col s6">
                 <a class="btn waves-effect lime waves-light" href="options.html" target="_blank">
                     <i class="material-icons">settings</i>
+                </a>
+            </div>
+            <div class="col s6">
+                <a class="btn waves-effect lime waves-light" href="about.html" target="_blank">
+                    <i class="material-icons">info_outline</i>
                 </a>
             </div>
         </div>
