@@ -51,11 +51,9 @@ class MainController implements OptionsObserver {
      * On start-up, let all tabs hook to DOM.
      */
     private initAllCurrentTabs() {
-        const self = this;
-        chrome.tabs.query({}, function(tabs) {
-            let tab: Tab;
-            for (tab of tabs) {
-                self.testAndSend(tab);
+        chrome.tabs.query({}, (tabs) => {
+            for (let tab of tabs) {
+                this.testAndSend(tab, false);
             }
         });
     }
@@ -67,7 +65,7 @@ class MainController implements OptionsObserver {
         const self = this;
         chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
             if (changeInfo.status && changeInfo.status === "complete") {
-                self.testAndSend(tab);
+                self.testAndSend(tab, false);
             }
         });
     }
@@ -130,11 +128,12 @@ class MainController implements OptionsObserver {
      * Only sends a message to a tab if its URL belongs to a Pull Request.
      * I named it alike to a "test-and-set" operation that comes from concurrent programming.
      *     This (atomic) operation only sets a variable if a condition holds.
-     * @param tab   the Tab to check for
+     * @param tab           the Tab to check for
+     * @param isActiveTab   if `tab` is not the active tab, this method will not update the Status.
      */
-    private testAndSend(tab: Tab) {
+    private testAndSend(tab: Tab, isActiveTab = true) {
         if (tab === undefined || tab.url === undefined) {
-            this.setNewStatus(StatusCode.STANDBY);
+            this.setNewStatus(StatusCode.STANDBY, isActiveTab);
             return;
         }
         const url = tab.url;
@@ -142,17 +141,20 @@ class MainController implements OptionsObserver {
 
         if (urlInfo.equals([])) {
             // if URL is invalid, don't do anything.
-            this.setNewStatus(StatusCode.STANDBY);
+            this.setNewStatus(StatusCode.STANDBY, isActiveTab);
             return;
         } else {
             // if URL is valid, update database and set status to running
             this.database = new RESTApiDatabaseAdapter("http://146.185.128.124", tab.url, "Travis");
-            this.setNewStatus(StatusCode.RUNNING);
+            this.setNewStatus(StatusCode.RUNNING, isActiveTab);
         }
         this.sendMessageToContentScript(tab, urlInfo);
     }
 
-    private setNewStatus(status: StatusCode) {
+    private setNewStatus(status: StatusCode, isActiveTab: boolean) {
+        if (!isActiveTab) {
+            return;
+        }
         let eventID: EventID;
         switch (status) {
             case StatusCode.RUNNING: eventID = EventID.START_WATCHING_PR; break;
@@ -174,7 +176,7 @@ class MainController implements OptionsObserver {
             hookToDom: Options.get(Options.LOGGING),
         }, function (result) {
             if (!result) {
-                chrome.tabs.reload(tab.id); //TODO is watching PR when tab is reloaded outside tab
+                chrome.tabs.reload(tab.id);
             }
             let str = result || `will be refreshed because content script is not loaded (${tab.url})`;
             Logger.debug(`[Tab] ${str}`);
