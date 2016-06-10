@@ -137,9 +137,9 @@ class MainController implements OptionsObserver {
             return;
         }
 
-        let urlInfo = URLHandler.isPullRequestUrl(tab.url);
-        this.sendMessageToContentScript(tab, Options.get(Options.LOGGING) && !urlInfo.equals([]));
-        if (urlInfo.equals([])) {
+        let isPullRequest = URLHandler.isPullRequestUrl(tab.url);
+        this.sendMessageToContentScript(tab, Options.get(Options.LOGGING) && isPullRequest);
+        if (!isPullRequest) {
             // if URL is invalid, don't do anything.
             this.setNewStatus(StatusCode.STANDBY, isActiveTab);
             return;

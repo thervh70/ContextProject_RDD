@@ -30,7 +30,7 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
      */
     constructor(private _databaseUrl: string, private _prUrl: string, private _user: string, private _debug = false) {
         this._databaseUrl = URLHandler.formatUrl(_databaseUrl);
-        const urlInfo = URLHandler.isPullRequestUrl(_prUrl);
+        const urlInfo = URLHandler.getPullRequestUrlFields(_prUrl);
         if (urlInfo.equals([])) {
             Logger.warn("Not a valid PR URL: " + _prUrl);
             return;
