@@ -2,8 +2,9 @@
  * Created by Maarten on 24-05-2016.
  *
  * This utility class handles URL formatting and parsing.
+ * It should be final, but TypeScript does not support this yet.
  */
-class URLHandler {
+abstract class URLHandler {
 
     /**
      * Appends a trailing slash to the URL if there is no trailing slash yet.

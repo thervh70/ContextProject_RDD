@@ -13,22 +13,26 @@ class MainController implements OptionsObserver {
      */
     public start() {
         Logger.setDebug(); // TODO remove this on release
-        this.connectToContentScript();
-        Status.standby();
         Options.init();
         Options.addObserver(this);
+        Status.standby();
+        this.connectToContentScript();
         return this;
     }
 
     /**
      * Listens for changes in Options.
-     * If changed, the MainController has to verify that the page is a PR or not.
+     * If changed, the MainController has to verify that the page is a PR or not, if the extension is allowed to log.
+     * Else the extension is set to off.
      */
     public notify() {
         const self = this;
         chrome.tabs.query({"active": true, "currentWindow": true}, function (tabs: Tab[]) {
             self.testAndSend(tabs[0]);
         });
+        if (!Options.get(Options.LOGGING)) {
+            Status.off();
+        }
     }
 
     /**
@@ -88,8 +92,9 @@ class MainController implements OptionsObserver {
                 return; // Only continue if message is sent from a content script
             }
             const dataMessage = <DataMessage>JSON.parse(message);
+            // IP for testing locally: 10.0.22.6
             // TODO: get name from context
-            const database: DatabaseAdaptable = new RESTApiDatabaseAdapter("http://10.0.22.6", sender.tab.url, "Travis");
+            const database: DatabaseAdaptable = new RESTApiDatabaseAdapter("http://146.185.128.124", sender.tab.url, "Travis");
             const success = function() {
                 Logger.debug(`Successfully logged to database: ${message}`);
             };
@@ -123,6 +128,10 @@ class MainController implements OptionsObserver {
      * @param tab   the Tab to check for
      */
     private testAndSend(tab: Tab) {
+        if (tab === undefined || tab.url === undefined) {
+            Status.standby();
+            return;
+        }
         const url = tab.url;
         let urlInfo = URLHandler.isPullRequestUrl(url);
         if (urlInfo.equals([])) {
@@ -132,9 +141,12 @@ class MainController implements OptionsObserver {
         Status.running();
         Logger.debug(`[Tab] Owner: ${urlInfo[1]}, Repo: ${urlInfo[2]}, PR-number: ${urlInfo[3]}`);
         chrome.tabs.sendMessage(tab.id, {
-            hookToDom: true,
+            hookToDom: Options.get(Options.LOGGING),
         }, function (result) {
-            let str = result || `should be refreshed because content script is not loaded (${tab.url})`;
+            if (!result) {
+                chrome.tabs.reload(tab.id);
+            }
+            let str = result || `will be refreshed because content script is not loaded (${tab.url})`;
             Logger.debug(`[Tab] ${str}`);
         });
     }

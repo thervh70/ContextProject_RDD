@@ -7,6 +7,10 @@ describe("A KeystrokeElementEventBinding's", function() {
     const esbFactory = new ElementSelectionBehaviourFactory();
     const eebFactory = new ElementEventBindingFactory();
 
+    let binder: ElementEventBinding;
+    let database: DatabaseAdaptable;
+    let selector: ElementSelectionBehaviour;
+
     it("type should be retrieved when the getEventType function is called", function() {
         selector = esbFactory.create(database, ElementID.CANCEL_INLINE_COMMENT);
         binder = eebFactory.create(selector, EventID.KEYSTROKE);

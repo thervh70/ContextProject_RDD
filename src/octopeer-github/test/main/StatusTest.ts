@@ -103,7 +103,7 @@ describe("The Status, when set", function() {
         });
         expect(spyBA).toHaveBeenCalled();
         expect(spyBA).toHaveBeenCalledWith({
-            path: "img/icon/off19.png",
+            path: "resources/img/icon/off19.png",
         });
     });
 });

@@ -15,4 +15,14 @@ interface ElementEventBinding {
      * The ID of the Event
      */
     getEventID(): EventID;
+
+    /**
+     * When called, the ElementEventBinding should hook itself to the DOM tree.
+     */
+    addDOMEvent(elementSelectionBehaviour?: ElementSelectionBehaviour): void;
+
+    /**
+     * When called, the ElementEventBinding should remove itself from the DOM tree.
+     */
+    removeDOMEvent(elementSelectionBehaviour?: ElementSelectionBehaviour): void;
 }
