@@ -61,13 +61,16 @@ const Options = new (class Options {
 
     /**
      * Handles synchronization of the optionMap by retrieving values from the chrome storage on initialization and on update.
-     * For every option in optionMap, only the new values from the storage are assigned to them.
+     * For every option in optionMap, only the new values from the storage are assigned to them, if they are defined.
+     * If the new value is undefined, it won't be assigned.
      * @param changeObject the set of chrome storage properties.
      */
     public syncOptionMap(changeObject: any) {
-        for (let option in this.optionMap) {
-            if (this.optionMap.hasOwnProperty(option)) {
-                this.optionMap[option] = changeObject[option] ? changeObject[option].newValue : this.optionMap[option];
+        for (let option in changeObject) {
+            if (typeof changeObject[option] === "boolean") {
+                this.optionMap[option] = changeObject[option];
+            } else {
+                this.optionMap[option] = changeObject[option].newValue;
             }
         }
         this.notifyObservers();

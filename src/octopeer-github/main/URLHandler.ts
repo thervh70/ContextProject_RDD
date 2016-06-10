@@ -2,8 +2,9 @@
  * Created by Maarten on 24-05-2016.
  *
  * This utility class handles URL formatting and parsing.
+ * It should be final, but TypeScript does not support this yet.
  */
-class URLHandler {
+abstract class URLHandler {
 
     /**
      * Appends a trailing slash to the URL if there is no trailing slash yet.
@@ -39,7 +40,7 @@ class URLHandler {
      *      3: pull request number (in a string)
      * ]
      */
-    public static isPullRequestUrl(url: string): Array<string> {
+    public static getPullRequestUrlFields(url: string): Array<string> {
         const urlFormat = /https?:\/\/.*github\.com\/(.+)\/(.+)\/pull\/([^\/#\?]+)[\/#\?]?.*/;
         if (urlFormat.test(url)) {
             const res: RegExpExecArray = urlFormat.exec(url);
@@ -47,6 +48,16 @@ class URLHandler {
         } else {
             return [];
         }
+    }
+
+    /**
+     * Checks whether the url provided is one that belongs to a Pull Request.
+     * 'Correct' format:  http[s]//[...]github.com/(owner)/(repo)/pull/(pr-no)[/...]
+     * @param url               The URL to get the session ID from.
+     * @returns {boolean} false if the url is INVALID. true if the url is VALID.
+     */
+    public static isPullRequestUrl(url: string): boolean {
+        return !URLHandler.getPullRequestUrlFields(url).equals([]);
     }
 
 }

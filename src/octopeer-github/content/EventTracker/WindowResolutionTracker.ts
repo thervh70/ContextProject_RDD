@@ -2,25 +2,42 @@
 /**
  * Created by Mathias on 2016-05-26.
  */
-class WindowResolutionTracker {
+class WindowResolutionTracker implements EventTracker {
 
-    /** Private static final for the timeout between logs. */
-    private static get TIMEOUT() { return 500; }
+    /** Public static final for the timeout between logs. */
+    public static get TIMEOUT() { return 500; }
 
     /**
-     * Initialize a WindowResolutionTracker that contains a WindowResolutionDatabaseAdaptable.
+     * This resizeTimer field is static, because there should only be one timer at any given time.
+     * It stores the current timer that is active (and because of JavaScript, its type is a number).
+     */
+    private static resizeTimer: number;
+
+    /**
+     * Initialize a WindowResolutionTracker that contains a DatabaseAdaptable.
      * @param db The DatabaseAdaptable for the Tracker.
      */
-    constructor(private db: WindowResolutionDatabaseAdaptable) {
-        const self = this;
+    constructor(private db: DatabaseAdaptable) { }
+
+    /**
+     * Initiates this EventTracker to collect event data.
+     */
+    public addDOMEvent() {
         let windowObject: JQuery = $(window);
-        let resizeTimer: number;
-        windowObject.resize(function (eventObject: JQueryEventObject) {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(function () {
-                self.db.postWindowResolution(EventFactory.windowResolution(windowObject.width(), windowObject.height()),
+        windowObject.resize((eventObject: JQueryEventObject) => {
+            clearTimeout(WindowResolutionTracker.resizeTimer);
+            WindowResolutionTracker.resizeTimer = setTimeout(() => {
+                this.db.post(EventFactory.windowResolution(windowObject.width(), windowObject.height()),
                     EMPTY_CALLBACK, EMPTY_CALLBACK);
             }, WindowResolutionTracker.TIMEOUT);
         });
+    }
+
+    /**
+     * Stops this EventTracker from collecting event data.
+     */
+    public removeDOMEvent() {
+        $(window).off("resize");
+        clearTimeout(WindowResolutionTracker.resizeTimer);
     }
 }

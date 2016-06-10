@@ -32,9 +32,10 @@ describe("The URLHandler", function() {
         for (let i = 0; i < suffices.length; i++) {
             it("be correct " + messages[i], function () {
                 const url = testURL + suffices[i];
-                expect(URLHandler.isPullRequestUrl(url)).toEqual([
+                expect(URLHandler.getPullRequestUrlFields(url)).toEqual([
                     url, "thervh70", "ContextProject_RDD", "7",
                 ]);
+                expect(URLHandler.isPullRequestUrl(url)).toEqual(true);
             });
         }
 
@@ -48,7 +49,8 @@ describe("The URLHandler", function() {
             ];
             let url: string;
             for (url of invalidURLs) {
-                expect(URLHandler.isPullRequestUrl(url)).toEqual([]);
+                expect(URLHandler.getPullRequestUrlFields(url)).toEqual([]);
+                expect(URLHandler.isPullRequestUrl(url)).toEqual(false);
             }
         });
     });

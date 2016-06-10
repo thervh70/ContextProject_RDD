@@ -1,16 +1,17 @@
 <html>
 <head>
-    <title>OctoPeer popup</title>
+    <title>Octopeer Popup</title>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+    <link rel="stylesheet" href="../libs/materialize/css/materialize.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" >
+    <link rel="stylesheet" href="main.css">
 
-    <script src="jquery.min.js"></script>
-    <script src="materialize.min.js"></script>
+    <script src="../libs/jquery-2.2.3.js"></script>
+    <script src="../libs/materialize/js/materialize.min.js"></script>
 
     <script src="popup.js"></script>
 </head>
-    <body style="min-width: 250px; min-height: 300px;">
+    <body id="popupBody">
 
     <nav>
         <div class="nav-wrapper lime">
@@ -21,24 +22,40 @@
     <div class="container">
 
         <div class="row">
-        <p id="status_text" class="flow-text col s12" style="text-align: center; margin-bottom: 0px;">
+        <p id="statusText" class="flow-text col s12" style="text-align: center; margin-bottom: 0px;">
             Octopeer is running!
         </p>
         </div>
 
         <div class="row">
-            <img id="status_image" class="col s12" src="img/icon/off.png">
+            <img id="statusImage" class="col s12" src="img/icon/off.png">
         </div>
 
         <div class="row center">
             <div class="col s6">
-                <a id="status_toggle" class="btn waves-effect lime waves-light">
+                <a id="statusToggle" class="btn waves-effect lime waves-light tooltipped"
+                   data-position="top" data-delay="500" data-tooltip="Logging Switch">
                     <i class="material-icons">power_settings_new</i>
                 </a>
             </div>
             <div class="col s6">
-                <a class="btn waves-effect lime waves-light" href="options.html" target="_blank">
+                <a class="btn waves-effect lime waves-light tooltipped" href="../analytics/index.html" target="_blank"
+                   data-position="top" data-delay="500" data-tooltip="Analytics">
+                    <i class="material-icons">equalizer</i>
+                </a>
+            </div>
+        </div>
+        <div class="row center">
+            <div class="col s6">
+                <a class="btn waves-effect lime waves-light tooltipped" href="options.html" target="_blank"
+                   data-position="top" data-delay="500" data-tooltip="Options">
                     <i class="material-icons">settings</i>
+                </a>
+            </div>
+            <div class="col s6">
+                <a class="btn waves-effect lime waves-light tooltipped" href="about.html" target="_blank"
+                   data-position="top" data-delay="500" data-tooltip="About">
+                    <i class="material-icons">info_outline</i>
                 </a>
             </div>
         </div>

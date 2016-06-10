@@ -13,6 +13,8 @@
   - [5](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Sprint_Backlog5.pdf)
   - [6](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Sprint_Backlog6.pdf)
   - [7](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Sprint_Backlog7.pdf)
+  - [8](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Sprint_Backlog8.pdf)
+
 
 - Sprint retrospectives:
   - [1](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/SprintRetrospective-1.pdf)
@@ -21,12 +23,14 @@
   - [4](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/SprintRetrospective-4.pdf)
   - [5](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/SprintRetrospective-5.pdf)
   - [6](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/SprintRetrospective-6.pdf)
+  - [7](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/SprintRetrospective-7.pdf)
 
 
 - Research Documents:
   - [Frameworks](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/research/Research_Frameworks.pdf)
   - [IDE](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/research/Research_IDE.pdf)
   - [Static Analysis Tools](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/research/Research_Static_Analysis_Tools.pdf)
+  - [Hint Generation](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/research/Research_Hint_Generation.pdf)
 
 - [Product Vision (final)](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Final_Product_Vision.pdf)
 - [Product Planning (final)](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Final_Product_Planning.pdf)
@@ -42,6 +46,7 @@ All documents can in general be found in the doc folder.
 - Use WebStorm (or Git knowledge) to clone the repo to a local folder
 - Run `npm install`
 - Run `npm run-script travis` to check whether everything works correctly
+- Run `git submodule init && git submodule update --recursive` to make the analytics work
 
 Congratulations, you can now start developing!
 
@@ -72,7 +77,7 @@ You've now activated TSLint.
 - In the Chrome menu, go to "More Tools" > "Extensions"
 - In the top-right, check "Developer mode"
 - Click "Load unpacked extension..."
-- Select "$PROJECT_FOLDER/build/octopeer-github"
+- Select "$PROJECT_FOLDER/build"
 
 The extension is now loaded in Chrome.
 

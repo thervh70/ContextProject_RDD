@@ -12,7 +12,7 @@ class GenericElementSelectionBehaviour implements ElementSelectionBehaviour {
      * @param database the database to push to.
      * @param data The data of the ElementSelectionBehaviour
      */
-    public constructor(private database: SemanticDatabaseAdaptable, protected data: ElementSelectionBehaviourData) { }
+    public constructor(private database: DatabaseAdaptable, protected data: ElementSelectionBehaviourData) { }
 
     /**
      * Get the elementID for buttons
@@ -51,7 +51,7 @@ class GenericElementSelectionBehaviour implements ElementSelectionBehaviour {
         if (this.data.callback === undefined) {
             const self = this;
             return (eventObject: JQueryEventObject) => {
-                self.database.postSemantic(EventFactory.semantic(self.getElementID(), eventID), EMPTY_CALLBACK, EMPTY_CALLBACK);
+                self.database.post(EventFactory.semantic(self.getElementID(), eventID), EMPTY_CALLBACK, EMPTY_CALLBACK);
             };
         } else {
             return this.data.callback;

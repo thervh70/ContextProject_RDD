@@ -35,9 +35,9 @@ let conversationSelectors: ElementIDNumberPair[] =  [
     [ElementID.DATE, 8],
     [ElementID.COMMIT_HASHCODE, 4],
     [ElementID.COMMIT_NAME, 4],
-    // [ElementID.OTHER_CONTRIBUTOR, 0],
-    // [ElementID.PR_CREATOR, 3],
-    // [ElementID.PR_PARTICIPANT, 4],
+    [ElementID.OTHER_CONTRIBUTOR, 0],
+    [ElementID.PR_CREATOR, 8],
+    [ElementID.PR_PARTICIPANT, 4],
     [ElementID.ASSIGNEE, 1],
     [ElementID.LABELS, 1],
     [ElementID.LOCK_CONVERSATION, 1],
@@ -55,9 +55,9 @@ let commitSelectors: ElementIDNumberPair[] = [
     [ElementID.DATE, 4],
     [ElementID.COMMIT_HASHCODE, 4],
     [ElementID.COMMIT_NAME, 4],
-    // [ElementID.OTHER_CONTRIBUTOR, 0],
-    // [ElementID.PR_CREATOR, 4],
-    // [ElementID.PR_PARTICIPANT, 0],
+    [ElementID.OTHER_CONTRIBUTOR, 0],
+    [ElementID.PR_CREATOR, 5],
+    [ElementID.PR_PARTICIPANT, 0],
     [ElementID.COMMITS_TAB, 1],
     [ElementID.CONVERSATION_TAB, 1],
     [ElementID.FILES_CHANGED_TAB, 1],
@@ -73,12 +73,18 @@ let filesChangedSelectors: ElementIDNumberPair[] = [
     // [ElementID.CREATE_INLINE_COMMENT, 0],
     [ElementID.SAVE_PR_NAME, 0],
     [ElementID.DATE, 5],
-    // [ElementID.OTHER_CONTRIBUTOR, 0],
-    // [ElementID.PR_CREATOR, 0],
-    // [ElementID.PR_PARTICIPANT, 1],
+    [ElementID.OTHER_CONTRIBUTOR, 0],
+    [ElementID.PR_CREATOR, 1],
+    [ElementID.PR_PARTICIPANT, 1],
     [ElementID.COMMITS_TAB, 1],
     [ElementID.CONVERSATION_TAB, 1],
     [ElementID.FILES_CHANGED_TAB, 1],
+];
+
+let conversationOtherContributor: ElementIDNumberPair[] = [
+    [ElementID.OTHER_CONTRIBUTOR, 1],
+    [ElementID.PR_CREATOR, 8],
+    [ElementID.PR_PARTICIPANT, 8],
 ];
 
 /**
@@ -90,12 +96,14 @@ const htmlsList = [
     "conversation-tab.html",
     "commit-tab.html",
     "files-changed-tab.html",
+    "conversation_tab_with_other_contributer.html",
 ];
 
 const selectorsList = [
     conversationSelectors,
     commitSelectors,
     filesChangedSelectors,
+    conversationOtherContributor,
 ];
 
 /**
@@ -129,7 +137,7 @@ for (let i = 0; i < htmlsList.length; i++) {
             const selector = factory.create(database, selectorID);
 
             beforeEach(function () {
-                databaseSpy = spyOn(database, "postSemantic");
+                databaseSpy = spyOn(database, "post");
                 loadFixtures(htmlFile);
             });
 

@@ -2,13 +2,15 @@
 /**
  * Created by Mathias on 02-06-2016.
  * This interface enforces the data elements of the ElementEventBindings.
- * eventID is the corresponding ID given in the eventID class.
- * initDOMEvent is an optional override of the default callback function.
- * name is the descriptive string that belongs to the event.
+ * @field addDOMEvent is an optional override of the default behaviour for adding this EEB to the DOM.
+ * @field eventID is the corresponding ID given in the eventID class.
+ * @field name is the descriptive string that belongs to the event.
+ * @field removeDOMEvent is an optional override of the default behaviour for removing this EEB from the DOM.
  */
 interface ElementEventBindingData {
+    addDOMEvent?: (elementSelectionBehaviour?: ElementSelectionBehaviour) => void;
     eventID: EventID;
-    initDOMEvent?: (elementSelectionBehaviour: GenericElementSelectionBehaviour) => void;
+    removeDOMEvent?: (elementSelectionBehaviour?: ElementSelectionBehaviour) => void;
     name: string;
 }
 
