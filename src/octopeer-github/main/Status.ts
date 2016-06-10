@@ -13,7 +13,7 @@ const Status = new (class Status {
      * Stores the current status.
      * @type {StatusCode}
      */
-    private status: StatusCode = StatusCode.OFF;
+    private status: StatusCode = StatusCode.STANDBY;
 
     /**
      * Status.NAME: the internal names of the enum StatusCode.
