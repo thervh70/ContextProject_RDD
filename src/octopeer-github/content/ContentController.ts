@@ -25,6 +25,17 @@ class ContentController {
      */
     private oldEventTrackers: EventTracker[] = [];
 
+    private mutationObserver = new MutationObserver((mutationRecordList) => {
+        /*for (let mutationRecord of mutationRecordList) {
+            const addedNodes = mutationRecord.addedNodes;
+            for (let i = 0; i < addedNodes.length; i++) {
+                const addedNode = addedNodes[i];
+                $(addedNode);
+            }
+        }*/
+        this.hookToDOM(this.messageSendDatabaseAdapter);
+    });
+
     /**
      * Starts the ContentController. After calling this, all event handlers are hooked to the DOM-tree.
      * @return this
@@ -41,18 +52,17 @@ class ContentController {
      * Set up all event handlers in the Chrome API.
      */
     private processMessageFromBackgroundPage() {
-        const self = this;
-        return function (request: any, sender: any, sendResponse: Function) {
+        return (request: any, sender: any, sendResponse: Function) => {
             if (request.hookToDom === undefined) {
                 sendResponse(`did nothing (${location.href})`);
                 return;
             }
             try {
                 if (request.hookToDom) {
-                    self.hookToDOM(self.messageSendDatabaseAdapter);
+                    this.hookToDOM(this.messageSendDatabaseAdapter);
                     sendResponse(`hooked to DOM (${location.href})`);
                 } else {
-                    self.unhookFromDOM();
+                    this.unhookFromDOM();
                     sendResponse(`unhooked from DOM (${location.href})`);
                 }
             } catch (e) {
@@ -72,12 +82,14 @@ class ContentController {
         this.unhookFromDOM();
         this.hookSemanticToDOM(database);
         this.hookTrackersToDOM(database);
+        this.mutationObserver.observe(document.body, { /*attributes: true, characterData: true, */childList: true, subtree: true });
     }
 
     /**
      * Unhook both semantic and raw data trackers from DOM.
      */
     private unhookFromDOM() {
+        this.mutationObserver.disconnect();
         this.unhookSemanticFromDOM();
         this.unhookTrackersFromDOM();
     }
