@@ -9,28 +9,9 @@ describe("The Options class", function() {
     let controller: MainController;
     let spyNotify: jasmine.Spy;
 
-    let mockedStorageObject: { [key: string]: boolean; } = {
-        [this.LOGGING]: false,
-        [this.TRACK_TABS]: true,
-        [this.TRACK_COMMENTS]: false,
-        [this.TRACK_PEER_COMMENTS]: true,
-        [this.TRACK_FOCUS]: false,
-        [this.HASH_USERNAME]: true,
-        [this.HASH_REPO]: false,
-        [this.HASH_FILE]: true,
-        [this.DNW_ON_SCREEN_EVENTS]: true,
-        [this.DNW_HOVER_EVENTS]: false,
-        [this.DNW_COMMENT_ELEMENTS]: true,
-        [this.DNW_KEYBOARD_EVENTS]: false,
-    };
-
-    let mockedStorageDiffValues: { [key: string]: any; } = {
-        [this.LOGGING]: { newValue: true, oldValue: false },
-    };
-
     beforeEach(function () {
         controller = new MainController();
-        spySyncStorage = spyOn(chrome.storage.sync, "get");
+        spySyncStorage = spyOn(chrome.storage.sync, "set");
         spyNotify = spyOn(controller, "notify");
         Options.init();
     });
@@ -90,23 +71,4 @@ describe("The Options class", function() {
             "doNotWatchKeyboardShortcutEvents"]);
     });
 
-    it("should be able to synchronize the optionMap when a storage object with different (boolean) option values is given", function() {
-        spyNotify = spyOn(Options, "notifyObservers");
-        Options.syncOptionMap(mockedStorageObject);
-
-        for (let key in mockedStorageObject) {
-            if (mockedStorageObject.hasOwnProperty(key)) {
-                expect(mockedStorageObject[key]).toEqual(Options.get(key));
-            }
-        }
-        expect(spyNotify).toHaveBeenCalled();
-    });
-
-    it("should be able to synchronize the optionMap with a storage containing an object with an old and a new value", function() {
-        spyNotify = spyOn(Options, "notifyObservers");
-        Options.syncOptionMap(mockedStorageDiffValues);
-
-        expect(Options.get(Options.LOGGING)).toBe(true);
-        expect(spyNotify).toHaveBeenCalled();
-    });
 });
