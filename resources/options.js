@@ -7,7 +7,7 @@
 var options = ['loggingEnabled',
     'trackTabs', 'trackComments', 'trackPeerComments', 'trackFocus',
     'hashUsername', 'hashRepo', 'hashFile',
-    'dnwScreen', 'dnwHover', 'dnwComments', 'dnwKeyboardShortcut'];
+    'doNotWatchOnScreenEvents', 'doNotWatchHoverEvents', 'doNotWatchCommentElements', 'doNotWatchKeyboardShortcutEvents'];
 
 // List that contains all subOptionID names that Octopeer provides.
 var subOptions = ['securitySubOptions', 'privacySubOptions', 'hintsSubOptions', 'doNotWatchSubOptions'];
@@ -15,8 +15,11 @@ var subOptions = ['securitySubOptions', 'privacySubOptions', 'hintsSubOptions', 
 // List that contains all cardElement names that Octopeer provides.
 var cards = ['security', 'privacy', 'hints', 'doNotWatch'];
 
-// Object that contains all default options.
-var defaultOptions = {};
+// List that contains all default optionID names that Octopeer provides.
+var defaultOptions = ['loggingEnabledDefault',
+    'trackTabsDefault', 'trackCommentsDefault', 'trackPeerCommentsDefault', 'trackFocusDefault',
+    'hashUsernameDefault', 'hashRepoDefault', 'hashFileDefault', 'doNotWatchOnScreenEventsDefault', 'doNotWatchHoverEventsDefault',
+    'doNotWatchCommentElementsDefault', 'doNotWatchKeyboardShortcutEventsDefault'];
 
 // Listens for changes in the loggingEnabled flag.
 // This boolean might be switched using the popup.
@@ -156,16 +159,16 @@ function switchOptions() {
     }
 }
 
-// Saves the default options by saving an object.
-function saveDefaults() {
-    for (var i = 0; i < options.length; i++) {
-        defaultOptions[options[i]] = optionsElement(i).prop('checked');
-    }
-}
-
 // Sets the options to the default options by updating the chrome storage and the options page.
+// Because callbacks are used, these two chrome functions calls can't be separated.
 function restoreDefaults() {
-    chrome.storage.sync.set(defaultOptions, function() {});
+    chrome.storage.local.get(defaultOptions, function(items) {
+        var obj = {};
+        for (var i = 0; i < options.length; i++) {
+            obj[options[i]] = items[defaultOptions[i]];
+        }
+        chrome.storage.sync.set(obj);
+    });
     restoreOptionsState();
     restoreOptionsAvailability();
 }
@@ -175,7 +178,6 @@ document.addEventListener('DOMContentLoaded', restoreOptionsAvailability);
 
 // Will execute once the page DOM is ready.
 $(document).ready(function() {
-    saveDefaults();
     addOptionClickEvents();
     changeListener();
     $('#restore').click(restoreDefaults);

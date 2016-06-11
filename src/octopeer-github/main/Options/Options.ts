@@ -27,20 +27,22 @@ const Options = new (class Options {
     public get DNW_COMMENT_ELEMENTS() {return "doNotWatchCommentElements"; }
     public get DNW_KEYBOARD_EVENTS() {return "doNotWatchKeyboardShortcutEvents"; }
 
-    // A map that contains all option names and their default (boolean) values.
-    private optionMap: { [key: string]: boolean; } = {
-        [this.LOGGING]: true,
-        [this.TRACK_TABS]: true,
-        [this.TRACK_COMMENTS]: true,
-        [this.TRACK_PEER_COMMENTS]: true,
-        [this.TRACK_FOCUS]: true,
-        [this.HASH_USERNAME]: true,
-        [this.HASH_REPO]: true,
-        [this.HASH_FILE]: false,
-        [this.DNW_ON_SCREEN_EVENTS]: true,
-        [this.DNW_HOVER_EVENTS]: true,
-        [this.DNW_COMMENT_ELEMENTS]: true,
-        [this.DNW_KEYBOARD_EVENTS]: true,
+    // A map that contains all option names and their (boolean) values.
+    // The first boolean value represents the current value of an option and is updated.
+    // The second boolean value represents the default value of an option.
+    private optionMap: { [key: string]: [boolean]; } = {
+        [this.LOGGING]: [true, true],
+        [this.TRACK_TABS]: [true, true],
+        [this.TRACK_COMMENTS]: [true, true],
+        [this.TRACK_PEER_COMMENTS]: [true, true],
+        [this.TRACK_FOCUS]: [true, true],
+        [this.HASH_USERNAME]: [true, true],
+        [this.HASH_REPO]: [true, true],
+        [this.HASH_FILE]: [false, false],
+        [this.DNW_ON_SCREEN_EVENTS]: [true, true],
+        [this.DNW_HOVER_EVENTS]: [true, true],
+        [this.DNW_COMMENT_ELEMENTS]: [true, true],
+        [this.DNW_KEYBOARD_EVENTS]: [true, true],
     };
 
     private observers: OptionsObserver[];
@@ -52,10 +54,8 @@ const Options = new (class Options {
      */
     public init() {
         this.observers = [];
-        let options: string[] = this.generateOptionList();
-
-        // just passing 'this.syncOptionMap' as callback won't work, because "this" inside the callback will be scoped to the Chrome API.
-        chrome.storage.sync.get(options, (obj) => this.syncOptionMap(obj));
+        chrome.storage.sync.set(this.generateCurrentOptionMap());
+        chrome.storage.local.set(this.generateDefaultOptionMap());
         chrome.storage.onChanged.addListener((obj, area) => {if (area === "sync") {this.syncOptionMap(obj); }});
     }
 
@@ -68,9 +68,9 @@ const Options = new (class Options {
     public syncOptionMap(changeObject: any) {
         for (let option in changeObject) {
             if (typeof changeObject[option] === "boolean") {
-                this.optionMap[option] = changeObject[option];
+                this.optionMap[option][0] = changeObject[option];
             } else {
-                this.optionMap[option] = changeObject[option].newValue;
+                this.optionMap[option][0] = changeObject[option].newValue;
             }
         }
         this.notifyObservers();
@@ -129,14 +129,65 @@ const Options = new (class Options {
     }
 
     /**
-     * Gets the preference of an option, based on the name, from the chrome storage.
+     * Splits the optionMap to a defaultOptionMap which contains the default values for options.
+     * The defaultOptionMap can be used for direct default option updates to the chrome storage.
+     */
+    public generateDefaultOptionMap() {
+        let defaultOptionMap: { [key: string]: boolean; } = {};
+        for (let key in this.optionMap) {
+            if (this.optionMap.hasOwnProperty(key)) {
+                defaultOptionMap[key + "Default"] = this.optionMap[key][1];
+            }
+        }
+        return defaultOptionMap;
+    }
+
+    /**
+     * Splits the optionMap to a Map excluding the default values for options.
+     * The currentOptionMap can be used for direct default option updates to the chrome storage.
+     */
+    public generateCurrentOptionMap() {
+        let currentOptionMap: { [key: string]: boolean; } = {};
+        for (let key in this.optionMap) {
+            if (this.optionMap.hasOwnProperty(key)) {
+                currentOptionMap[key] = this.optionMap[key][0];
+            }
+        }
+        return currentOptionMap;
+    }
+
+    public generateSpecificOptionMap(index: number) {
+        let specificOptionMap: { [key: string]: boolean; } = {};
+        for (let key in this.optionMap) {
+            if (this.optionMap.hasOwnProperty(key)) {
+                specificOptionMap[key] = this.optionMap[key][index];
+            }
+        }
+        return specificOptionMap;
+    }
+
+    /**
+     * Gets the preference of an option, based on the name.
      * If the name doesn't exist, false is simply returned.
      * @param optionName the given name of an option.
      * @returns {boolean} the user preference in terms of a boolean.
      */
     public get(optionName: string) {
         if (optionName in this.optionMap) {
-            return this.optionMap[optionName];
+            return this.optionMap[optionName][0];
+        }
+        return false;
+    }
+
+    /**
+     * Gets the default value of an option, based on the name.
+     * If the name doesn't exist, false is simply returned.
+     * @param optionName the given name of an option.
+     * @returns {boolean} the default value of an option.
+     */
+    public getDefault(optionName: string) {
+        if (optionName in this.optionMap) {
+            return this.optionMap[optionName][1];
         }
         return false;
     }
