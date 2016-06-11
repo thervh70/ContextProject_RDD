@@ -129,41 +129,21 @@ const Options = new (class Options {
     }
 
     /**
-     * Splits the optionMap to a defaultOptionMap which contains the default values for options.
-     * The defaultOptionMap can be used for direct default option updates to the chrome storage.
+     * Splits the optionMap to a Map excluding the default values for options.
+     * The currentOptionMap can be used for direct default option updates to the chrome storage.
+     * @returns the currentOptionMap
      */
-    public generateDefaultOptionMap() {
-        let defaultOptionMap: { [key: string]: boolean; } = {};
-        for (let key in this.optionMap) {
-            if (this.optionMap.hasOwnProperty(key)) {
-                defaultOptionMap[key + "Default"] = this.optionMap[key][1];
-            }
-        }
-        return defaultOptionMap;
+    public generateCurrentOptionMap(): { [key: string]: boolean; } {
+        return this.generateSpecificOptionMap(0);
     }
 
     /**
-     * Splits the optionMap to a Map excluding the default values for options.
-     * The currentOptionMap can be used for direct default option updates to the chrome storage.
+     * Splits the optionMap to a defaultOptionMap which contains the default values for options.
+     * The defaultOptionMap can be used for direct default option updates to the chrome storage.
+     * @returns the defaultOptionMap.
      */
-    public generateCurrentOptionMap() {
-        let currentOptionMap: { [key: string]: boolean; } = {};
-        for (let key in this.optionMap) {
-            if (this.optionMap.hasOwnProperty(key)) {
-                currentOptionMap[key] = this.optionMap[key][0];
-            }
-        }
-        return currentOptionMap;
-    }
-
-    public generateSpecificOptionMap(index: number) {
-        let specificOptionMap: { [key: string]: boolean; } = {};
-        for (let key in this.optionMap) {
-            if (this.optionMap.hasOwnProperty(key)) {
-                specificOptionMap[key] = this.optionMap[key][index];
-            }
-        }
-        return specificOptionMap;
+    public generateDefaultOptionMap(): { [key: string]: boolean; } {
+        return this.generateSpecificOptionMap(1);
     }
 
     /**
@@ -190,6 +170,20 @@ const Options = new (class Options {
             return this.optionMap[optionName][1];
         }
         return false;
+    }
+    /**
+     * Splits the optionMap into a specific map, containing only the values based on a given index.
+     * @param index integer that indicates the index of the boolean array.
+     * @returns the specific option map.
+     */
+    private generateSpecificOptionMap(index: number) {
+        let specificOptionMap: { [key: string]: boolean; } = {};
+        for (let key in this.optionMap) {
+            if (this.optionMap.hasOwnProperty(key)) {
+                specificOptionMap[key] = this.optionMap[key][index];
+            }
+        }
+        return specificOptionMap;
     }
 
 })();
