@@ -90,16 +90,33 @@ class MainController implements OptionsObserver {
      * When a tab sends a message, log it to the Database.
      */
     private listenToDatabaseMessages() {
+        let user = this.getCurrentUser();
         chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             if (!sender.tab) {
                 return; // Only continue if message is sent from a content script
             }
             // IP for testing locally: 10.0.22.6
             // TODO: get name from context
-            this.database = new RESTApiDatabaseAdapter("http://146.185.128.124", sender.tab.url, "Travis");
+            this.database = new RESTApiDatabaseAdapter("http://146.185.128.124", sender.tab.url, user);
             this.postToDatabase(this.readMessage(message));
             sendResponse({});
         });
+    }
+
+    /**
+     * Get the current username from the local Chrome storage
+     * or else return the default name: "Travis"
+     * @returns {string} the current user
+     */
+    private getCurrentUser() {
+        chrome.storage.local.get("user", (result) => {
+            for (let option in result) {
+                if (result.hasOwnProperty(option)) {
+                    return result[option];
+                }
+            }
+        });
+        return "Travis";
     }
 
     private readMessage(dataMessage: any): EventObject {
