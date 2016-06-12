@@ -33,8 +33,17 @@ class ContentController {
                 $(addedNode);
             }
         }*/
+        this.unhookFromDOM();
+        this.domRewriter.rewrite($("body"));
         this.hookToDOM(this.messageSendDatabaseAdapter);
+        this.hookMutationObserverToDOM();
     });
+
+    /**
+     * The DOMRewriter will add data-octopeer-* tags to all HTML elements.
+     * @type {DOMRewriter}
+     */
+    private domRewriter = new DOMRewriter().withDefaultRules();
 
     /**
      * Starts the ContentController. After calling this, all event handlers are hooked to the DOM-tree.
@@ -45,6 +54,7 @@ class ContentController {
         if (!chrome.runtime.onMessage.hasListeners()) {
             chrome.runtime.onMessage.addListener(this.processMessageFromBackgroundPage());
         }
+        this.domRewriter.rewrite($("body"));
         return this;
     }
 
@@ -82,14 +92,14 @@ class ContentController {
         this.unhookFromDOM();
         this.hookSemanticToDOM(database);
         this.hookTrackersToDOM(database);
-        this.mutationObserver.observe(document.body, { /*attributes: true, characterData: true, */childList: true, subtree: true });
+        this.hookMutationObserverToDOM();
     }
 
     /**
      * Unhook both semantic and raw data trackers from DOM.
      */
     private unhookFromDOM() {
-        this.mutationObserver.disconnect();
+        this.unhookMutationObserverFromDOM();
         this.unhookSemanticFromDOM();
         this.unhookTrackersFromDOM();
     }
@@ -164,5 +174,19 @@ class ContentController {
             tracker.addDOMEvent();
             this.oldEventTrackers.push(tracker);
         }
+    }
+
+    /**
+     * Hooks the MutationObserver to the DOM tree.
+     */
+    private hookMutationObserverToDOM() {
+        this.mutationObserver.observe(document.body, { /*attributes: true, characterData: true, */childList: true, subtree: true });
+    }
+
+    /**
+     * Unhooks the MutationObserver from the DOM tree.
+     */
+    private unhookMutationObserverFromDOM() {
+        this.mutationObserver.disconnect();
     }
 }
