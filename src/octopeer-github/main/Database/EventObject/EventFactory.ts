@@ -98,6 +98,12 @@ abstract class EventFactory {
         };
     }
 
+    /**
+     * Creates a HTMLPageEvent object.
+     * @param dom           the DOM tree at the moment of the event.\
+     * @param created_at    the timestamp at which the event was created. Defaults to the current timestamp.
+     * @returns {HTMLPageEvent} A HTMLPageEvent object that can be posted to the database.
+     */
     public static htmlPage(dom: string, created_at = EventFactory.getTime()): EventObject {
         return {
             data: {created_at: created_at, dom: dom},

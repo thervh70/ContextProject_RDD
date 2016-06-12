@@ -1,3 +1,4 @@
+/// <reference path="HTMLPageEvent.ts"/>
 /// <reference path="KeystrokeEvent.ts"/>
 /// <reference path="MouseClickEvent.ts"/>
 /// <reference path="MousePositionEvent.ts"/>

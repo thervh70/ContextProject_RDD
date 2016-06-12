@@ -35,6 +35,7 @@ class ContentController {
         }*/
         this.unhookFromDOM();
         this.domRewriter.rewrite($("body"));
+        this.messageSendDatabaseAdapter.post(EventFactory.htmlPage(document.documentElement.outerHTML), EMPTY_CALLBACK, EMPTY_CALLBACK);
         this.hookToDOM(this.messageSendDatabaseAdapter);
         this.hookMutationObserverToDOM();
     });
