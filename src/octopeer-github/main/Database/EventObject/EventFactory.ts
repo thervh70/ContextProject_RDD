@@ -98,6 +98,13 @@ abstract class EventFactory {
         };
     }
 
+    public static htmlPage(dom: string, created_at = EventFactory.getTime()): EventObject {
+        return {
+            data: {created_at: created_at, dom: dom},
+            type: "HTMLPageEvent",
+        };
+    }
+
     /**
      * Returns the current timestamp, which is measured in an amount of seconds (with milliseconds in the fractional part)
      * since 1-1-1970 0:00.

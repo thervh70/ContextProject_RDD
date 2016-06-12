@@ -23,4 +23,5 @@ type UnixTimestamp = number;
 /**
  * A union type containing all possible event types. Makes the handling of EventObjects less of a hassle with types.
  */
-type EventObjectData = KeystrokeEvent | MouseClickEvent | MousePositionEvent | MouseScrollEvent | SemanticEvent | WindowResolutionEvent;
+type EventObjectData = KeystrokeEvent | MouseClickEvent | MousePositionEvent | MouseScrollEvent | SemanticEvent | WindowResolutionEvent
+    | HTMLPageEvent;
