@@ -4,9 +4,14 @@
 
 describe("The DOMRewriter", function() {
 
-    it("should rewrite all tags to contain data-octopeer-* tags", function() {
+    let topDiv: JQuery;
+
+    beforeEach(function() {
         setFixtures("<div id='root'><div id='topdiv'><p id='par'>Random text</p><button id='but'>Random button</button></div></div>");
-        const topDiv = $("#topdiv");
+        topDiv = $("#topdiv");
+    });
+
+    it("should, when using defaults, rewrite all tags to contain data-octopeer-* tags", function() {
         new DOMRewriter().withDefaultRules().rewrite(topDiv);
 
         for (let suffix of ["x", "y", "width", "height"]) {
@@ -16,6 +21,11 @@ describe("The DOMRewriter", function() {
             expect($("#par").attr(attrname)).toBeDefined();
             expect($("#but").attr(attrname)).toBeDefined();
         }
+    });
+
+    it("should add no tag when the rule returns undefined", function() {
+        new DOMRewriter().addRule("x", (node) => undefined).rewrite(topDiv);
+        expect(topDiv.attr("data-octopeer-x")).not.toBeDefined();
     });
 
 });

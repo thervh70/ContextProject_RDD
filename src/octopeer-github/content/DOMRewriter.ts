@@ -18,7 +18,11 @@ class DOMRewriter {
         const self = this;
         for (let attrName in this.rules) {
             if (this.rules.hasOwnProperty(attrName)) { // required check with for (... in ...)
-                node.attr(`${DOMRewriter.PREFIX}${attrName}`, this.rules[attrName](node));
+                const value = this.rules[attrName](node);
+                if (value === undefined) {
+                    continue;
+                }
+                node.attr(`${DOMRewriter.PREFIX}${attrName}`, value);
             }
         }
         node.children().each(function() {
@@ -28,6 +32,7 @@ class DOMRewriter {
 
     public addRule(attrName: string, value: (node: JQuery) => string|number) {
         this.rules[attrName] = value;
+        return this;
     }
 
     public withDefaultRules(): DOMRewriter {
