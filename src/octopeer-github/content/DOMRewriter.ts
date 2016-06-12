@@ -1,3 +1,4 @@
+/// <reference path="ZIndex.ts"/>
 /**
  * Created by Maarten on 12-06-2016.
  *
@@ -40,7 +41,10 @@ class DOMRewriter {
         this.addRule("y", (node) => node.position().top);
         this.addRule("width", (node) => node.width());
         this.addRule("height", (node) => node.height());
-        // TODO z-index
+        this.addRule("z", (node) => {
+            const z = node.zIndex();
+            return z === 0 ? undefined : z;
+        });
         return this;
     }
 }
