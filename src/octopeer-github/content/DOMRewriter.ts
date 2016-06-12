@@ -8,19 +8,34 @@ class DOMRewriter {
     /** The prefix that is used for all octopeer tags. */
     public static get PREFIX() { return "data-octopeer-"; }
 
+    private rules: any = {};
+
     /**
      * Rewrites the node given as parameter and all of its children in the subtree by adding tags.
      * @param node The node to rewrite
      */
     public rewrite(node: JQuery) {
-        const nodePosition = node.position();
-        node.attr(`${DOMRewriter.PREFIX}x`, nodePosition.left);
-        node.attr(`${DOMRewriter.PREFIX}y`, nodePosition.top);
-        node.attr(`${DOMRewriter.PREFIX}width`, node.width());
-        node.attr(`${DOMRewriter.PREFIX}height`, node.height());
-        // TODO z-index
+        const self = this;
+        for (let attrName in this.rules) {
+            if (this.rules.hasOwnProperty(attrName)) { // required check with for (... in ...)
+                node.attr(`${DOMRewriter.PREFIX}${attrName}`, this.rules[attrName](node));
+            }
+        }
         node.children().each(function() {
-            this.rewrite($(this));
+            self.rewrite($(this));
         });
+    }
+
+    public addRule(attrName: string, value: (node: JQuery) => string|number) {
+        this.rules[attrName] = value;
+    }
+
+    public withDefaultRules(): DOMRewriter {
+        this.addRule("x", (node) => node.position().left);
+        this.addRule("y", (node) => node.position().top);
+        this.addRule("width", (node) => node.width());
+        this.addRule("height", (node) => node.height());
+        // TODO z-index
+        return this;
     }
 }
