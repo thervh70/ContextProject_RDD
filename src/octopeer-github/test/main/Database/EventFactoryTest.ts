@@ -23,10 +23,18 @@ describe("An EventFactory", function() {
             });
     });
 
-    it("should properly create KeystrokeEvents", function() {
-        expect(EventFactory.keystroke("q", defaultTime, defaultTime + 100))
+    it("should properly create KeystrokeEvents with keyDown", function() {
+        expect(EventFactory.keyDown("q", defaultTime))
             .toEqual({
-                data: {key_down_at: defaultTime, key_up_at: defaultTime + 100, keystroke: "q"},
+                data: {created_at: defaultTime, keystroke: "q", keystroke_type: KeystrokeType.KEY_DOWN},
+                type: "KeystrokeEvent",
+            });
+    });
+
+    it("should properly create KeystrokeEvents with keyUp", function() {
+        expect(EventFactory.keyUp("q", defaultTime))
+            .toEqual({
+                data: {created_at: defaultTime, keystroke: "q", keystroke_type: KeystrokeType.KEY_UP},
                 type: "KeystrokeEvent",
             });
     });
