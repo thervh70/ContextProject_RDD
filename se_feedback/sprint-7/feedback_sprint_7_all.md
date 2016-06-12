@@ -23,6 +23,8 @@ Total: ****
 | reflection            |    |
 
 ## Notes
+* Good Job!
+* Maarten's task "Implement the Logging Enabled Backend" was estimated to be 1 point but was a total effort of 8? What happened here?
 
 #Code Evolution Quality Feedback
 
