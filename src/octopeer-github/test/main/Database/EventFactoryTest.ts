@@ -23,6 +23,11 @@ describe("An EventFactory", function() {
             });
     });
 
+    it("should properly create KeystrokeEvents without Timestamp", function() {
+        expect(EventFactory.keystroke("q", KeystrokeType.KEY_DOWN).data)
+            .toEqual(jasmine.objectContaining({keystroke: "q", keystroke_type: KeystrokeType.KEY_DOWN}));
+    });
+
     it("should properly create KeystrokeEvents with keyDown", function() {
         expect(EventFactory.keyDown("q", defaultTime))
             .toEqual({
