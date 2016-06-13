@@ -42,8 +42,10 @@ class ContentController {
      * Get the current username from the DOM and save it to Chrome local storage.
      */
     private storeCurrentUser() {
-        let userName = $("head meta[name=user-login]").attr("content");
-        chrome.storage.local.set({user: userName});
+        $(document).ready(() => {
+            let userName = $("head meta[name=user-login]").attr("content");
+            chrome.storage.local.set({user: userName});
+        });
     }
 
     /**
