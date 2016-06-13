@@ -2,6 +2,10 @@
  * Created by Maarten on 26-05-2016.
  */
 
+/**
+ * A set of constants used for defining keystroke types.
+ */
+// tslint:disable-next-line:no-unused-variable
 const KeystrokeType = {
     KEY_DOWN: 1,
     KEY_UP: 2,
