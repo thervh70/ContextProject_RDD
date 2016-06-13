@@ -3,12 +3,22 @@
  */
 
 /**
+ * A set of constants used for defining keystroke types.
+ */
+// tslint:disable-next-line:no-unused-variable
+const KeystrokeType = {
+    KEY_DOWN: 1,
+    KEY_UP: 2,
+};
+type KeystrokeType = number;
+
+/**
  * A KeystrokeEvent contains the data that should be posted to a Database.
  * @param keystroke     the keystroke that is being logged.
- * @param timestamp     when the event was created.
+ * @param created_at    when the event was created.
  */
 interface KeystrokeEvent {
     keystroke: string;
-    key_down_at: UnixTimestamp;
-    key_up_at: UnixTimestamp;
+    keystroke_type: KeystrokeType;
+    created_at: UnixTimestamp;
 }
