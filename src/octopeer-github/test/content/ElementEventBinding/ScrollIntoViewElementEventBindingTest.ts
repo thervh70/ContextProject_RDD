@@ -14,7 +14,7 @@ describe("A ScrollIntoViewElementEventBinding's", function() {
     it("type should be retrieved when the getEventType function is called", function() {
         selector = esbFactory.create(database, ElementID.INLINE_COMMENT_TEXTFIELD);
         binder = eebFactory.create(selector, EventID.SCROLL_INTO_VIEW);
-        expect(binder.getEventType()).toBe("scroll");
+        expect(binder.getEventType()).toBe("scroll:finish");
     });
 
     it("ID should be retrieved when the getEventID function is called", function() {
