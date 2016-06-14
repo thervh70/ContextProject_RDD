@@ -41,7 +41,7 @@ const elementEventBindingDataList: ElementEventBindingData[] = [
             let windowWidth = $(window).width();
             let windowHeight = $(window).height();
             let wasInScope = false;
-            $(document).on("scroll", () => {
+            $(window).on("scroll:finish", (eventObject) => {
                 if (esb.getElements().length > 0) {
                     let rect = esb.getElements()[0].getBoundingClientRect();
                     let isBetween = (leftBound: number, rightBound: number, value: number) => {
@@ -53,7 +53,10 @@ const elementEventBindingDataList: ElementEventBindingData[] = [
                     };
                     if (!wasInScope && isInScope()) {
                         wasInScope = true;
-                        esb.getCallback(this.eventID);
+                        esb.getCallback(EventID.SCROLL_INTO_VIEW)(eventObject);
+                    } else if (wasInScope && !isInScope()) {
+                        wasInScope = false;
+                        esb.getCallback(EventID.SCROLL_OUT_OF_VIEW)(eventObject);
                     }
                 }
             });
@@ -61,7 +64,7 @@ const elementEventBindingDataList: ElementEventBindingData[] = [
         eventID: EventID.SCROLL_INTO_VIEW,
         name: "scroll",
         removeDOMEvent: (esb: ElementSelectionBehaviour) => {
-            console.log("off");
+            esb.getElements().off("scroll:finish");
         },
     },
     {
