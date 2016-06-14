@@ -33,14 +33,11 @@ class MainController implements OptionsObserver {
      */
     public notify() {
         chrome.tabs.query({"active": true, "currentWindow": true}, (tabs: Tab[]) => {
-            if (!Options.get(Options.LOGGING)) {
-                if (Status.isStatus(StatusCode.RUNNING)) {
-                    this.postToDatabase(EventFactory.semantic(ElementID.NO_ELEMENT, EventID.STOP_WATCHING_PR), tabs[0].url);
-                }
-                Status.off();
-            }
             this.testAndSend(tabs[0]);
         });
+        if (!Options.get(Options.LOGGING)) {
+            Status.off();
+        }
     }
 
     /**
@@ -171,13 +168,7 @@ class MainController implements OptionsObserver {
         if (!isActiveTab || !Options.get(Options.LOGGING)) {
             return;
         }
-        const eventID = isPullRequest ? EventID.START_WATCHING_PR : EventID.STOP_WATCHING_PR;
         const status =  isPullRequest ? StatusCode.RUNNING        : StatusCode.STANDBY;
-        const wasItRunning = Status.isStatus(StatusCode.RUNNING);
-
-        if (isPullRequest && !wasItRunning || !isPullRequest && wasItRunning) { // XOR does not exist in JS :(
-            this.postToDatabase(EventFactory.semantic(ElementID.NO_ELEMENT, eventID), this.previousPrUrl);
-        }
         Status.set(status);
     }
 

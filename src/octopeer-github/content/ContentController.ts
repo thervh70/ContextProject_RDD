@@ -34,7 +34,7 @@ class ContentController {
      * @type {MutationObserver}
      */
     private mutationObserver = new MutationObserver((mutationRecordList) => {
-        this.unhookFromDOM();
+        this.unhookFromDOM(this.messageSendDatabaseAdapter);
         if (URLHandler.isPullRequestUrl(window.location.href)) {
             this.rewriteDOM();
             this.hookToDOM(this.messageSendDatabaseAdapter);
@@ -73,7 +73,7 @@ class ContentController {
                     this.hookToDOM(this.messageSendDatabaseAdapter);
                     sendResponse(`hooked to DOM (${location.href})`);
                 } else {
-                    this.unhookFromDOM();
+                    this.unhookFromDOM(this.messageSendDatabaseAdapter);
                     sendResponse(`unhooked from DOM (${location.href})`);
                 }
             } catch (e) {
@@ -90,8 +90,9 @@ class ContentController {
      * @param database   the database that should be used when logging.
      */
     private hookToDOM(database: DatabaseAdaptable) {
-        this.unhookFromDOM();
+        this.unhookFromDOM(database);
         this.hookSemanticToDOM(database);
+        this.hookFocusAndBlurToDom(database);
         this.hookTrackersToDOM(database);
         this.hookMutationObserverToDOM();
     }
@@ -99,9 +100,10 @@ class ContentController {
     /**
      * Unhook both semantic and raw data trackers from DOM.
      */
-    private unhookFromDOM() {
+    private unhookFromDOM(database: DatabaseAdaptable) {
         this.unhookMutationObserverFromDOM();
         this.unhookSemanticFromDOM();
+        this.unhookFocusAndBlurFromDom(database);
         this.unhookTrackersFromDOM();
     }
 
@@ -113,6 +115,16 @@ class ContentController {
             elementEventBinding.removeDOMEvent();
         }
         this.oldElementEventBindings = [];
+    }
+
+    /**
+     * Makes sure that START_WATCHING_PR and STOP_WATCHING_PR are no longer logged to the database.
+     */
+    private unhookFocusAndBlurFromDom(database: DatabaseAdaptable) {
+        $(window).off("focus blur unload");
+        if (!document.hidden) {
+            database.post(EventFactory.semantic(ElementID.NO_ELEMENT, EventID.STOP_WATCHING_PR), EMPTY_CALLBACK, EMPTY_CALLBACK);
+        }
     }
 
     /**
@@ -156,6 +168,28 @@ class ContentController {
                     this.oldElementEventBindings.push(elementEventBinding);
                 }
             }
+        }
+    }
+
+    /**
+     * Makes sure that START_WATCHING_PR and STOP_WATCHING_PR are logged to the database.
+     */
+    private hookFocusAndBlurToDom(database: DatabaseAdaptable) {
+        const postStart = () => {
+            database.post(EventFactory.semantic(ElementID.NO_ELEMENT, EventID.START_WATCHING_PR), EMPTY_CALLBACK, EMPTY_CALLBACK);
+        };
+        const postStop = () => {
+            database.post(EventFactory.semantic(ElementID.NO_ELEMENT, EventID.STOP_WATCHING_PR), EMPTY_CALLBACK, EMPTY_CALLBACK);
+        };
+        $(window).on("focus", postStart);
+        $(window).on("blur", postStop);
+        $(window).on("unload", () => {
+            if (!document.hidden) {
+                postStop();
+            }
+        });
+        if (!document.hidden) {
+            postStart();
         }
     }
 
