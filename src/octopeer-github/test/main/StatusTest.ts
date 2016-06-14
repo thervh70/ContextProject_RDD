@@ -65,22 +65,18 @@ describe("The Status, when the state is changed", function() {
 });
 
 describe("The Status, when set", function() {
-
-    it("by the set function, should call helper method setter with the given status, if Octopeer is allowed to log", function () {
-        let spyOptions = spyOn(Options, "get").and.returnValue(true);
-        let spySetter = spyOn(Status, "setter");
-        let statusCode = StatusCode.ERROR;
-        Status.set(statusCode);
-        expect(spyOptions).toHaveBeenCalled();
-        expect(spySetter).toHaveBeenCalledWith(statusCode);
-    });
-
-    it("by the set function, should call helper method setter with the StatusCode off, if Octopeer is not allowed to log", function () {
+    it("by the set function, should set its internal variable to off, if Octopeer is not allowed to log", function () {
         let spyOptions = spyOn(Options, "get").and.returnValue(false);
-        let spySetter = spyOn(Status, "setter");
         Status.set(StatusCode.ERROR);
         expect(spyOptions).toHaveBeenCalled();
-        expect(spySetter).toHaveBeenCalledWith(StatusCode.OFF);
+        expect(Status.isStatus(StatusCode.OFF));
+    });
+
+    it("by the set function, should set its internal variable the requested variable, if Octopeer is allowed to log", function () {
+        let spyOptions = spyOn(Options, "get").and.returnValue(true);
+        Status.set(StatusCode.ERROR);
+        expect(spyOptions).toHaveBeenCalled();
+        expect(Status.isStatus(StatusCode.ERROR));
     });
 
     it("by the helper method 'setter' should update the new status by setting new properties with functions of chrome.", function () {
