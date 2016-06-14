@@ -102,6 +102,12 @@ class MainController implements OptionsObserver {
         });
     }
 
+    /**
+     * Transforms an EventObject message before posting it to the database.
+     * Numberic elementIDs and eventIDs are replaced by their encapsuled counterparts (EventID and ElementID)
+     * @param dataMessage The message to transform.
+     * @returns {EventObject} The same message, but in the correct format.
+     */
     private readMessage(dataMessage: any): EventObject {
         const eventObject = <EventObject>JSON.parse(dataMessage);
         if (eventObject.type === "SemanticEvent") {
@@ -113,6 +119,10 @@ class MainController implements OptionsObserver {
         return eventObject;
     }
 
+    /**
+     * Posts a message to the current database. If it's a HTMLPageEvent message, truncate its content before logging it in debug mode.
+     * @param message the message to be posted
+     */
     private postToDatabase(message: EventObject) {
         const success = function() {
             if (message.type === "HTMLPageEvent") {
@@ -170,6 +180,11 @@ class MainController implements OptionsObserver {
         Status.set(status);
     }
 
+    /**
+     * Sends to a tab whether to hook or unhook to/from the DOM.
+     * @param tab The tab to send this message to.
+     * @param hookToDom true if the tab shold hook to DOM, false if the tab should unhook from DOM.
+     */
     private sendMessageToContentScript(tab: Tab, hookToDom: boolean) {
         chrome.tabs.sendMessage(tab.id, {
             hookToDom: hookToDom,
