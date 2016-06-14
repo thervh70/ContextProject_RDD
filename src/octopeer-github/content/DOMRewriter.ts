@@ -48,7 +48,7 @@ class DOMRewriter {
     }
 
     /**
-     * Adds all rules that were thought useful during the Database Meetings: x, y, width, height and (optional) z.
+     * Adds all rules that are useful for research purposes: x, y, width, height and (optional) z.
      * @returns {DOMRewriter} this
      */
     public withDefaultRules(): DOMRewriter {
