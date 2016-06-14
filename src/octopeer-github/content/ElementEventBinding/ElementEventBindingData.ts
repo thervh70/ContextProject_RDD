@@ -41,20 +41,30 @@ const elementEventBindingDataList: ElementEventBindingData[] = [
             let windowWidth = $(window).width();
             let windowHeight = $(window).height();
             let wasInScope = false;
+            let rect: ClientRect;
+            let isBetween = (leftBound: number, rightBound: number, value: number) => {
+                return leftBound <= value && rightBound >= value;
+            };
+            let isInScope = (width: number, height: number, rectangle: ClientRect) => {
+                return (isBetween(0, windowHeight, rectangle.top) || isBetween(0, windowHeight, rectangle.bottom)) &&
+                    (isBetween(0, windowWidth, rectangle.left) || isBetween(0, windowWidth, rectangle.right));
+            };
+            if (esb.getElements().length > 0) {
+                rect = esb.getElements()[0].getBoundingClientRect();
+                if (isInScope(windowWidth, windowHeight, rect)) {
+                    wasInScope = true;
+                    esb.getCallback(EventID.SCROLL_INTO_VIEW)($.Event("scroll:finish"));
+                }
+            }
             $(window).on(this.name, (eventObject) => {
                 if (esb.getElements().length > 0) {
-                    let rect = esb.getElements()[0].getBoundingClientRect();
-                    let isBetween = (leftBound: number, rightBound: number, value: number) => {
-                        return leftBound <= value && rightBound >= value;
-                    };
-                    let isInScope = () => {
-                        return (isBetween(0, windowHeight, rect.top) || isBetween(0, windowHeight, rect.bottom)) &&
-                            (isBetween(0, windowWidth, rect.left) || isBetween(0, windowWidth, rect.right));
-                    };
-                    if (!wasInScope && isInScope()) {
+                    windowWidth = $(window).width();
+                    windowHeight = $(window).height();
+                    rect = esb.getElements()[0].getBoundingClientRect();
+                    if (!wasInScope && isInScope(windowWidth, windowHeight, rect)) {
                         wasInScope = true;
                         esb.getCallback(EventID.SCROLL_INTO_VIEW)(eventObject);
-                    } else if (wasInScope && !isInScope()) {
+                    } else if (wasInScope && !isInScope(windowWidth, windowHeight, rect)) {
                         wasInScope = false;
                         esb.getCallback(EventID.SCROLL_OUT_OF_VIEW)(eventObject);
                     }
