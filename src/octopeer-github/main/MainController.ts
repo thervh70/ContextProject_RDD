@@ -122,7 +122,6 @@ class MainController implements OptionsObserver {
                 return; // Only continue if message is sent from a content script
             }
             // IP for testing locally: 10.0.22.6
-            // TODO: get name from context
             this.database = new RESTApiDatabaseAdapter("http://146.185.128.124", sender.tab.url, this.user);
             this.postToDatabase(this.readMessage(message));
             sendResponse({});
