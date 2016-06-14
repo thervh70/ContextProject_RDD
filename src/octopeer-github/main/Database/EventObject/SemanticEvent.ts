@@ -15,6 +15,7 @@ type LineNumber = number;
  * @param duration      the duration of the event.
  * @param filename      the name of the file in inline tracking.
  * @param lineNumber    the linenumber in the file in inline tracking.
+ * @param created_at    when the event was created.
  */
 interface SemanticEvent {
     elementID: ElementID;

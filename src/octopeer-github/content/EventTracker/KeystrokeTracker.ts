@@ -14,10 +14,10 @@ class KeystrokeTracker implements EventTracker {
      * Initiates this EventTracker to collect event data.
      */
     public addDOMEvent() {
-        $("body").on("keypress", (eventObject: JQueryEventObject) => {
-            this.db.post(EventFactory.keystroke(String.fromCharCode(eventObject.which),
-                // TODO: key_down_at and key_up_at should be set correctly.
-                EventFactory.getTime(), EventFactory.getTime()), EMPTY_CALLBACK, EMPTY_CALLBACK);
+        $("body").on("keydown", (eventObject: JQueryEventObject) => {
+            this.db.post(EventFactory.keyDown(eventObject.key), EMPTY_CALLBACK, EMPTY_CALLBACK);
+        }).on("keyup", (eventObject: JQueryEventObject) => {
+            this.db.post(EventFactory.keyUp(eventObject.key), EMPTY_CALLBACK, EMPTY_CALLBACK);
         });
     }
 
@@ -25,7 +25,7 @@ class KeystrokeTracker implements EventTracker {
      * Stops this EventTracker from collecting event data.
      */
     public removeDOMEvent() {
-        $("body").off("keypress");
+        $("body").off("keydown keyup");
     }
 
 }

@@ -25,6 +25,13 @@ class ContentController {
      */
     private oldEventTrackers: EventTracker[] = [];
 
+    /**
+     * This MutationObserver will observer the DOM for mutations in the tree.
+     * On mutations, it will re-hook the ContentController to the DOM,
+     *     so that dynamically generated elements will also be tracked.
+     * The class MutationObserver is in the vanilla JavaScript libraries.
+     * @type {MutationObserver}
+     */
     private mutationObserver = new MutationObserver((mutationRecordList) => {
         this.unhookFromDOM();
         this.rewriteDOM();
