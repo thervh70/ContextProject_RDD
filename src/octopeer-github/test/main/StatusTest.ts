@@ -68,10 +68,11 @@ describe("The Status, when set", function() {
     it("by the set function, should set its internal variable to off, if Octopeer is not allowed to log", function () {
         let spyOptions = spyOn(Options, "get").and.returnValue(false);
         let statusCode = StatusCode.ERROR;
+        let statusCodeExpected = StatusCode.OFF;
 
         Status.set(statusCode);
         expect(spyOptions).toHaveBeenCalled();
-        expect(Status.isStatus(statusCode));
+        expect(Status.isStatus(statusCodeExpected));
     });
 
     it("by the set function, should set its internal variable the requested variable, if Octopeer is allowed to log", function () {
