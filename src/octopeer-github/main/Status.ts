@@ -89,11 +89,11 @@ const Status = new (class Status {
      * @param status
      */
     public set(status: StatusCode) {
-        this.status = status;
-
         if (!Options.get(Options.LOGGING)) {
             status = StatusCode.OFF;
         }
+
+        this.status = status;
 
         chrome.runtime.sendMessage({
             line: Status.MESSAGE[status],
