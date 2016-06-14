@@ -67,8 +67,4 @@ const elementEventBindingDataList: ElementEventBindingData[] = [
             esb.getElements().off("scroll:finish");
         },
     },
-    {
-        eventID: EventID.SCROLL_OUT_OF_VIEW,
-        name: "scroll",
-    },
 ];
