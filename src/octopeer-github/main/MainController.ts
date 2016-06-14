@@ -9,7 +9,7 @@ class MainController implements OptionsObserver {
 
     private database: DatabaseAdaptable;
 
-    /** The current user (is logged to the database). Default is Travis */
+    /** The current user (is logged to the database). */
     private user: string;
 
     /**
