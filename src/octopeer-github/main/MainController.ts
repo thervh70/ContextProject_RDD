@@ -96,7 +96,8 @@ class MainController implements OptionsObserver {
             }
             // IP for testing locally: 10.0.22.6
             // TODO: get name from context
-            this.database = new RESTApiDatabaseAdapter("http://146.185.128.124", sender.tab.url, "Travis");
+            // this.database = new RESTApiDatabaseAdapter("http://146.185.128.124", sender.tab.url, "Travis");
+            this.database = new ConsoleLogDatabaseAdapter();
             this.postToDatabase(this.readMessage(message));
             sendResponse({});
         });

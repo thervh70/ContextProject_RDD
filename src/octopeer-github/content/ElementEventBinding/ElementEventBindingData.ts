@@ -10,8 +10,8 @@
 interface ElementEventBindingData {
     addDOMEvent?: (elementSelectionBehaviour?: ElementSelectionBehaviour) => void;
     eventID: EventID;
-    removeDOMEvent?: (elementSelectionBehaviour?: ElementSelectionBehaviour) => void;
     name: string;
+    removeDOMEvent?: (elementSelectionBehaviour?: ElementSelectionBehaviour) => void;
 }
 
 /**
@@ -37,11 +37,22 @@ const elementEventBindingDataList: ElementEventBindingData[] = [
         name: "mouseleave",
     },
     {
+        addDOMEvent: (esb: ElementSelectionBehaviour) => {
+            $(document).on("scroll", () => {
+                console.log(esb.getElementID());
+                if (esb.getElements().length > 0) {
+                    console.log(esb.getElements()[0].getBoundingClientRect());
+                }
+            });
+        },
         eventID: EventID.SCROLL_INTO_VIEW,
-        name: "scrollintoview",
+        name: "scroll",
+        removeDOMEvent: (esb: ElementSelectionBehaviour) => {
+            console.log("off");
+        },
     },
     {
         eventID: EventID.SCROLL_OUT_OF_VIEW,
-        name: "scrolloutofview",
+        name: "scroll",
     },
 ];

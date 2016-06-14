@@ -14,7 +14,7 @@ describe("A ScrollOutOfViewElementEventBinding's", function() {
     it("type should be retrieved when the getEventType function is called", function() {
         selector = esbFactory.create(database, ElementID.CONFIRM_EDIT_COMMENT);
         binder = eebFactory.create(selector, EventID.SCROLL_OUT_OF_VIEW);
-        expect(binder.getEventType()).toBe("scrolloutofview");
+        expect(binder.getEventType()).toBe("scroll");
     });
 
     it("ID should be retrieved when the getEventID function is called", function() {
