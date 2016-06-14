@@ -100,7 +100,7 @@ class MainController implements OptionsObserver {
     }
 
     /**
-     * Connect a listener to the chrome loacl storage and update the user name when necessary.
+     * Connect a listener to the chrome local storage and update the user name when necessary.
      */
     private updateUsername() {
         chrome.storage.onChanged.addListener((changes, namespace) => {
