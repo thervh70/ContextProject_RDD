@@ -37,30 +37,25 @@ const elementEventBindingDataList: ElementEventBindingData[] = [
         name: "mouseleave",
     },
     {
-        addDOMEvent: (esb: ElementSelectionBehaviour) => {
-            let windowWidth = $(window).width();
-            let windowHeight = $(window).height();
+        addDOMEvent: (elementSelectionBehaviour: ElementSelectionBehaviour) => {
             let wasInScope = false;
-            let rect: ClientRect;
-            let isBetween = (leftBound: number, rightBound: number, value: number) => {
-                return leftBound <= value && rightBound >= value;
-            };
-            let isInScope = (width: number, height: number, rectangle: ClientRect) => {
-                return (isBetween(0, windowHeight, rectangle.top) || isBetween(0, windowHeight, rectangle.bottom)) &&
-                    (isBetween(0, windowWidth, rectangle.left) || isBetween(0, windowWidth, rectangle.right));
-            };
-            if (esb.getElements().length > 0) {
-                rect = esb.getElements()[0].getBoundingClientRect();
-                if (isInScope(windowWidth, windowHeight, rect)) {
-                    wasInScope = true;
-                    esb.getCallback(EventID.SCROLL_INTO_VIEW)($.Event("scroll:finish"));
-                }
-            }
-            $(window).on(this.name, (eventObject) => {
+            let handleScrollEvent = (esb: ElementSelectionBehaviour, eventObject: JQueryEventObject) => {
+                let isBetween = (leftBound: number, rightBound: number, value: number) => {
+                    return leftBound <= value && rightBound >= value;
+                };
+                let isInHorizontalScope = (width: number, rect: ClientRect) => {
+                    return isBetween(0, width, rect.left) || isBetween(0, width, rect.right);
+                };
+                let isInVerticalScope = (height: number, rect: ClientRect) => {
+                    return isBetween(0, height, rect.top) || isBetween(0, height, rect.bottom);
+                };
+                let isInScope = (width: number, height: number, rectangle: ClientRect) => {
+                    return isInHorizontalScope(width, rectangle) && isInVerticalScope(height, rectangle);
+                };
                 if (esb.getElements().length > 0) {
-                    windowWidth = $(window).width();
-                    windowHeight = $(window).height();
-                    rect = esb.getElements()[0].getBoundingClientRect();
+                    let windowWidth = $(window).width();
+                    let windowHeight = $(window).height();
+                    let rect = esb.getElements()[0].getBoundingClientRect();
                     if (!wasInScope && isInScope(windowWidth, windowHeight, rect)) {
                         wasInScope = true;
                         esb.getCallback(EventID.SCROLL_INTO_VIEW)(eventObject);
@@ -69,6 +64,10 @@ const elementEventBindingDataList: ElementEventBindingData[] = [
                         esb.getCallback(EventID.SCROLL_OUT_OF_VIEW)(eventObject);
                     }
                 }
+            };
+            handleScrollEvent(elementSelectionBehaviour, $.Event("scroll:finish"));
+            $(window).on("scroll:finish", (eventObject) => {
+                handleScrollEvent(elementSelectionBehaviour, eventObject);
             });
         },
         eventID: EventID.SCROLL,
