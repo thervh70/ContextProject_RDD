@@ -26,13 +26,6 @@ class ContentController {
     private oldEventTrackers: EventTracker[] = [];
 
     private mutationObserver = new MutationObserver((mutationRecordList) => {
-        /*for (let mutationRecord of mutationRecordList) {
-            const addedNodes = mutationRecord.addedNodes;
-            for (let i = 0; i < addedNodes.length; i++) {
-                const addedNode = addedNodes[i];
-                $(addedNode);
-            }
-        }*/
         this.unhookFromDOM();
         this.domRewriter.rewrite($("body"));
         this.messageSendDatabaseAdapter.post(EventFactory.htmlPage(document.documentElement.outerHTML), EMPTY_CALLBACK, EMPTY_CALLBACK);
@@ -181,7 +174,7 @@ class ContentController {
      * Hooks the MutationObserver to the DOM tree.
      */
     private hookMutationObserverToDOM() {
-        this.mutationObserver.observe(document.body, { /*attributes: true, characterData: true, */childList: true, subtree: true });
+        this.mutationObserver.observe(document.body, { childList: true, subtree: true });
     }
 
     /**
