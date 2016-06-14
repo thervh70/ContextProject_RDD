@@ -183,7 +183,7 @@ class MainController implements OptionsObserver {
     /**
      * Sends to a tab whether to hook or unhook to/from the DOM.
      * @param tab The tab to send this message to.
-     * @param hookToDom true if the tab shold hook to DOM, false if the tab should unhook from DOM.
+     * @param hookToDom true if the tab should hook to DOM, false if the tab should unhook from DOM.
      */
     private sendMessageToContentScript(tab: Tab, hookToDom: boolean) {
         chrome.tabs.sendMessage(tab.id, {
