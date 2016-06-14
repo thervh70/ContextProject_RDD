@@ -106,7 +106,6 @@ class MainController implements OptionsObserver {
         chrome.storage.onChanged.addListener((changes, namespace) => {
             for (let change in changes) {
                 if (namespace === "local" && change === "user") {
-                    console.log(changes[change]);
                     this.user = changes[change].newValue;
                 }
             }
