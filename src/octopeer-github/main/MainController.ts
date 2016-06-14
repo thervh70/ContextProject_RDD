@@ -68,7 +68,7 @@ class MainController implements OptionsObserver {
         const self = this;
         chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
             if (changeInfo.status && changeInfo.status === "complete") {
-                self.testAndSend(tab, false);
+                self.testAndSend(tab, true);
             }
         });
     }

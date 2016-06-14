@@ -1,5 +1,6 @@
 /// <reference path="../main/Options/DoNotWatchOptions.ts"/>
 /// <reference path="../main/Database/ConsoleLogDatabaseAdapter.ts"/>
+/// <reference path="../main/URLHandler.ts"/>
 /// <reference path="ElementEventBinding/ElementEventBinding.ts"/>
 
 /**
@@ -34,8 +35,10 @@ class ContentController {
      */
     private mutationObserver = new MutationObserver((mutationRecordList) => {
         this.unhookFromDOM();
-        this.rewriteDOM();
-        this.hookToDOM(this.messageSendDatabaseAdapter);
+        if (URLHandler.isPullRequestUrl(window.location.href)) {
+            this.rewriteDOM();
+            this.hookToDOM(this.messageSendDatabaseAdapter);
+        }
     });
 
     /**
