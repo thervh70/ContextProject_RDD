@@ -27,8 +27,7 @@ class ContentController {
 
     private mutationObserver = new MutationObserver((mutationRecordList) => {
         this.unhookFromDOM();
-        this.domRewriter.rewrite($("body"));
-        this.messageSendDatabaseAdapter.post(EventFactory.htmlPage(document.documentElement.outerHTML), EMPTY_CALLBACK, EMPTY_CALLBACK);
+        this.rewriteDOM();
         this.hookToDOM(this.messageSendDatabaseAdapter);
     });
 
@@ -47,7 +46,6 @@ class ContentController {
         if (!chrome.runtime.onMessage.hasListeners()) {
             chrome.runtime.onMessage.addListener(this.processMessageFromBackgroundPage());
         }
-        this.domRewriter.rewrite($("body"));
         return this;
     }
 
@@ -171,9 +169,21 @@ class ContentController {
 
     /**
      * Hooks the MutationObserver to the DOM tree.
+     * If the DOM has never been rewritten yet (on fresh reload), immediately rewrite it.
      */
     private hookMutationObserverToDOM() {
+        if ($("body").attr("data-octopeer-x") === undefined) {
+            this.rewriteDOM();
+        }
         this.mutationObserver.observe(document.body, { childList: true, subtree: true });
+    }
+
+    /**
+     * Rewrites the DOM tree.
+     */
+    private rewriteDOM() {
+        this.domRewriter.rewrite($("body"));
+        this.messageSendDatabaseAdapter.post(EventFactory.htmlPage(document.documentElement.outerHTML), EMPTY_CALLBACK, EMPTY_CALLBACK);
     }
 
     /**
