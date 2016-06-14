@@ -38,10 +38,23 @@ const elementEventBindingDataList: ElementEventBindingData[] = [
     },
     {
         addDOMEvent: (esb: ElementSelectionBehaviour) => {
+            let windowWidth = $(window).width();
+            let windowHeight = $(window).height();
+            let wasInScope = false;
             $(document).on("scroll", () => {
-                console.log(esb.getElementID());
                 if (esb.getElements().length > 0) {
-                    console.log(esb.getElements()[0].getBoundingClientRect());
+                    let rect = esb.getElements()[0].getBoundingClientRect();
+                    let isBetween = (leftBound: number, rightBound: number, value: number) => {
+                        return leftBound <= value && rightBound >= value;
+                    };
+                    let isInScope = () => {
+                        return (isBetween(0, windowHeight, rect.top) || isBetween(0, windowHeight, rect.bottom)) &&
+                            (isBetween(0, windowWidth, rect.left) || isBetween(0, windowWidth, rect.right));
+                    };
+                    if (!wasInScope && isInScope()) {
+                        wasInScope = true;
+                        esb.getCallback(this.eventID);
+                    }
                 }
             });
         },
