@@ -61,7 +61,7 @@ const elementEventBindingDataList: ElementEventBindingData[] = [
                 }
             });
         },
-        eventID: EventID.SCROLL_INTO_VIEW,
+        eventID: EventID.SCROLL,
         name: "scroll:finish",
         removeDOMEvent: (esb: ElementSelectionBehaviour) => {
             esb.getElements().off(this.name);
