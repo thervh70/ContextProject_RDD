@@ -115,7 +115,11 @@ class MainController implements OptionsObserver {
 
     private postToDatabase(message: EventObject) {
         const success = function() {
-            Logger.debug(`Successfully logged to database: ${JSON.stringify(message)}`);
+            if (message.type === "HTMLPageEvent") {
+                Logger.debug(`Successfully logged HTML page to database: \n${(<HTMLPageEvent>message.data).dom.substring(0,1500)}...`);
+            } else {
+                Logger.debug(`Successfully logged to database: ${JSON.stringify(message)}`);
+            }
         };
         const failure = function() {
             Logger.warn("Log to database of following object failed:");
