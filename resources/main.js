@@ -6,8 +6,9 @@ $(document).ready(function () {
     });
 
     $('#analytics-link').on('click', function() {
+        var target = $('head meta[name=analytics-browser-action]').attr('content');
         chrome.storage.local.get('user', function(result) {
-            window.open('../analytics/index.html?platform=GitHub&userName=' + result.user, '_blank');
+            window.open('../analytics/index.html?platform=GitHub&userName=' + result.user, target);
         })
     })
 });
