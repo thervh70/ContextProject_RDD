@@ -53,7 +53,7 @@ class ContentController {
      */
     public start() {
         Options.init();
-        this.finishScrollEvent();
+        this.setUpFinishScrollEvent();
         this.storeCurrentUser();
         if (!chrome.runtime.onMessage.hasListeners()) {
             chrome.runtime.onMessage.addListener(this.processMessageFromBackgroundPage());
@@ -192,7 +192,7 @@ class ContentController {
     /**
      * Custom JQuery event finishScroll. Gets triggered when there hasn't been a scroll event for 500ms.
      */
-    private finishScrollEvent() {
+    private setUpFinishScrollEvent() {
         let scrollTimer: number;
         $(window).scroll(() => {
             clearTimeout(scrollTimer);
