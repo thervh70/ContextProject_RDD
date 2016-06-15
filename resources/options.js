@@ -77,7 +77,7 @@ function restoreOptionsAvailability() {
 // Restores the availability of the checkboxes, that are enabled / disabled by other checkboxes. using the logging value which is stored in chrome.storage.
 function restoreSubOptionsAvailability() {
     for (var i = 0; i < onDisableHideAndDisable.length; i++) {
-        dynamicalyHideOrShowSubelements(onDisableHideAndDisable[i]);
+        dynamicalyHideOrShowSubOptions(onDisableHideAndDisable[i]);
     }
 }
 
@@ -129,23 +129,23 @@ function addOptionClickEvents() {
     for (var i = 0; i < onDisableHideAndDisable.length; i++) {
         (function (tohide) {
             $("#" + tohide[0]).click(function() {
-                dynamicalyHideOrShowSubelements(tohide);
+                dynamicalyHideOrShowSubOptions(tohide);
                 saveOptions();
             });
         })(onDisableHideAndDisable[i]);
     }
 }
 
-function dynamicalyHideOrShowSubelements(tohide) {
+function dynamicalyHideOrShowSubOptions(tohide) {
     if ($("#" + tohide[0]).prop('checked') && !$("#" + tohide[0]).attr('disabled') ) {
-        for (var s in tohide[1]) {
-            if ($("#" + tohide[1][s]).attr("disabled")) {
-                $("#" + tohide[1][s]).removeAttr("disabled");
+        for (var element in tohide[1]) {
+            if ($("#" + tohide[1][element]).attr("disabled")) {
+                $("#" + tohide[1][element]).removeAttr("disabled");
             }
         }
     } else {
-        for (var s in tohide[1]) {
-            $("#" + tohide[1][s]).attr("disabled", true);
+        for (var element in tohide[1]) {
+            $("#" + tohide[1][element]).attr("disabled", true);
         }
     }
 }
