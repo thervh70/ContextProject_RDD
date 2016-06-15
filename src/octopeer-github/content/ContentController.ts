@@ -49,10 +49,21 @@ class ContentController {
      */
     public start() {
         Options.init();
+        this.storeCurrentUser();
         if (!chrome.runtime.onMessage.hasListeners()) {
             chrome.runtime.onMessage.addListener(this.processMessageFromBackgroundPage());
         }
         return this;
+    }
+
+    /**
+     * Get the current username from the DOM and save it to Chrome local storage.
+     */
+    private storeCurrentUser() {
+        $(document).ready(() => {
+            let userName = $("head meta[name=user-login]").attr("content");
+            chrome.storage.local.set({user: userName});
+        });
     }
 
     /**

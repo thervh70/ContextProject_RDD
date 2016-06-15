@@ -9,6 +9,9 @@ class MainController implements OptionsObserver {
 
     private database: DatabaseAdaptable;
 
+    /** The current user (is logged to the database). */
+    private user: string;
+
     /**
      * Starts the MainController. After calling this, all event handlers are hooked to the DOM-tree.
      * @return this
@@ -44,6 +47,8 @@ class MainController implements OptionsObserver {
      * Set up all event handlers in the Chrome API.
      */
     private connectToContentScript() {
+        this.initUsername();
+        this.updateUsername();
         this.initAllCurrentTabs();
         this.rehookOnUpdate();
         this.rehookOnFocusChange();
@@ -87,6 +92,26 @@ class MainController implements OptionsObserver {
     }
 
     /**
+     * Init the username in the local storage.
+     * This is done to make the listener used in updateUsername to work properly the first time.
+     */
+    private initUsername() {
+        chrome.storage.local.set({user: "Travis"});
+    }
+
+    /**
+     * Connect a listener to the chrome local storage and update the user name when necessary.
+     */
+    private updateUsername() {
+        let change = "user";
+        chrome.storage.onChanged.addListener((changes, namespace) => {
+            if (namespace === "local" && changes[change] !== undefined) {
+                this.user = changes[change].newValue;
+            }
+        });
+    }
+
+    /**
      * When a tab sends a message, log it to the Database.
      */
     private listenToDatabaseMessages() {
@@ -95,8 +120,7 @@ class MainController implements OptionsObserver {
                 return; // Only continue if message is sent from a content script
             }
             // IP for testing locally: 10.0.22.6
-            // TODO: get name from context
-            this.database = new RESTApiDatabaseAdapter("http://146.185.128.124", sender.tab.url, "Travis");
+            this.database = new RESTApiDatabaseAdapter("http://146.185.128.124", sender.tab.url, this.user);
             this.postToDatabase(this.readMessage(message));
             sendResponse({});
         });
@@ -139,7 +163,7 @@ class MainController implements OptionsObserver {
 
         let isPullRequest = URLHandler.isPullRequestUrl(tab.url);
         if (isPullRequest) {
-            this.database = new RESTApiDatabaseAdapter("http://146.185.128.124", tab.url, "Travis");
+            this.database = new RESTApiDatabaseAdapter("http://146.185.128.124", tab.url, this.user);
             this.sendMessageToContentScript(tab, Options.get(Options.LOGGING) && isPullRequest);
         }
         this.setNewStatus(isPullRequest, isActiveTab);
