@@ -139,11 +139,13 @@ function addOptionClickEvents() {
 function dynamicalyHideOrShowSubelements(tohide) {
     if ($("#" + tohide[0]).prop('checked')) {
         for (var s in tohide[1]) {
-            $("#" + tohide[1][s]).prop('checked', true).removeAttr("disabled");
+            if ( $("#" + tohide[1][s]).attr("disabled")) {
+                $("#" + tohide[1][s]).removeAttr("disabled");
+            }
         }
     } else {
         for (var s in tohide[1]) {
-            $("#" + tohide[1][s]).prop('checked', false).attr("disabled", true);
+            $("#" + tohide[1][s]).attr("disabled", true);
         }
     }
 }
