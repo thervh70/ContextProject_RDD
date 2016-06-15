@@ -162,6 +162,7 @@ class MainController implements OptionsObserver {
 
         if (isPullRequest && !wasItRunning || !isPullRequest && wasItRunning) { // XOR does not exist in JS :(
             this.postToDatabase(EventFactory.semantic(ElementID.NO_ELEMENT, eventID));
+            this.postToDatabase(EventFactory.tabChange(EventFactory.getTime()));
         }
         Status.set(status);
     }
