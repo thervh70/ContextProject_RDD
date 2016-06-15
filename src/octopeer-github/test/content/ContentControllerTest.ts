@@ -38,7 +38,7 @@ describe("The ContentController", function() {
         expect(spyAddedListeners).toHaveBeenCalled();
     });
 
-    it("should fire a scroll:finish event on the rigth moment", function () {
+    it("should fire a scroll:finish event on the right moment", function () {
         spyCheckListeners(event, "scroll:finish");
         jasmine.clock().install();
         $(window).trigger("scroll");
