@@ -58,11 +58,9 @@ const elementEventBindingDataList: ElementEventBindingData[] = [
                     for (let i = 0; i < esb.getElements().length; i++) {
                         let rect = esb.getElements()[i].getBoundingClientRect();
                         if (!wasInScope && isInScope(windowWidth, windowHeight, rect)) {
-                            console.log(esb.getElementID() + "   into");
                             wasInScope = true;
                             esb.getCallback(EventID.SCROLL_INTO_VIEW)(eventObject);
                         } else if (wasInScope && !isInScope(windowWidth, windowHeight, rect)) {
-                            console.log(esb.getElementID() + "   outof");
                             wasInScope = false;
                             esb.getCallback(EventID.SCROLL_OUT_OF_VIEW)(eventObject);
                         }
