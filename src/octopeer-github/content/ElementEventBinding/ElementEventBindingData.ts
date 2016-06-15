@@ -43,5 +43,5 @@ const elementEventBindingDataList: ElementEventBindingData[] = [
     {
         eventID: EventID.SCROLL_OUT_OF_VIEW,
         name: "scrolloutofview",
-    }
+    },
 ];

@@ -13,6 +13,9 @@ class MainController implements OptionsObserver {
     /** The previous pr url */
     private previousPrUrl = "";
 
+    /** The current user (is logged to the database). */
+    private user: string;
+
     /**
      * Starts the MainController. After calling this, all event handlers are hooked to the DOM-tree.
      * @return this
@@ -44,6 +47,8 @@ class MainController implements OptionsObserver {
      * Set up all event handlers in the Chrome API.
      */
     private connectToContentScript() {
+        this.initUsername();
+        this.updateUsername();
         this.initAllCurrentTabs();
         this.rehookOnUpdate();
         this.rehookOnFocusChange();
@@ -81,6 +86,26 @@ class MainController implements OptionsObserver {
             chrome.tabs.query({"active": true, "windowId": activeInfo.windowId}, (tabs: Tab[]) => {
                 this.testAndSend(tabs[0]);
             });
+        });
+    }
+
+    /**
+     * Init the username in the local storage.
+     * This is done to make the listener used in updateUsername to work properly the first time.
+     */
+    private initUsername() {
+        chrome.storage.local.set({user: "Travis"});
+    }
+
+    /**
+     * Connect a listener to the chrome local storage and update the user name when necessary.
+     */
+    private updateUsername() {
+        let change = "user";
+        chrome.storage.onChanged.addListener((changes, namespace) => {
+            if (namespace === "local" && changes[change] !== undefined) {
+                this.user = changes[change].newValue;
+            }
         });
     }
 
@@ -132,8 +157,7 @@ class MainController implements OptionsObserver {
             Logger.warn("Log to database of following object failed:");
             Logger.warn(message);
         };
-        // TODO: get name from context
-        this.getDatabase("Travis", prUrl).post(message, success, failure);
+        this.getDatabase(this.user, prUrl).post(message, success, failure);
     }
 
     /**
@@ -175,7 +199,7 @@ class MainController implements OptionsObserver {
     /**
      * Sends to a tab whether to hook or unhook to/from the DOM.
      * @param tab The tab to send this message to.
-     * @param hookToDom true if the tab shold hook to DOM, false if the tab should unhook from DOM.
+     * @param hookToDom true if the tab should hook to DOM, false if the tab should unhook from DOM.
      */
     private sendMessageToContentScript(tab: Tab, hookToDom: boolean) {
         chrome.tabs.sendMessage(tab.id, {
