@@ -43,100 +43,77 @@
     </p>
 
     <div class="row">
-    <div class="col s12">
-        <div class="card">
-            <div class="card-content">
-                <span class="card-title">General</span> <br>
-                <input type="checkbox" id="loggingEnabled" checked>
-                <label for="loggingEnabled">I accept Octopeer to log data from me while reviewing pull requests on GitHub.</label>
+        <div class="col s12">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title">General</span> <br>
+                    <input type="checkbox" id="loggingEnabled" checked>
+                    <label for="loggingEnabled">I accept Octopeer to log data from me while reviewing pull requests on GitHub.</label>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="col s12 l4" id="privacy">
-        <div class="card">
-            <div class="card-content">
-                <span class="card-title">Privacy</span> <br>
-                <p>
-                The following data can be tracked from me, while I'm reviewing pull requests on GitHub:
-                </p>
-                <ul id="privacySubOptions">
-                    <li>
-                        <input type="checkbox" id="trackTabs" checked>
-                        <label for="trackTabs">other active tabs that are used.</label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="trackComments" checked>
-                        <label for="trackComments"> the comments that I add to a pull request. </label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="trackPeerComments" checked>
-                        <label for="trackPeerComments"> the comments of my peers that have been added to a pull request. </label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="trackFocus" checked>
-                        <label for="trackFocus"> what part of a page I'm focusing on (in terms of text hovering, selection, etc.). </label>
-                    </li>
-                </ul>
+        <div class="col s12 m6" id="mouse">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title">Mouse</span> <br>
+                    <p>
+                        While I'm reviewing pull requests on GitHub, the following actions involving my mouse may be tracked:
+                    </p>
+                    <ul id="mouseSubOptions">
+                        <li>
+                            <input type="checkbox" id="mouseHover" checked>
+                            <label for="mouseHover"> what elements I hover on.</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="mouseClick" checked>
+                            <label for="mouseClick"> what elements I click on. </label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="mouseScrolling" checked>
+                            <label for="mouseScrolling"> how I use the scroll bar. </label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="mousePosition" checked>
+                            <label for="mousePosition"> where my mouse is. </label>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="col s12 l4">
-        <div class="card" id="security">
-            <div class="card-content">
-                <span class="card-title">Security</span> <br>
-                <p>
-                If you allow Octopeer to log data from you, it will store this data and process it.
-                Would you like Octopeer to take the following security measures?
-                </p>
-                <ul id="securitySubOptions">
-                    <li>
-                        <input type="checkbox" id="hashUsername" checked>
-                        <label for="hashUsername"> Encrypt your username. </label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="hashRepo" checked>
-                        <label for="hashRepo"> Encrypt the names of repositories you're working in. </label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="hashFile">
-                        <label for="hashFile"> Encrypt the names of the files you're working on. </label>
-                     </li>
-                </ul>
+        <div class="col s12 m6">
+            <div class="card" id="data">
+                <div class="card-content">
+                    <span class="card-title">Data</span> <br>
+                    <p>
+                        While I'm reviewing pull requests on GitHub, the following actions may be done:
+                    </p>
+                    <ul id="dataSubOptions">
+                        <li>
+                            <input type="checkbox" id="dataComments" checked>
+                            <label for="dataComments"> log the comments on a PR. </label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="dataKeystrokes" checked>
+                            <label for="dataKeystrokes"> log individual keystrokes / shortcuts on the PR page. </label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="dataHTML">
+                            <label for="dataHTML"> log the eintire pull request. </label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="dataTabs">
+                            <label for="dataTabs"> log when I swich active tabs. </label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="dataResolution">
+                            <label for="dataResolution"> log my window resolution. </label>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
-
-    <div class="col s12 l4">
-        <div class="card" id="doNotWatch">
-            <div class="card-content">
-                <span class="card-title">Tracking selection</span> <br>
-                <p>
-                    The checked elements and events will be tracked while Octopeer is running.
-                </p>
-                <ul id="doNotWatchSubOptions">
-                    <li>
-                        <input type="checkbox" id="dnwScreen" checked>
-                        <label for="dnwScreen">Elements on the screen. </label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="dnwHover" checked>
-                        <label for="dnwHover">Elements I hover over with the mouse. </label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="dnwComments" checked>
-                        <label for="dnwComments">Comments on my Pull Request. </label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="dnwKeyboardShortcut" checked>
-                        <label for="dnwKeyboardShortcut">The keyboard shortcuts I use. </label>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
     </div>
 
     <button class="btn waves-effect lime waves-light" type="submit" style="font-size: 11pt; margin-bottom: 30px;" id="restore">
