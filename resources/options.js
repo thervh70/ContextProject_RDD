@@ -5,6 +5,7 @@
 
 // List that contains all optionID names that Octopeer provides.
     var options = ['mouseHover',
+var options = ['loggingEnabled', 'mouseHover',
     'mouseClick', 'mouseScrolling', 'mousePosition', 'dataComments',
     'dataKeystrokes', 'dataHTML', 'dataTabs',
     'dataResolution'];
