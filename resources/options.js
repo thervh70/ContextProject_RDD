@@ -18,7 +18,6 @@ var cards = ['mouse', 'data'];
 // if one of these becomes disabled, disable and hide the others too.
 var onDisableHideAndDisable = [
     ['dataComments', ['dataKeystrokes', 'dataHTML']],
-    ['dataKeystrokes', ['dataHTML']]
     ['dataKeystrokes', ['dataHTML']],
     ['mousePosition', ['mouseHover', 'mouseClick']],
 ];
