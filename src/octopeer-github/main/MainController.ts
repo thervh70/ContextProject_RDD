@@ -103,11 +103,10 @@ class MainController implements OptionsObserver {
      * Connect a listener to the chrome local storage and update the user name when necessary.
      */
     private updateUsername() {
+        let change = "user";
         chrome.storage.onChanged.addListener((changes, namespace) => {
-            for (let change in changes) {
-                if (namespace === "local" && change === "user") {
-                    this.user = changes[change].newValue;
-                }
+            if (namespace === "local" && changes[change] !== undefined) {
+                this.user = changes[change].newValue;
             }
         });
     }
