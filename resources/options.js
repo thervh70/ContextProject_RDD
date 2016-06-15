@@ -68,6 +68,10 @@ function restoreOptionsAvailability() {
         } else {
             hide();
         }
+
+        for (var i = 0; i < onDisableHideAndDisable.length; i++) {
+            dynamicalyHideOrShowSubelements(onDisableHideAndDisable[i]);
+        }
     });
 }
 
