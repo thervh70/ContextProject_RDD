@@ -75,13 +75,6 @@ function restoreOptionsAvailability() {
     });
 }
 
-// Shows the sub-options.
-function showSubOptions() {
-    for (var i = 0; i < subOptions.length; i++) {
-        subOptionsElement(i).show();
-    }
-}
-
 // Hides the sub-options.
 function hideSubOptions() {
     for (var i = 0; i < subOptions.length; i++) {
