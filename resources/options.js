@@ -143,8 +143,30 @@ function elementGenerator(index, array){
 // When clicking on the main option, switchOptions is also called.
 function addOptionClickEvents() {
     optionsElement(0).click(switchOptions);
+
     for (var i = 0; i < options.length; i++) {
         optionsElement(i).click(saveOptions);
+    }
+
+    for (var i = 0; i < onDisableHideAndDisable.length; i++) {
+        (function (tohide) {
+            $("#" + tohide[0]).click(function() {
+                dynamicalyHideOrShowSubelements(tohide);
+                saveOptions();
+            });
+        })(onDisableHideAndDisable[i]);
+    }
+}
+
+function dynamicalyHideOrShowSubelements(tohide) {
+    if ($("#" + tohide[0]).prop('checked')) {
+        for (var s in tohide[1]) {
+            $("#" + tohide[1][s]).prop('checked', true).removeAttr("disabled");
+        }
+    } else {
+        for (var s in tohide[1]) {
+            $("#" + tohide[1][s]).prop('checked', false).attr("disabled", true);
+        }
     }
 }
 
