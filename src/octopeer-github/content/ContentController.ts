@@ -135,23 +135,23 @@ class ContentController {
         let elementSelectionBehaviour: ElementSelectionBehaviour;
 
         for (elementSelectionBehaviourData of elementSelectionBehaviourDataList) {
-            // if (!DoNotWatchOptions.shouldElementBeWatched(elementSelectionBehaviourData.elementID)) {
-            //     continue;
-            // }
+            if (!DoNotWatchOptions.shouldElementBeWatched(elementSelectionBehaviourData.elementID)) {
+                continue;
+            }
 
             elementSelectionBehaviour = esbFactory.create(database, elementSelectionBehaviourData.elementID);
 
             for (elementEventBindingData of elementEventBindingDataList) {
-                // if (DoNotWatchOptions.shouldEventBeWatched(elementEventBindingData.eventID) &&
-                //     DoNotWatchOptions.shouldCombinationBeWatched({
-                //         element: elementSelectionBehaviourData.elementID,
-                //         event: elementEventBindingData.eventID,
-                //     })
-                // ) {
+                if (DoNotWatchOptions.shouldEventBeWatched(elementEventBindingData.eventID) &&
+                    DoNotWatchOptions.shouldCombinationBeWatched({
+                        element: elementSelectionBehaviourData.elementID,
+                        event: elementEventBindingData.eventID,
+                    })
+                ) {
                     elementEventBinding = eebFactory.create(elementSelectionBehaviour, elementEventBindingData.eventID);
                     elementEventBinding.addDOMEvent();
                     this.oldElementEventBindings.push(elementEventBinding);
-                // }
+                }
             }
         }
     }
