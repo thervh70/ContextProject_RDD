@@ -37,4 +37,13 @@ describe("The ContentController", function() {
         expect(spyCheckListeners).toHaveBeenCalled();
         expect(spyAddedListeners).toHaveBeenCalled();
     });
+
+    it("should fire a scroll:finish event on the rigth moment", function () {
+        spyCheckListeners(event, "scroll:finish");
+        jasmine.clock().install();
+        $(window).trigger("scroll");
+        jasmine.clock().tick(1000);
+        jasmine.clock().uninstall();
+        expect(spyCheckListeners).toHaveBeenCalled();
+    });
 });
