@@ -23,5 +23,12 @@ input[type="checkbox"]+label {
 
 input[type="checkbox"]:disabled+label {
     opacity: 0.48;
-    text-decoration: line-through;
+}
+
+input[type="checkbox"]:disabled+label:before {
+    opacity: 0;
+}
+
+input[type="checkbox"]+label:before {
+    transition(all .3s ease-in-out);
 }
