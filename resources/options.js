@@ -75,13 +75,6 @@ function restoreOptionsAvailability() {
     });
 }
 
-// Hides the sub-options.
-function hideSubOptions() {
-    for (var i = 0; i < subOptions.length; i++) {
-        subOptionsElement(i).hide();
-    }
-}
-
 // Shows the option cards.
 function showCards() {
     for (var i = 0; i < cards.length; i++) {
