@@ -47,7 +47,7 @@ interface CombinationsThatShouldNotBeWatchedTuple extends Array<string | Array<E
 const DoNotWatchOptions = new (class DoNotWatchOptions {
 
     private elementsThatShouldNotBeWatched: ElementThatShouldNotBeWatchedTuple[] = [
-        ["doNotWatchCommentElements", [
+        ["dataComments", [
             ElementID.CONFIRM_INLINE_COMMENT,
             ElementID.CREATE_PR_COMMENT,
             ElementID.EDIT_COMMENT,
@@ -55,9 +55,10 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
     ];
 
     private eventsThatShouldNotBeWatched: EventThatShouldNotBeWatchedTuple[] = [
-        ["doNotWatchOnScreenEvents", [EventID.SCROLL_INTO_VIEW, EventID.SCROLL_OUT_OF_VIEW]],
-        ["doNotWatchHoverEvents", [EventID.MOUSE_ENTER, EventID.MOUSE_LEAVE]],
-        ["doNotWatchKeyboardShortcutEvents", [EventID.KEYSTROKE]],
+        ["mouseScrolling", [EventID.SCROLL_INTO_VIEW, EventID.SCROLL_OUT_OF_VIEW]],
+        ["mouseHover", [EventID.MOUSE_ENTER, EventID.MOUSE_LEAVE]],
+        ["mouseClick", [EventID.CLICK]],
+        ["dataKeystrokes", [EventID.KEYSTROKE]],
     ];
 
     private combinationsThatShouldNotBeWatched: CombinationsThatShouldNotBeWatchedTuple[] = [];
