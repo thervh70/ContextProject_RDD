@@ -111,13 +111,20 @@ class MainController implements OptionsObserver {
 
     /**
      * When a tab sends a message, log it to the Database.
+     * If a tab sends a message while having a URL that is invalid, send "unhookFromDom" (defensive programming).
      */
     private listenToDatabaseMessages() {
         chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             if (!sender.tab) {
                 return; // Only continue if message is sent from a content script
             }
-            this.postToDatabase(this.readMessage(message), sender.tab.url);
+            if (URLHandler.isPullRequestUrl(sender.tab.url)) {
+                this.postToDatabase(this.readMessage(message), sender.tab.url);
+            } else {
+                Logger.warn(`Squelching ${sender.tab} after it sent:`);
+                Logger.warn(message);
+                this.sendMessageToContentScript(sender.tab, false);
+            }
             sendResponse({});
         });
     }
@@ -192,7 +199,7 @@ class MainController implements OptionsObserver {
         if (!isActiveTab || !Options.get(Options.LOGGING)) {
             return;
         }
-        const status =  isPullRequest ? StatusCode.RUNNING        : StatusCode.STANDBY;
+        const status =  isPullRequest ? StatusCode.RUNNING : StatusCode.STANDBY;
         Status.set(status);
     }
 

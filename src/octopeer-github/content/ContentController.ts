@@ -133,7 +133,7 @@ class ContentController {
      */
     private unhookFocusAndBlurFromDom(database: DatabaseAdaptable) {
         $(window).off("focus blur unload");
-        if (!document.hidden) {
+        if (!document.hidden && URLHandler.isPullRequestUrl(window.location.href)) {
             database.post(EventFactory.semantic(ElementID.NO_ELEMENT, EventID.STOP_WATCHING_PR), EMPTY_CALLBACK, EMPTY_CALLBACK);
         }
     }
