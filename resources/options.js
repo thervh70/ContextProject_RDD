@@ -75,13 +75,6 @@ function restoreOptionsAvailability() {
     });
 }
 
-// Shows the option cards.
-function showCards() {
-    for (var i = 0; i < cards.length; i++) {
-        cardElement(i).show();
-    }
-}
-
 // Hides the option cards.
 function hideCards() {
     for (var i = 0; i < cards.length; i++) {
