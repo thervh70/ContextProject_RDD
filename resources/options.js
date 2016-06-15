@@ -4,16 +4,16 @@
  */
 
 // List that contains all optionID names that Octopeer provides.
-var options = ['loggingEnabled',
-    'trackTabs', 'trackComments', 'trackPeerComments', 'trackFocus',
-    'hashUsername', 'hashRepo', 'hashFile',
-    'dnwScreen', 'dnwHover', 'dnwComments', 'dnwKeyboardShortcut'];
+    var options = ['mouseHover',
+    'mouseClick', 'mouseScrolling', 'mousePosition', 'dataComments',
+    'dataKeystrokes', 'dataHTML', 'dataTabs',
+    'dataResolution'];
 
 // List that contains all subOptionID names that Octopeer provides.
-var subOptions = ['securitySubOptions', 'privacySubOptions', 'hintsSubOptions', 'doNotWatchSubOptions'];
+var subOptions = ['mouseSubOptions', 'dataSubOptions'];
 
 // List that contains all cardElement names that Octopeer provides.
-var cards = ['security', 'privacy', 'hints', 'doNotWatch'];
+var cards = ['mouse', 'data'];
 
 // Object that contains all default options.
 var defaultOptions = {};
