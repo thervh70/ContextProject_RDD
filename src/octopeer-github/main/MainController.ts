@@ -73,7 +73,7 @@ class MainController implements OptionsObserver {
         const self = this;
         chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
             if (changeInfo.status && changeInfo.status === "complete") {
-                self.testAndSend(tab, false);
+                self.testAndSend(tab, true);
             }
         });
     }
@@ -126,6 +126,12 @@ class MainController implements OptionsObserver {
         });
     }
 
+    /**
+     * Transforms an EventObject message before posting it to the database.
+     * Numberic elementIDs and eventIDs are replaced by their encapsuled counterparts (EventID and ElementID)
+     * @param dataMessage The message to transform.
+     * @returns {EventObject} The same message, but in the correct format.
+     */
     private readMessage(dataMessage: any): EventObject {
         const eventObject = <EventObject>JSON.parse(dataMessage);
         if (eventObject.type === "SemanticEvent") {
@@ -137,9 +143,17 @@ class MainController implements OptionsObserver {
         return eventObject;
     }
 
+    /**
+     * Posts a message to the current database. If it's a HTMLPageEvent message, truncate its content before logging it in debug mode.
+     * @param message the message to be posted
+     */
     private postToDatabase(message: EventObject) {
         const success = function() {
-            Logger.debug(`Successfully logged to database: ${JSON.stringify(message)}`);
+            if (message.type === "HTMLPageEvent") {
+                Logger.debug(`Successfully logged HTML page to database: \n${(<HTMLPageEvent>message.data).dom.substring(0,1500)}...`);
+            } else {
+                Logger.debug(`Successfully logged to database: ${JSON.stringify(message)}`);
+            }
         };
         const failure = function() {
             Logger.warn("Log to database of following object failed:");
@@ -190,6 +204,11 @@ class MainController implements OptionsObserver {
         Status.set(status);
     }
 
+    /**
+     * Sends to a tab whether to hook or unhook to/from the DOM.
+     * @param tab The tab to send this message to.
+     * @param hookToDom true if the tab should hook to DOM, false if the tab should unhook from DOM.
+     */
     private sendMessageToContentScript(tab: Tab, hookToDom: boolean) {
         chrome.tabs.sendMessage(tab.id, {
             hookToDom: hookToDom,
