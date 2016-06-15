@@ -67,14 +67,18 @@ function restoreOptionsAvailability() {
         var enabled = items.loggingEnabled;
         if (enabled) {
             show();
+            restoreSubOptionsAvailability();
         } else {
             hide();
         }
-
-        for (var i = 0; i < onDisableHideAndDisable.length; i++) {
-            dynamicalyHideOrShowSubelements(onDisableHideAndDisable[i]);
-        }
     });
+}
+
+// Restores the availability of the checkboxes, that are enabled / disabled by other checkboxes. using the logging value which is stored in chrome.storage.
+function restoreSubOptionsAvailability() {
+    for (var i = 0; i < onDisableHideAndDisable.length; i++) {
+        dynamicalyHideOrShowSubelements(onDisableHideAndDisable[i]);
+    }
 }
 
 // Disables availability of options.
