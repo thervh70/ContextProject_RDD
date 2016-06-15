@@ -15,6 +15,12 @@ var subOptions = ['mouseSubOptions', 'dataSubOptions'];
 // List that contains all cardElement names that Octopeer provides.
 var cards = ['mouse', 'data'];
 
+// if one of these becomes disabled, disable and hide the others too.
+var onDisableHideAndDisable = [
+    ['dataComments', ['dataKeystrokes', 'dataHTML']],
+    ['dataKeystrokes', ['dataHTML']]
+];
+
 // Object that contains all default options.
 var defaultOptions = {};
 
