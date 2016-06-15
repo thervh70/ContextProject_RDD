@@ -23,7 +23,7 @@ describe("A ScrollIntoViewElementEventBinding's", function() {
         expect(binder.getEventID()).toEqual(new EventID(300));
     });
 
-    describe("A semantic ScrollEvent should be logged", function () {
+    describe("addDOMEvent callback", function () {
         let spy: Spy;
 
         beforeEach(function () {
@@ -35,14 +35,14 @@ describe("A ScrollIntoViewElementEventBinding's", function() {
             binder.removeDOMEvent();
         });
 
-        it("addDOMEvent callback should be executed when initialized (esb in viewport)", function() {
+        it("should be executed when initialized (esb in viewport)", function() {
             selector = esbFactory.create(database, ElementID.CONVERSATION_TAB);
             binder = eebFactory.create(selector, EventID.SCROLL);
             binder.addDOMEvent();
             expect(spy).toHaveBeenCalledTimes(1);
         });
 
-        it("addDOMEvent callback should be executed on firing of a scroll:finish event (esb out viewport)", function() {
+        it("should be executed on firing of a scroll:finish event (esb out viewport)", function() {
             selector = esbFactory.create(database, ElementID.MERGE_PR);
             binder = eebFactory.create(selector, EventID.SCROLL);
             binder.addDOMEvent();
