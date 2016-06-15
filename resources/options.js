@@ -139,7 +139,7 @@ function addOptionClickEvents() {
 function dynamicalyHideOrShowSubelements(tohide) {
     if ($("#" + tohide[0]).prop('checked')) {
         for (var s in tohide[1]) {
-            if ( $("#" + tohide[1][s]).attr("disabled")) {
+            if ($("#" + tohide[1][s]).attr("disabled")) {
                 $("#" + tohide[1][s]).removeAttr("disabled");
             }
         }
