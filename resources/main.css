@@ -16,3 +16,12 @@ p {
     min-width: 200px;
     min-height: 200px;
 }
+
+input[type="checkbox"]+label {
+    color: rgba(0,0,0,0.87)
+}
+
+input[type="checkbox"]:disabled+label {
+    opacity: 0.48;
+    text-decoration: line-through;
+}
