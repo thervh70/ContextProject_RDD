@@ -75,13 +75,6 @@ function restoreOptionsAvailability() {
     });
 }
 
-// Hides the option cards.
-function hideCards() {
-    for (var i = 0; i < cards.length; i++) {
-        cardElement(i).hide();
-    }
-}
-
 // Disables availability of options.
 function showWithDisable() {
     // Starts at index 1, as the main option at index 0 doesn't need to be disabled (just all other options).
