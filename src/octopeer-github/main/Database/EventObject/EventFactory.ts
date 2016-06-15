@@ -105,6 +105,18 @@ abstract class EventFactory {
     }
 
     /**
+     * Creates a TabChangeEvent object.
+     * @param created_at    the timestamp at which the event was created. Defaults to the current timestamp.
+     * @returns {EventObject} A TabChangeEvent object that can be posted to the database.
+     */
+    public static tabChange(created_at = EventFactory.getTime()): EventObject {
+        return {
+            data: {created_at: created_at},
+            type: "TabChangeEvent",
+        };
+    }
+
+    /**
      * Creates a WindowResolutionEvent object.
      * @param width         the new width of the window.
      * @param height        the new height of the window.
@@ -126,5 +138,4 @@ abstract class EventFactory {
     public static getTime(): UnixTimestamp {
         return new Date().getTime() / 1000;
     }
-
 }
