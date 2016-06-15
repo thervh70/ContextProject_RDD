@@ -19,6 +19,7 @@ var cards = ['mouse', 'data'];
 var onDisableHideAndDisable = [
     ['dataComments', ['dataKeystrokes', 'dataHTML']],
     ['dataKeystrokes', ['dataHTML']]
+    ['mousePosition', ['mouseHover', 'mouseClick']],
 ];
 
 // Object that contains all default options.
