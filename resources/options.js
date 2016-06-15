@@ -20,6 +20,7 @@ var onDisableHideAndDisable = [
     ['dataComments', ['dataKeystrokes', 'dataHTML']],
     ['dataKeystrokes', ['dataHTML']],
     ['mousePosition', ['mouseHover', 'mouseClick']],
+    ['mouseHover', ['mouseClick']]
 ];
 
 // Object that contains all default options.
