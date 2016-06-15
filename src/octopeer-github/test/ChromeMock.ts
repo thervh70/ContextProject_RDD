@@ -43,39 +43,3 @@ _window.chrome = {
         query: emptyFun,
     },
 };
-
-_window.chromeUser = {
-    browserAction: {
-        setIcon: emptyFun,
-    },
-    runtime: {
-        onMessage: {
-            addListener: emptyFun,
-            hasListeners: emptyFun,
-        },
-        sendMessage: emptyFun,
-    },
-    storage: {
-        local: {
-            get: function () {return this.user; },
-            set: function (username: string) {this.user = username; },
-            user: "",
-        },
-        onChanged: {
-            addListener: emptyFun,
-        },
-        sync: {
-            get: emptyFun,
-            set: emptyFun,
-        },
-    },
-    tabs: {
-        onActivated: {
-            addListener: emptyFun,
-        },
-        onUpdated: {
-            addListener: emptyFun,
-        },
-        query: emptyFun,
-    },
-};
