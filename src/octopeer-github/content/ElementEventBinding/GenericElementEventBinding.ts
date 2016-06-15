@@ -5,11 +5,6 @@
  */
 class GenericElementEventBinding implements ElementEventBinding {
 
-    /** The EventID. */
-    private eventID: EventID;
-    /** The name. */
-    private eventType: string;
-
     /**
      * Construct a GenericElementEventBinding, assign the proper values to the field (from the data)
      * @param elementSelectionBehaviour the elementSelectionBehaviour to use for its elements and callback
@@ -17,8 +12,6 @@ class GenericElementEventBinding implements ElementEventBinding {
      * @deprecated Use the EEBFactory to construct new GenericElementEventBindings.
      */
     constructor(private elementSelectionBehaviour: ElementSelectionBehaviour, private data: ElementEventBindingData) {
-        this.eventID = data.eventID;
-        this.eventType = data.name;
         this.checkOverrides();
     }
 
@@ -27,15 +20,15 @@ class GenericElementEventBinding implements ElementEventBinding {
      * @returns {EventID}
      */
     public getEventID() {
-        return this.eventID;
+        return this.data.eventID;
     }
 
     /**
-     * Get the eventName.
+     * Get the event type.
      * @returns {string}
      */
     public getEventType() {
-        return this.eventType;
+        return this.data.name;
     }
 
     /**
@@ -61,10 +54,10 @@ class GenericElementEventBinding implements ElementEventBinding {
     private checkOverrides() {
         if (!this.hasBothOverrides()) {
             this.data.addDOMEvent = (esb: ElementSelectionBehaviour) => {
-                esb.getElements().on(this.eventType, esb.getCallback(this.eventID));
+                esb.getElements().on(this.getEventType(), esb.getCallback(this.getEventID()));
             };
             this.data.removeDOMEvent = (esb: ElementSelectionBehaviour) => {
-                esb.getElements().off(this.eventType);
+                esb.getElements().off(this.getEventType());
             };
         }
     }

@@ -44,6 +44,15 @@ describe("An EventFactory", function() {
             });
     });
 
+    it("should properly create HTMLPageEvents", function() {
+        const randomHTMLstring = "<html><head><title>Random yay!</title></head><body></body></html>";
+        expect(EventFactory.htmlPage(randomHTMLstring, defaultTime))
+            .toEqual({
+                data: {created_at: defaultTime, dom: randomHTMLstring},
+                type: "HTMLPageEvent",
+            });
+    });
+
     it("should properly create MouseClickEvents", function() {
         expect(EventFactory.mouseClick(defaultTime))
             .toEqual({

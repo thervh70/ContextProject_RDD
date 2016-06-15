@@ -1,3 +1,4 @@
+/// <reference path="HTMLPageEvent.ts"/>
 /// <reference path="KeystrokeEvent.ts"/>
 /// <reference path="MouseClickEvent.ts"/>
 /// <reference path="MousePositionEvent.ts"/>
@@ -24,5 +25,5 @@ type UnixTimestamp = number;
 /**
  * A union type containing all possible event types. Makes the handling of EventObjects less of a hassle with types.
  */
-type EventObjectData = KeystrokeEvent | MouseClickEvent | MousePositionEvent | MouseScrollEvent | SemanticEvent |
-                        TabChangeEvent | WindowResolutionEvent;
+type EventObjectData = HTMLPageEvent | KeystrokeEvent | MouseClickEvent | MousePositionEvent | MouseScrollEvent |
+                        SemanticEvent | TabChangeEvent | WindowResolutionEvent;
