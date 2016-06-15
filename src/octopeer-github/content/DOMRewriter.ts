@@ -22,18 +22,18 @@ class DOMRewriter {
      */
     public rewrite(node: JQuery) {
         const self = this;
-        for (let attrName in this.rules) {
-            if (this.rules.hasOwnProperty(attrName)) { // required check with for (... in ...)
-                const value = this.rules[attrName](node);
-                if (value === undefined) {
-                    continue;
+        const rewriteNode = function() {
+            for (let attrName in self.rules) {
+                if (self.rules.hasOwnProperty(attrName)) { // required check with for (... in ...)
+                    const value = self.rules[attrName]($(this));
+                    if (value !== undefined) {
+                        $(this).attr(`${DOMRewriter.PREFIX}${attrName}`, value);
+                    }
                 }
-                node.attr(`${DOMRewriter.PREFIX}${attrName}`, value);
             }
-        }
-        node.children().each(function() {
-            self.rewrite($(this));
-        });
+        };
+        node.each(rewriteNode);
+        node.find("*").each(rewriteNode);
     }
 
     /**
@@ -52,10 +52,10 @@ class DOMRewriter {
      * @returns {DOMRewriter} this
      */
     public withDefaultRules(): DOMRewriter {
-        this.addRule("x", (node) => node.position().left);
-        this.addRule("y", (node) => node.position().top);
-        this.addRule("width", (node) => node.width());
-        this.addRule("height", (node) => node.height());
+        this.addRule("x", (node) => node[0].getBoundingClientRect().left);
+        this.addRule("y", (node) => node[0].getBoundingClientRect().top);
+        this.addRule("width", (node) => node[0].getBoundingClientRect().width);
+        this.addRule("height", (node) => node[0].getBoundingClientRect().height);
         this.addRule("z", (node) => {
             const z = node.zIndex();
             return z === 0 ? undefined : z;
