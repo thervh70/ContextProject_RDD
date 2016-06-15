@@ -104,7 +104,10 @@ class ContentController {
         this.unhookFromDOM();
         this.hookSemanticToDOM(database);
         this.hookTrackersToDOM(database);
-        this.hookMutationObserverToDOM();
+
+        if (Options.get("dataHTML")) {
+            this.hookMutationObserverToDOM();
+        }
     }
 
     /**
