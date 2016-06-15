@@ -233,4 +233,27 @@ const elementSelectionBehaviourDataList: ElementSelectionBehaviourData[] = [
         name: "Inline comment textfield",
         selector: ".js-inline-comment-form textarea[id^=new]",
     },
+    /** Category: Diff */
+    {
+        // callback: (eventObject: JQueryEventObject) => {
+        //     const fileName = "file";
+        //     const lineNumber = "num";
+        //     this.database.post(EventFactory.semantic(this.getElementID(), eventID, fileName, lineNumber), EMPTY_CALLBACK, EMPTY_CALLBACK);
+        // },
+        elementID: ElementID.DIFF_LINE_NUMBER,
+        foundOnPages: PageMask.combine(PageMask.CONVERSATION, PageMask.FILES_CHANGED),
+        name: "Line number",
+        selector: ".blob-num",
+    },
+    {
+        // callback: (eventObject: JQueryEventObject) => {
+        //     const fileName = "file";
+        //     const lineNumber = "num";
+        //     this.database.post(EventFactory.semantic(this.getElementID(), eventID, fileName, lineNumber), EMPTY_CALLBACK, EMPTY_CALLBACK);
+        // },
+        elementID: ElementID.DIFF_LINE_OF_CODE,
+        foundOnPages: PageMask.combine(PageMask.CONVERSATION, PageMask.FILES_CHANGED),
+        name: "Line of code",
+        selector: ".blob-code",
+    },
 ];
