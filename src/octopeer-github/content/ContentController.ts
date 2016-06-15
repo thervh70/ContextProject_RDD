@@ -160,13 +160,28 @@ class ContentController {
      * @param database   the database that should be used when logging.
      */
     private hookTrackersToDOM(database: DatabaseAdaptable) {
-        const list: EventTracker[] = [
-            new WindowResolutionTracker(database),
-            new KeystrokeTracker(database),
-            new MouseClickTracker(database),
-            new MouseScrollTracker(database),
-            new MousePositionTracker(database),
-        ];
+        let list: EventTracker[];
+
+        if (Options.get("mousePosition")) {
+            list.push(new MousePositionTracker(database));
+        }
+
+        if (Options.get("mouseClick")) {
+            list.push(new MouseClickTracker(database));
+        }
+
+        if (Options.get("mouseScrolling")) {
+            list.push(new MouseScrollTracker(database));
+        }
+
+        if (Options.get("dataResolution")) {
+            list.push(new WindowResolutionTracker(database));
+        }
+
+        if (Options.get("dataKeystrokes")) {
+            list.push(new KeystrokeTracker(database));
+        }
+
         for (let tracker of list) {
             tracker.addDOMEvent();
             this.oldEventTrackers.push(tracker);
