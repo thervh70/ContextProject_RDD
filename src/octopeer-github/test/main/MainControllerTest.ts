@@ -129,4 +129,10 @@ describe("The MainController", function() {
         expect(spyChrome).toHaveBeenCalled();
     });
 
+    it("should initialize the username to default value 'Travis'", function () {
+        const spyChrome = spyOn(chrome.storage.local, "set");
+        testMainController.start();
+        expect(spyChrome).toHaveBeenCalledWith({user: "Travis"});
+    });
+
 });
