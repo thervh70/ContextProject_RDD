@@ -48,13 +48,14 @@ class GenericElementSelectionBehaviour implements ElementSelectionBehaviour {
      * @returns {function(JQueryEventObject)} an EventHandler to handle the event on the selected objects.
      */
     public getCallback(eventID: EventID) {
-        if (this.data.callback === undefined) {
-            const self = this;
-            return (eventObject: JQueryEventObject) => {
-                self.database.post(EventFactory.semantic(self.getElementID(), eventID), EMPTY_CALLBACK, EMPTY_CALLBACK);
-            };
-        } else {
-            return this.data.callback;
-        }
+        return (jQueryEventObject: JQueryEventObject) => {
+            let eventObject: EventObject;
+            if (this.data.processEvent === undefined) {
+                eventObject = EventFactory.semantic(this.getElementID(), eventID);
+            } else {
+                eventObject = this.data.processEvent(jQueryEventObject, eventID);
+            }
+            this.database.post(eventObject, EMPTY_CALLBACK, EMPTY_CALLBACK);
+        };
     }
 }

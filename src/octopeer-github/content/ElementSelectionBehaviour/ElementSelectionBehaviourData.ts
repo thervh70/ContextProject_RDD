@@ -11,11 +11,11 @@
  * callback is an optional function that overrides the default callback when necessary.
  */
 interface ElementSelectionBehaviourData {
-    callback?: (event: JQueryEventObject) => void;
     composedSelector?: () => JQuery;
     elementID: ElementID;
     foundOnPages: PageMask;
     name: string;
+    processEvent?: (event: JQueryEventObject, eventID: EventID) => EventObject;
     selector: string;
 }
 
@@ -235,25 +235,25 @@ const elementSelectionBehaviourDataList: ElementSelectionBehaviourData[] = [
     },
     /** Category: Diff */
     {
-        // callback: (eventObject: JQueryEventObject) => {
-        //     const fileName = "file";
-        //     const lineNumber = "num";
-        //     this.database.post(EventFactory.semantic(this.getElementID(), eventID, fileName, lineNumber), EMPTY_CALLBACK, EMPTY_CALLBACK);
-        // },
         elementID: ElementID.DIFF_LINE_NUMBER,
         foundOnPages: PageMask.combine(PageMask.CONVERSATION, PageMask.FILES_CHANGED),
         name: "Line number",
+        processEvent: (eventObject: JQueryEventObject, eventID: EventID) => {
+            const fileName = "file";
+            const lineNumber = 42;
+            return EventFactory.semantic(this.getElementID(), eventID, fileName, lineNumber);
+        },
         selector: ".blob-num",
     },
     {
-        // callback: (eventObject: JQueryEventObject) => {
-        //     const fileName = "file";
-        //     const lineNumber = "num";
-        //     this.database.post(EventFactory.semantic(this.getElementID(), eventID, fileName, lineNumber), EMPTY_CALLBACK, EMPTY_CALLBACK);
-        // },
         elementID: ElementID.DIFF_LINE_OF_CODE,
         foundOnPages: PageMask.combine(PageMask.CONVERSATION, PageMask.FILES_CHANGED),
         name: "Line of code",
+        processEvent: (eventObject: JQueryEventObject, eventID: EventID) => {
+            const fileName = "file";
+            const lineNumber = 42;
+            return EventFactory.semantic(this.getElementID(), eventID, fileName, lineNumber);
+        },
         selector: ".blob-code",
     },
 ];
