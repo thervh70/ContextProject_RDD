@@ -118,4 +118,12 @@ describe("The Options class", function() {
         expect(spyNotify).toHaveBeenCalled();
     });
 
+    it("should be able to generate a current option map, based on the general option map", function() {
+        expect(Options.generateCurrentOptionMap()).toEqual(mockedStorageObject);
+    });
+
+    it("should be able to generate a default option map, based on the general option map", function() {
+        expect(Options.generateDefaultOptionMap()).toEqual(mockedStorageObject);
+    });
+
 });
