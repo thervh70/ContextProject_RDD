@@ -253,7 +253,7 @@ const elementSelectionBehaviourDataList: ElementSelectionBehaviourData[] = [
         processEvent: (eventObject: JQueryEventObject, eventID: EventID) => {
             const fileName = $(eventObject.target).parent().parent().parent().parent().parent()
                 .children(".file-header").attr("data-path");
-            const lineNumber = parseInt($(eventObject.target).attr("data-line-number"), 10);
+            const lineNumber = parseInt($(eventObject.target).children(".add-line-comment").attr("data-line"), 10);
             return EventFactory.semantic(ElementID.DIFF_LINE_OF_CODE, eventID, fileName, lineNumber);
         },
         selector: ".blob-code-addition, .blob-code-deletion, .blob-code-context",
