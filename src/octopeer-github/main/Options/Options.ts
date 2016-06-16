@@ -25,14 +25,15 @@ const Options = new (class Options {
     public get DATA_TABS() {        return "dataTabs"; }
     public get DATA_RESOLUTION() {  return "dataResolution"; }
 
-    /**
-     * A option on the left should be disabled if the option on the right should be disabled.
-     */
-    public optionDependencies: {[name: string]: string; } = {
-        [this.DATA_HTML]:       this.DATA_KEYSTROKES,
-        [this.DATA_KEYSTROKES]: this.DATA_COMMENTS ,
-        [this.MOUSE_CLICK]:     this.MOUSE_HOVER,
-        [this.MOUSE_HOVER]:     this.MOUSE_POSITION,
+    // A option on the left should be disabled if the option on the right should be disabled.
+    public get optionDependencies(): {[name: string]: string; }{
+        return {
+            [this.DATA_HTML]:       this.DATA_KEYSTROKES,
+            [this.DATA_KEYSTROKES]: this.DATA_COMMENTS ,
+            [this.MOUSE_CLICK]:     this.MOUSE_HOVER,
+            [this.MOUSE_HOVER]:     this.MOUSE_POSITION,
+            [this.DATA_RESOLUTION]:     this.DATA_RESOLUTION,
+        };
     };
 
     /** A map that contains all option names and their (boolean) values.
