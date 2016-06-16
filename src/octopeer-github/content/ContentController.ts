@@ -1,5 +1,6 @@
 /// <reference path="../main/Options/DoNotWatchOptions.ts"/>
 /// <reference path="../main/Database/ConsoleLogDatabaseAdapter.ts"/>
+/// <reference path="../main/URLHandler.ts"/>
 /// <reference path="ElementEventBinding/ElementEventBinding.ts"/>
 
 /**
@@ -26,11 +27,33 @@ class ContentController {
     private oldEventTrackers: EventTracker[] = [];
 
     /**
+     * This MutationObserver will observer the DOM for mutations in the tree.
+     * On mutations, it will re-hook the ContentController to the DOM,
+     *     so that dynamically generated elements will also be tracked.
+     * The class MutationObserver is in the vanilla JavaScript libraries.
+     * @type {MutationObserver}
+     */
+    private mutationObserver = new MutationObserver((mutationRecordList) => {
+        this.unhookFromDOM();
+        if (URLHandler.isPullRequestUrl(window.location.href)) {
+            this.rewriteDOM();
+            this.hookToDOM(this.messageSendDatabaseAdapter);
+        }
+    });
+
+    /**
+     * The DOMRewriter will add data-octopeer-* tags to all HTML elements.
+     * @type {DOMRewriter}
+     */
+    private domRewriter = new DOMRewriter().withDefaultRules();
+
+    /**
      * Starts the ContentController. After calling this, all event handlers are hooked to the DOM-tree.
      * @return this
      */
     public start() {
         Options.init();
+        this.storeCurrentUser();
         if (!chrome.runtime.onMessage.hasListeners()) {
             chrome.runtime.onMessage.addListener(this.processMessageFromBackgroundPage());
         }
@@ -38,21 +61,30 @@ class ContentController {
     }
 
     /**
+     * Get the current username from the DOM and save it to Chrome local storage.
+     */
+    private storeCurrentUser() {
+        $(document).ready(() => {
+            let userName = $("head meta[name=user-login]").attr("content");
+            chrome.storage.local.set({user: userName});
+        });
+    }
+
+    /**
      * Set up all event handlers in the Chrome API.
      */
     private processMessageFromBackgroundPage() {
-        const self = this;
-        return function (request: any, sender: any, sendResponse: Function) {
+        return (request: any, sender: any, sendResponse: Function) => {
             if (request.hookToDom === undefined) {
                 sendResponse(`did nothing (${location.href})`);
                 return;
             }
             try {
                 if (request.hookToDom) {
-                    self.hookToDOM(self.messageSendDatabaseAdapter);
+                    this.hookToDOM(this.messageSendDatabaseAdapter);
                     sendResponse(`hooked to DOM (${location.href})`);
                 } else {
-                    self.unhookFromDOM();
+                    this.unhookFromDOM();
                     sendResponse(`unhooked from DOM (${location.href})`);
                 }
             } catch (e) {
@@ -72,12 +104,14 @@ class ContentController {
         this.unhookFromDOM();
         this.hookSemanticToDOM(database);
         this.hookTrackersToDOM(database);
+        this.hookMutationObserverToDOM();
     }
 
     /**
      * Unhook both semantic and raw data trackers from DOM.
      */
     private unhookFromDOM() {
+        this.unhookMutationObserverFromDOM();
         this.unhookSemanticFromDOM();
         this.unhookTrackersFromDOM();
     }
@@ -152,5 +186,31 @@ class ContentController {
             tracker.addDOMEvent();
             this.oldEventTrackers.push(tracker);
         }
+    }
+
+    /**
+     * Hooks the MutationObserver to the DOM tree.
+     * If the DOM has never been rewritten yet (on fresh reload), immediately rewrite it.
+     */
+    private hookMutationObserverToDOM() {
+        if ($("body").attr("data-octopeer-x") === undefined) {
+            this.rewriteDOM();
+        }
+        this.mutationObserver.observe(document.body, { childList: true, subtree: true });
+    }
+
+    /**
+     * Rewrites the DOM tree.
+     */
+    private rewriteDOM() {
+        this.domRewriter.rewrite($("body"));
+        this.messageSendDatabaseAdapter.post(EventFactory.htmlPage(document.documentElement.outerHTML), EMPTY_CALLBACK, EMPTY_CALLBACK);
+    }
+
+    /**
+     * Unhooks the MutationObserver from the DOM tree.
+     */
+    private unhookMutationObserverFromDOM() {
+        this.mutationObserver.disconnect();
     }
 }

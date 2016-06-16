@@ -6,6 +6,18 @@
 | Reviewer   | Aaron Ang             |
 | Date       | 14 May 2016           |
 
+## Grade
+
+Grade: **8.6**
+
+| Questions                                                                                                                                         | Grade |
+|---------------------------------------------------------------------------------------------------------------------------------------------------|-------|
+| Who is going to buy the product? Who is the target customer?                                                                                      | 10    |
+| Which customer needs will the product address?                                                                                                    | 7     |
+| Which product attributes are crucial to satisfy the selected needs, and therefore to the success of the product?                                  | 8     |
+| How does the product compare against existing products, both from competitors and the same company? What are the product’s unique selling points? | 8     |
+| What is the target timeframe and budget to develop and launch the product?                                                                        | 10    |
+
 ## General
 
 * I found the way you capitalize words a bit odd, e.g. Pull Requests, Peer Reviewing, Software Engineering. I would actually just write them all down in lowercase.
