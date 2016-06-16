@@ -149,7 +149,7 @@ const Options = new (class Options {
      * @returns {boolean}
      */
     private dependantOption(optionName: string): boolean {
-        let dependacies: {[name: string]: string;} = {
+        let dependacies: {[name: string]: string; } = {
             dataHTML: "dataKeystrokes",
             dataKeystrokes: "dataComments",
             mouseClick: "mouseHover",
