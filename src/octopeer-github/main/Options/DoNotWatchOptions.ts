@@ -55,7 +55,7 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
     ];
 
     private eventsThatShouldNotBeWatched: EventThatShouldNotBeWatchedTuple[] = [
-        ["mouseScrolling", [EventID.SCROLL_INTO_VIEW, EventID.SCROLL_OUT_OF_VIEW]],
+        ["mouseScrolling", [EventID.SCROLL]],
         ["mouseHover", [EventID.MOUSE_ENTER, EventID.MOUSE_LEAVE]],
         ["mouseClick", [EventID.CLICK]],
         ["dataKeystrokes", [EventID.KEYSTROKE]],
