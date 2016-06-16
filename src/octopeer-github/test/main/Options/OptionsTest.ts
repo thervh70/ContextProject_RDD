@@ -9,6 +9,23 @@ describe("The Options class", function() {
     let controller: MainController;
     let spyNotify: jasmine.Spy;
 
+    let mockedStorageObject: { [key: string]: boolean; } = {
+        [Options.LOGGING]: true,
+        [Options.MOUSE_HOVER]: true,
+        [Options.MOUSE_CLICK]: true,
+        [Options.MOUSE_SCROLLING]: true,
+        [Options.MOUSE_POSITION]: true,
+        [Options.DATA_COMMENTS]: true,
+        [Options.DATA_KEYSTROKES]: true,
+        [Options.DATA_HTML]: false,
+        [Options.DATA_TABS]: false,
+        [Options.DATA_RESOLUTION]: false,
+    };
+
+    let mockedStorageDiffValues: { [key: string]: any; } = {
+        [Options.LOGGING]: { newValue: true, oldValue: false },
+    };
+
     beforeEach(function () {
         controller = new MainController();
         spySyncStorage = spyOn(chrome.storage.sync, "set");
@@ -64,11 +81,41 @@ describe("The Options class", function() {
         expect(Options.get("Hi there!")).toBe(false);
     });
 
+
+    it("should get the default value of an option", function() {
+        expect(Options.getDefault(Options.LOGGING)).toBe(true);
+    });
+
+    it("should return false for a bad weather (non-existing) default option value", function() {
+        expect(Options.getDefault("badWeather")).toBe(false);
+    });
+
+
     it("should generate a list of its options", function() {
         expect(Options.generateOptionList()).toEqual(["loggingEnabled", "mouseHover",
             "mouseClick", "mouseScrolling", "mousePosition", "dataComments",
             "dataKeystrokes", "dataHTML", "dataTabs",
             "dataResolution"]);
+    });
+
+    it("should be able to synchronize the optionMap when a storage object with different (boolean) option values is given", function() {
+        spyNotify = spyOn(Options, "notifyObservers");
+        Options.syncOptionMap(mockedStorageObject);
+
+        for (let key in mockedStorageObject) {
+            if (mockedStorageObject.hasOwnProperty(key)) {
+                expect(mockedStorageObject[key]).toEqual(Options.get(key));
+            }
+        }
+        expect(spyNotify).toHaveBeenCalled();
+    });
+
+    it("should be able to synchronize the optionMap with a storage containing an object with an old and a new value", function() {
+        spyNotify = spyOn(Options, "notifyObservers");
+        Options.syncOptionMap(mockedStorageDiffValues);
+
+        expect(Options.get(Options.LOGGING)).toBe(true);
+        expect(spyNotify).toHaveBeenCalled();
     });
 
 });
