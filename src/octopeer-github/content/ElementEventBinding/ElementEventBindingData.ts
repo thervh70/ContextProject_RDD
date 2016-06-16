@@ -65,7 +65,7 @@ const elementEventBindingDataList: ElementEventBindingData[] = [
         eventID: EventID.SCROLL,
         name: "scroll:finish",
         removeDOMEvent: (esb: ElementSelectionBehaviour) => {
-            esb.getElements().off(this.name);
+            esb.getElements().off("scroll:finish");
         },
     },
 ];
