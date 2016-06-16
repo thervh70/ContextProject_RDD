@@ -100,7 +100,7 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
         const indexableEventData = <{[name: string]: number; }>(<any>eventData);
         for (let i = 0; i < roundCandidates.length; i++) {
             candidate = roundCandidates[i];
-            if ([candidate] !== undefined) {
+            if (indexableEventData[candidate] !== undefined) {
                 indexableEventData[candidate] = Math.round(indexableEventData[candidate]);
             }
         }
