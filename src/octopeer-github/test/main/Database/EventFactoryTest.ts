@@ -23,11 +23,33 @@ describe("An EventFactory", function() {
             });
     });
 
-    it("should properly create KeystrokeEvents", function() {
-        expect(EventFactory.keystroke("q", defaultTime, defaultTime + 100))
+    it("should properly create KeystrokeEvents without Timestamp", function() {
+        expect(EventFactory.keystroke("q", KeystrokeType.KEY_DOWN).data)
+            .toEqual(jasmine.objectContaining({keystroke: "q", keystroke_type: KeystrokeType.KEY_DOWN}));
+    });
+
+    it("should properly create KeystrokeEvents with keyDown", function() {
+        expect(EventFactory.keyDown("q", defaultTime))
             .toEqual({
-                data: {key_down_at: defaultTime, key_up_at: defaultTime + 100, keystroke: "q"},
+                data: {created_at: defaultTime, keystroke: "q", keystroke_type: KeystrokeType.KEY_DOWN},
                 type: "KeystrokeEvent",
+            });
+    });
+
+    it("should properly create KeystrokeEvents with keyUp", function() {
+        expect(EventFactory.keyUp("q", defaultTime))
+            .toEqual({
+                data: {created_at: defaultTime, keystroke: "q", keystroke_type: KeystrokeType.KEY_UP},
+                type: "KeystrokeEvent",
+            });
+    });
+
+    it("should properly create HTMLPageEvents", function() {
+        const randomHTMLstring = "<html><head><title>Random yay!</title></head><body></body></html>";
+        expect(EventFactory.htmlPage(randomHTMLstring, defaultTime))
+            .toEqual({
+                data: {created_at: defaultTime, dom: randomHTMLstring},
+                type: "HTMLPageEvent",
             });
     });
 

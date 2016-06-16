@@ -16,14 +16,19 @@ describe("The DoNotWatchOptions", function() {
 
     const elementTestList: any[][] = [
         [{}, []],
-        [{doNotWatchCommentElements: true}, [ElementID.CONFIRM_INLINE_COMMENT, ElementID.CREATE_PR_COMMENT, ElementID.EDIT_COMMENT]],
+        [{dataComments: true}, [
+            ElementID.CONFIRM_INLINE_COMMENT,
+            ElementID.CREATE_PR_COMMENT,
+            ElementID.EDIT_COMMENT,
+        ]],
     ];
 
     const eventTestList: any[][] = [
         [{}, []],
-        [{doNotWatchOnScreenEvents: true}, [EventID.SCROLL_INTO_VIEW, EventID.SCROLL_OUT_OF_VIEW]],
-        [{doNotWatchHoverEvents: true}, [EventID.MOUSE_ENTER, EventID.MOUSE_LEAVE]],
-        [{doNotWatchKeyboardShortcutEvents: true}, [EventID.KEYSTROKE]],
+        [{mouseScrolling: true}, [EventID.SCROLL_INTO_VIEW, EventID.SCROLL_OUT_OF_VIEW]],
+        [{mouseHover: true}, [EventID.MOUSE_ENTER, EventID.MOUSE_LEAVE]],
+        [{mouseClick: true}, [EventID.CLICK]],
+        [{dataKeystrokes: true}, [EventID.KEYSTROKE]],
     ];
 
     const combinationTestList: any[][] = [

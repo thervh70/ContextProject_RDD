@@ -4,16 +4,27 @@
  */
 
 // List that contains all optionID names that Octopeer provides.
-var options = ['loggingEnabled',
-    'trackTabs', 'trackComments', 'trackPeerComments', 'trackFocus',
-    'hashUsername', 'hashRepo', 'hashFile',
-    'dnwScreen', 'dnwHover', 'dnwComments', 'dnwKeyboardShortcut'];
+var options = ['loggingEnabled', 'mouseHover',
+    'mouseClick', 'mouseScrolling', 'mousePosition', 'dataComments',
+    'dataKeystrokes', 'dataHTML', 'dataTabs',
+    'dataResolution'];
 
 // List that contains all subOptionID names that Octopeer provides.
-var subOptions = ['securitySubOptions', 'privacySubOptions', 'hintsSubOptions', 'doNotWatchSubOptions'];
+var subOptions = ['mouseSubOptions', 'dataSubOptions'];
 
 // List that contains all cardElement names that Octopeer provides.
-var cards = ['security', 'privacy', 'hints', 'doNotWatch'];
+var cards = ['mouse', 'data'];
+
+// if one of these becomes disabled, disable and hide the others too.
+var onDisableHideAndDisable = [
+    ['dataComments', ['dataKeystrokes', 'dataHTML']],
+    ['dataKeystrokes', ['dataHTML']],
+    ['mousePosition', ['mouseHover', 'mouseClick']],
+    ['mouseHover', ['mouseClick']]
+];
+
+// Object that contains all default options.
+var defaultOptions = {};
 
 // Listens for changes in the loggingEnabled flag.
 // This boolean might be switched using the popup.
@@ -56,37 +67,17 @@ function restoreOptionsAvailability() {
         var enabled = items.loggingEnabled;
         if (enabled) {
             show();
+            restoreSubOptionsAvailability();
         } else {
             hide();
         }
     });
 }
 
-// Shows the sub-options.
-function showSubOptions() {
-    for (var i = 0; i < subOptions.length; i++) {
-        subOptionsElement(i).show();
-    }
-}
-
-// Hides the sub-options.
-function hideSubOptions() {
-    for (var i = 0; i < subOptions.length; i++) {
-        subOptionsElement(i).hide();
-    }
-}
-
-// Shows the option cards.
-function showCards() {
-    for (var i = 0; i < cards.length; i++) {
-        cardElement(i).show();
-    }
-}
-
-// Hides the option cards.
-function hideCards() {
-    for (var i = 0; i < cards.length; i++) {
-        cardElement(i).hide();
+// Restores the availability of the checkboxes, that are enabled / disabled by other checkboxes. using the logging value which is stored in chrome.storage.
+function restoreSubOptionsAvailability() {
+    for (var i = 0; i < onDisableHideAndDisable.length; i++) {
+        dynamicalyHideOrShowSubOptions(onDisableHideAndDisable[i]);
     }
 }
 
@@ -130,16 +121,40 @@ function elementGenerator(index, array){
 // When clicking on the main option, switchOptions is also called.
 function addOptionClickEvents() {
     optionsElement(0).click(switchOptions);
+
     for (var i = 0; i < options.length; i++) {
         optionsElement(i).click(saveOptions);
+    }
+
+    for (var i = 0; i < onDisableHideAndDisable.length; i++) {
+        (function (tohide) {
+            $("#" + tohide[0]).click(function() {
+                dynamicalyHideOrShowSubOptions(tohide);
+                saveOptions();
+            });
+        })(onDisableHideAndDisable[i]);
+    }
+}
+
+function dynamicalyHideOrShowSubOptions(tohide) {
+    if ($("#" + tohide[0]).prop('checked') && !$("#" + tohide[0]).attr('disabled') ) {
+        for (var element in tohide[1]) {
+            if ($("#" + tohide[1][element]).attr("disabled")) {
+                $("#" + tohide[1][element]).removeAttr("disabled");
+            }
+        }
+    } else {
+        for (var element in tohide[1]) {
+            $("#" + tohide[1][element]).attr("disabled", true);
+        }
     }
 }
 
 // Constants that define the function that will be called.
 // Different show/hide (or disable switch) methods can be called from here.
 // These different implementations are there for user testing.
-const show = showCards;
-const hide = hideCards;
+const show = showWithDisable;
+const hide = hideWithDisable;
 
 // Disables the (sub)options when the user doesn't want Octopeer to log data and
 // enables the (sub)options when the user does.
@@ -153,11 +168,27 @@ function switchOptions() {
     }
 }
 
+// Saves the default options by saving an object.
+function saveDefaults() {
+    for (var i = 0; i < options.length; i++) {
+        defaultOptions[options[i]] = optionsElement(i).prop('checked');
+    }
+}
+
+// Sets the options to the default options by updating the chrome storage and the options page.
+function restoreDefaults() {
+    chrome.storage.sync.set(defaultOptions, function() {});
+    restoreOptionsState();
+    restoreOptionsAvailability();
+}
+
 document.addEventListener('DOMContentLoaded', restoreOptionsState);
 document.addEventListener('DOMContentLoaded', restoreOptionsAvailability);
 
 // Will execute once the page DOM is ready.
 $(document).ready(function() {
+    saveDefaults();
     addOptionClickEvents();
     changeListener();
+    $('#restore').click(restoreDefaults);
 });
