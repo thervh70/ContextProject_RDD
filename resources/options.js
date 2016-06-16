@@ -162,9 +162,9 @@ function restoreDefaults() {
             obj[options[i]] = items[options[i]];
         }
         chrome.storage.sync.set(obj);
+        restoreOptionsState();
+        restoreOptionsAvailability();
     });
-    restoreOptionsState();
-    restoreOptionsAvailability();
 }
 
 document.addEventListener('DOMContentLoaded', restoreOptionsState);
