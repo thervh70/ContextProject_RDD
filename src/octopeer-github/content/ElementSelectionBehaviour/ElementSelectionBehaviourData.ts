@@ -20,10 +20,12 @@ interface ElementSelectionBehaviourData {
 }
 
 const ElementSelectionBehaviourData = {
-    getLineFromEvent: (eventObject: JQueryEventObject, eventID: EventID) => {
-        const fileName = "file";
-        const lineNumber = 42;
-        return EventFactory.semantic(this.getElementID(), eventID, fileName, lineNumber);
+    getLineFromEvent: (elementID: ElementID) => {
+        return (eventObject: JQueryEventObject, eventID: EventID) => {
+            const fileName = "file";
+            const lineNumber = 42;
+            return EventFactory.semantic(elementID, eventID, fileName, lineNumber);
+        };
     },
 };
 
@@ -246,14 +248,14 @@ const elementSelectionBehaviourDataList: ElementSelectionBehaviourData[] = [
         elementID: ElementID.DIFF_LINE_NUMBER,
         foundOnPages: PageMask.combine(PageMask.CONVERSATION, PageMask.FILES_CHANGED),
         name: "Line number",
-        processEvent: ElementSelectionBehaviourData.getLineFromEvent,
+        processEvent: ElementSelectionBehaviourData.getLineFromEvent(ElementID.DIFF_LINE_NUMBER),
         selector: ".blob-num",
     },
     {
         elementID: ElementID.DIFF_LINE_OF_CODE,
         foundOnPages: PageMask.combine(PageMask.CONVERSATION, PageMask.FILES_CHANGED),
         name: "Line of code",
-        processEvent: ElementSelectionBehaviourData.getLineFromEvent,
+        processEvent: ElementSelectionBehaviourData.getLineFromEvent(ElementID.DIFF_LINE_OF_CODE),
         selector: ".blob-code",
     },
 ];
