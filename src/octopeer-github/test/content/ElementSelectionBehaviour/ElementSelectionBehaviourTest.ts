@@ -79,6 +79,8 @@ let filesChangedSelectors: ElementIDNumberPair[] = [
     [ElementID.COMMITS_TAB, 1],
     [ElementID.CONVERSATION_TAB, 1],
     [ElementID.FILES_CHANGED_TAB, 1],
+    [ElementID.DIFF_LINE_NUMBER, 16],
+    [ElementID.DIFF_LINE_OF_CODE, 16],
 ];
 
 let conversationOtherContributor: ElementIDNumberPair[] = [

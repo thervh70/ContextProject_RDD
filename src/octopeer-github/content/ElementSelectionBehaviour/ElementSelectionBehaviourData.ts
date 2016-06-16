@@ -239,25 +239,23 @@ const elementSelectionBehaviourDataList: ElementSelectionBehaviourData[] = [
         foundOnPages: PageMask.combine(PageMask.CONVERSATION, PageMask.FILES_CHANGED),
         name: "Line number",
         processEvent: (eventObject: JQueryEventObject, eventID: EventID) => {
-            console.log(eventObject);
             const fileName = $(eventObject.target).parent().parent().parent().parent().parent()
                 .children(".file-header").attr("data-path");
             const lineNumber = parseInt($(eventObject.target).attr("data-line-number"), 10);
             return EventFactory.semantic(ElementID.DIFF_LINE_NUMBER, eventID, fileName, lineNumber);
         },
-        selector: ".blob-num",
+        selector: ".blob-num-addition, .blob-num-deletion, .blob-num-context",
     },
     {
         elementID: ElementID.DIFF_LINE_OF_CODE,
         foundOnPages: PageMask.combine(PageMask.CONVERSATION, PageMask.FILES_CHANGED),
         name: "Line of code",
         processEvent: (eventObject: JQueryEventObject, eventID: EventID) => {
-            console.log(eventObject);
             const fileName = $(eventObject.target).parent().parent().parent().parent().parent()
                 .children(".file-header").attr("data-path");
             const lineNumber = parseInt($(eventObject.target).attr("data-line-number"), 10);
             return EventFactory.semantic(ElementID.DIFF_LINE_OF_CODE, eventID, fileName, lineNumber);
         },
-        selector: ".blob-code",
+        selector: ".blob-code-addition, .blob-code-deletion, .blob-code-context",
     },
 ];
