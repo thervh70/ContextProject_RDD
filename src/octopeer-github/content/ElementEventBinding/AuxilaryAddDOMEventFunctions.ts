@@ -13,7 +13,7 @@ class AuxiliaryAddDOMEventFunctions {
      * @param rectangle the rectangle to be checked
      * @returns {boolean} true when both in horizontal and vertical scope, else false
      */
-    public static isInScope (width: number, height: number, rectangle: ClientRect) {
+    public static isInScope(width: number, height: number, rectangle: ClientRect) {
         return this.isInHorizontalScope(width, rectangle) && this.isInVerticalScope(height, rectangle);
     };
 
@@ -24,7 +24,7 @@ class AuxiliaryAddDOMEventFunctions {
      * @param value the number to be checked
      * @returns {boolean} true if given value in between (or same as) given bounds, else false
      */
-    private static isBetween (leftBound: number, rightBound: number, value: number) {
+    private static isBetween(leftBound: number, rightBound: number, value: number) {
         return leftBound <= value && rightBound >= value;
     };
 
@@ -34,7 +34,7 @@ class AuxiliaryAddDOMEventFunctions {
      * @param rect the rectangle to be checked
      * @returns {boolean} true when in horizontal scope, else false
      */
-    private static isInHorizontalScope (width: number, rect: ClientRect) {
+    private static isInHorizontalScope(width: number, rect: ClientRect) {
         return this.isBetween(0, width, rect.left) || this.isBetween(0, width, rect.right);
     };
 
@@ -44,7 +44,7 @@ class AuxiliaryAddDOMEventFunctions {
      * @param rect the rectangle to be checked
      * @returns {boolean} true when in vertical scope, else false
      */
-    private static isInVerticalScope (height: number, rect: ClientRect) {
+    private static isInVerticalScope(height: number, rect: ClientRect) {
         return this.isBetween(0, height, rect.top) || this.isBetween(0, height, rect.bottom);
     };
 }

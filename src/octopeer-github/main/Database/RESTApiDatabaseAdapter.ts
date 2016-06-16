@@ -86,8 +86,23 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
                 "created_at": data.created_at,
             };
         } else {
-            return eventData.data;
+            return this.processRounding(eventData.data);
         }
+    }
+
+    /**
+     * 
+     * @param eventData
+     */
+    private processRounding(eventData: EventObjectData): any {
+        const roundCandidates: string[] = ["position_x", "position_y", "viewport_x", "viewport_y"];
+        let candidate: string;
+        for (candidate in roundCandidates) {
+            if (eventData.hasOwnProperty(candidate) && [candidate] !== undefined) {
+                eventData[candidate] = Math.round(eventData[candidate]);
+            }
+        }
+        return eventData;
     }
 
     /**
