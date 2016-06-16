@@ -16,7 +16,7 @@ describe("The DoNotWatchOptions", function() {
 
     const elementTestList: any[][] = [
         [{}, []],
-        [{dataComments: false}, [
+        [{[Options.DATA_COMMENTS]: false}, [
             ElementID.CONFIRM_INLINE_COMMENT,
             ElementID.CREATE_PR_COMMENT,
             ElementID.EDIT_COMMENT,
@@ -25,10 +25,10 @@ describe("The DoNotWatchOptions", function() {
 
     const eventTestList: any[][] = [
         [{}, []],
-        [{mouseScrolling: false}, [EventID.SCROLL]],
-        [{mouseHover: false}, [EventID.MOUSE_ENTER, EventID.MOUSE_LEAVE]],
-        [{mouseClick: false}, [EventID.CLICK]],
-        [{dataKeystrokes: false}, [EventID.KEYSTROKE]],
+        [{[Options.MOUSE_SCROLLING]: false}, [EventID.SCROLL]],
+        [{[Options.MOUSE_HOVER]: false}, [EventID.MOUSE_ENTER, EventID.MOUSE_LEAVE]],
+        [{[Options.MOUSE_CLICK]: false}, [EventID.CLICK]],
+        [{[Options.DATA_KEYSTROKES]: false}, [EventID.KEYSTROKE]],
     ];
 
     const combinationTestList: any[][] = [

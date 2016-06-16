@@ -51,7 +51,7 @@ const Options = new (class Options {
      */
     public init() {
         this.observers = [];
-        chrome.storage.sync.get("loggingEnabled", (res) => {
+        chrome.storage.sync.get(this.LOGGING, (res) => {
             let options = this.generateOptionList();
             if (res[this.LOGGING] === undefined) {
                 chrome.storage.sync.set(this.generateCurrentOptionMap());
@@ -203,10 +203,10 @@ const Options = new (class Options {
      */
     private dependentOption(optionName: string): boolean {
         let dependencies: { [name: string]: string; } = {
-            dataHTML: "dataKeystrokes",
-            dataKeystrokes: "dataComments",
-            mouseClick: "mouseHover",
-            mouseHover: "mousePosition",
+            [this.DATA_HTML]: "dataKeystrokes",
+            [this.DATA_KEYSTROKES]: "dataComments",
+            [this.MOUSE_CLICK]: "mouseHover",
+            [this.MOUSE_HOVER]: "mousePosition",
         };
 
         return !dependencies.hasOwnProperty(optionName) || this.get(dependencies[optionName]);
