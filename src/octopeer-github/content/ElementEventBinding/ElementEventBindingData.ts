@@ -1,4 +1,6 @@
 /// <reference path="../Types/EventID.ts"/>
+/// <reference path="AuxilaryAddDOMEventFunctions.ts"/>
+
 /**
  * Created by Mathias on 02-06-2016.
  * This interface enforces the data elements of the ElementEventBindings.
@@ -40,27 +42,15 @@ const elementEventBindingDataList: ElementEventBindingData[] = [
         addDOMEvent: (elementSelectionBehaviour: ElementSelectionBehaviour) => {
             let wasInScope = false;
             let handleScrollEvent = (esb: ElementSelectionBehaviour, eventObject: JQueryEventObject) => {
-                let isBetween = (leftBound: number, rightBound: number, value: number) => {
-                    return leftBound <= value && rightBound >= value;
-                };
-                let isInHorizontalScope = (width: number, rect: ClientRect) => {
-                    return isBetween(0, width, rect.left) || isBetween(0, width, rect.right);
-                };
-                let isInVerticalScope = (height: number, rect: ClientRect) => {
-                    return isBetween(0, height, rect.top) || isBetween(0, height, rect.bottom);
-                };
-                let isInScope = (width: number, height: number, rectangle: ClientRect) => {
-                    return isInHorizontalScope(width, rectangle) && isInVerticalScope(height, rectangle);
-                };
                 if (esb.getElements().length > 0) {
                     let windowWidth = $(window).width();
                     let windowHeight = $(window).height();
                     for (let i = 0; i < esb.getElements().length; i++) {
                         let rect = esb.getElements()[i].getBoundingClientRect();
-                        if (!wasInScope && isInScope(windowWidth, windowHeight, rect)) {
+                        if (!wasInScope && AuxiliaryAddDOMEventFunctions.isInScope(windowWidth, windowHeight, rect)) {
                             wasInScope = true;
                             esb.getCallback(EventID.SCROLL_INTO_VIEW)(eventObject);
-                        } else if (wasInScope && !isInScope(windowWidth, windowHeight, rect)) {
+                        } else if (wasInScope && !AuxiliaryAddDOMEventFunctions.isInScope(windowWidth, windowHeight, rect)) {
                             wasInScope = false;
                             esb.getCallback(EventID.SCROLL_OUT_OF_VIEW)(eventObject);
                         }
