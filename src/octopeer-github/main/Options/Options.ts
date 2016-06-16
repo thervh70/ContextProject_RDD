@@ -14,20 +14,31 @@ const Options = new (class Options {
      * All strings that are used in the Chrome Storage are hidden behind these public static final fields.
      * The implementation is not with static, because Options is a Singleton.
      */
-    public get LOGGING() {return "loggingEnabled"; }
-    public get MOUSE_HOVER() {return "mouseHover"; }
-    public get MOUSE_CLICK() {return "mouseClick"; }
-    public get MOUSE_SCROLLING() {return "mouseScrolling"; }
-    public get MOUSE_POSITION() {return "mousePosition"; }
-    public get DATA_COMMENTS() {return "dataComments"; }
-    public get DATA_KEYSTROKES() {return "dataKeystrokes"; }
-    public get DATA_HTML() {return "dataHTML"; }
-    public get DATA_TABS() {return "dataTabs"; }
-    public get DATA_RESOLUTION() {return "dataResolution"; }
+    public get LOGGING() {          return "loggingEnabled"; }
+    public get MOUSE_HOVER() {      return "mouseHover"; }
+    public get MOUSE_CLICK() {      return "mouseClick"; }
+    public get MOUSE_SCROLLING() {  return "mouseScrolling"; }
+    public get MOUSE_POSITION() {   return "mousePosition"; }
+    public get DATA_COMMENTS() {    return "dataComments"; }
+    public get DATA_KEYSTROKES() {  return "dataKeystrokes"; }
+    public get DATA_HTML() {        return "dataHTML"; }
+    public get DATA_TABS() {        return "dataTabs"; }
+    public get DATA_RESOLUTION() {  return "dataResolution"; }
 
-    // A map that contains all option names and their (boolean) values.
-    // The first boolean value represents the current value of an option and is updated.
-    // The second boolean value represents the default value of an option.
+    /**
+     * A option on the left should be disabled if the option on the right should be disabled.
+     */
+    public optionDependencies: {[name: string]: string; } = {
+        [this.DATA_HTML]:       this.DATA_KEYSTROKES,
+        [this.DATA_KEYSTROKES]: this.DATA_COMMENTS ,
+        [this.MOUSE_CLICK]:     this.MOUSE_HOVER,
+        [this.MOUSE_HOVER]:     this.MOUSE_POSITION,
+    };
+
+    /** A map that contains all option names and their (boolean) values.
+     * The first boolean value represents the current value of an option and is updated.
+     * The second boolean value represents the default value of an option.
+     */
     private optionMap: { [key: string]: [boolean]; } = {
         [this.LOGGING]: [true, true],
         [this.MOUSE_HOVER]: [true, true],
@@ -41,6 +52,9 @@ const Options = new (class Options {
         [this.DATA_RESOLUTION]: [false, false],
     };
 
+    /**
+     * A list for all observers of the Options object.
+     */
     private observers: OptionsObserver[];
 
     /**
@@ -202,14 +216,7 @@ const Options = new (class Options {
      * @returns {boolean}
      */
     private dependentOption(optionName: string): boolean {
-        let dependencies: { [name: string]: string; } = {
-            [this.DATA_HTML]: "dataKeystrokes",
-            [this.DATA_KEYSTROKES]: "dataComments",
-            [this.MOUSE_CLICK]: "mouseHover",
-            [this.MOUSE_HOVER]: "mousePosition",
-        };
-
-        return !dependencies.hasOwnProperty(optionName) || this.get(dependencies[optionName]);
+        return !this.optionDependencies.hasOwnProperty(optionName) || this.get(this.optionDependencies[optionName]);
     }
 
 })();

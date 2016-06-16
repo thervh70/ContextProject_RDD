@@ -10,15 +10,15 @@ describe("The Options class", function() {
     let spyNotify: jasmine.Spy;
 
     let mockedStorageObject: { [key: string]: boolean; } = {
-        [Options.LOGGING]: true,
-        [Options.MOUSE_HOVER]: true,
-        [Options.MOUSE_CLICK]: true,
+        [Options.LOGGING]:         true,
+        [Options.MOUSE_HOVER]:     true,
+        [Options.MOUSE_CLICK]:     true,
         [Options.MOUSE_SCROLLING]: true,
-        [Options.MOUSE_POSITION]: true,
-        [Options.DATA_COMMENTS]: true,
+        [Options.MOUSE_POSITION]:  true,
+        [Options.DATA_COMMENTS]:   true,
         [Options.DATA_KEYSTROKES]: true,
-        [Options.DATA_HTML]: false,
-        [Options.DATA_TABS]: false,
+        [Options.DATA_HTML]:       false,
+        [Options.DATA_TABS]:       false,
         [Options.DATA_RESOLUTION]: false,
     };
 
