@@ -19,6 +19,14 @@ interface ElementSelectionBehaviourData {
     selector: string;
 }
 
+const ElementSelectionBehaviourData = {
+    getLineFromEvent: (eventObject: JQueryEventObject, eventID: EventID) => {
+        const fileName = "file";
+        const lineNumber = 42;
+        return EventFactory.semantic(this.getElementID(), eventID, fileName, lineNumber);
+    },
+};
+
 /**
  * unsortedESBData contains all data about the diferent ESB's. It is a list of
  * ESBData objects, which are still unsorted. In the ESBFactory, the list will be
@@ -238,22 +246,14 @@ const elementSelectionBehaviourDataList: ElementSelectionBehaviourData[] = [
         elementID: ElementID.DIFF_LINE_NUMBER,
         foundOnPages: PageMask.combine(PageMask.CONVERSATION, PageMask.FILES_CHANGED),
         name: "Line number",
-        processEvent: (eventObject: JQueryEventObject, eventID: EventID) => {
-            const fileName = "file";
-            const lineNumber = 42;
-            return EventFactory.semantic(this.getElementID(), eventID, fileName, lineNumber);
-        },
+        processEvent: ElementSelectionBehaviourData.getLineFromEvent,
         selector: ".blob-num",
     },
     {
         elementID: ElementID.DIFF_LINE_OF_CODE,
         foundOnPages: PageMask.combine(PageMask.CONVERSATION, PageMask.FILES_CHANGED),
         name: "Line of code",
-        processEvent: (eventObject: JQueryEventObject, eventID: EventID) => {
-            const fileName = "file";
-            const lineNumber = 42;
-            return EventFactory.semantic(this.getElementID(), eventID, fileName, lineNumber);
-        },
+        processEvent: ElementSelectionBehaviourData.getLineFromEvent,
         selector: ".blob-code",
     },
 ];
