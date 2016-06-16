@@ -14,35 +14,40 @@ const Options = new (class Options {
      * All strings that are used in the Chrome Storage are hidden behind these public static final fields.
      * The implementation is not with static, because Options is a Singleton.
      */
-    public get LOGGING() {return "loggingEnabled"; }
-    public get TRACK_TABS() {return "trackTabs"; }
-    public get TRACK_COMMENTS() {return "trackComments"; }
-    public get TRACK_PEER_COMMENTS() {return "trackPeerComments"; }
-    public get TRACK_FOCUS() {return "trackFocus"; }
-    public get HASH_USERNAME() {return "hashUsername"; }
-    public get HASH_REPO() {return "hashRepo"; }
-    public get HASH_FILE() {return "hashFile"; }
-    public get DNW_ON_SCREEN_EVENTS() {return "doNotWatchOnScreenEvents"; }
-    public get DNW_HOVER_EVENTS() {return "doNotWatchHoverEvents"; }
-    public get DNW_COMMENT_ELEMENTS() {return "doNotWatchCommentElements"; }
-    public get DNW_KEYBOARD_EVENTS() {return "doNotWatchKeyboardShortcutEvents"; }
+    public get LOGGING() {          return "loggingEnabled"; }
+    public get MOUSE_HOVER() {      return "mouseHover"; }
+    public get MOUSE_CLICK() {      return "mouseClick"; }
+    public get MOUSE_SCROLLING() {  return "mouseScrolling"; }
+    public get MOUSE_POSITION() {   return "mousePosition"; }
+    public get DATA_COMMENTS() {    return "dataComments"; }
+    public get DATA_KEYSTROKES() {  return "dataKeystrokes"; }
+    public get DATA_HTML() {        return "dataHTML"; }
+    public get DATA_TABS() {        return "dataTabs"; }
+    public get DATA_RESOLUTION() {  return "dataResolution"; }
+
+    // A option on the left should be disabled if the option on the right should be disabled.
+    public optionDependancies: {[name: string]: string; } = {
+        [this.DATA_HTML]:       this.DATA_KEYSTROKES,
+        [this.DATA_KEYSTROKES]: this.DATA_COMMENTS ,
+        [this.MOUSE_CLICK]:     this.MOUSE_HOVER,
+        [this.MOUSE_HOVER]:     this.MOUSE_POSITION,
+    };
 
     // A map that contains all option names and their default (boolean) values.
     private optionMap: { [key: string]: boolean; } = {
         [this.LOGGING]: true,
-        [this.TRACK_TABS]: true,
-        [this.TRACK_COMMENTS]: true,
-        [this.TRACK_PEER_COMMENTS]: true,
-        [this.TRACK_FOCUS]: true,
-        [this.HASH_USERNAME]: true,
-        [this.HASH_REPO]: true,
-        [this.HASH_FILE]: false,
-        [this.DNW_ON_SCREEN_EVENTS]: true,
-        [this.DNW_HOVER_EVENTS]: true,
-        [this.DNW_COMMENT_ELEMENTS]: true,
-        [this.DNW_KEYBOARD_EVENTS]: true,
+        [this.MOUSE_HOVER]: true,
+        [this.MOUSE_CLICK]: true,
+        [this.MOUSE_SCROLLING]: true,
+        [this.MOUSE_POSITION]: true,
+        [this.DATA_COMMENTS]: true,
+        [this.DATA_KEYSTROKES]: true,
+        [this.DATA_HTML]: false,
+        [this.DATA_TABS]: true,
+        [this.DATA_RESOLUTION]: true,
     };
 
+    // a list for all obersevers of the Options object.
     private observers: OptionsObserver[];
 
     /**
@@ -136,7 +141,7 @@ const Options = new (class Options {
      */
     public get(optionName: string) {
         if (optionName in this.optionMap) {
-            return this.optionMap[optionName] && this.dependentOption(optionName);
+            return this.optionMap[optionName] && this.dependantOption(optionName);
         }
         return false;
     }
@@ -148,14 +153,7 @@ const Options = new (class Options {
      * @param optionName the option to check
      * @returns {boolean}
      */
-    private dependentOption(optionName: string): boolean {
-        let dependencies: { [name: string]: string; } = {
-            dataHTML: "dataKeystrokes",
-            dataKeystrokes: "dataComments",
-            mouseClick: "mouseHover",
-            mouseHover: "mousePosition",
-        };
-
-        return !dependencies.hasOwnProperty(optionName) || this.get(dependencies[optionName]);
+    private dependantOption(optionName: string): boolean {
+        return !this.optionDependancies.hasOwnProperty(optionName) || this.get(this.optionDependancies[optionName]);
     }
 })();

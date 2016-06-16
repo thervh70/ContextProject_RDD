@@ -180,8 +180,8 @@ class ContentController {
      */
     private hookTrackersToDOM(database: DatabaseAdaptable) {
         const inlineFactory: any[][] = [
-            ["mousePosition", () => new MousePositionTracker(database)],
-            ["mouseClick", () => new MouseClickTracker(database)],
+            ["mousePosition",  () => new MousePositionTracker(database)],
+            ["mouseClick",     () => new MouseClickTracker(database)],
             ["mouseScrolling", () => new MouseScrollTracker(database)],
             ["dataResolution", () => new WindowResolutionTracker(database)],
             ["dataKeystrokes", () => new KeystrokeTracker(database)],
