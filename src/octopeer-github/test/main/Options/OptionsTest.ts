@@ -51,12 +51,11 @@ describe("The Options class", function() {
     it("should get the option value", function() {
         let optionList: string[] = Options.generateOptionList();
         // HashFile is false by default.
-        let turnedOff = 7;
         for (let i = 0; i < optionList.length; i++) {
-            if (i !== turnedOff) {
+            if (i !== 7 && i !== 8 && i !== 9) {
                 expect(Options.get(optionList[i])).toBe(true);
             } else {
-                expect(Options.get(optionList[turnedOff])).toBe(false);
+                expect(Options.get(optionList[i])).toBe(false);
             }
         }
     });
@@ -66,9 +65,10 @@ describe("The Options class", function() {
     });
 
     it("should generate a list of its options", function() {
-        expect(Options.generateOptionList()).toEqual(["loggingEnabled", "trackTabs", "trackComments", "trackPeerComments", "trackFocus",
-            "hashUsername", "hashRepo", "hashFile", "doNotWatchOnScreenEvents", "doNotWatchHoverEvents", "doNotWatchCommentElements",
-            "doNotWatchKeyboardShortcutEvents"]);
+        expect(Options.generateOptionList()).toEqual(["loggingEnabled", "mouseHover",
+            "mouseClick", "mouseScrolling", "mousePosition", "dataComments",
+            "dataKeystrokes", "dataHTML", "dataTabs",
+            "dataResolution"]);
     });
 
 });
