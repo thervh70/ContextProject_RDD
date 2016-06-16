@@ -25,7 +25,7 @@ describe("The DoNotWatchOptions", function() {
 
     const eventTestList: any[][] = [
         [{}, []],
-        [{mouseScrolling: true}, [EventID.SCROLL_INTO_VIEW, EventID.SCROLL_OUT_OF_VIEW]],
+        [{mouseScrolling: true}, [EventID.SCROLL_INTO_VIEW, EventID.SCROLL_OUT_OF_VIEW, EventID.SCROLL]],
         [{mouseHover: true}, [EventID.MOUSE_ENTER, EventID.MOUSE_LEAVE]],
         [{mouseClick: true}, [EventID.CLICK]],
         [{dataKeystrokes: true}, [EventID.KEYSTROKE]],
