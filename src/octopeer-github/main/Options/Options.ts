@@ -136,9 +136,26 @@ const Options = new (class Options {
      */
     public get(optionName: string) {
         if (optionName in this.optionMap) {
-            return this.optionMap[optionName];
+            return this.optionMap[optionName] && this.dependantOption(optionName);
         }
         return false;
     }
 
+    /**
+     * See if any options dependant on the given option are disabled,
+     * If any of the dependant on options is disabled than return false.
+     * If the option is allowed return true.
+     * @param optionName the option to check
+     * @returns {boolean}
+     */
+    private dependantOption(optionName: string): boolean {
+        let dependacies: {[name: string]: string;} = {
+            dataHTML: "dataKeystrokes",
+            dataKeystrokes: "dataComments",
+            mouseClick: "mouseHover",
+            mouseHover: "mousePosition",
+        };
+
+        return !dependacies.hasOwnProperty(optionName) || this.get(dependacies[optionName]);
+    }
 })();
