@@ -16,3 +16,21 @@ p {
     min-width: 200px;
     min-height: 200px;
 }
+
+input[type="checkbox"]+label {
+    color: rgba(0,0,0,0.87)
+}
+
+input[type="checkbox"]:disabled+label {
+    opacity: 0.48;
+    cursor: default;
+}
+
+input[type="checkbox"]:disabled+label:before {
+    opacity: 0;
+    cursor: default;
+}
+
+input[type="checkbox"]+label:before {
+    transition(all .3s ease-in-out);
+}
