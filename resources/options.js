@@ -129,7 +129,6 @@ function addOptionClickEvents() {
     updateSubOptionVisibility();
 }
 
-
 function updateSubOptionVisibility() {
     for (var i = 0; i < onDisableHideAndDisable.length; i++) {
         (function (tohide) {
