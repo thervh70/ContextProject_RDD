@@ -106,7 +106,7 @@ class ContentController {
         this.hookSemanticToDOM(database);
         this.hookTrackersToDOM(database);
 
-        if (Options.get("dataHTML")) {
+        if (Options.get(Options.DATA_HTML)) {
             this.hookMutationObserverToDOM();
         }
     }
@@ -180,11 +180,11 @@ class ContentController {
      */
     private hookTrackersToDOM(database: DatabaseAdaptable) {
         const inlineFactory: any[][] = [
-            ["mousePosition",  () => new MousePositionTracker(database)],
-            ["mouseClick",     () => new MouseClickTracker(database)],
-            ["mouseScrolling", () => new MouseScrollTracker(database)],
-            ["dataResolution", () => new WindowResolutionTracker(database)],
-            ["dataKeystrokes", () => new KeystrokeTracker(database)],
+            [Options.MOUSE_POSITION,  () => new MousePositionTracker(database)],
+            [Options.MOUSE_CLICK,     () => new MouseClickTracker(database)],
+            [Options.MOUSE_SCROLLING, () => new MouseScrollTracker(database)],
+            [Options.DATA_RESOLUTION, () => new WindowResolutionTracker(database)],
+            [Options.DATA_KEYSTROKES, () => new KeystrokeTracker(database)],
         ];
 
         for (let factoryTuple of inlineFactory) {
