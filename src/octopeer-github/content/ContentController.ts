@@ -53,6 +53,7 @@ class ContentController {
      */
     public start() {
         Options.init();
+        this.setUpFinishScrollEvent();
         this.storeCurrentUser();
         if (!chrome.runtime.onMessage.hasListeners()) {
             chrome.runtime.onMessage.addListener(this.processMessageFromBackgroundPage());
@@ -178,32 +179,34 @@ class ContentController {
      * @param database   the database that should be used when logging.
      */
     private hookTrackersToDOM(database: DatabaseAdaptable) {
-        let list: EventTracker[];
+        const inlineFactory: any[][] = [
+            ["mousePosition", () => new MousePositionTracker(database)],
+            ["mouseClick", () => new MouseClickTracker(database)],
+            ["mouseScrolling", () => new MouseScrollTracker(database)],
+            ["dataResolution", () => new WindowResolutionTracker(database)],
+            ["dataKeystrokes", () => new KeystrokeTracker(database)],
+        ];
 
-        if (Options.get("mousePosition")) {
-            list.push(new MousePositionTracker(database));
+        for (let factoryTuple of inlineFactory) {
+            if (Options.get(factoryTuple[0])) {
+                const tracker = factoryTuple[1]();
+                tracker.addDOMEvent();
+                this.eventTrackers.push(tracker);
+            }
         }
+    }
 
-        if (Options.get("mouseClick")) {
-            list.push(new MouseClickTracker(database));
-        }
-
-        if (Options.get("mouseScrolling")) {
-            list.push(new MouseScrollTracker(database));
-        }
-
-        if (Options.get("dataResolution")) {
-            list.push(new WindowResolutionTracker(database));
-        }
-
-        if (Options.get("dataKeystrokes")) {
-            list.push(new KeystrokeTracker(database));
-        }
-        
-        for (let tracker of list) {
-            tracker.addDOMEvent();
-            this.eventTrackers.push(tracker);
-        }
+    /**
+     * Custom JQuery event finishScroll. Gets triggered when there hasn't been a scroll event for 500ms.
+     */
+    private setUpFinishScrollEvent() {
+        let scrollTimer: number;
+        $(window).scroll(() => {
+            clearTimeout(scrollTimer);
+            scrollTimer = setTimeout(() => {
+                $(window).trigger("scroll:finish");
+            }, 1000);
+        });
     }
 
     /**

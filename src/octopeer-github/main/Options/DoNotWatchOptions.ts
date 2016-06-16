@@ -55,7 +55,7 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
     ];
 
     private eventsThatShouldNotBeWatched: EventThatShouldNotBeWatchedTuple[] = [
-        ["mouseScrolling", [EventID.SCROLL_INTO_VIEW, EventID.SCROLL_OUT_OF_VIEW]],
+        ["mouseScrolling", [EventID.SCROLL]],
         ["mouseHover", [EventID.MOUSE_ENTER, EventID.MOUSE_LEAVE]],
         ["mouseClick", [EventID.CLICK]],
         ["dataKeystrokes", [EventID.KEYSTROKE]],
@@ -97,7 +97,7 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
     public getElements() {
         let doNotWatchElements: ElementID[] = [];
         for (let tuple of this.elementsThatShouldNotBeWatched) {
-            if (Options.get(tuple[0])) {
+            if (!Options.get(tuple[0])) {
                 for (let element of tuple[1]) {
                     doNotWatchElements.push(element);
                 }
@@ -113,7 +113,7 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
     public getEvents() {
         let doNotWatchEvents: EventID[] = [];
         for (let tuple of this.eventsThatShouldNotBeWatched) {
-            if (Options.get(tuple[0])) {
+            if (!Options.get(tuple[0])) {
                 for (let event of tuple[1]) {
                     doNotWatchEvents.push(event);
                 }
@@ -130,7 +130,7 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
     public getCombinations() {
         let doNotWatchCombinations: ElementXEventID[] = [];
         for (let tuple of this.combinationsThatShouldNotBeWatched) {
-            if (Options.get(tuple[0])) {
+            if (!Options.get(tuple[0])) {
                 for (let combination of tuple[1]) {
                     doNotWatchCombinations.push(combination);
                 }

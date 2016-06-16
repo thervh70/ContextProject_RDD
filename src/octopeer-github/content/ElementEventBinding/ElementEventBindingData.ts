@@ -1,4 +1,6 @@
 /// <reference path="../Types/EventID.ts"/>
+/// <reference path="AuxilaryAddDOMEventFunctions.ts"/>
+
 /**
  * Created by Mathias on 02-06-2016.
  * This interface enforces the data elements of the ElementEventBindings.
@@ -10,8 +12,8 @@
 interface ElementEventBindingData {
     addDOMEvent?: (elementSelectionBehaviour?: ElementSelectionBehaviour) => void;
     eventID: EventID;
-    removeDOMEvent?: (elementSelectionBehaviour?: ElementSelectionBehaviour) => void;
     name: string;
+    removeDOMEvent?: (elementSelectionBehaviour?: ElementSelectionBehaviour) => void;
 }
 
 /**
@@ -37,11 +39,33 @@ const elementEventBindingDataList: ElementEventBindingData[] = [
         name: "mouseleave",
     },
     {
-        eventID: EventID.SCROLL_INTO_VIEW,
-        name: "scrollintoview",
-    },
-    {
-        eventID: EventID.SCROLL_OUT_OF_VIEW,
-        name: "scrolloutofview",
+        addDOMEvent: (elementSelectionBehaviour: ElementSelectionBehaviour) => {
+            let wasInScope = false;
+            let handleScrollEvent = (esb: ElementSelectionBehaviour, eventObject: JQueryEventObject) => {
+                if (esb.getElements().length > 0) {
+                    let windowWidth = $(window).width();
+                    let windowHeight = $(window).height();
+                    for (let i = 0; i < esb.getElements().length; i++) {
+                        let rect = esb.getElements()[i].getBoundingClientRect();
+                        if (!wasInScope && AuxiliaryAddDOMEventFunctions.isInScope(windowWidth, windowHeight, rect)) {
+                            wasInScope = true;
+                            esb.getCallback(EventID.SCROLL_INTO_VIEW)(eventObject);
+                        } else if (wasInScope && !AuxiliaryAddDOMEventFunctions.isInScope(windowWidth, windowHeight, rect)) {
+                            wasInScope = false;
+                            esb.getCallback(EventID.SCROLL_OUT_OF_VIEW)(eventObject);
+                        }
+                    }
+                }
+            };
+            handleScrollEvent(elementSelectionBehaviour, $.Event("scroll:finish"));
+            $(window).on("scroll:finish", (eventObject) => {
+                handleScrollEvent(elementSelectionBehaviour, eventObject);
+            });
+        },
+        eventID: EventID.SCROLL,
+        name: "scroll:finish",
+        removeDOMEvent: (esb: ElementSelectionBehaviour) => {
+            esb.getElements().off("scroll:finish");
+        },
     },
 ];
