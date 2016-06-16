@@ -178,7 +178,7 @@ class ContentController {
      * @param database   the database that should be used when logging.
      */
     private hookTrackersToDOM(database: DatabaseAdaptable) {
-        let list: EventTracker[];
+        let list: EventTracker[] = [];
 
         if (Options.get("mousePosition")) {
             list.push(new MousePositionTracker(database));
