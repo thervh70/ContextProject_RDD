@@ -10,18 +10,16 @@ describe("The Options class", function() {
     let spyNotify: jasmine.Spy;
 
     let mockedStorageObject: { [key: string]: boolean; } = {
-        [this.LOGGING]: false,
-        [this.TRACK_TABS]: true,
-        [this.TRACK_COMMENTS]: false,
-        [this.TRACK_PEER_COMMENTS]: true,
-        [this.TRACK_FOCUS]: false,
-        [this.HASH_USERNAME]: true,
-        [this.HASH_REPO]: false,
-        [this.HASH_FILE]: true,
-        [this.DNW_ON_SCREEN_EVENTS]: true,
-        [this.DNW_HOVER_EVENTS]: false,
-        [this.DNW_COMMENT_ELEMENTS]: true,
-        [this.DNW_KEYBOARD_EVENTS]: false,
+        [this.LOGGING]:         true,
+        [this.MOUSE_HOVER]:     true,
+        [this.MOUSE_CLICK]:     true,
+        [this.MOUSE_SCROLLING]: true,
+        [this.MOUSE_POSITION]:  true,
+        [this.DATA_COMMENTS]:   true,
+        [this.DATA_KEYSTROKES]: true,
+        [this.DATA_HTML]:       false,
+        [this.DATA_TABS]:       true,
+        [this.DATA_RESOLUTION]: true,
     };
 
     let mockedStorageDiffValues: { [key: string]: any; } = {
@@ -85,9 +83,10 @@ describe("The Options class", function() {
     });
 
     it("should generate a list of its options", function() {
-        expect(Options.generateOptionList()).toEqual(["loggingEnabled", "trackTabs", "trackComments", "trackPeerComments", "trackFocus",
-            "hashUsername", "hashRepo", "hashFile", "doNotWatchOnScreenEvents", "doNotWatchHoverEvents", "doNotWatchCommentElements",
-            "doNotWatchKeyboardShortcutEvents"]);
+        expect(Options.generateOptionList()).toEqual(["loggingEnabled", "mouseHover",
+            "mouseClick", "mouseScrolling", "mousePosition", "dataComments",
+            "dataKeystrokes", "dataHTML", "dataTabs",
+            "dataResolution"]);
     });
 
     it("should be able to synchronize the optionMap when a storage object with different (boolean) option values is given", function() {
@@ -109,4 +108,6 @@ describe("The Options class", function() {
         expect(Options.get(Options.LOGGING)).toBe(true);
         expect(spyNotify).toHaveBeenCalled();
     });
+    
+    
 });
