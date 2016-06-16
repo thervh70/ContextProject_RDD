@@ -20,10 +20,21 @@ interface ElementSelectionBehaviourData {
 }
 
 const ElementSelectionBehaviourData = {
-    getLineFromEvent: (elementID: ElementID) => {
+    processEventObjectFromLineNumber: (elementID: ElementID) => {
         return (eventObject: JQueryEventObject, eventID: EventID) => {
-            const fileName = "file";
-            const lineNumber = 42;
+            console.log(eventObject);
+            const fileName = $(eventObject.target).parent().parent().parent().parent().parent()
+                .children(".file-header").attr("data-path");
+            const lineNumber = parseInt($(eventObject.target).children(".add-line-comment").attr("data-line"), 10);
+            return EventFactory.semantic(elementID, eventID, fileName, lineNumber);
+        };
+    },
+    processEventObjectFromLineOfCode: (elementID: ElementID) => {
+        return (eventObject: JQueryEventObject, eventID: EventID) => {
+            console.log(eventObject);
+            const fileName = $(eventObject.target).parent().parent().parent().parent().parent()
+                .children(".file-header").attr("data-path");
+            const lineNumber = parseInt($(eventObject.target).attr("data-line-number"), 10);
             return EventFactory.semantic(elementID, eventID, fileName, lineNumber);
         };
     },
@@ -248,14 +259,14 @@ const elementSelectionBehaviourDataList: ElementSelectionBehaviourData[] = [
         elementID: ElementID.DIFF_LINE_NUMBER,
         foundOnPages: PageMask.combine(PageMask.CONVERSATION, PageMask.FILES_CHANGED),
         name: "Line number",
-        processEvent: ElementSelectionBehaviourData.getLineFromEvent(ElementID.DIFF_LINE_NUMBER),
+        processEvent: ElementSelectionBehaviourData.processEventObjectFromLineOfCode(ElementID.DIFF_LINE_NUMBER),
         selector: ".blob-num",
     },
     {
         elementID: ElementID.DIFF_LINE_OF_CODE,
         foundOnPages: PageMask.combine(PageMask.CONVERSATION, PageMask.FILES_CHANGED),
         name: "Line of code",
-        processEvent: ElementSelectionBehaviourData.getLineFromEvent(ElementID.DIFF_LINE_OF_CODE),
+        processEvent: ElementSelectionBehaviourData.processEventObjectFromLineNumber(ElementID.DIFF_LINE_OF_CODE),
         selector: ".blob-code",
     },
 ];
