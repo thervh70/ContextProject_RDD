@@ -35,15 +35,15 @@ const Options = new (class Options {
 
     // A map that contains all option names and their default (boolean) values.
     private optionMap: { [key: string]: boolean; } = {
-        [this.LOGGING]: true,
-        [this.MOUSE_HOVER]: true,
-        [this.MOUSE_CLICK]: true,
+        [this.LOGGING]:         true,
+        [this.MOUSE_HOVER]:     true,
+        [this.MOUSE_CLICK]:     true,
         [this.MOUSE_SCROLLING]: true,
-        [this.MOUSE_POSITION]: true,
-        [this.DATA_COMMENTS]: true,
+        [this.MOUSE_POSITION]:  true,
+        [this.DATA_COMMENTS]:   true,
         [this.DATA_KEYSTROKES]: true,
-        [this.DATA_HTML]: false,
-        [this.DATA_TABS]: true,
+        [this.DATA_HTML]:       false,
+        [this.DATA_TABS]:       true,
         [this.DATA_RESOLUTION]: true,
     };
 
