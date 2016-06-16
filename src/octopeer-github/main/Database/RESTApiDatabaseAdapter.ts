@@ -92,6 +92,8 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
 
     /**
      * Round all necessary fields to integers. Necessary to stay compatible with the database.
+     * A list of all items that can occur in an EventObjectData is given. For each of these 'candidates'
+     * it is checked whether it is contained in the given EventDataObject and if so, rounded.
      * @param eventData The data to be send to the database.
      */
     private processRounding(eventData: EventObjectData): any {
