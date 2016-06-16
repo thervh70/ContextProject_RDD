@@ -19,27 +19,6 @@ interface ElementSelectionBehaviourData {
     selector: string;
 }
 
-const ElementSelectionBehaviourData = {
-    processEventObjectFromLineNumber: (elementID: ElementID) => {
-        return (eventObject: JQueryEventObject, eventID: EventID) => {
-            console.log(eventObject);
-            const fileName = $(eventObject.target).parent().parent().parent().parent().parent()
-                .children(".file-header").attr("data-path");
-            const lineNumber = parseInt($(eventObject.target).children(".add-line-comment").attr("data-line"), 10);
-            return EventFactory.semantic(elementID, eventID, fileName, lineNumber);
-        };
-    },
-    processEventObjectFromLineOfCode: (elementID: ElementID) => {
-        return (eventObject: JQueryEventObject, eventID: EventID) => {
-            console.log(eventObject);
-            const fileName = $(eventObject.target).parent().parent().parent().parent().parent()
-                .children(".file-header").attr("data-path");
-            const lineNumber = parseInt($(eventObject.target).attr("data-line-number"), 10);
-            return EventFactory.semantic(elementID, eventID, fileName, lineNumber);
-        };
-    },
-};
-
 /**
  * unsortedESBData contains all data about the diferent ESB's. It is a list of
  * ESBData objects, which are still unsorted. In the ESBFactory, the list will be
@@ -259,14 +238,26 @@ const elementSelectionBehaviourDataList: ElementSelectionBehaviourData[] = [
         elementID: ElementID.DIFF_LINE_NUMBER,
         foundOnPages: PageMask.combine(PageMask.CONVERSATION, PageMask.FILES_CHANGED),
         name: "Line number",
-        processEvent: ElementSelectionBehaviourData.processEventObjectFromLineOfCode(ElementID.DIFF_LINE_NUMBER),
+        processEvent: (eventObject: JQueryEventObject, eventID: EventID) => {
+            console.log(eventObject);
+            const fileName = $(eventObject.target).parent().parent().parent().parent().parent()
+                .children(".file-header").attr("data-path");
+            const lineNumber = parseInt($(eventObject.target).attr("data-line-number"), 10);
+            return EventFactory.semantic(ElementID.DIFF_LINE_NUMBER, eventID, fileName, lineNumber);
+        },
         selector: ".blob-num",
     },
     {
         elementID: ElementID.DIFF_LINE_OF_CODE,
         foundOnPages: PageMask.combine(PageMask.CONVERSATION, PageMask.FILES_CHANGED),
         name: "Line of code",
-        processEvent: ElementSelectionBehaviourData.processEventObjectFromLineNumber(ElementID.DIFF_LINE_OF_CODE),
+        processEvent: (eventObject: JQueryEventObject, eventID: EventID) => {
+            console.log(eventObject);
+            const fileName = $(eventObject.target).parent().parent().parent().parent().parent()
+                .children(".file-header").attr("data-path");
+            const lineNumber = parseInt($(eventObject.target).attr("data-line-number"), 10);
+            return EventFactory.semantic(ElementID.DIFF_LINE_OF_CODE, eventID, fileName, lineNumber);
+        },
         selector: ".blob-code",
     },
 ];
