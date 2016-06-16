@@ -28,7 +28,7 @@ describe("The Options class", function() {
 
     beforeEach(function () {
         controller = new MainController();
-        spySyncStorage = spyOn(chrome.storage.sync, "set");
+        spySyncStorage = spyOn(chrome.storage.sync, "get");
         spyNotify = spyOn(controller, "notify");
         Options.init();
     });

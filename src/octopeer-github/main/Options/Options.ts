@@ -51,9 +51,19 @@ const Options = new (class Options {
      */
     public init() {
         this.observers = [];
-        chrome.storage.sync.set(this.generateCurrentOptionMap());
-        chrome.storage.local.set(this.generateDefaultOptionMap());
-        chrome.storage.onChanged.addListener((obj, area) => {if (area === "sync") {this.syncOptionMap(obj); }});
+        chrome.storage.sync.get("loggingEnabled", (res) => {
+            let options = this.generateOptionList();
+            if (res[this.LOGGING] === undefined) {
+                chrome.storage.sync.set(this.generateCurrentOptionMap());
+            } else {
+                chrome.storage.sync.get(options, (obj) => this.syncOptionMap(obj));
+            }
+            chrome.storage.local.set(this.generateDefaultOptionMap());
+            chrome.storage.onChanged.addListener((obj, area) => {if (area === "sync") {this.syncOptionMap(obj); }});
+        });
+
+
+
     }
 
     /**
