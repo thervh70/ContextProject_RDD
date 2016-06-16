@@ -19,6 +19,7 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
         "MousePositionEvent": "mouse-position-events",
         "MouseScrollEvent": "mouse-scroll-events",
         "SemanticEvent": "semantic-events",
+        "TabChangeEvent": "change-tab-events",
         "WindowResolutionEvent": "window-resolution-events",
     };
 
