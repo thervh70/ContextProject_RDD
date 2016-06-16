@@ -17,7 +17,7 @@ class EventID {
     public static get MOUSE_ENTER() { return new EventID(202); }
     /** Instantiated EventID for a MouseLeave event. */
     public static get MOUSE_LEAVE() { return new EventID(203); }
-    /** Instantiated EventID for the default Scoll event. */
+    /** Instantiated EventID for the default Scroll event. */
     public static get SCROLL() { return new EventID(300); }
     /** Instantiated EventID for a ScrollIntoView event. */
     public static get SCROLL_INTO_VIEW() { return new EventID(301); }
