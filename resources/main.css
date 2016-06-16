@@ -23,10 +23,12 @@ input[type="checkbox"]+label {
 
 input[type="checkbox"]:disabled+label {
     opacity: 0.48;
+    cursor: default;
 }
 
 input[type="checkbox"]:disabled+label:before {
     opacity: 0;
+    cursor: default;
 }
 
 input[type="checkbox"]+label:before {
