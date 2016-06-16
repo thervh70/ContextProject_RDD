@@ -18,13 +18,13 @@ class ContentController {
      * A list used to store the old EEBs, in order to remove them later.
      * @type {Array}
      */
-    private oldElementEventBindings: ElementEventBinding[] = [];
+    private elementEventBindings: ElementEventBinding[] = [];
 
     /**
      * A list used to store the old EventTrackers, in order to remove them later.
      * @type {Array}
      */
-    private oldEventTrackers: EventTracker[] = [];
+    private eventTrackers: EventTracker[] = [];
 
     /**
      * This MutationObserver will observer the DOM for mutations in the tree.
@@ -123,20 +123,20 @@ class ContentController {
      * Unhooks the semantic trackers from DOM, based on the EEBs previously saved in an array.
      */
     private unhookSemanticFromDOM() {
-        for (let elementEventBinding of this.oldElementEventBindings) {
+        for (let elementEventBinding of this.elementEventBindings) {
             elementEventBinding.removeDOMEvent();
         }
-        this.oldElementEventBindings = [];
+        this.elementEventBindings = [];
     }
 
     /**
      * Unhooks the raw data trackers from DOM, based on the EventTrackers previously saved in an array.
      */
     private unhookTrackersFromDOM() {
-        for (let eventTracker of this.oldEventTrackers) {
+        for (let eventTracker of this.eventTrackers) {
             eventTracker.removeDOMEvent();
         }
-        this.oldEventTrackers = [];
+        this.eventTrackers = [];
     }
 
     /**
@@ -167,7 +167,7 @@ class ContentController {
                 ) {
                     elementEventBinding = eebFactory.create(elementSelectionBehaviour, elementEventBindingData.eventID);
                     elementEventBinding.addDOMEvent();
-                    this.oldElementEventBindings.push(elementEventBinding);
+                    this.elementEventBindings.push(elementEventBinding);
                 }
             }
         }
@@ -199,10 +199,10 @@ class ContentController {
         if (Options.get("dataKeystrokes")) {
             list.push(new KeystrokeTracker(database));
         }
-
+        
         for (let tracker of list) {
             tracker.addDOMEvent();
-            this.oldEventTrackers.push(tracker);
+            this.eventTrackers.push(tracker);
         }
     }
 
