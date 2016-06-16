@@ -15,34 +15,30 @@ const Options = new (class Options {
      * The implementation is not with static, because Options is a Singleton.
      */
     public get LOGGING() {return "loggingEnabled"; }
-    public get TRACK_TABS() {return "trackTabs"; }
-    public get TRACK_COMMENTS() {return "trackComments"; }
-    public get TRACK_PEER_COMMENTS() {return "trackPeerComments"; }
-    public get TRACK_FOCUS() {return "trackFocus"; }
-    public get HASH_USERNAME() {return "hashUsername"; }
-    public get HASH_REPO() {return "hashRepo"; }
-    public get HASH_FILE() {return "hashFile"; }
-    public get DNW_ON_SCREEN_EVENTS() {return "doNotWatchOnScreenEvents"; }
-    public get DNW_HOVER_EVENTS() {return "doNotWatchHoverEvents"; }
-    public get DNW_COMMENT_ELEMENTS() {return "doNotWatchCommentElements"; }
-    public get DNW_KEYBOARD_EVENTS() {return "doNotWatchKeyboardShortcutEvents"; }
+    public get MOUSE_HOVER() {return "mouseHover"; }
+    public get MOUSE_CLICK() {return "mouseClick"; }
+    public get MOUSE_SCROLLING() {return "mouseScrolling"; }
+    public get MOUSE_POSITION() {return "mousePosition"; }
+    public get DATA_COMMENTS() {return "dataComments"; }
+    public get DATA_KEYSTROKES() {return "dataKeystrokes"; }
+    public get DATA_HTML() {return "dataHTML"; }
+    public get DATA_TABS() {return "dataTabs"; }
+    public get DATA_RESOLUTION() {return "dataResolution"; }
 
     // A map that contains all option names and their (boolean) values.
     // The first boolean value represents the current value of an option and is updated.
     // The second boolean value represents the default value of an option.
     private optionMap: { [key: string]: [boolean]; } = {
         [this.LOGGING]: [true, true],
-        [this.TRACK_TABS]: [true, true],
-        [this.TRACK_COMMENTS]: [true, true],
-        [this.TRACK_PEER_COMMENTS]: [true, true],
-        [this.TRACK_FOCUS]: [true, true],
-        [this.HASH_USERNAME]: [true, true],
-        [this.HASH_REPO]: [true, true],
-        [this.HASH_FILE]: [false, false],
-        [this.DNW_ON_SCREEN_EVENTS]: [true, true],
-        [this.DNW_HOVER_EVENTS]: [true, true],
-        [this.DNW_COMMENT_ELEMENTS]: [true, true],
-        [this.DNW_KEYBOARD_EVENTS]: [true, true],
+        [this.MOUSE_HOVER]: [true, true],
+        [this.MOUSE_CLICK]: [true, true],
+        [this.MOUSE_SCROLLING]: [true, true],
+        [this.MOUSE_POSITION]: [true, true],
+        [this.DATA_COMMENTS]: [true, true],
+        [this.DATA_KEYSTROKES]: [true, true],
+        [this.DATA_HTML]: [false, false],
+        [this.DATA_TABS]: [false, false],
+        [this.DATA_RESOLUTION]: [false, false],
     };
 
     private observers: OptionsObserver[];
