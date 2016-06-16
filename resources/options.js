@@ -15,12 +15,6 @@ var subOptions = ['securitySubOptions', 'privacySubOptions', 'hintsSubOptions', 
 // List that contains all cardElement names that Octopeer provides.
 var cards = ['security', 'privacy', 'hints', 'doNotWatch'];
 
-// List that contains all default optionID names that Octopeer provides.
-var defaultOptions = ['loggingEnabledDefault',
-    'trackTabsDefault', 'trackCommentsDefault', 'trackPeerCommentsDefault', 'trackFocusDefault',
-    'hashUsernameDefault', 'hashRepoDefault', 'hashFileDefault', 'doNotWatchOnScreenEventsDefault', 'doNotWatchHoverEventsDefault',
-    'doNotWatchCommentElementsDefault', 'doNotWatchKeyboardShortcutEventsDefault'];
-
 // Listens for changes in the loggingEnabled flag.
 // This boolean might be switched using the popup.
 function changeListener() {
@@ -162,10 +156,10 @@ function switchOptions() {
 // Sets the options to the default options by updating the chrome storage and the options page.
 // Because callbacks are used, these two chrome functions calls can't be separated.
 function restoreDefaults() {
-    chrome.storage.local.get(defaultOptions, function(items) {
+    chrome.storage.local.get(options, function(items) {
         var obj = {};
         for (var i = 0; i < options.length; i++) {
-            obj[options[i]] = items[defaultOptions[i]];
+            obj[options[i]] = items[options[i]];
         }
         chrome.storage.sync.set(obj);
     });

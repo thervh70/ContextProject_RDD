@@ -49,6 +49,7 @@ const Options = new (class Options {
 
     /**
      * Initialization fetches the current settings and stores them in this class.
+     * Dynamic options are set to the sync storage and default options are set to the local storage.
      * Besides, enables a listener that listens for changes in the sync storage area.
      * This means that any items that was changed (newValue) is set if changed;
      */
