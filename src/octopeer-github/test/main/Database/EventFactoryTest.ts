@@ -8,7 +8,7 @@ describe("An EventFactory", function() {
     it("should properly create SemanticEvents", function() {
         expect(EventFactory.semantic(ElementID.MERGE_PR, EventID.CLICK, undefined, undefined, defaultTime))
             .toEqual({
-                data: {created_at: defaultTime, elementID: ElementID.MERGE_PR, eventID: EventID.CLICK,
+                data: {commit_hash: undefined, created_at: defaultTime, elementID: ElementID.MERGE_PR, eventID: EventID.CLICK,
                     filename: undefined, line_number: undefined},
                 type: "SemanticEvent",
             });
