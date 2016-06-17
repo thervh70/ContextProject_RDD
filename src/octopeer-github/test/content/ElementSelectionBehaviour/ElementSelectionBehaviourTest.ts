@@ -20,7 +20,6 @@ interface ElementIDNumberPair extends Array<ElementID | number> {
  * in the parameterized test to test whether the right amount of Elements are detected in the html files.
  * @type {CreatableNumberPair[]}
  */
-// TODO: All commented tuples in the lists have to be fixed with Ajax request first
 let conversationSelectors: ElementIDNumberPair[] =  [
     [ElementID.ADD_EMOTICON, 2],
     [ElementID.CANCEL_EDIT_PRNAME, 0],
@@ -66,11 +65,8 @@ let commitSelectors: ElementIDNumberPair[] = [
 let filesChangedSelectors: ElementIDNumberPair[] = [
     [ElementID.ADD_EMOTICON, 1],
     [ElementID.CANCEL_EDIT_PRNAME, 0],
-    // [ElementID.CANCEL_INLINE_COMMENT, 0],
-    // [ElementID.CONFIRM_INLINE_COMMENT, 0],
     [ElementID.EDIT_COMMENT, 1],
     [ElementID.EDIT_PR_NAME, 1],
-    // [ElementID.CREATE_INLINE_COMMENT, 0],
     [ElementID.SAVE_PR_NAME, 0],
     [ElementID.DATE, 5],
     [ElementID.OTHER_CONTRIBUTOR, 0],

@@ -24,7 +24,6 @@ class MainController implements OptionsObserver {
      * @return this
      */
     public start() {
-        Logger.setDebug(); // TODO remove this on release
         Options.init();
         Options.addObserver(this);
         Status.standby();

@@ -9,9 +9,9 @@ describe("A PageMask", function() {
 
     it("should be combined correctly", function() {
         const masks = [PageMask.CONVERSATION, PageMask.FILES_CHANGED];
-        const contains = [true, false, true]; // TODO arrays in JS have no proper contains method
+        const shouldBeOnPage = [true, false, true];
         for (let i = 0; i < list.length; i++) {
-            expect(PageMask.combine(...masks).isOnPage(list[i])).toBe(contains[i]);
+            expect(PageMask.combine(...masks).isOnPage(list[i])).toBe(shouldBeOnPage[i]);
         }
     });
 

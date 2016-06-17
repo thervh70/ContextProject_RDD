@@ -46,6 +46,10 @@ interface CombinationsThatShouldNotBeWatchedTuple extends Array<string | Array<E
 // tslint:disable-next-line:no-unused-variable
 const DoNotWatchOptions = new (class DoNotWatchOptions {
 
+    /**
+     * An array that contains a tuple of all elements that should not be watched.
+     * @type {string|ElementID[][][]} array of elements
+     */
     private elementsThatShouldNotBeWatched: ElementThatShouldNotBeWatchedTuple[] = [
         [Options.DATA_COMMENTS, [
             ElementID.CONFIRM_INLINE_COMMENT,
@@ -54,6 +58,10 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
         ]],
     ];
 
+    /**
+     * An array that contains a tuple of all events that should not be watched.
+     * @type {string|EventID[][][]} array of events
+     */
     private eventsThatShouldNotBeWatched: EventThatShouldNotBeWatchedTuple[] = [
         [Options.MOUSE_SCROLLING, [EventID.SCROLL]],
         [Options.MOUSE_HOVER, [EventID.MOUSE_ENTER, EventID.MOUSE_LEAVE]],
@@ -61,6 +69,10 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
         [Options.DATA_KEYSTROKES, [EventID.KEYSTROKE]],
     ];
 
+    /**
+     * An array that contains a tuple of all combinations that should not be watched.
+     * @type {Array} array of combinations
+     */
     private combinationsThatShouldNotBeWatched: CombinationsThatShouldNotBeWatchedTuple[] = [];
 
     /**

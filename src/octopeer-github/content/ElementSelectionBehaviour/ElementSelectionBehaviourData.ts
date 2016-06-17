@@ -37,7 +37,7 @@ const elementSelectionBehaviourDataList: ElementSelectionBehaviourData[] = [
     },
     {
         elementID: ElementID.CANCEL_EDIT_COMMENT,
-        foundOnPages: PageMask.combine(), // TODO fix!
+        foundOnPages: PageMask.combine(),
         name: "Cancel Edit Comment",
         selector: ".is-comment-editing button.js-comment-cancel-button",
     },
@@ -67,7 +67,7 @@ const elementSelectionBehaviourDataList: ElementSelectionBehaviourData[] = [
     },
     {
         elementID: ElementID.CONFIRM_EDIT_COMMENT,
-        foundOnPages: PageMask.combine(), // TODO fix!
+        foundOnPages: PageMask.combine(),
         name: "Confirm Edit Comment",
         selector: ".is-comment-editing button.btn-primary",
     },
@@ -115,7 +115,7 @@ const elementSelectionBehaviourDataList: ElementSelectionBehaviourData[] = [
     },
     {
         elementID: ElementID.SHOW_CI_DETAILS,
-        foundOnPages: PageMask.combine(), // TODO fix!
+        foundOnPages: PageMask.combine(),
         name: "Show CI details",
         selector: ".merge-pr .build-status-details",
     },
@@ -224,13 +224,13 @@ const elementSelectionBehaviourDataList: ElementSelectionBehaviourData[] = [
     /** Category: Textfield */
     {
         elementID: ElementID.COMMENT_TEXTFIELD,
-        foundOnPages: PageMask.combine(), // TODO fix!
+        foundOnPages: PageMask.combine(),
         name: "Comment textfield",
         selector: ".timeline-comment #new_comment_field",
     },
     {
         elementID: ElementID.INLINE_COMMENT_TEXTFIELD,
-        foundOnPages: PageMask.combine(), // TODO fix!
+        foundOnPages: PageMask.combine(),
         name: "Inline comment textfield",
         selector: ".js-inline-comment-form textarea[id^=new]",
     },
