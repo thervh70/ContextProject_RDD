@@ -45,7 +45,7 @@ const Options = new (class Options {
         [this.LOGGING]: [true, true],
         [this.MOUSE_HOVER]: [true, true],
         [this.MOUSE_CLICK]: [true, true],
-        [this.MOUSE_SCROLLING]: [true, true],
+        [this.MOUSE_SCROLLING]: [false, false],
         [this.MOUSE_POSITION]: [true, true],
         [this.DATA_COMMENTS]: [true, true],
         [this.DATA_KEYSTROKES]: [true, true],
