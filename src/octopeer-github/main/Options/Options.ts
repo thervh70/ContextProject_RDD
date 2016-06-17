@@ -14,20 +14,33 @@ const Options = new (class Options {
      * All strings that are used in the Chrome Storage are hidden behind these public static final fields.
      * The implementation is not with static, because Options is a Singleton.
      */
-    public get LOGGING() {return "loggingEnabled"; }
-    public get MOUSE_HOVER() {return "mouseHover"; }
-    public get MOUSE_CLICK() {return "mouseClick"; }
-    public get MOUSE_SCROLLING() {return "mouseScrolling"; }
-    public get MOUSE_POSITION() {return "mousePosition"; }
-    public get DATA_COMMENTS() {return "dataComments"; }
-    public get DATA_KEYSTROKES() {return "dataKeystrokes"; }
-    public get DATA_HTML() {return "dataHTML"; }
-    public get DATA_TABS() {return "dataTabs"; }
-    public get DATA_RESOLUTION() {return "dataResolution"; }
+    public get LOGGING() {          return "loggingEnabled"; }
+    public get MOUSE_HOVER() {      return "mouseHover"; }
+    public get MOUSE_CLICK() {      return "mouseClick"; }
+    public get MOUSE_SCROLLING() {  return "mouseScrolling"; }
+    public get MOUSE_POSITION() {   return "mousePosition"; }
+    public get DATA_COMMENTS() {    return "dataComments"; }
+    public get DATA_KEYSTROKES() {  return "dataKeystrokes"; }
+    public get DATA_HTML() {        return "dataHTML"; }
+    public get DATA_TABS() {        return "dataTabs"; }
+    public get DATA_RESOLUTION() {  return "dataResolution"; }
 
-    // A map that contains all option names and their (boolean) values.
-    // The first boolean value represents the current value of an option and is updated.
-    // The second boolean value represents the default value of an option.
+    /**
+     * A option on the left should be disabled if the option on the right should be disabled.
+     */
+    public get DEPENDENCIES(): {[name: string]: string; }{
+        return {
+            [this.DATA_HTML]:           this.DATA_KEYSTROKES,
+            [this.DATA_KEYSTROKES]:     this.DATA_COMMENTS ,
+            [this.MOUSE_CLICK]:         this.MOUSE_HOVER,
+            [this.MOUSE_HOVER]:         this.MOUSE_POSITION,
+        };
+    };
+
+    /** A map that contains all option names and their (boolean) values.
+     * The first boolean value represents the current value of an option and is updated.
+     * The second boolean value represents the default value of an option.
+     */
     private optionMap: { [key: string]: [boolean]; } = {
         [this.LOGGING]: [true, true],
         [this.MOUSE_HOVER]: [true, true],
@@ -41,6 +54,9 @@ const Options = new (class Options {
         [this.DATA_RESOLUTION]: [true, true],
     };
 
+    /**
+     * A list for all observers of the Options object.
+     */
     private observers: OptionsObserver[];
 
     /**
@@ -51,7 +67,7 @@ const Options = new (class Options {
      */
     public init() {
         this.observers = [];
-        chrome.storage.sync.get("loggingEnabled", (res) => {
+        chrome.storage.sync.get(this.LOGGING, (res) => {
             let options = this.generateOptionList();
             if (res[this.LOGGING] === undefined) {
                 chrome.storage.sync.set(this.generateCurrentOptionMap());
@@ -61,9 +77,6 @@ const Options = new (class Options {
             chrome.storage.local.set(this.generateDefaultOptionMap());
             chrome.storage.onChanged.addListener((obj, area) => {if (area === "sync") {this.syncOptionMap(obj); }});
         });
-
-
-
     }
 
     /**
@@ -161,7 +174,7 @@ const Options = new (class Options {
      */
     public get(optionName: string) {
         if (optionName in this.optionMap) {
-            return this.optionMap[optionName][0];
+            return this.optionMap[optionName][0] && this.dependentOption(optionName);
         }
         return false;
     }
@@ -178,6 +191,7 @@ const Options = new (class Options {
         }
         return false;
     }
+
     /**
      * Splits the optionMap into a specific map, containing only the values based on a given index.
      * @param index integer that indicates the index of the boolean array.
@@ -191,6 +205,17 @@ const Options = new (class Options {
             }
         }
         return specificOptionMap;
+    }
+
+    /**
+     * See if any options dependent on the given option are disabled,
+     * If any of the dependent on options is disabled than return false.
+     * If the option is allowed return true.
+     * @param optionName the option to check
+     * @returns {boolean}
+     */
+    private dependentOption(optionName: string): boolean {
+        return !this.DEPENDENCIES.hasOwnProperty(optionName) || this.get(this.DEPENDENCIES[optionName]);
     }
 
 })();

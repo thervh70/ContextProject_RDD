@@ -18,13 +18,13 @@ class ContentController {
      * A list used to store the old EEBs, in order to remove them later.
      * @type {Array}
      */
-    private oldElementEventBindings: ElementEventBinding[] = [];
+    private elementEventBindings: ElementEventBinding[] = [];
 
     /**
      * A list used to store the old EventTrackers, in order to remove them later.
      * @type {Array}
      */
-    private oldEventTrackers: EventTracker[] = [];
+    private eventTrackers: EventTracker[] = [];
 
     /**
      * This MutationObserver will observer the DOM for mutations in the tree.
@@ -106,7 +106,10 @@ class ContentController {
         this.hookSemanticToDOM(database);
         this.hookFocusAndBlurToDom(database);
         this.hookTrackersToDOM(database);
-        this.hookMutationObserverToDOM();
+
+        if (Options.get(Options.DATA_HTML)) {
+            this.hookMutationObserverToDOM();
+        }
     }
 
     /**
@@ -123,10 +126,10 @@ class ContentController {
      * Unhooks the semantic trackers from DOM, based on the EEBs previously saved in an array.
      */
     private unhookSemanticFromDOM() {
-        for (let elementEventBinding of this.oldElementEventBindings) {
+        for (let elementEventBinding of this.elementEventBindings) {
             elementEventBinding.removeDOMEvent();
         }
-        this.oldElementEventBindings = [];
+        this.elementEventBindings = [];
     }
 
     /**
@@ -143,10 +146,10 @@ class ContentController {
      * Unhooks the raw data trackers from DOM, based on the EventTrackers previously saved in an array.
      */
     private unhookTrackersFromDOM() {
-        for (let eventTracker of this.oldEventTrackers) {
+        for (let eventTracker of this.eventTrackers) {
             eventTracker.removeDOMEvent();
         }
-        this.oldEventTrackers = [];
+        this.eventTrackers = [];
     }
 
     /**
@@ -177,7 +180,7 @@ class ContentController {
                 ) {
                     elementEventBinding = eebFactory.create(elementSelectionBehaviour, elementEventBindingData.eventID);
                     elementEventBinding.addDOMEvent();
-                    this.oldElementEventBindings.push(elementEventBinding);
+                    this.elementEventBindings.push(elementEventBinding);
                 }
             }
         }
@@ -189,11 +192,15 @@ class ContentController {
     private hookFocusAndBlurToDom(database: DatabaseAdaptable) {
         const postStart = () => {
             database.post(EventFactory.semantic(ElementID.NO_ELEMENT, EventID.START_WATCHING_PR), EMPTY_CALLBACK, EMPTY_CALLBACK);
-            database.post(EventFactory.tabChange(EventFactory.getTime()), EMPTY_CALLBACK, EMPTY_CALLBACK);
+            if (Options.get(Options.DATA_TABS)) {
+                database.post(EventFactory.tabChange(EventFactory.getTime()), EMPTY_CALLBACK, EMPTY_CALLBACK);
+            }
         };
         const postStop = () => {
             database.post(EventFactory.semantic(ElementID.NO_ELEMENT, EventID.STOP_WATCHING_PR), EMPTY_CALLBACK, EMPTY_CALLBACK);
-            database.post(EventFactory.tabChange(EventFactory.getTime()), EMPTY_CALLBACK, EMPTY_CALLBACK);
+            if (Options.get(Options.DATA_TABS)) {
+                database.post(EventFactory.tabChange(EventFactory.getTime()), EMPTY_CALLBACK, EMPTY_CALLBACK);
+            }
         };
         $(window).on("focus", postStart);
         $(window).on("blur", postStop);
@@ -212,16 +219,20 @@ class ContentController {
      * @param database   the database that should be used when logging.
      */
     private hookTrackersToDOM(database: DatabaseAdaptable) {
-        const list: EventTracker[] = [
-            new WindowResolutionTracker(database),
-            new KeystrokeTracker(database),
-            new MouseClickTracker(database),
-            new MouseScrollTracker(database),
-            new MousePositionTracker(database),
+        const inlineFactory: any[][] = [
+            [Options.MOUSE_POSITION,  () => new MousePositionTracker(database)],
+            [Options.MOUSE_CLICK,     () => new MouseClickTracker(database)],
+            [Options.MOUSE_SCROLLING, () => new MouseScrollTracker(database)],
+            [Options.DATA_RESOLUTION, () => new WindowResolutionTracker(database)],
+            [Options.DATA_KEYSTROKES, () => new KeystrokeTracker(database)],
         ];
-        for (let tracker of list) {
-            tracker.addDOMEvent();
-            this.oldEventTrackers.push(tracker);
+
+        for (let factoryTuple of inlineFactory) {
+            if (Options.get(factoryTuple[0])) {
+                const tracker = factoryTuple[1]();
+                tracker.addDOMEvent();
+                this.eventTrackers.push(tracker);
+            }
         }
     }
 

@@ -10,15 +10,15 @@ describe("The Options class", function() {
     let spyNotify: jasmine.Spy;
 
     let mockedStorageObject: { [key: string]: boolean; } = {
-        [Options.LOGGING]: true,
-        [Options.MOUSE_HOVER]: true,
-        [Options.MOUSE_CLICK]: true,
+        [Options.LOGGING]:         true,
+        [Options.MOUSE_HOVER]:     true,
+        [Options.MOUSE_CLICK]:     true,
         [Options.MOUSE_SCROLLING]: true,
-        [Options.MOUSE_POSITION]: true,
-        [Options.DATA_COMMENTS]: true,
+        [Options.MOUSE_POSITION]:  true,
+        [Options.DATA_COMMENTS]:   true,
         [Options.DATA_KEYSTROKES]: true,
-        [Options.DATA_HTML]: false,
-        [Options.DATA_TABS]: true,
+        [Options.DATA_HTML]:       false,
+        [Options.DATA_TABS]:       true,
         [Options.DATA_RESOLUTION]: true,
     };
 
@@ -127,4 +127,53 @@ describe("The Options class", function() {
         expect(Options.generateDefaultOptionMap()).toEqual(mockedStorageObject);
     });
 
+    it("should be the case that no circular dependacies get inserted into the code", function() {
+        function recursivelyTopologicalyRemove(list: [string, string][]): boolean {
+
+            // no items, so no circular dependancy so we aprove.
+            if (list.length === 0) {
+                return true;
+            }
+
+            // see if we can find a item wich is not relied on.
+            for (let begin = 0; begin < list.length; begin++) {
+
+                // check if there's nothing relying on this.
+                if (nothingIsDependentOn(list[begin][0], list)) {
+
+                    // recursively continue without this element.
+                    list.splice(begin, 1);
+                    return recursivelyTopologicalyRemove(list);
+                }
+            }
+
+            // found nothing to remove, so a circular reference is found.
+            return false;
+        }
+
+        // for a given element see if there are no items wich reference it.
+        function nothingIsDependentOn(element: string, list: [string, string][]) {
+
+            // loop through all items
+            for (let begin = 0; begin < list.length; begin++) {
+
+                // if a item is found wich relies on this element, return false
+                if (list[begin][1] === element) {
+                    return false;
+                }
+            }
+
+            // nothing found, so approve.
+            return true;
+        }
+        
+        expect(
+            recursivelyTopologicalyRemove(
+                $.map(
+                    Options.DEPENDENCIES,
+                    (value, index) => [[index, value]]
+                )
+            )
+        ).toEqual(true);
+    });
 });

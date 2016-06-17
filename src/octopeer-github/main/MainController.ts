@@ -237,7 +237,7 @@ class MainController implements OptionsObserver {
             // IP for testing locally: 10.0.22.6
             this.database[user][prUrl] = new RESTApiDatabaseAdapter(MainController.DATABASE_URL, prUrl, user);
         }
-        return this.database[user][prUrl]
+        return this.database[user][prUrl];
     }
 
 }
