@@ -6,19 +6,19 @@ describe("An EventFactory", function() {
     const defaultTime: UnixTimestamp = EventFactory.getTime();
 
     it("should properly create SemanticEvents", function() {
-        expect(EventFactory.semantic(ElementID.MERGE_PR, EventID.CLICK, undefined, undefined, defaultTime))
+        expect(EventFactory.semantic(ElementID.MERGE_PR, EventID.CLICK, undefined, undefined, undefined, defaultTime))
             .toEqual({
-                data: {created_at: defaultTime, elementID: ElementID.MERGE_PR, eventID: EventID.CLICK,
-                    filename: undefined, lineNumber: undefined},
+                data: {commit_hash: undefined, created_at: defaultTime, elementID: ElementID.MERGE_PR, eventID: EventID.CLICK,
+                    filename: undefined, line_number: undefined},
                 type: "SemanticEvent",
             });
     });
 
     it("should properly create SemanticEvents with the optional fields set", function() {
-        expect(EventFactory.semantic(ElementID.MERGE_PR, EventID.CLICK, "testfile.txt", 42, defaultTime))
+        expect(EventFactory.semantic(ElementID.MERGE_PR, EventID.CLICK, "0123456789abcdef", "testfile.txt", 42, defaultTime))
             .toEqual({
-                data: {created_at: defaultTime, elementID: ElementID.MERGE_PR, eventID: EventID.CLICK,
-                    filename: "testfile.txt", lineNumber: 42},
+                data: {commit_hash: "0123456789abcdef", created_at: defaultTime, elementID: ElementID.MERGE_PR, eventID: EventID.CLICK,
+                    filename: "testfile.txt", line_number: 42},
                 type: "SemanticEvent",
             });
     });

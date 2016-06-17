@@ -69,7 +69,23 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
      * @param failure       Callback, which is called once the call has failed.
      */
     public post(eventData: EventObject, success: Callback, failure: Callback): void {
-        this.postEvent(this.processEventObject(eventData), this.endPoints[eventData.type], success, failure);
+        let newSuccess = success;
+        if (eventData.type === "SemanticEvent") {
+            const data = <SemanticEvent>eventData.data;
+            if (data.commit_hash !== undefined && data.filename !== undefined && data.line_number !== undefined) {
+                // Override callback if a semanticEvent contains diff / line number information.
+                // Old callback will be called when this call is done.
+                newSuccess = (semanticEventDataResult) => {
+                    this.postEvent({
+                        commit_hash: data.commit_hash,
+                        filename: data.filename,
+                        line_number: data.line_number,
+                        semantic_event: semanticEventDataResult.id,
+                    }, "file-positions", success, failure);
+                };
+            }
+        }
+        this.postEvent(this.processEventObject(eventData), this.endPoints[eventData.type], newSuccess, failure);
     }
 
     /**

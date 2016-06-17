@@ -1,3 +1,4 @@
+/// <reference path="DiffElementSelectionBehaviourFunctions.ts"/>
 /// <reference path="../Types/ElementID.ts"/>
 /// <reference path="../Types/PageMask.ts"/>
 /**
@@ -11,11 +12,11 @@
  * callback is an optional function that overrides the default callback when necessary.
  */
 interface ElementSelectionBehaviourData {
-    callback?: (event: JQueryEventObject) => void;
     composedSelector?: () => JQuery;
     elementID: ElementID;
     foundOnPages: PageMask;
     name: string;
+    processEvent?: (event: JQueryEventObject, eventID: EventID) => EventObject;
     selector: string;
 }
 
@@ -232,5 +233,30 @@ const elementSelectionBehaviourDataList: ElementSelectionBehaviourData[] = [
         foundOnPages: PageMask.combine(), // TODO fix!
         name: "Inline comment textfield",
         selector: ".js-inline-comment-form textarea[id^=new]",
+    },
+    /** Category: Diff */
+    {
+        elementID: ElementID.DIFF_LINE_NUMBER,
+        foundOnPages: PageMask.combine(PageMask.CONVERSATION, PageMask.FILES_CHANGED),
+        name: "Line number",
+        processEvent: (eventObject: JQueryEventObject, eventID: EventID) => {
+            const commit_hash = DiffElementSelectionBehaviourFunctions.getCommitHashFromDiffLine($(eventObject.currentTarget));
+            const filename = DiffElementSelectionBehaviourFunctions.getFilenameFromDiffLine($(eventObject.currentTarget));
+            const line_number = parseInt($(eventObject.currentTarget).attr("data-line-number"), 10);
+            return EventFactory.semantic(ElementID.DIFF_LINE_NUMBER, eventID, commit_hash, filename, line_number);
+        },
+        selector: ".blob-num-addition, .blob-num-deletion, .blob-num-context",
+    },
+    {
+        elementID: ElementID.DIFF_LINE_OF_CODE,
+        foundOnPages: PageMask.combine(PageMask.CONVERSATION, PageMask.FILES_CHANGED),
+        name: "Line of code",
+        processEvent: (eventObject: JQueryEventObject, eventID: EventID) => {
+            const commit_hash = DiffElementSelectionBehaviourFunctions.getCommitHashFromDiffLine($(eventObject.currentTarget));
+            const filename = DiffElementSelectionBehaviourFunctions.getFilenameFromDiffLine($(eventObject.currentTarget));
+            const line_number = parseInt($(eventObject.currentTarget).children(".add-line-comment").attr("data-line"), 10);
+            return EventFactory.semantic(ElementID.DIFF_LINE_OF_CODE, eventID, commit_hash, filename, line_number);
+        },
+        selector: ".blob-code-addition, .blob-code-deletion, .blob-code-context",
     },
 ];
