@@ -18,19 +18,23 @@ p {
 }
 
 input[type="checkbox"]+label {
-    color: rgba(0,0,0,0.87)
+    color: rgba(0,0,0,0.87);
+    font-size: 12pt;
 }
 
 input[type="checkbox"]:disabled+label {
-    opacity: 0.48;
     cursor: default;
+    font-size: 12pt;
+    opacity: 0.48;
 }
 
 input[type="checkbox"]:disabled+label:before {
-    opacity: 0;
     cursor: default;
+    font-size: 12pt;
+    opacity: 0;
 }
 
 input[type="checkbox"]+label:before {
+    font-size: 12pt;
     transition(all .3s ease-in-out);
 }
