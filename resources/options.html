@@ -40,8 +40,15 @@
                     <div class="card">
                         <div class="card-content">
                             <span class="card-title">General</span> <br>
-                            <input type="checkbox" id="loggingEnabled">
-                            <label for="loggingEnabled">I accept Octopeer to log data from me while reviewing pull requests on GitHub.</label>
+                            <p>
+                                Below are all the options that you can en- or disable for either privacy or performance issues.
+                            </p>
+                            <ul>
+                                <li>
+                                    <input type="checkbox" id="loggingEnabled">
+                                    <label for="loggingEnabled">I accept Octopeer to log data from me while reviewing pull requests on GitHub.</label>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -67,7 +74,7 @@
                                 </li>
                                 <li>
                                     <input type="checkbox" id="mouseScrolling">
-                                    <label for="mouseScrolling"> when I use the scroll wheel. </label>
+                                    <label for="mouseScrolling"> when I use the scroll wheel.* </label>
                                 </li>
                             </ul>
                         </div>
@@ -99,14 +106,18 @@
                                 </li>
                                 <li>
                                     <input type="checkbox" id="dataHTML">
-                                    <label for="dataHTML"> log the entire pull request (the HTML body). </label>
+                                    <label for="dataHTML"> log the entire pull request (the HTML body).* </label>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
-            <button class="btn waves-effect lime waves-light" type="submit" style="font-size: 11pt; margin-bottom: 30px;" id="restore">
+            <p style="font-size: 11pt;">
+                * If you do experience performance issues then we would advice you to first turn off HTML logging. Then if you
+                still experience performance issues, please turn off scroll logging. This should fix most issues on most machines.
+            </p>
+            <button class="btn waves-effect lime waves-light" type="submit" style="font-size: 11pt; margin-bottom: 30px; margin-top: 10px;" id="restore">
                 <div>
                     <a style="color: white;">Restore Defaults</a>
                     <i class="material-icons right">restore</i>

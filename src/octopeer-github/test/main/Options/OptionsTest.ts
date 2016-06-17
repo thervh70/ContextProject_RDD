@@ -18,8 +18,8 @@ describe("The Options class", function() {
         [Options.DATA_COMMENTS]:   true,
         [Options.DATA_KEYSTROKES]: true,
         [Options.DATA_HTML]:       false,
-        [Options.DATA_TABS]:       false,
-        [Options.DATA_RESOLUTION]: false,
+        [Options.DATA_TABS]:       true,
+        [Options.DATA_RESOLUTION]: true,
     };
 
     let mockedStorageDiffValues: { [key: string]: any; } = {
@@ -67,9 +67,10 @@ describe("The Options class", function() {
 
     it("should get the option value", function() {
         let optionList: string[] = Options.generateOptionList();
-        // HashFile is false by default.
+        // HTML Logging is false by default.
+        let turnedOff = 7;
         for (let i = 0; i < optionList.length; i++) {
-            if (i !== 7 && i !== 8 && i !== 9) {
+            if (i !== turnedOff) {
                 expect(Options.get(optionList[i])).toBe(true);
             } else {
                 expect(Options.get(optionList[i])).toBe(false);

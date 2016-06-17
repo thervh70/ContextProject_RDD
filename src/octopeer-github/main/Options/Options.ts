@@ -33,7 +33,7 @@ const Options = new (class Options {
             [this.DATA_HTML]:           this.DATA_KEYSTROKES,
             [this.DATA_KEYSTROKES]:     this.DATA_COMMENTS ,
             [this.MOUSE_CLICK]:         this.MOUSE_HOVER,
-            [this.DATA_RESOLUTION]:     this.DATA_RESOLUTION,
+            [this.MOUSE_HOVER]:         this.MOUSE_POSITION,
         };
     };
 
@@ -50,8 +50,8 @@ const Options = new (class Options {
         [this.DATA_COMMENTS]: [true, true],
         [this.DATA_KEYSTROKES]: [true, true],
         [this.DATA_HTML]: [false, false],
-        [this.DATA_TABS]: [false, false],
-        [this.DATA_RESOLUTION]: [false, false],
+        [this.DATA_TABS]: [true, true],
+        [this.DATA_RESOLUTION]: [true, true],
     };
 
     /**
@@ -77,9 +77,6 @@ const Options = new (class Options {
             chrome.storage.local.set(this.generateDefaultOptionMap());
             chrome.storage.onChanged.addListener((obj, area) => {if (area === "sync") {this.syncOptionMap(obj); }});
         });
-
-
-
     }
 
     /**

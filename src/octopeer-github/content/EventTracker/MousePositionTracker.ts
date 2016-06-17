@@ -44,8 +44,8 @@ class MousePositionTracker implements EventTracker {
             const windowObject = $(window);
             const viewportX = windowObject.scrollLeft();
             const viewportY = windowObject.scrollTop();
-            this.db.post(EventFactory.mousePosition(viewportX + this.x, viewportY + this.y,
-                viewportX, viewportY), EMPTY_CALLBACK, EMPTY_CALLBACK);
+            this.db.post(EventFactory.mousePosition(viewportX + this.x, viewportY + this.y, viewportX, viewportY),
+                EMPTY_CALLBACK, EMPTY_CALLBACK);
             this.prevX = this.x;
             this.prevY = this.y;
         }, MousePositionTracker.TIMEOUT);
