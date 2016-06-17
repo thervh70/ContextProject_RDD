@@ -7,6 +7,9 @@ import Tab = chrome.tabs.Tab;
  */
 class MainController implements OptionsObserver {
 
+    /** The URL where the database is located. */
+    public static get DATABASE_URL() { return "http://146.185.128.124"; }
+
     /** A map from user to {map from pull request url to DatabaseAdaptable}. */
     private database: { [user: string]: { [prUrl: string]: DatabaseAdaptable; }; } = {};
 
@@ -232,7 +235,7 @@ class MainController implements OptionsObserver {
         }
         if (this.database[user][prUrl] === undefined) {
             // IP for testing locally: 10.0.22.6
-            this.database[user][prUrl] = new RESTApiDatabaseAdapter("http://146.185.128.124", prUrl, user);
+            this.database[user][prUrl] = new RESTApiDatabaseAdapter(MainController.DATABASE_URL, prUrl, user);
         }
         return this.database[user][prUrl]
     }
