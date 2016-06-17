@@ -17,11 +17,6 @@ p {
     min-height: 200px;
 }
 
-input[type="checkbox"]+label {
-    color: rgba(0,0,0,0.87);
-    font-size: 12pt;
-}
-
 input[type="checkbox"]:disabled+label {
     cursor: default;
     opacity: 0.48;
@@ -33,5 +28,12 @@ input[type="checkbox"]:disabled+label:before {
 }
 
 input[type="checkbox"]+label:before {
-    transition(all .3s ease-in-out);
+transition(all .3s ease-in-out);
+}
+
+p, input[type="checkbox"]+label {
+    color: rgba(0,0,0,0.87);
+    opacity: 0.87;
+    font-size: 12pt;
+    font-weight: 300;
 }
