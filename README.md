@@ -35,7 +35,7 @@
 
 - [Product Vision (final)](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Final_Product_Vision.pdf)
 - [Product Planning (final)](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Final_Product_Planning.pdf)
-- [Architecture Design Document](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Architecture_Design_Document.pdf)
+- [Architecture Design Document (final)](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Architecture_Design_Document.pdf)
 - [Semantic Database Elements](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/SemanticDatabaseElements.pdf)
 - [Test Report](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Test_Report.pdf)
 - [Performance Testing Report](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/research/Research_Performance.pdf)
