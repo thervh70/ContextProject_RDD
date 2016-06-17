@@ -168,10 +168,8 @@ describe("The Options class", function() {
         expect(
             recursivelyTopologicalyRemove(
                 $.map(
-                    Options.optionDependencies,
-                    function (value, index) {
-                        return [index, value];
-                    }
+                    Options.DEPENDANCIES,
+                    (value, index) => [index, value]
                 )
             )
         );
