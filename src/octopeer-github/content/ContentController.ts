@@ -53,6 +53,7 @@ class ContentController {
      */
     public start() {
         Options.init();
+        this.setUpFinishScrollEvent();
         this.storeCurrentUser();
         if (!chrome.runtime.onMessage.hasListeners()) {
             chrome.runtime.onMessage.addListener(this.processMessageFromBackgroundPage());
@@ -188,9 +189,11 @@ class ContentController {
     private hookFocusAndBlurToDom(database: DatabaseAdaptable) {
         const postStart = () => {
             database.post(EventFactory.semantic(ElementID.NO_ELEMENT, EventID.START_WATCHING_PR), EMPTY_CALLBACK, EMPTY_CALLBACK);
+            database.post(EventFactory.tabChange(EventFactory.getTime()), EMPTY_CALLBACK, EMPTY_CALLBACK);
         };
         const postStop = () => {
             database.post(EventFactory.semantic(ElementID.NO_ELEMENT, EventID.STOP_WATCHING_PR), EMPTY_CALLBACK, EMPTY_CALLBACK);
+            database.post(EventFactory.tabChange(EventFactory.getTime()), EMPTY_CALLBACK, EMPTY_CALLBACK);
         };
         $(window).on("focus", postStart);
         $(window).on("blur", postStop);
@@ -220,6 +223,19 @@ class ContentController {
             tracker.addDOMEvent();
             this.oldEventTrackers.push(tracker);
         }
+    }
+
+    /**
+     * Custom JQuery event finishScroll. Gets triggered when there hasn't been a scroll event for 500ms.
+     */
+    private setUpFinishScrollEvent() {
+        let scrollTimer: number;
+        $(window).scroll(() => {
+            clearTimeout(scrollTimer);
+            scrollTimer = setTimeout(() => {
+                $(window).trigger("scroll:finish");
+            }, 1000);
+        });
     }
 
     /**

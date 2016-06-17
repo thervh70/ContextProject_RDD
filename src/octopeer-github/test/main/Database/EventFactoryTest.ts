@@ -77,6 +77,14 @@ describe("An EventFactory", function() {
             });
     });
 
+    it("should properly create TabChangeEvent", function() {
+        expect(EventFactory.tabChange(defaultTime))
+            .toEqual({
+                data: {created_at: defaultTime},
+                type: "TabChangeEvent",
+            });
+    });
+
     it("should properly create WindowResolutionEvents", function() {
         expect(EventFactory.windowResolution(1, 2, defaultTime))
             .toEqual({
