@@ -137,20 +137,16 @@ describe("The Options class", function() {
 
             // see if we can find a item wich is not relied on.
             for (let begin = 0; begin < list.length; begin++) {
-                console.log("checkinf for:" + list[begin][0])
+
                 // check if there's nothing relying on this.
                 if (nothingIsDependentOn(list[begin][0], list)) {
-                    console.log("is FREEEEEEEEEE!!!");
+
                     // recursively continue without this element.
                     list.splice(begin, 1);
                     return recursivelyTopologicalyRemove(list);
                 }
-
-                console.log("is not free");
             }
 
-            console.log("nothing is free in:");
-            console.log(list);
             // found nothing to remove, so a circular reference is found.
             return false;
         }
