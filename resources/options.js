@@ -123,14 +123,19 @@ function addOptionClickEvents() {
         optionsElement(i).click(saveOptions);
     }
 
+    updateSubOptionVisibility();
+}
+
+function updateSubOptionVisibility() {
     for (var i = 0; i < onDisableHideAndDisable.length; i++) {
         (function (tohide) {
             $("#" + tohide[0]).click(function() {
-                dynamicalyHideOrShowSubOptions(tohide);
+                restoreSubOptionsAvailability();
                 saveOptions();
             });
         })(onDisableHideAndDisable[i]);
     }
+
 }
 
 function dynamicalyHideOrShowSubOptions(tohide) {
