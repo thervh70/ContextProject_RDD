@@ -24,17 +24,14 @@ input[type="checkbox"]+label {
 
 input[type="checkbox"]:disabled+label {
     cursor: default;
-    font-size: 12pt;
     opacity: 0.48;
 }
 
 input[type="checkbox"]:disabled+label:before {
     cursor: default;
-    font-size: 12pt;
     opacity: 0;
 }
 
 input[type="checkbox"]+label:before {
-    font-size: 12pt;
     transition(all .3s ease-in-out);
 }
