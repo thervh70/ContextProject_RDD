@@ -15,48 +15,55 @@ const Options = new (class Options {
      * The implementation is not with static, because Options is a Singleton.
      */
     public get LOGGING() {return "loggingEnabled"; }
-    public get TRACK_TABS() {return "trackTabs"; }
-    public get TRACK_COMMENTS() {return "trackComments"; }
-    public get TRACK_PEER_COMMENTS() {return "trackPeerComments"; }
-    public get TRACK_FOCUS() {return "trackFocus"; }
-    public get HASH_USERNAME() {return "hashUsername"; }
-    public get HASH_REPO() {return "hashRepo"; }
-    public get HASH_FILE() {return "hashFile"; }
-    public get DNW_ON_SCREEN_EVENTS() {return "doNotWatchOnScreenEvents"; }
-    public get DNW_HOVER_EVENTS() {return "doNotWatchHoverEvents"; }
-    public get DNW_COMMENT_ELEMENTS() {return "doNotWatchCommentElements"; }
-    public get DNW_KEYBOARD_EVENTS() {return "doNotWatchKeyboardShortcutEvents"; }
+    public get MOUSE_HOVER() {return "mouseHover"; }
+    public get MOUSE_CLICK() {return "mouseClick"; }
+    public get MOUSE_SCROLLING() {return "mouseScrolling"; }
+    public get MOUSE_POSITION() {return "mousePosition"; }
+    public get DATA_COMMENTS() {return "dataComments"; }
+    public get DATA_KEYSTROKES() {return "dataKeystrokes"; }
+    public get DATA_HTML() {return "dataHTML"; }
+    public get DATA_TABS() {return "dataTabs"; }
+    public get DATA_RESOLUTION() {return "dataResolution"; }
 
-    // A map that contains all option names and their default (boolean) values.
-    private optionMap: { [key: string]: boolean; } = {
-        [this.LOGGING]: true,
-        [this.TRACK_TABS]: true,
-        [this.TRACK_COMMENTS]: true,
-        [this.TRACK_PEER_COMMENTS]: true,
-        [this.TRACK_FOCUS]: true,
-        [this.HASH_USERNAME]: true,
-        [this.HASH_REPO]: true,
-        [this.HASH_FILE]: false,
-        [this.DNW_ON_SCREEN_EVENTS]: true,
-        [this.DNW_HOVER_EVENTS]: true,
-        [this.DNW_COMMENT_ELEMENTS]: true,
-        [this.DNW_KEYBOARD_EVENTS]: true,
+    // A map that contains all option names and their (boolean) values.
+    // The first boolean value represents the current value of an option and is updated.
+    // The second boolean value represents the default value of an option.
+    private optionMap: { [key: string]: [boolean]; } = {
+        [this.LOGGING]: [true, true],
+        [this.MOUSE_HOVER]: [true, true],
+        [this.MOUSE_CLICK]: [true, true],
+        [this.MOUSE_SCROLLING]: [true, true],
+        [this.MOUSE_POSITION]: [true, true],
+        [this.DATA_COMMENTS]: [true, true],
+        [this.DATA_KEYSTROKES]: [true, true],
+        [this.DATA_HTML]: [false, false],
+        [this.DATA_TABS]: [true, true],
+        [this.DATA_RESOLUTION]: [true, true],
     };
 
     private observers: OptionsObserver[];
 
     /**
      * Initialization fetches the current settings and stores them in this class.
+     * Dynamic options are set to the sync storage and default options are set to the local storage.
      * Besides, enables a listener that listens for changes in the sync storage area.
      * This means that any items that was changed (newValue) is set if changed;
      */
     public init() {
         this.observers = [];
-        let options: string[] = this.generateOptionList();
+        chrome.storage.sync.get("loggingEnabled", (res) => {
+            let options = this.generateOptionList();
+            if (res[this.LOGGING] === undefined) {
+                chrome.storage.sync.set(this.generateCurrentOptionMap());
+            } else {
+                chrome.storage.sync.get(options, (obj) => this.syncOptionMap(obj));
+            }
+            chrome.storage.local.set(this.generateDefaultOptionMap());
+            chrome.storage.onChanged.addListener((obj, area) => {if (area === "sync") {this.syncOptionMap(obj); }});
+        });
 
-        // just passing 'this.syncOptionMap' as callback won't work, because "this" inside the callback will be scoped to the Chrome API.
-        chrome.storage.sync.get(options, (obj) => this.syncOptionMap(obj));
-        chrome.storage.onChanged.addListener((obj, area) => {if (area === "sync") {this.syncOptionMap(obj); }});
+
+
     }
 
     /**
@@ -68,9 +75,9 @@ const Options = new (class Options {
     public syncOptionMap(changeObject: any) {
         for (let option in changeObject) {
             if (typeof changeObject[option] === "boolean") {
-                this.optionMap[option] = changeObject[option];
+                this.optionMap[option][0] = changeObject[option];
             } else {
-                this.optionMap[option] = changeObject[option].newValue;
+                this.optionMap[option][0] = changeObject[option].newValue;
             }
         }
         this.notifyObservers();
@@ -129,16 +136,61 @@ const Options = new (class Options {
     }
 
     /**
-     * Gets the preference of an option, based on the name, from the chrome storage.
+     * Splits the optionMap to a Map excluding the default values for options.
+     * The currentOptionMap can be used for direct default option updates to the chrome storage.
+     * @returns the currentOptionMap
+     */
+    public generateCurrentOptionMap(): { [key: string]: boolean; } {
+        return this.generateSpecificOptionMap(0);
+    }
+
+    /**
+     * Splits the optionMap to a defaultOptionMap which contains the default values for options.
+     * The defaultOptionMap can be used for direct default option updates to the chrome storage.
+     * @returns the defaultOptionMap.
+     */
+    public generateDefaultOptionMap(): { [key: string]: boolean; } {
+        return this.generateSpecificOptionMap(1);
+    }
+
+    /**
+     * Gets the preference of an option, based on the name.
      * If the name doesn't exist, false is simply returned.
      * @param optionName the given name of an option.
      * @returns {boolean} the user preference in terms of a boolean.
      */
     public get(optionName: string) {
         if (optionName in this.optionMap) {
-            return this.optionMap[optionName];
+            return this.optionMap[optionName][0];
         }
         return false;
+    }
+
+    /**
+     * Gets the default value of an option, based on the name.
+     * If the name doesn't exist, false is simply returned.
+     * @param optionName the given name of an option.
+     * @returns {boolean} the default value of an option.
+     */
+    public getDefault(optionName: string) {
+        if (optionName in this.optionMap) {
+            return this.optionMap[optionName][1];
+        }
+        return false;
+    }
+    /**
+     * Splits the optionMap into a specific map, containing only the values based on a given index.
+     * @param index integer that indicates the index of the boolean array.
+     * @returns the specific option map.
+     */
+    private generateSpecificOptionMap(index: number) {
+        let specificOptionMap: { [key: string]: boolean; } = {};
+        for (let key in this.optionMap) {
+            if (this.optionMap.hasOwnProperty(key)) {
+                specificOptionMap[key] = this.optionMap[key][index];
+            }
+        }
+        return specificOptionMap;
     }
 
 })();
