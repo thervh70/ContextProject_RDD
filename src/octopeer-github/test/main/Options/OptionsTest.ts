@@ -194,6 +194,12 @@ describe("The Options class", function() {
                 [e, f],
             ])).toBe(false);
         });
+
+        it("should be so that a simple circular mapping gets rejected", function() {
+            expect(recursivelyTopologicalyRemove([
+                [a, a],
+            ])).toBe(false);
+        });
                 )
             )
         ).toEqual(true);
