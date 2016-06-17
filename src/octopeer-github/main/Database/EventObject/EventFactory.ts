@@ -105,6 +105,18 @@ abstract class EventFactory {
     }
 
     /**
+     * Creates a TabChangeEvent object.
+     * @param created_at    the timestamp at which the event was created. Defaults to the current timestamp.
+     * @returns {EventObject} A TabChangeEvent object that can be posted to the database.
+     */
+    public static tabChange(created_at = EventFactory.getTime()): EventObject {
+        return {
+            data: {created_at: created_at},
+            type: "TabChangeEvent",
+        };
+    }
+
+    /**
      * Creates a WindowResolutionEvent object.
      * @param width         the new width of the window.
      * @param height        the new height of the window.
@@ -119,6 +131,19 @@ abstract class EventFactory {
     }
 
     /**
+     * Creates a HTMLPageEvent object.
+     * @param dom           the DOM tree at the moment of the event.\
+     * @param created_at    the timestamp at which the event was created. Defaults to the current timestamp.
+     * @returns {HTMLPageEvent} A HTMLPageEvent object that can be posted to the database.
+     */
+    public static htmlPage(dom: string, created_at = EventFactory.getTime()): EventObject {
+        return {
+            data: {created_at: created_at, dom: dom},
+            type: "HTMLPageEvent",
+        };
+    }
+
+    /**
      * Returns the current timestamp, which is measured in an amount of seconds (with milliseconds in the fractional part)
      * since 1-1-1970 0:00.
      * @returns {UnixTimestamp} the current timestamp.
@@ -126,5 +151,4 @@ abstract class EventFactory {
     public static getTime(): UnixTimestamp {
         return new Date().getTime() / 1000;
     }
-
 }

@@ -8,12 +8,6 @@ class MouseScrollTracker implements EventTracker {
     public static get TIMEOUT() { return 1000; }
 
     /**
-     * This scrollTimer field is static, because there should only be one timer at any given time.
-     * It stores the current timer that is active (and because of JavaScript, its type is a number).
-     */
-    private static scrollTimer: number;
-
-    /**
      * Initialize a MouseScrollTracker that contains a DatabaseAdaptable.
      * @param db The DatabaseAdaptable for the Tracker.
      */
@@ -24,12 +18,9 @@ class MouseScrollTracker implements EventTracker {
      */
     public addDOMEvent() {
         const windowObject = $(window);
-        windowObject.scroll((eventObject: JQueryEventObject) => {
-            clearTimeout(MouseScrollTracker.scrollTimer);
-            MouseScrollTracker.scrollTimer = setTimeout(() => {
-                this.db.post(EventFactory.mouseScroll(windowObject.scrollLeft(), windowObject.scrollTop()),
-                    EMPTY_CALLBACK, EMPTY_CALLBACK);
-            }, MouseScrollTracker.TIMEOUT);
+        windowObject.on("scroll:finish", () => {
+            this.db.post(EventFactory.mouseScroll(windowObject.scrollLeft(), windowObject.scrollTop()),
+                EMPTY_CALLBACK, EMPTY_CALLBACK);
         });
     }
 
@@ -37,7 +28,6 @@ class MouseScrollTracker implements EventTracker {
      * Stops this EventTracker from collecting event data.
      */
     public removeDOMEvent() {
-        $(window).off("scroll");
-        clearTimeout(MouseScrollTracker.scrollTimer);
+        $(window).off("scroll:finish");
     }
 }

@@ -1,8 +1,6 @@
 /**
  * Created by Maarten on 26-05-2016.
- */
-
-/**
+ * 
  * A set of constants used for defining keystroke types.
  */
 // tslint:disable-next-line:no-unused-variable

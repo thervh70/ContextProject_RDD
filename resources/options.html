@@ -1,169 +1,128 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Octopeer Options</title>
-
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="../libs/materialize/css/materialize.min.css">
-    <link rel="stylesheet" href="main.css">
-
-    <script src="../libs/jquery-2.2.3.js"></script>
-    <script src="../libs/materialize/js/materialize.min.js"></script>
-    <script src="options.js"></script>
-    <script src="main.js"></script>
-
-</head>
-<body>
-
-<nav>
-    <div class="nav-wrapper lime">
-        <div class="brand-logo center" style="height: auto; width: auto;">
-            <a>Octopeer</a>
-        </div>
-
-        <ul class="right hide-on-small-only">
-            <li><a href="../analytics/index.html">Analytics</a></li>
-            <li class="active"><a href="#">Options</a></li>
-            <li><a href="about.html">About</a></li>
-        </ul>
-        <ul id="slide-out" class="side-nav">
-            <li><a href="../analytics/index.html">Analytics</a></li>
-            <li class="active"><a href="#">Options</a></li>
-            <li><a href="about.html">About</a></li>
-        </ul>
-        <a href="#" data-activates="slide-out" class="right button-collapse hide-on-med-and-up"><i class="material-icons">menu</i></a>
-
-    </div>
-</nav>
-
-<div class="container">
-    <p class="flow-text" style="text-align: center;">
-        Welcome to the personal options of Octopeer. <br>
-        Please check whether all of the following options apply to you.
-    </p>
-
-    <div class="row">
-    <div class="col s12 m6">
-        <div class="card">
-            <div class="card-content">
-                <span class="card-title">General</span> <br>
-                <input type="checkbox" id="loggingEnabled" checked>
-                <label for="loggingEnabled">I accept Octopeer to log data from me while reviewing pull requests on GitHub.</label>
-            </div>
-        </div>
-    </div>
-
-    <div class="col s12 m6" id="privacy">
-        <div class="card">
-            <div class="card-content">
-                <span class="card-title">Privacy</span> <br>
-                <p>
-                The following data can be tracked from me, while I'm reviewing pull requests on GitHub:
-                </p>
-                <ul id="privacySubOptions">
-                    <li>
-                        <input type="checkbox" id="trackTabs" checked>
-                        <label for="trackTabs">other active tabs that are used.</label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="trackComments" checked>
-                        <label for="trackComments"> the comments that I add to a pull request. </label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="trackPeerComments" checked>
-                        <label for="trackPeerComments"> the comments of my peers that have been added to a pull request. </label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="trackFocus" checked>
-                        <label for="trackFocus"> what part of a page I'm focusing on (in terms of text hovering, selection, etc.). </label>
-                    </li>
+    <head>
+        <title>Octopeer Options</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="../libs/materialize/css/materialize.min.css">
+        <link rel="stylesheet" href="main.css">
+        <script src="../libs/jquery-2.2.3.js"></script>
+        <script src="../libs/materialize/js/materialize.min.js"></script>
+        <script src="options.js"></script>
+        <script src="main.js"></script>
+        <meta name="analytics-browser-action" content="_self"/>
+    </head>
+    <body>
+        <nav>
+            <div class="nav-wrapper lime">
+                <div class="brand-logo center" style="height: auto; width: auto;">
+                    <a>Octopeer</a>
+                </div>
+                <ul class="right hide-on-small-only">
+                    <li><a id="analytics-link">Analytics</a></li>
+                    <li class="active"><a href="#">Options</a></li>
+                    <li><a href="about.html">About</a></li>
                 </ul>
-            </div>
-        </div>
-    </div>
-
-    <div class="col s12 m6">
-        <div class="card" id="security">
-            <div class="card-content">
-                <span class="card-title">Security</span> <br>
-                <p>
-                If you allow Octopeer to log data from you, it will store this data and process it.
-                Would you like Octopeer to take the following security measures?
-                </p>
-                <ul id="securitySubOptions">
-                    <li>
-                        <input type="checkbox" id="hashUsername" checked>
-                        <label for="hashUsername"> Encrypt your username. </label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="hashRepo" checked>
-                        <label for="hashRepo"> Encrypt the names of repositories you're working in. </label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="hashFile">
-                        <label for="hashFile"> Encrypt the names of the files you're working on. </label>
-                     </li>
+                <ul id="slide-out" class="side-nav">
+                    <li><a href="../analytics/index.html">Analytics</a></li>
+                    <li class="active"><a href="#">Options</a></li>
+                    <li><a href="about.html">About</a></li>
                 </ul>
+                <a href="#" data-activates="slide-out" class="right button-collapse hide-on-med-and-up"><i class="material-icons">menu</i></a>
             </div>
-        </div>
-    </div>
-
-    <div class="col s12 m6">
-        <div class="card" id="doNotWatch">
-            <div class="card-content">
-                <span class="card-title">Tracking selection</span> <br>
-                <p>
-                    The checked elements and events will be tracked while Octopeer is running.
-                </p>
-                <ul id="doNotWatchSubOptions">
-                    <li>
-                        <input type="checkbox" id="dnwScreen" checked>
-                        <label for="dnwScreen">Elements on the screen. </label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="dnwHover" checked>
-                        <label for="dnwHover">Elements I hover over with the mouse. </label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="dnwComments" checked>
-                        <label for="dnwComments">Comments on my Pull Request. </label>
-                    </li>
-                    <li>
-                        <input type="checkbox" id="dnwKeyboardShortcut" checked>
-                        <label for="dnwKeyboardShortcut">The keyboard shortcuts I use. </label>
-                    </li>
-                </ul>
+        </nav>
+        <div class="container">
+            <p class="flow-text" style="text-align: center;">
+                Welcome to the personal options of Octopeer. <br>
+                Please check whether all of the following options apply to you.
+            </p>
+            <div class="row">
+                <div class="col s12">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">General</span> <br>
+                            <p>
+                                Below are all the options that you can en- or disable for either privacy or performance issues.
+                            </p>
+                            <ul>
+                                <li>
+                                    <input type="checkbox" id="loggingEnabled">
+                                    <label for="loggingEnabled">I accept Octopeer to log data from me while reviewing pull requests on GitHub.</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m6" id="mouse">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Mouse</span> <br>
+                            <p>
+                                While I'm reviewing pull requests on GitHub, the following actions involving my mouse may be tracked:
+                            </p>
+                            <ul id="mouseSubOptions">
+                                <li>
+                                    <input type="checkbox" id="mousePosition">
+                                    <label for="mousePosition"> where my mouse is. </label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" id="mouseHover">
+                                    <label for="mouseHover"> what elements I hover over.</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" id="mouseClick">
+                                    <label for="mouseClick"> what elements I click on. </label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" id="mouseScrolling">
+                                    <label for="mouseScrolling"> when I use the scroll wheel.* </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 m6">
+                    <div class="card" id="data">
+                        <div class="card-content">
+                            <span class="card-title">Data</span> <br>
+                            <p>
+                                While I'm reviewing pull requests on GitHub, the following actions may be done:
+                            </p>
+                            <ul id="dataSubOptions">
+                                <li>
+                                    <input type="checkbox" id="dataTabs">
+                                    <label for="dataTabs"> log when I switch active tabs. </label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" id="dataResolution">
+                                    <label for="dataResolution"> log my window resolution. </label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" id="dataComments">
+                                    <label for="dataComments"> log the comments on a PR. </label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" id="dataKeystrokes">
+                                    <label for="dataKeystrokes"> log individual keystrokes / shortcuts on the PR page. </label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" id="dataHTML">
+                                    <label for="dataHTML"> log the entire pull request (the HTML body).* </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <p style="font-size: 11pt;">
+                * If you do experience performance issues then we would advice you to first turn off HTML logging. Then if you
+                still experience performance issues, please turn off scroll logging. This should fix most issues on most machines.
+            </p>
+            <button class="btn waves-effect lime waves-light" type="submit" style="font-size: 11pt; margin-bottom: 30px; margin-top: 10px;" id="restore">
+                <div>
+                    <a style="color: white;">Restore Defaults</a>
+                    <i class="material-icons right">restore</i>
+                </div>
+            </button>
         </div>
-    </div>
-
-    <div class="col s12 m6">
-        <div class="card" id="hints">
-            <div class="card-content">
-                <span class="card-title">Hints</span> <br>
-                <p>
-                    The goal of Octopeer is to allow you to improve your pull request behavior. This is done in terms of hints.
-                    Would you like Octopeer to deliver the hints in the following way?
-                </p>
-                <ul id="hintsSubOptions">
-                    <li>
-                        <input type="checkbox" id="something" disabled checked>
-                        <label for="something">...</label>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    </div>
-
-    <button class="btn waves-effect lime waves-light" type="submit" style="font-size: 11pt; margin-bottom: 30px;" id="restore">
-        <div>
-            <a style="color: white;">Restore Defaults</a>
-            <i class="material-icons right">restore</i>
-        </div>
-    </button>
-
-</div>
-</body>
+    </body>
 </html>

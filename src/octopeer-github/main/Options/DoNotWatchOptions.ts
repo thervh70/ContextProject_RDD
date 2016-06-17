@@ -47,7 +47,7 @@ interface CombinationsThatShouldNotBeWatchedTuple extends Array<string | Array<E
 const DoNotWatchOptions = new (class DoNotWatchOptions {
 
     private elementsThatShouldNotBeWatched: ElementThatShouldNotBeWatchedTuple[] = [
-        ["doNotWatchCommentElements", [
+        [Options.DATA_COMMENTS, [
             ElementID.CONFIRM_INLINE_COMMENT,
             ElementID.CREATE_PR_COMMENT,
             ElementID.EDIT_COMMENT,
@@ -55,9 +55,10 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
     ];
 
     private eventsThatShouldNotBeWatched: EventThatShouldNotBeWatchedTuple[] = [
-        ["doNotWatchOnScreenEvents", [EventID.SCROLL_INTO_VIEW, EventID.SCROLL_OUT_OF_VIEW]],
-        ["doNotWatchHoverEvents", [EventID.MOUSE_ENTER, EventID.MOUSE_LEAVE]],
-        ["doNotWatchKeyboardShortcutEvents", [EventID.KEYSTROKE]],
+        [Options.MOUSE_SCROLLING, [EventID.SCROLL]],
+        [Options.MOUSE_HOVER, [EventID.MOUSE_ENTER, EventID.MOUSE_LEAVE]],
+        [Options.MOUSE_CLICK, [EventID.CLICK]],
+        [Options.DATA_KEYSTROKES, [EventID.KEYSTROKE]],
     ];
 
     private combinationsThatShouldNotBeWatched: CombinationsThatShouldNotBeWatchedTuple[] = [];
@@ -96,7 +97,7 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
     public getElements() {
         let doNotWatchElements: ElementID[] = [];
         for (let tuple of this.elementsThatShouldNotBeWatched) {
-            if (Options.get(tuple[0])) {
+            if (!Options.get(tuple[0])) {
                 for (let element of tuple[1]) {
                     doNotWatchElements.push(element);
                 }
@@ -112,7 +113,7 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
     public getEvents() {
         let doNotWatchEvents: EventID[] = [];
         for (let tuple of this.eventsThatShouldNotBeWatched) {
-            if (Options.get(tuple[0])) {
+            if (!Options.get(tuple[0])) {
                 for (let event of tuple[1]) {
                     doNotWatchEvents.push(event);
                 }
@@ -129,7 +130,7 @@ const DoNotWatchOptions = new (class DoNotWatchOptions {
     public getCombinations() {
         let doNotWatchCombinations: ElementXEventID[] = [];
         for (let tuple of this.combinationsThatShouldNotBeWatched) {
-            if (Options.get(tuple[0])) {
+            if (!Options.get(tuple[0])) {
                 for (let combination of tuple[1]) {
                     doNotWatchCombinations.push(combination);
                 }
