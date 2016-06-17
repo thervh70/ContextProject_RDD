@@ -51,6 +51,10 @@ All documents can in general be found in the doc folder.
 
 Congratulations, you can now start developing!
 
+To see console output of the extension's background page, enable "Developer mode" in Chrome and click "Inspect view".
+
+If you want to see debug output in the console of the background page, type `Logger.setDebug()` in the console or add this to `src/octopeer-github/main/main.ts`.
+
 The next section will continue with applying Static Analysis Tools to WebStorm.
 
 ### Tooling (SAT)
