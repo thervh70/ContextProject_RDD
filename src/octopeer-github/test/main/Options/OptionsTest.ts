@@ -137,7 +137,7 @@ describe("The Options class", function() {
             for (let begin = 0; begin < list.length; begin++) {
 
                 // check if there's nothing relying on this.
-                if (nothingIsDependantOn(list[begin][0], list)) {
+                if (nothingIsDependentOn(list[begin][0], list)) {
 
                     // recursively continue without this element.
                     list.splice(begin);
@@ -150,7 +150,7 @@ describe("The Options class", function() {
         }
 
         // for a given element see if there are no items wich reference it.
-        function nothingIsDependantOn(element: string, list: [string, string][]) {
+        function nothingIsDependentOn(element: string, list: [string, string][]) {
 
             // loop through all items
             for (let begin = 0; begin < list.length; begin++) {
