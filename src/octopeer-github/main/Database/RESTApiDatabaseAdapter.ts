@@ -64,6 +64,8 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
 
     /**
      * Post an event to the database.
+     * Edge case: When a semantic event is posted, the file-positions data will be posted inside the success callback of the first call,
+     *      and when that second call returns, the original success callback is called.
      * @param eventData     The data to post to the database.
      * @param success       Callback, which is called once the call has succeeded.
      * @param failure       Callback, which is called once the call has failed.

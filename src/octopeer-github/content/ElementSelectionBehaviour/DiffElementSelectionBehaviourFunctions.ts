@@ -12,7 +12,7 @@ abstract class DiffElementSelectionBehaviourFunctions {
     }
 
     public static getCommitHashFromDiffLine(line: JQuery) {
-        if (line.hasClass("blob-num-addition")) {
+        if (line.hasClass("blob-code-addition") || line.hasClass("blob-num-addition")) {
             return $("input[name=commit_id]").val();
         } else {
             return $("input[name=comparison_base_oid]").val();
