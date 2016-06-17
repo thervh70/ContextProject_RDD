@@ -218,7 +218,7 @@ const Options = new (class Options {
      * @returns {boolean}
      */
     private dependentOption(optionName: string): boolean {
-        return !this.optionDependencies.hasOwnProperty(optionName) || this.get(this.optionDependencies[optionName]);
+        return !this.DEPENDANCIES.hasOwnProperty(optionName) || this.get(this.DEPENDANCIES[optionName]);
     }
 
 })();
