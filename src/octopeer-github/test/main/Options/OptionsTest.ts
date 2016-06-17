@@ -166,7 +166,6 @@ describe("The Options class", function() {
             // nothing found, so approve.
             return true;
         }
-        
         expect(
             recursivelyTopologicalyRemove(
                 $.map(
