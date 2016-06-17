@@ -37,8 +37,8 @@ const Options = new (class Options {
         [this.DATA_COMMENTS]: [true, true],
         [this.DATA_KEYSTROKES]: [true, true],
         [this.DATA_HTML]: [false, false],
-        [this.DATA_TABS]: [false, false],
-        [this.DATA_RESOLUTION]: [false, false],
+        [this.DATA_TABS]: [true, true],
+        [this.DATA_RESOLUTION]: [true, true],
     };
 
     private observers: OptionsObserver[];
