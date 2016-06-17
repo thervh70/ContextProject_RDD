@@ -13,11 +13,13 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
      * Maps EventObject.type to an API endpoint in the Database.
      */
     private endPoints: any = {
+        "HTMLPageEvent": "html-pages",
         "KeystrokeEvent": "keystroke-events",
         "MouseClickEvent": "mouse-click-events",
         "MousePositionEvent": "mouse-position-events",
         "MouseScrollEvent": "mouse-scroll-events",
         "SemanticEvent": "semantic-events",
+        "TabChangeEvent": "change-tab-events",
         "WindowResolutionEvent": "window-resolution-events",
     };
 

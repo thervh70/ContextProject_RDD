@@ -9,6 +9,10 @@ let _window: any = window;
 /* tslint:disable-next-line:no-empty */
 const emptyFun = function() {};
 
+/**
+ * Mock the entire chrome API.
+ * @type ChromeMock
+ */
 _window.chrome = {
     browserAction: {
         setIcon: emptyFun,
@@ -42,4 +46,13 @@ _window.chrome = {
         },
         query: emptyFun,
     },
+};
+
+/**
+ * Mock a scroll:finish event.
+ * @type {{stopPropagation: any, type: string}}
+ */
+_window.event = {
+    stopPropagation: emptyFun(),
+    type: "scroll:finish",
 };

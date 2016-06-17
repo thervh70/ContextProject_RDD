@@ -9,6 +9,9 @@ class MainController implements OptionsObserver {
 
     private database: DatabaseAdaptable;
 
+    /** The current user (is logged to the database). */
+    private user: string;
+
     /**
      * Starts the MainController. After calling this, all event handlers are hooked to the DOM-tree.
      * @return this
@@ -44,6 +47,8 @@ class MainController implements OptionsObserver {
      * Set up all event handlers in the Chrome API.
      */
     private connectToContentScript() {
+        this.initUsername();
+        this.updateUsername();
         this.initAllCurrentTabs();
         this.rehookOnUpdate();
         this.rehookOnFocusChange();
@@ -68,7 +73,7 @@ class MainController implements OptionsObserver {
         const self = this;
         chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
             if (changeInfo.status && changeInfo.status === "complete") {
-                self.testAndSend(tab, false);
+                self.testAndSend(tab, true);
             }
         });
     }
@@ -87,6 +92,26 @@ class MainController implements OptionsObserver {
     }
 
     /**
+     * Init the username in the local storage.
+     * This is done to make the listener used in updateUsername to work properly the first time.
+     */
+    private initUsername() {
+        chrome.storage.local.set({user: "Travis"});
+    }
+
+    /**
+     * Connect a listener to the chrome local storage and update the user name when necessary.
+     */
+    private updateUsername() {
+        let change = "user";
+        chrome.storage.onChanged.addListener((changes, namespace) => {
+            if (namespace === "local" && changes[change] !== undefined) {
+                this.user = changes[change].newValue;
+            }
+        });
+    }
+
+    /**
      * When a tab sends a message, log it to the Database.
      */
     private listenToDatabaseMessages() {
@@ -95,13 +120,18 @@ class MainController implements OptionsObserver {
                 return; // Only continue if message is sent from a content script
             }
             // IP for testing locally: 10.0.22.6
-            // TODO: get name from context
-            this.database = new RESTApiDatabaseAdapter("http://146.185.128.124", sender.tab.url, "Travis");
+            this.database = new RESTApiDatabaseAdapter("http://146.185.128.124", sender.tab.url, this.user);
             this.postToDatabase(this.readMessage(message));
             sendResponse({});
         });
     }
 
+    /**
+     * Transforms an EventObject message before posting it to the database.
+     * Numberic elementIDs and eventIDs are replaced by their encapsuled counterparts (EventID and ElementID)
+     * @param dataMessage The message to transform.
+     * @returns {EventObject} The same message, but in the correct format.
+     */
     private readMessage(dataMessage: any): EventObject {
         const eventObject = <EventObject>JSON.parse(dataMessage);
         if (eventObject.type === "SemanticEvent") {
@@ -113,9 +143,17 @@ class MainController implements OptionsObserver {
         return eventObject;
     }
 
+    /**
+     * Posts a message to the current database. If it's a HTMLPageEvent message, truncate its content before logging it in debug mode.
+     * @param message the message to be posted
+     */
     private postToDatabase(message: EventObject) {
         const success = function() {
-            Logger.debug(`Successfully logged to database: ${JSON.stringify(message)}`);
+            if (message.type === "HTMLPageEvent") {
+                Logger.debug(`Successfully logged HTML page to database: \n${(<HTMLPageEvent>message.data).dom.substring(0,1500)}...`);
+            } else {
+                Logger.debug(`Successfully logged to database: ${JSON.stringify(message)}`);
+            }
         };
         const failure = function() {
             Logger.warn("Log to database of following object failed:");
@@ -139,7 +177,7 @@ class MainController implements OptionsObserver {
 
         let isPullRequest = URLHandler.isPullRequestUrl(tab.url);
         if (isPullRequest) {
-            this.database = new RESTApiDatabaseAdapter("http://146.185.128.124", tab.url, "Travis");
+            this.database = new RESTApiDatabaseAdapter("http://146.185.128.124", tab.url, this.user);
             this.sendMessageToContentScript(tab, Options.get(Options.LOGGING) && isPullRequest);
         }
         this.setNewStatus(isPullRequest, isActiveTab);
@@ -162,10 +200,16 @@ class MainController implements OptionsObserver {
 
         if (isPullRequest && !wasItRunning || !isPullRequest && wasItRunning) { // XOR does not exist in JS :(
             this.postToDatabase(EventFactory.semantic(ElementID.NO_ELEMENT, eventID));
+            this.postToDatabase(EventFactory.tabChange(EventFactory.getTime()));
         }
         Status.set(status);
     }
 
+    /**
+     * Sends to a tab whether to hook or unhook to/from the DOM.
+     * @param tab The tab to send this message to.
+     * @param hookToDom true if the tab should hook to DOM, false if the tab should unhook from DOM.
+     */
     private sendMessageToContentScript(tab: Tab, hookToDom: boolean) {
         chrome.tabs.sendMessage(tab.id, {
             hookToDom: hookToDom,

@@ -44,6 +44,15 @@ describe("An EventFactory", function() {
             });
     });
 
+    it("should properly create HTMLPageEvents", function() {
+        const randomHTMLstring = "<html><head><title>Random yay!</title></head><body></body></html>";
+        expect(EventFactory.htmlPage(randomHTMLstring, defaultTime))
+            .toEqual({
+                data: {created_at: defaultTime, dom: randomHTMLstring},
+                type: "HTMLPageEvent",
+            });
+    });
+
     it("should properly create MouseClickEvents", function() {
         expect(EventFactory.mouseClick(defaultTime))
             .toEqual({
@@ -65,6 +74,14 @@ describe("An EventFactory", function() {
             .toEqual({
                 data: {created_at: defaultTime, viewport_x: 1, viewport_y: 2},
                 type: "MouseScrollEvent",
+            });
+    });
+
+    it("should properly create TabChangeEvent", function() {
+        expect(EventFactory.tabChange(defaultTime))
+            .toEqual({
+                data: {created_at: defaultTime},
+                type: "TabChangeEvent",
             });
     });
 
