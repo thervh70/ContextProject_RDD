@@ -30,10 +30,9 @@ const Options = new (class Options {
      */
     public get DEPENDANCIES(): {[name: string]: string; }{
         return {
-            [this.DATA_HTML]:       this.DATA_KEYSTROKES,
-            [this.DATA_KEYSTROKES]: this.DATA_COMMENTS ,
-            [this.MOUSE_CLICK]:     this.MOUSE_HOVER,
-            [this.MOUSE_HOVER]:     this.MOUSE_POSITION,
+            [this.DATA_HTML]:           this.DATA_KEYSTROKES,
+            [this.DATA_KEYSTROKES]:     this.DATA_COMMENTS ,
+            [this.MOUSE_CLICK]:         this.MOUSE_HOVER,
             [this.DATA_RESOLUTION]:     this.DATA_RESOLUTION,
         };
     };
