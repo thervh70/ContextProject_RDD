@@ -12,22 +12,24 @@ describe("A KeystrokeTracker", function() {
         tracker = new KeystrokeTracker(db);
     });
 
-    it("should track keypress events", function() {
-        const dbSpy = spyOn(db, "post");
-        tracker.addDOMEvent();
+    for (let eventtype of ["keydown", "keyup"]) {
+        it(`should track ${eventtype} events`, function () {
+            const dbSpy = spyOn(db, "post");
+            tracker.addDOMEvent();
 
-        $("body").trigger($.Event("keypress", {which: " "}));
+            $("body").trigger($.Event(eventtype, {key: "p"}));
 
-        expect(dbSpy).toHaveBeenCalledTimes(1);
-    });
+            expect(dbSpy).toHaveBeenCalledTimes(1);
+        });
 
-    it("should no longer track keypress events when removed from DOM", function() {
-        const dbSpy = spyOn(db, "post");
-        tracker.addDOMEvent();
-        tracker.removeDOMEvent();
+        it(`should no longer track ${eventtype} events when removed from DOM`, function () {
+            const dbSpy = spyOn(db, "post");
+            tracker.addDOMEvent();
+            tracker.removeDOMEvent();
 
-        $("body").trigger($.Event("keypress", {which: " "}));
+            $("body").trigger($.Event(eventtype, {key: "p"}));
 
-        expect(dbSpy).not.toHaveBeenCalled();
-    });
+            expect(dbSpy).not.toHaveBeenCalled();
+        });
+    }
 });

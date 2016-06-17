@@ -16,14 +16,19 @@ describe("The DoNotWatchOptions", function() {
 
     const elementTestList: any[][] = [
         [{}, []],
-        [{doNotWatchCommentElements: true}, [ElementID.CONFIRM_INLINE_COMMENT, ElementID.CREATE_PR_COMMENT, ElementID.EDIT_COMMENT]],
+        [{[Options.DATA_COMMENTS]: false}, [
+            ElementID.CONFIRM_INLINE_COMMENT,
+            ElementID.CREATE_PR_COMMENT,
+            ElementID.EDIT_COMMENT,
+        ]],
     ];
 
     const eventTestList: any[][] = [
         [{}, []],
-        [{doNotWatchOnScreenEvents: true}, [EventID.SCROLL_INTO_VIEW, EventID.SCROLL_OUT_OF_VIEW]],
-        [{doNotWatchHoverEvents: true}, [EventID.MOUSE_ENTER, EventID.MOUSE_LEAVE]],
-        [{doNotWatchKeyboardShortcutEvents: true}, [EventID.KEYSTROKE]],
+        [{[Options.MOUSE_SCROLLING]: false}, [EventID.SCROLL]],
+        [{[Options.MOUSE_HOVER]: false}, [EventID.MOUSE_ENTER, EventID.MOUSE_LEAVE]],
+        [{[Options.MOUSE_CLICK]: false}, [EventID.CLICK]],
+        [{[Options.DATA_KEYSTROKES]: false}, [EventID.KEYSTROKE]],
     ];
 
     const combinationTestList: any[][] = [
@@ -55,7 +60,7 @@ describe("The DoNotWatchOptions", function() {
         fakeOptions = {};
         spyOn(Options, "get").and.callFake(function(optionName: string) {
             if (fakeOptions[optionName] === undefined) {
-                return false;
+                return true;
             } else {
                 return fakeOptions[optionName];
             }

@@ -89,28 +89,12 @@ const Status = new (class Status {
      * @param status
      */
     public set(status: StatusCode) {
-        this.status = status;
-        if (Options.get(Options.LOGGING)) {
-            this.setter(status);
-        } else {
-            this.setter(StatusCode.OFF);
+        if (!Options.get(Options.LOGGING)) {
+            status = StatusCode.OFF;
         }
-    }
 
-    /**
-     * Accepts a status and returns true if this is the current status.
-     * @param s the status to check against
-     * @returns {boolean} whether the current status equals s
-     */
-    public isStatus(s: StatusCode): Boolean {
-        return s === this.status;
-    }
+        this.status = status;
 
-    /**
-     * Helper method for set() in order to prevent duplicate code.
-     * @param status
-     */
-    private setter(status: StatusCode) {
         chrome.runtime.sendMessage({
             line: Status.MESSAGE[status],
             path: this.getIcon(status),
@@ -122,5 +106,14 @@ const Status = new (class Status {
         chrome.browserAction.setIcon({
             path: `resources/` + this.getIcon(status, 19),
         });
+    }
+
+    /**
+     * Accepts a status and returns true if this is the current status.
+     * @param s the status to check against
+     * @returns {boolean} whether the current status equals s
+     */
+    public isStatus(s: StatusCode): Boolean {
+        return s === this.status;
     }
 })();

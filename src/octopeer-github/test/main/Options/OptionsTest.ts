@@ -10,22 +10,20 @@ describe("The Options class", function() {
     let spyNotify: jasmine.Spy;
 
     let mockedStorageObject: { [key: string]: boolean; } = {
-        [this.LOGGING]: false,
-        [this.TRACK_TABS]: true,
-        [this.TRACK_COMMENTS]: false,
-        [this.TRACK_PEER_COMMENTS]: true,
-        [this.TRACK_FOCUS]: false,
-        [this.HASH_USERNAME]: true,
-        [this.HASH_REPO]: false,
-        [this.HASH_FILE]: true,
-        [this.DNW_ON_SCREEN_EVENTS]: true,
-        [this.DNW_HOVER_EVENTS]: false,
-        [this.DNW_COMMENT_ELEMENTS]: true,
-        [this.DNW_KEYBOARD_EVENTS]: false,
+        [Options.LOGGING]:         true,
+        [Options.MOUSE_HOVER]:     true,
+        [Options.MOUSE_CLICK]:     true,
+        [Options.MOUSE_SCROLLING]: true,
+        [Options.MOUSE_POSITION]:  true,
+        [Options.DATA_COMMENTS]:   true,
+        [Options.DATA_KEYSTROKES]: true,
+        [Options.DATA_HTML]:       false,
+        [Options.DATA_TABS]:       true,
+        [Options.DATA_RESOLUTION]: true,
     };
 
     let mockedStorageDiffValues: { [key: string]: any; } = {
-        [this.LOGGING]: { newValue: true, oldValue: false },
+        [Options.LOGGING]: { newValue: true, oldValue: false },
     };
 
     beforeEach(function () {
@@ -69,13 +67,13 @@ describe("The Options class", function() {
 
     it("should get the option value", function() {
         let optionList: string[] = Options.generateOptionList();
-        // HashFile is false by default.
+        // HTML Logging is false by default.
         let turnedOff = 7;
         for (let i = 0; i < optionList.length; i++) {
             if (i !== turnedOff) {
                 expect(Options.get(optionList[i])).toBe(true);
             } else {
-                expect(Options.get(optionList[turnedOff])).toBe(false);
+                expect(Options.get(optionList[i])).toBe(false);
             }
         }
     });
@@ -84,10 +82,21 @@ describe("The Options class", function() {
         expect(Options.get("Hi there!")).toBe(false);
     });
 
+
+    it("should get the default value of an option", function() {
+        expect(Options.getDefault(Options.LOGGING)).toBe(true);
+    });
+
+    it("should return false for a bad weather (non-existing) default option value", function() {
+        expect(Options.getDefault("badWeather")).toBe(false);
+    });
+
+
     it("should generate a list of its options", function() {
-        expect(Options.generateOptionList()).toEqual(["loggingEnabled", "trackTabs", "trackComments", "trackPeerComments", "trackFocus",
-            "hashUsername", "hashRepo", "hashFile", "doNotWatchOnScreenEvents", "doNotWatchHoverEvents", "doNotWatchCommentElements",
-            "doNotWatchKeyboardShortcutEvents"]);
+        expect(Options.generateOptionList()).toEqual(["loggingEnabled", "mouseHover",
+            "mouseClick", "mouseScrolling", "mousePosition", "dataComments",
+            "dataKeystrokes", "dataHTML", "dataTabs",
+            "dataResolution"]);
     });
 
     it("should be able to synchronize the optionMap when a storage object with different (boolean) option values is given", function() {
@@ -108,5 +117,97 @@ describe("The Options class", function() {
 
         expect(Options.get(Options.LOGGING)).toBe(true);
         expect(spyNotify).toHaveBeenCalled();
+    });
+
+    it("should be able to generate a current option map, based on the general option map", function() {
+        expect(Options.generateCurrentOptionMap()).toEqual(mockedStorageObject);
+    });
+
+    it("should be able to generate a default option map, based on the general option map", function() {
+        expect(Options.generateDefaultOptionMap()).toEqual(mockedStorageObject);
+    });
+
+    describe("regarding circular depedancies, ", function() {
+        function recursivelyTopologicalyRemove(list: [string, string][]): boolean {
+
+            // no items, so no circular dependancy so we aprove.
+            if (list.length === 0) {
+                return true;
+            }
+
+            // see if we can find a item wich is not relied on.
+            for (let begin = 0; begin < list.length; begin++) {
+
+                // check if there's nothing relying on this.
+                if (nothingIsDependentOn(list[begin][0], list)) {
+
+                    // recursively continue without this element.
+                    list.splice(begin, 1);
+                    return recursivelyTopologicalyRemove(list);
+                }
+            }
+
+            // found nothing to remove, so a circular reference is found.
+            return false;
+        }
+
+        // for a given element see if there are no items wich reference it.
+        function nothingIsDependentOn(element: string, list: [string, string][]) {
+
+            // loop through all items
+            for (let begin = 0; begin < list.length; begin++) {
+
+                // if a item is found wich relies on this element, return false
+                if (list[begin][1] === element) {
+                    return false;
+                }
+            }
+
+            // nothing found, so approve.
+            return true;
+        }
+
+        let a = "a", b = "b", c = "c", d = "d", e = "e", f = "f";
+
+        // now for testing the functions used in the test
+        it("should be so that a empty mapping gets approved", function() {
+            expect(recursivelyTopologicalyRemove([])).toBe(true);
+        });
+
+        it("should be so that a non circular mapping gets approved", function() {
+            expect(recursivelyTopologicalyRemove([
+                [a, b],
+                [b, c],
+                [c, d],
+                [e, f],
+            ])).toBe(true);
+        });
+
+        it("should be so that a circular mapping gets rejected", function() {
+            expect(recursivelyTopologicalyRemove([
+                [a, b],
+                [b, c],
+                [c, d],
+                [c, a],
+                [e, f],
+            ])).toBe(false);
+        });
+
+        it("should be so that a simple circular mapping gets rejected", function() {
+            expect(recursivelyTopologicalyRemove([
+                [a, a],
+            ])).toBe(false);
+        });
+
+        it("should be the case that there are no circular dependancies specified in the Options", function() {
+            expect(
+                recursivelyTopologicalyRemove(
+                    $.map(
+                        Options.DEPENDENCIES,
+                        (value, index) => [[index, value]]
+                    )
+                )
+            ).toEqual(true);
+        });
     });
 });
