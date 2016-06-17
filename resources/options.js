@@ -23,9 +23,6 @@ var onDisableHideAndDisable = [
     ['mouseHover', ['mouseClick']]
 ];
 
-// Object that contains all default options.
-var defaultOptions = {};
-
 // Listens for changes in the loggingEnabled flag.
 // This boolean might be switched using the popup.
 function changeListener() {
@@ -126,14 +123,19 @@ function addOptionClickEvents() {
         optionsElement(i).click(saveOptions);
     }
 
+    updateSubOptionVisibility();
+}
+
+function updateSubOptionVisibility() {
     for (var i = 0; i < onDisableHideAndDisable.length; i++) {
         (function (tohide) {
             $("#" + tohide[0]).click(function() {
-                dynamicalyHideOrShowSubOptions(tohide);
+                restoreSubOptionsAvailability();
                 saveOptions();
             });
         })(onDisableHideAndDisable[i]);
     }
+
 }
 
 function dynamicalyHideOrShowSubOptions(tohide) {
@@ -168,18 +170,18 @@ function switchOptions() {
     }
 }
 
-// Saves the default options by saving an object.
-function saveDefaults() {
-    for (var i = 0; i < options.length; i++) {
-        defaultOptions[options[i]] = optionsElement(i).prop('checked');
-    }
-}
-
 // Sets the options to the default options by updating the chrome storage and the options page.
+// Because callbacks are used, these two chrome functions calls can't be separated.
 function restoreDefaults() {
-    chrome.storage.sync.set(defaultOptions, function() {});
-    restoreOptionsState();
-    restoreOptionsAvailability();
+    chrome.storage.local.get(options, function(items) {
+        var obj = {};
+        for (var i = 0; i < options.length; i++) {
+            obj[options[i]] = items[options[i]];
+        }
+        chrome.storage.sync.set(obj);
+        restoreOptionsState();
+        restoreOptionsAvailability();
+    });
 }
 
 document.addEventListener('DOMContentLoaded', restoreOptionsState);
@@ -187,7 +189,6 @@ document.addEventListener('DOMContentLoaded', restoreOptionsAvailability);
 
 // Will execute once the page DOM is ready.
 $(document).ready(function() {
-    saveDefaults();
     addOptionClickEvents();
     changeListener();
     $('#restore').click(restoreDefaults);

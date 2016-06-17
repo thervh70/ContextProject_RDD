@@ -1,8 +1,6 @@
 /**
  * Created by Maarten on 26-05-2016.
- */
-
-/**
+ * 
  * A WindowResolutionEvent contains the data that should be posted to a Database.
  * @param width         the new width of the window.
  * @param height        the new height of the window.

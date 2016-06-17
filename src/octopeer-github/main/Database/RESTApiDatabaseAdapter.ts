@@ -19,6 +19,7 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
         "MousePositionEvent": "mouse-position-events",
         "MouseScrollEvent": "mouse-scroll-events",
         "SemanticEvent": "semantic-events",
+        "TabChangeEvent": "change-tab-events",
         "WindowResolutionEvent": "window-resolution-events",
     };
 
@@ -86,8 +87,27 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
                 "created_at": data.created_at,
             };
         } else {
-            return eventData.data;
+            return this.processRounding(eventData.data);
         }
+    }
+
+    /**
+     * Round all necessary fields to integers. Necessary to stay compatible with the database.
+     * A list of all items that can occur in an EventObjectData is given. For each of these 'candidates'
+     * it is checked whether it is contained in the given EventDataObject and if so, rounded.
+     * @param eventData The data to be send to the database.
+     */
+    private processRounding(eventData: EventObjectData): any {
+        const roundCandidates: string[] = ["position_x", "position_y", "viewport_x", "viewport_y"];
+        let candidate: string;
+        const indexableEventData = <{[name: string]: number; }>(<any>eventData);
+        for (let i = 0; i < roundCandidates.length; i++) {
+            candidate = roundCandidates[i];
+            if (indexableEventData[candidate] !== undefined) {
+                indexableEventData[candidate] = Math.round(indexableEventData[candidate]);
+            }
+        }
+        return eventData;
     }
 
     /**

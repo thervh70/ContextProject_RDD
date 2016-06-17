@@ -18,13 +18,13 @@ class ContentController {
      * A list used to store the old EEBs, in order to remove them later.
      * @type {Array}
      */
-    private oldElementEventBindings: ElementEventBinding[] = [];
+    private elementEventBindings: ElementEventBinding[] = [];
 
     /**
      * A list used to store the old EventTrackers, in order to remove them later.
      * @type {Array}
      */
-    private oldEventTrackers: EventTracker[] = [];
+    private eventTrackers: EventTracker[] = [];
 
     /**
      * This MutationObserver will observer the DOM for mutations in the tree.
@@ -34,7 +34,7 @@ class ContentController {
      * @type {MutationObserver}
      */
     private mutationObserver = new MutationObserver((mutationRecordList) => {
-        this.unhookFromDOM();
+        this.unhookFromDOM(this.messageSendDatabaseAdapter);
         if (URLHandler.isPullRequestUrl(window.location.href)) {
             this.rewriteDOM();
             this.hookToDOM(this.messageSendDatabaseAdapter);
@@ -53,6 +53,7 @@ class ContentController {
      */
     public start() {
         Options.init();
+        this.setUpFinishScrollEvent();
         this.storeCurrentUser();
         if (!chrome.runtime.onMessage.hasListeners()) {
             chrome.runtime.onMessage.addListener(this.processMessageFromBackgroundPage());
@@ -84,7 +85,7 @@ class ContentController {
                     this.hookToDOM(this.messageSendDatabaseAdapter);
                     sendResponse(`hooked to DOM (${location.href})`);
                 } else {
-                    this.unhookFromDOM();
+                    this.unhookFromDOM(this.messageSendDatabaseAdapter);
                     sendResponse(`unhooked from DOM (${location.href})`);
                 }
             } catch (e) {
@@ -101,18 +102,23 @@ class ContentController {
      * @param database   the database that should be used when logging.
      */
     private hookToDOM(database: DatabaseAdaptable) {
-        this.unhookFromDOM();
+        this.unhookFromDOM(database);
         this.hookSemanticToDOM(database);
+        this.hookFocusAndBlurToDom(database);
         this.hookTrackersToDOM(database);
-        this.hookMutationObserverToDOM();
+
+        if (Options.get(Options.DATA_HTML)) {
+            this.hookMutationObserverToDOM();
+        }
     }
 
     /**
      * Unhook both semantic and raw data trackers from DOM.
      */
-    private unhookFromDOM() {
+    private unhookFromDOM(database: DatabaseAdaptable) {
         this.unhookMutationObserverFromDOM();
         this.unhookSemanticFromDOM();
+        this.unhookFocusAndBlurFromDom(database);
         this.unhookTrackersFromDOM();
     }
 
@@ -120,20 +126,30 @@ class ContentController {
      * Unhooks the semantic trackers from DOM, based on the EEBs previously saved in an array.
      */
     private unhookSemanticFromDOM() {
-        for (let elementEventBinding of this.oldElementEventBindings) {
+        for (let elementEventBinding of this.elementEventBindings) {
             elementEventBinding.removeDOMEvent();
         }
-        this.oldElementEventBindings = [];
+        this.elementEventBindings = [];
+    }
+
+    /**
+     * Makes sure that START_WATCHING_PR and STOP_WATCHING_PR are no longer logged to the database.
+     */
+    private unhookFocusAndBlurFromDom(database: DatabaseAdaptable) {
+        $(window).off("focus blur unload");
+        if (!document.hidden && URLHandler.isPullRequestUrl(window.location.href)) {
+            database.post(EventFactory.semantic(ElementID.NO_ELEMENT, EventID.STOP_WATCHING_PR), EMPTY_CALLBACK, EMPTY_CALLBACK);
+        }
     }
 
     /**
      * Unhooks the raw data trackers from DOM, based on the EventTrackers previously saved in an array.
      */
     private unhookTrackersFromDOM() {
-        for (let eventTracker of this.oldEventTrackers) {
+        for (let eventTracker of this.eventTrackers) {
             eventTracker.removeDOMEvent();
         }
-        this.oldEventTrackers = [];
+        this.eventTrackers = [];
     }
 
     /**
@@ -164,9 +180,37 @@ class ContentController {
                 ) {
                     elementEventBinding = eebFactory.create(elementSelectionBehaviour, elementEventBindingData.eventID);
                     elementEventBinding.addDOMEvent();
-                    this.oldElementEventBindings.push(elementEventBinding);
+                    this.elementEventBindings.push(elementEventBinding);
                 }
             }
+        }
+    }
+
+    /**
+     * Makes sure that START_WATCHING_PR and STOP_WATCHING_PR are logged to the database.
+     */
+    private hookFocusAndBlurToDom(database: DatabaseAdaptable) {
+        const postStart = () => {
+            database.post(EventFactory.semantic(ElementID.NO_ELEMENT, EventID.START_WATCHING_PR), EMPTY_CALLBACK, EMPTY_CALLBACK);
+            if (Options.DATA_TABS) {
+                database.post(EventFactory.tabChange(EventFactory.getTime()), EMPTY_CALLBACK, EMPTY_CALLBACK);
+            }
+        };
+        const postStop = () => {
+            database.post(EventFactory.semantic(ElementID.NO_ELEMENT, EventID.STOP_WATCHING_PR), EMPTY_CALLBACK, EMPTY_CALLBACK);
+            if (Options.DATA_TABS) {
+                database.post(EventFactory.tabChange(EventFactory.getTime()), EMPTY_CALLBACK, EMPTY_CALLBACK);
+            }
+        };
+        $(window).on("focus", postStart);
+        $(window).on("blur", postStop);
+        $(window).on("unload", () => {
+            if (!document.hidden) {
+                postStop();
+            }
+        });
+        if (!document.hidden) {
+            postStart();
         }
     }
 
@@ -175,17 +219,34 @@ class ContentController {
      * @param database   the database that should be used when logging.
      */
     private hookTrackersToDOM(database: DatabaseAdaptable) {
-        const list: EventTracker[] = [
-            new WindowResolutionTracker(database),
-            new KeystrokeTracker(database),
-            new MouseClickTracker(database),
-            new MouseScrollTracker(database),
-            new MousePositionTracker(database),
+        const inlineFactory: any[][] = [
+            [Options.MOUSE_POSITION,  () => new MousePositionTracker(database)],
+            [Options.MOUSE_CLICK,     () => new MouseClickTracker(database)],
+            [Options.MOUSE_SCROLLING, () => new MouseScrollTracker(database)],
+            [Options.DATA_RESOLUTION, () => new WindowResolutionTracker(database)],
+            [Options.DATA_KEYSTROKES, () => new KeystrokeTracker(database)],
         ];
-        for (let tracker of list) {
-            tracker.addDOMEvent();
-            this.oldEventTrackers.push(tracker);
+
+        for (let factoryTuple of inlineFactory) {
+            if (Options.get(factoryTuple[0])) {
+                const tracker = factoryTuple[1]();
+                tracker.addDOMEvent();
+                this.eventTrackers.push(tracker);
+            }
         }
+    }
+
+    /**
+     * Custom JQuery event finishScroll. Gets triggered when there hasn't been a scroll event for 500ms.
+     */
+    private setUpFinishScrollEvent() {
+        let scrollTimer: number;
+        $(window).scroll(() => {
+            clearTimeout(scrollTimer);
+            scrollTimer = setTimeout(() => {
+                $(window).trigger("scroll:finish");
+            }, 1000);
+        });
     }
 
     /**
