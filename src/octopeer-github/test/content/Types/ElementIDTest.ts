@@ -27,4 +27,8 @@ describe("An Identifier for an element", function() {
     it("should say that two different elementIDs are not equal", function() {
         expect(elementID.equals(new ElementID(numericalValueforElementID + 1))).toBe(false);
     });
+
+    it("should return 0 for the NO_ELEMENT constant", function() {
+        expect(ElementID.NO_ELEMENT.equals(new ElementID(0))).toBe(true);
+    });
 });

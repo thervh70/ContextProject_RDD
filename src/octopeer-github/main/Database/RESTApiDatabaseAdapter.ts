@@ -13,11 +13,13 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
      * Maps EventObject.type to an API endpoint in the Database.
      */
     private endPoints: any = {
+        "HTMLPageEvent": "html-pages",
         "KeystrokeEvent": "keystroke-events",
         "MouseClickEvent": "mouse-click-events",
         "MousePositionEvent": "mouse-position-events",
         "MouseScrollEvent": "mouse-scroll-events",
         "SemanticEvent": "semantic-events",
+        "TabChangeEvent": "change-tab-events",
         "WindowResolutionEvent": "window-resolution-events",
     };
 
@@ -67,7 +69,23 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
      * @param failure       Callback, which is called once the call has failed.
      */
     public post(eventData: EventObject, success: Callback, failure: Callback): void {
-        this.postEvent(this.processEventObject(eventData), this.endPoints[eventData.type], success, failure);
+        let newSuccess = success;
+        if (eventData.type === "SemanticEvent") {
+            const data = <SemanticEvent>eventData.data;
+            if (data.commit_hash !== undefined && data.filename !== undefined && data.line_number !== undefined) {
+                // Override callback if a semanticEvent contains diff / line number information.
+                // Old callback will be called when this call is done.
+                newSuccess = (semanticEventDataResult) => {
+                    this.postEvent({
+                        commit_hash: data.commit_hash,
+                        filename: data.filename,
+                        line_number: data.line_number,
+                        semantic_event: semanticEventDataResult.id,
+                    }, "file-positions", success, failure);
+                };
+            }
+        }
+        this.postEvent(this.processEventObject(eventData), this.endPoints[eventData.type], newSuccess, failure);
     }
 
     /**
@@ -85,8 +103,27 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
                 "created_at": data.created_at,
             };
         } else {
-            return eventData.data;
+            return this.processRounding(eventData.data);
         }
+    }
+
+    /**
+     * Round all necessary fields to integers. Necessary to stay compatible with the database.
+     * A list of all items that can occur in an EventObjectData is given. For each of these 'candidates'
+     * it is checked whether it is contained in the given EventDataObject and if so, rounded.
+     * @param eventData The data to be send to the database.
+     */
+    private processRounding(eventData: EventObjectData): any {
+        const roundCandidates: string[] = ["position_x", "position_y", "viewport_x", "viewport_y"];
+        let candidate: string;
+        const indexableEventData = <{[name: string]: number; }>(<any>eventData);
+        for (let i = 0; i < roundCandidates.length; i++) {
+            candidate = roundCandidates[i];
+            if (indexableEventData[candidate] !== undefined) {
+                indexableEventData[candidate] = Math.round(indexableEventData[candidate]);
+            }
+        }
+        return eventData;
     }
 
     /**

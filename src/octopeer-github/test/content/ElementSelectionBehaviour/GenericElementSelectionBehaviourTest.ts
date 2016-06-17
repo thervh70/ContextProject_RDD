@@ -43,12 +43,12 @@ describe("A GenericElementSelectionBehaviour", function() {
     });
 
     it("should choose the specified callback when it is specified", function() {
-        const consoleSpy = spyOn(console, "log");
-        ESBData.callback = (eventObject: JQueryEventObject) => {
-            console.log(eventObject);
+        const databaseSpy = spyOn(CLDAdapter, "post");
+        ESBData.processEvent = (eventObject: JQueryEventObject, eventID: EventID) => {
+            return EventFactory.mouseClick(0);
         };
         makeGESB(ESBData).getCallback(new EventID(42))($.Event("click"));
-        expect(consoleSpy).toHaveBeenCalledTimes(1);
+        expect(databaseSpy.calls.mostRecent().args[0]).toEqual(EventFactory.mouseClick(0));
     });
 
 });
