@@ -1,6 +1,6 @@
 {
   "name": "octopeer-github",
-  "version": "0.8.0",
+  "version": "1.0.0",
   "description": "This extension collects data while the user reviews Pull Requests.",
   "repository": {
     "type": "git",
