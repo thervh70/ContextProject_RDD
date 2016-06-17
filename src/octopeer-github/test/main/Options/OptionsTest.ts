@@ -172,6 +172,8 @@ describe("The Options class", function() {
                 $.map(
                     Options.DEPENDENCIES,
                     (value, index) => [[index, value]]
+
+        let a = "a", b = "b", c = "c", d = "d", e = "e", f = "f";
                 )
             )
         ).toEqual(true);
