@@ -129,9 +129,6 @@ describe("The Options class", function() {
 
     it("should be the case that no circular dependacies get inserted into the code", function() {
         function recursivelyTopologicalyRemove(list: [string, string][]): boolean {
-            console.log("Checking for list:");
-            console.log(list);
-
 
             // no items, so no circular dependancy so we aprove.
             if (list.length === 0) {
