@@ -137,12 +137,10 @@ describe("A RESTApiDatabaseAdapter", function() {
     });
 
     it("has to round data that is only accepted as integers", function() {
-        let joc = jasmine.objectContaining;
-
         adapter.post(EventFactory.mouseScroll(23.1, 12.8, 123.456), spyFunc, EMPTY_CALLBACK);
         let expected = (<any>jasmine.Ajax.requests.mostRecent()).params;
 
-        expect(JSON.parse(expected)).toEqual(joc({
+        expect(JSON.parse(expected)).toEqual(jasmine.objectContaining({
             created_at: 123.456,
             viewport_x: 23,
             viewport_y: 13,
