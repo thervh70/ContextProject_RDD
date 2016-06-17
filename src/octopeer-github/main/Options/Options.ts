@@ -28,7 +28,7 @@ const Options = new (class Options {
     /**
      * A option on the left should be disabled if the option on the right should be disabled.
      */
-    public get DEPENDANCIES(): {[name: string]: string; }{
+    public get DEPENDENCIES(): {[name: string]: string; }{
         return {
             [this.DATA_HTML]:           this.DATA_KEYSTROKES,
             [this.DATA_KEYSTROKES]:     this.DATA_COMMENTS ,
@@ -218,7 +218,7 @@ const Options = new (class Options {
      * @returns {boolean}
      */
     private dependentOption(optionName: string): boolean {
-        return !this.DEPENDANCIES.hasOwnProperty(optionName) || this.get(this.DEPENDANCIES[optionName]);
+        return !this.DEPENDENCIES.hasOwnProperty(optionName) || this.get(this.DEPENDENCIES[optionName]);
     }
 
 })();
