@@ -24,6 +24,7 @@
   - [5](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/SprintRetrospective-5.pdf)
   - [6](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/SprintRetrospective-6.pdf)
   - [7](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/SprintRetrospective-7.pdf)
+  - [8](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/SprintRetrospective-8.pdf)
 
 
 - Research Documents:
