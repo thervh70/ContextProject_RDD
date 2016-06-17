@@ -135,4 +135,15 @@ describe("A RESTApiDatabaseAdapter", function() {
         expect(consoleSpy).toHaveBeenCalledTimes(2);
         expect(consoleSpy.calls.all()[0].args[0]).toBe("Constructed DatabaseAdapter(http://localhost:8000/)");
     });
+
+    it("has to round data that is only accepted as integers", function() {
+        adapter.post(EventFactory.mouseScroll(23.1, 12.8, 123.456), spyFunc, EMPTY_CALLBACK);
+        let expected = (<any>jasmine.Ajax.requests.mostRecent()).params;
+
+        expect(JSON.parse(expected)).toEqual(jasmine.objectContaining({
+            created_at: 123.456,
+            viewport_x: 23,
+            viewport_y: 13,
+        }));
+    });
 });
