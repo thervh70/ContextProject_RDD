@@ -71,15 +71,18 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
     public post(eventData: EventObject, success: Callback, failure: Callback): void {
         let newSuccess = success;
         if (eventData.type === "SemanticEvent") {
-            newSuccess = (semanticEventDataResult) => {
-                const data = <SemanticEvent>eventData.data;
-                this.postEvent({
-                    commit_hash: data.commit_hash,
-                    filename: data.filename,
-                    line_number: data.line_number,
-                    semantic_event: semanticEventDataResult.id,
-                }, "file-positions", success, failure);
-            };
+            const data = <SemanticEvent>eventData.data;
+            if (data.commit_hash !== undefined && data.filename !== undefined && data.line_number !== undefined) {
+                // Override callback if a semanticEvent contains diff / line number information
+                newSuccess = (semanticEventDataResult) => {
+                    this.postEvent({
+                        commit_hash: data.commit_hash,
+                        filename: data.filename,
+                        line_number: data.line_number,
+                        semantic_event: semanticEventDataResult.id,
+                    }, "file-positions", success, failure);
+                };
+            }
         }
         this.postEvent(this.processEventObject(eventData), this.endPoints[eventData.type], newSuccess, failure);
     }
