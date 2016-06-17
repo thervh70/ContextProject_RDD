@@ -166,12 +166,7 @@ describe("The Options class", function() {
             // nothing found, so approve.
             return true;
         }
-
-        console.log(Options.DEPENDENCIES);
-        console.log($.map(
-            Options.DEPENDENCIES,
-            (value, index) => [[index, value]]
-        ));
+        
         expect(
             recursivelyTopologicalyRemove(
                 $.map(
