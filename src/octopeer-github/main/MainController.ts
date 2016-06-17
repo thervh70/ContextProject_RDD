@@ -124,7 +124,7 @@ class MainController implements OptionsObserver {
             if (URLHandler.isPullRequestUrl(sender.tab.url)) {
                 this.postToDatabase(this.readMessage(message), sender.tab.url);
             } else {
-                Logger.warn(`Squelching ${sender.tab} after it sent:`);
+                Logger.warn(`Silencing ${sender.tab} after it sent:`);
                 Logger.warn(message);
                 this.sendMessageToContentScript(sender.tab, false);
             }
