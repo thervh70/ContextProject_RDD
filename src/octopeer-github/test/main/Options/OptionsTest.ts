@@ -128,6 +128,10 @@ describe("The Options class", function() {
 
     it("should be the case that no circular dependacies get inserted into the code", function() {
         function recursivelyTopologicalyRemove(list: [string, string][]): boolean {
+            console.log("Checking for list:");
+            console.log(list);
+
+
             // no items, so no circular dependancy so we aprove.
             if (list.length === 0) {
                 return true;
@@ -135,16 +139,20 @@ describe("The Options class", function() {
 
             // see if we can find a item wich is not relied on.
             for (let begin = 0; begin < list.length; begin++) {
-
+                console.log("checkinf for:" + list[begin][0])
                 // check if there's nothing relying on this.
                 if (nothingIsDependentOn(list[begin][0], list)) {
-
+                    console.log("is FREEEEEEEEEE!!!");
                     // recursively continue without this element.
-                    list.splice(begin);
+                    list.splice(begin, 1);
                     return recursivelyTopologicalyRemove(list);
                 }
+
+                console.log("is not free");
             }
 
+            console.log("nothing is free in:");
+            console.log(list);
             // found nothing to remove, so a circular reference is found.
             return false;
         }
@@ -165,13 +173,18 @@ describe("The Options class", function() {
             return true;
         }
 
+        console.log(Options.DEPENDENCIES);
+        console.log($.map(
+            Options.DEPENDENCIES,
+            (value, index) => [[index, value]]
+        ));
         expect(
             recursivelyTopologicalyRemove(
                 $.map(
                     Options.DEPENDENCIES,
-                    (value, index) => [index, value]
+                    (value, index) => [[index, value]]
                 )
             )
-        );
+        ).toEqual(true);
     });
 });
