@@ -127,7 +127,7 @@ describe("The Options class", function() {
         expect(Options.generateDefaultOptionMap()).toEqual(mockedStorageObject);
     });
 
-    it("should be the case that no circular dependacies get inserted into the code", function() {
+    describe("regarding circular depedancies, ", function() {
         function recursivelyTopologicalyRemove(list: [string, string][]): boolean {
 
             // no items, so no circular dependancy so we aprove.
