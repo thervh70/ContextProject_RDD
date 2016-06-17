@@ -207,7 +207,7 @@ describe("The Options class", function() {
                         (value, index) => [[index, value]]
                     )
                 )
-            )
-        ).toEqual(true);
+            ).toEqual(true);
+        });
     });
 });
