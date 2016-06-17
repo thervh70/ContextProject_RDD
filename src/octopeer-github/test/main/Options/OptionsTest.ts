@@ -204,6 +204,8 @@ describe("The Options class", function() {
                 [a, a],
             ])).toBe(false);
         });
+
+        it("should be the case that there are no circular dependancies specified in the Options", function() {
                 )
             )
         ).toEqual(true);
