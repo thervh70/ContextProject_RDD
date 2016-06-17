@@ -204,10 +204,7 @@ describe("The Options class", function() {
         it("should be the case that there are no circular dependencies specified in the Options", function() {
             expect(
                 recursivelyTopologicallyRemove(
-                    $.map(
-                        Options.DEPENDENCIES,
-                        (value, index) => [[index, value]]
-                    )
+                    $.map(Options.DEPENDENCIES,(value, index) => [[index, value]])
                 )
             ).toEqual(true);
         });
