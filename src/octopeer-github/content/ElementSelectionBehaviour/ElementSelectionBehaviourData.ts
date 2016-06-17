@@ -242,7 +242,7 @@ const elementSelectionBehaviourDataList: ElementSelectionBehaviourData[] = [
             const fileName = $(eventObject.currentTarget).parent().parent().parent().parent().parent()
                 .children(".file-header").attr("data-path");
             const lineNumber = parseInt($(eventObject.currentTarget).attr("data-line-number"), 10);
-            return EventFactory.semantic(ElementID.DIFF_LINE_NUMBER, eventID, fileName, lineNumber);
+            return EventFactory.semantic(ElementID.DIFF_LINE_NUMBER, eventID, "0123456789abcdef", fileName, lineNumber);
         },
         selector: ".blob-num-addition, .blob-num-deletion, .blob-num-context",
     },
@@ -254,7 +254,7 @@ const elementSelectionBehaviourDataList: ElementSelectionBehaviourData[] = [
             const fileName = $(eventObject.currentTarget).parent().parent().parent().parent().parent()
                 .children(".file-header").attr("data-path");
             const lineNumber = parseInt($(eventObject.currentTarget).children(".add-line-comment").attr("data-line"), 10);
-            return EventFactory.semantic(ElementID.DIFF_LINE_OF_CODE, eventID, fileName, lineNumber);
+            return EventFactory.semantic(ElementID.DIFF_LINE_OF_CODE, eventID, "0123456789abcdef", fileName, lineNumber);
         },
         selector: ".blob-code-addition, .blob-code-deletion, .blob-code-context",
     },
