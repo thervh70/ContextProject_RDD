@@ -6,11 +6,19 @@
  */
 abstract class DiffElementSelectionBehaviourFunctions {
 
+    /**
+     * Get a filename from the overspanning container that contains the line.
+     */
     public static getFilenameFromDiffLine(line: JQuery) {
         return line.parent().parent().parent().parent().parent()
             .children(".file-header").attr("data-path");
     }
 
+    /**
+     * Get the commit hash from the current revision.
+     * Added lines will get the most recent commit hash.
+     * Removed lines and Context lines will get the commit hash of the HEAD of the base branch.
+     */
     public static getCommitHashFromDiffLine(line: JQuery) {
         if (line.hasClass("blob-code-addition") || line.hasClass("blob-num-addition")) {
             return $("input[name=commit_id]").val();
