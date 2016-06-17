@@ -64,8 +64,6 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
 
     /**
      * Post an event to the database.
-     * Edge case: When a semantic event is posted, the file-positions data will be posted inside the success callback of the first call,
-     *      and when that second call returns, the original success callback is called.
      * @param eventData     The data to post to the database.
      * @param success       Callback, which is called once the call has succeeded.
      * @param failure       Callback, which is called once the call has failed.
@@ -75,7 +73,8 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
         if (eventData.type === "SemanticEvent") {
             const data = <SemanticEvent>eventData.data;
             if (data.commit_hash !== undefined && data.filename !== undefined && data.line_number !== undefined) {
-                // Override callback if a semanticEvent contains diff / line number information
+                // Override callback if a semanticEvent contains diff / line number information.
+                // Old callback will be called when this call is done.
                 newSuccess = (semanticEventDataResult) => {
                     this.postEvent({
                         commit_hash: data.commit_hash,
