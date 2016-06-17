@@ -1,3 +1,4 @@
+/// <reference path="DiffElementSelectionBehaviourFunctions.ts"/>
 /// <reference path="../Types/ElementID.ts"/>
 /// <reference path="../Types/PageMask.ts"/>
 /**
@@ -239,10 +240,10 @@ const elementSelectionBehaviourDataList: ElementSelectionBehaviourData[] = [
         foundOnPages: PageMask.combine(PageMask.CONVERSATION, PageMask.FILES_CHANGED),
         name: "Line number",
         processEvent: (eventObject: JQueryEventObject, eventID: EventID) => {
-            const fileName = $(eventObject.currentTarget).parent().parent().parent().parent().parent()
-                .children(".file-header").attr("data-path");
-            const lineNumber = parseInt($(eventObject.currentTarget).attr("data-line-number"), 10);
-            return EventFactory.semantic(ElementID.DIFF_LINE_NUMBER, eventID, "0123456789abcdef", fileName, lineNumber);
+            const commit_hash = DiffElementSelectionBehaviourFunctions.getCommitHashFromDiffLine($(eventObject.currentTarget));
+            const filename = DiffElementSelectionBehaviourFunctions.getFilenameFromDiffLine($(eventObject.currentTarget));
+            const line_number = parseInt($(eventObject.currentTarget).attr("data-line-number"), 10);
+            return EventFactory.semantic(ElementID.DIFF_LINE_NUMBER, eventID, commit_hash, filename, line_number);
         },
         selector: ".blob-num-addition, .blob-num-deletion, .blob-num-context",
     },
@@ -251,10 +252,10 @@ const elementSelectionBehaviourDataList: ElementSelectionBehaviourData[] = [
         foundOnPages: PageMask.combine(PageMask.CONVERSATION, PageMask.FILES_CHANGED),
         name: "Line of code",
         processEvent: (eventObject: JQueryEventObject, eventID: EventID) => {
-            const fileName = $(eventObject.currentTarget).parent().parent().parent().parent().parent()
-                .children(".file-header").attr("data-path");
-            const lineNumber = parseInt($(eventObject.currentTarget).children(".add-line-comment").attr("data-line"), 10);
-            return EventFactory.semantic(ElementID.DIFF_LINE_OF_CODE, eventID, "0123456789abcdef", fileName, lineNumber);
+            const commit_hash = DiffElementSelectionBehaviourFunctions.getCommitHashFromDiffLine($(eventObject.currentTarget));
+            const filename = DiffElementSelectionBehaviourFunctions.getFilenameFromDiffLine($(eventObject.currentTarget));
+            const line_number = parseInt($(eventObject.currentTarget).children(".add-line-comment").attr("data-line"), 10);
+            return EventFactory.semantic(ElementID.DIFF_LINE_OF_CODE, eventID, commit_hash, filename, line_number);
         },
         selector: ".blob-code-addition, .blob-code-deletion, .blob-code-context",
     },
