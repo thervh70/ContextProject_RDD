@@ -13,15 +13,19 @@ abstract class EventFactory {
      * Creates a SemanticEvent object.
      * @param elementID     the ElementID that is being tracked.
      * @param eventID       the EventID that is being tracked.
+     * @param commit_hash   (optional) the hash of the commit where the file belongs to.
      * @param filename      (optional) the filename in which an inline event is fired.
-     * @param lineNumber    (optional) the line number in which an inline event is fired.
+     * @param line_number   (optional) the line number in which an inline event is fired.
      * @param created_at    the timestamp at which the event was created. Defaults to the current timestamp.
      * @returns {EventObject} A SemanticEvent object that can be posted to the database.
      */
-    public static semantic(elementID: ElementID, eventID: EventID,
-                           filename?: FileName, lineNumber?: LineNumber, created_at = EventFactory.getTime()): EventObject {
+    public static semantic(elementID: ElementID, eventID: EventID, commit_hash?: CommitHash, filename?: FileName, line_number?: LineNumber,
+                           created_at = EventFactory.getTime()): EventObject {
         return {
-            data: {created_at: created_at, elementID: elementID, eventID: eventID, filename: filename, lineNumber: lineNumber},
+            data: {
+                commit_hash: commit_hash, created_at: created_at, elementID: elementID, eventID: eventID,
+                filename: filename, line_number: line_number,
+            },
             type: "SemanticEvent",
         };
     }
