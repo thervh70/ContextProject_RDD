@@ -192,13 +192,13 @@ class ContentController {
     private hookFocusAndBlurToDom(database: DatabaseAdaptable) {
         const postStart = () => {
             database.post(EventFactory.semantic(ElementID.NO_ELEMENT, EventID.START_WATCHING_PR), EMPTY_CALLBACK, EMPTY_CALLBACK);
-            if (Options.DATA_TABS) {
+            if (Options.get(Options.DATA_TABS)) {
                 database.post(EventFactory.tabChange(EventFactory.getTime()), EMPTY_CALLBACK, EMPTY_CALLBACK);
             }
         };
         const postStop = () => {
             database.post(EventFactory.semantic(ElementID.NO_ELEMENT, EventID.STOP_WATCHING_PR), EMPTY_CALLBACK, EMPTY_CALLBACK);
-            if (Options.DATA_TABS) {
+            if (Options.get(Options.DATA_TABS)) {
                 database.post(EventFactory.tabChange(EventFactory.getTime()), EMPTY_CALLBACK, EMPTY_CALLBACK);
             }
         };
