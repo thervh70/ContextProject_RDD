@@ -25,8 +25,10 @@ const Options = new (class Options {
     public get DATA_TABS() {        return "dataTabs"; }
     public get DATA_RESOLUTION() {  return "dataResolution"; }
 
-    // A option on the left should be disabled if the option on the right should be disabled.
-    public get optionDependencies(): {[name: string]: string; }{
+    /**
+     * A option on the left should be disabled if the option on the right should be disabled.
+     */
+    public get DEPENDANCIES(): {[name: string]: string; }{
         return {
             [this.DATA_HTML]:       this.DATA_KEYSTROKES,
             [this.DATA_KEYSTROKES]: this.DATA_COMMENTS ,
