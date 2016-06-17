@@ -172,7 +172,7 @@ describe("The Options class", function() {
         let a = "a", b = "b", c = "c", d = "d", e = "e", f = "f";
 
         // now for testing the functions used in the test
-        it("should be so that a empty mapping gets approved", function() {
+        it("should be so that an empty mapping gets approved", function() {
             expect(recursivelyTopologicallyRemove([])).toBe(true);
         });
 
