@@ -1,3 +1,5 @@
+/// <reference path="../../../main/Array.ts"/>
+
 /**
  * Created by Robin and Mitchell on 24-5-2016.
  * Behaviour unit tests for the Options class.
@@ -13,7 +15,7 @@ describe("The Options class", function() {
         [Options.LOGGING]:         true,
         [Options.MOUSE_HOVER]:     true,
         [Options.MOUSE_CLICK]:     true,
-        [Options.MOUSE_SCROLLING]: true,
+        [Options.MOUSE_SCROLLING]: false,
         [Options.MOUSE_POSITION]:  true,
         [Options.DATA_COMMENTS]:   true,
         [Options.DATA_KEYSTROKES]: true,
@@ -67,10 +69,10 @@ describe("The Options class", function() {
 
     it("should get the option value", function() {
         let optionList: string[] = Options.generateOptionList();
-        // HTML Logging is false by default.
-        let turnedOff = 7;
+        // Some options are false by default.
+        let turnedOff = [3, 7];
         for (let i = 0; i < optionList.length; i++) {
-            if (i !== turnedOff) {
+            if (!(turnedOff.contains(i))) {
                 expect(Options.get(optionList[i])).toBe(true);
             } else {
                 expect(Options.get(optionList[i])).toBe(false);
@@ -166,7 +168,7 @@ describe("The Options class", function() {
             // nothing found, so approve.
             return true;
         }
-
+        
         let a = "a", b = "b", c = "c", d = "d", e = "e", f = "f";
 
         // now for testing the functions used in the test
