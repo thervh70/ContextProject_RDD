@@ -62,6 +62,28 @@ describe("A RESTApiDatabaseAdapter", function() {
         });
     }
 
+    it("can post SemanticEvent objects with given commit hash, filename and line number", function() {
+        const successSpy = jasmine.createSpy("success");
+        jasmine.Ajax.requests.reset();
+        adapter.post(EventFactory.semantic(defaultElementID, defaultEventID, "01323456789abcdef", "testfile.txt", 42),
+            successSpy, EMPTY_CALLBACK);
+
+        jasmine.Ajax.requests.at(0).respondWith({
+            contentType: "text/json",
+            responseText: JSON.stringify({id: 84}),
+            status: 201,
+        });
+        jasmine.Ajax.requests.at(1).respondWith({
+            contentType: "text/json",
+            responseText: JSON.stringify({success: true}),
+            status: 201,
+        });
+
+        expect(successSpy).toHaveBeenCalledTimes(1);
+        expect(jasmine.Ajax.requests.at(0).url).toEqual(`http://localhost:8000/api/semantic-events/`);
+        expect(jasmine.Ajax.requests.at(1).url).toEqual(`http://localhost:8000/api/file-positions/`);
+    });
+
     it("calls the failure callback when the API responds with failure", function() {
         const successSpy = jasmine.createSpy("success");
         const failureSpy = jasmine.createSpy("failure");
@@ -134,5 +156,16 @@ describe("A RESTApiDatabaseAdapter", function() {
 
         expect(consoleSpy).toHaveBeenCalledTimes(2);
         expect(consoleSpy.calls.all()[0].args[0]).toBe("Constructed DatabaseAdapter(http://localhost:8000/)");
+    });
+
+    it("has to round data that is only accepted as integers", function() {
+        adapter.post(EventFactory.mouseScroll(23.1, 12.8, 123.456), EMPTY_CALLBACK, EMPTY_CALLBACK);
+        let expected = (<any>jasmine.Ajax.requests.mostRecent()).params;
+
+        expect(JSON.parse(expected)).toEqual(jasmine.objectContaining({
+            created_at: 123.456,
+            viewport_x: 23,
+            viewport_y: 13,
+        }));
     });
 });

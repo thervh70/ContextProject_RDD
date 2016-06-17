@@ -71,6 +71,10 @@ class ElementID {
     public static get COMMENT_TEXTFIELD() { return new ElementID(501); }
     /** Instantiated ElementID for the InlineCommentTextField. */
     public static get INLINE_COMMENT_TEXTFIELD() { return new ElementID(502); }
+    /** Instantiated ElementID for the CommentTextField. */
+    public static get DIFF_LINE_NUMBER() { return new ElementID(601); }
+    /** Instantiated ElementID for the InlineCommentTextField. */
+    public static get DIFF_LINE_OF_CODE() { return new ElementID(602); }
     /** Instantiated ElementID for the Date. */
     public static get DATE() { return new ElementID(901); }
 

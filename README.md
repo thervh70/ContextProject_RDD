@@ -24,6 +24,7 @@
   - [5](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/SprintRetrospective-5.pdf)
   - [6](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/SprintRetrospective-6.pdf)
   - [7](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/SprintRetrospective-7.pdf)
+  - [8](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/SprintRetrospective-8.pdf)
 
 
 - Research Documents:
@@ -35,7 +36,9 @@
 - [Product Vision (final)](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Final_Product_Vision.pdf)
 - [Product Planning (final)](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Final_Product_Planning.pdf)
 - [Architecture Design Document](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Architecture_Design_Document.pdf)
+- [Semantic Database Elements](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/SemanticDatabaseElements.pdf)
 - [Test Report](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Test_Report.pdf)
+- [Performance Testing Report](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/research/Research_Performance.pdf)
 - [Final Report (Draft version)](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Final_Report.pdf)
 
 
@@ -50,6 +53,10 @@ All documents can in general be found in the doc folder.
 - Run `git submodule init && git submodule update --recursive` to make the analytics work
 
 Congratulations, you can now start developing!
+
+To see console output of the extension's background page, enable "Developer mode" in Chrome and click "Inspect view".
+
+If you want to see debug output in the console of the background page, type `Logger.setDebug()` in the console or add this to `src/octopeer-github/main/main.ts`.
 
 The next section will continue with applying Static Analysis Tools to WebStorm.
 
