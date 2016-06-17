@@ -129,8 +129,8 @@ describe("The Options class", function() {
         expect(Options.generateDefaultOptionMap()).toEqual(mockedStorageObject);
     });
 
-    describe("regarding circular depedancies, ", function() {
-        function recursivelyTopologicalyRemove(list: [string, string][]): boolean {
+    describe("regarding circular dependencies, ", function() {
+        function recursivelyTopologicallyRemove(list: [string, string][]): boolean {
 
             // no items, so no circular dependancy so we aprove.
             if (list.length === 0) {
@@ -145,7 +145,7 @@ describe("The Options class", function() {
 
                     // recursively continue without this element.
                     list.splice(begin, 1);
-                    return recursivelyTopologicalyRemove(list);
+                    return recursivelyTopologicallyRemove(list);
                 }
             }
 
@@ -168,16 +168,16 @@ describe("The Options class", function() {
             // nothing found, so approve.
             return true;
         }
-        
+
         let a = "a", b = "b", c = "c", d = "d", e = "e", f = "f";
 
         // now for testing the functions used in the test
         it("should be so that a empty mapping gets approved", function() {
-            expect(recursivelyTopologicalyRemove([])).toBe(true);
+            expect(recursivelyTopologicallyRemove([])).toBe(true);
         });
 
         it("should be so that a non circular mapping gets approved", function() {
-            expect(recursivelyTopologicalyRemove([
+            expect(recursivelyTopologicallyRemove([
                 [a, b],
                 [b, c],
                 [c, d],
@@ -186,7 +186,7 @@ describe("The Options class", function() {
         });
 
         it("should be so that a circular mapping gets rejected", function() {
-            expect(recursivelyTopologicalyRemove([
+            expect(recursivelyTopologicallyRemove([
                 [a, b],
                 [b, c],
                 [c, d],
@@ -196,14 +196,14 @@ describe("The Options class", function() {
         });
 
         it("should be so that a simple circular mapping gets rejected", function() {
-            expect(recursivelyTopologicalyRemove([
+            expect(recursivelyTopologicallyRemove([
                 [a, a],
             ])).toBe(false);
         });
 
-        it("should be the case that there are no circular dependancies specified in the Options", function() {
+        it("should be the case that there are no circular dependencies specified in the Options", function() {
             expect(
-                recursivelyTopologicalyRemove(
+                recursivelyTopologicallyRemove(
                     $.map(
                         Options.DEPENDENCIES,
                         (value, index) => [[index, value]]
