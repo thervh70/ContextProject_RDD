@@ -6,7 +6,7 @@ describe("An EventFactory", function() {
     const defaultTime: UnixTimestamp = EventFactory.getTime();
 
     it("should properly create SemanticEvents", function() {
-        expect(EventFactory.semantic(ElementID.MERGE_PR, EventID.CLICK, undefined, undefined, defaultTime))
+        expect(EventFactory.semantic(ElementID.MERGE_PR, EventID.CLICK, undefined, undefined, undefined, defaultTime))
             .toEqual({
                 data: {commit_hash: undefined, created_at: defaultTime, elementID: ElementID.MERGE_PR, eventID: EventID.CLICK,
                     filename: undefined, line_number: undefined},
