@@ -166,12 +166,6 @@ describe("The Options class", function() {
             // nothing found, so approve.
             return true;
         }
-        
-        expect(
-            recursivelyTopologicalyRemove(
-                $.map(
-                    Options.DEPENDENCIES,
-                    (value, index) => [[index, value]]
 
         let a = "a", b = "b", c = "c", d = "d", e = "e", f = "f";
 
