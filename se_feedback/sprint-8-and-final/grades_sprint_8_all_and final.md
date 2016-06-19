@@ -23,6 +23,7 @@ Total: ****
 | reflection            |    |
 
 ## Notes
+* Excellent Sprint and nice Duck
 
 #Code Evolution Quality Feedback
 
@@ -58,6 +59,10 @@ Total: ****
 | Code Review            |      |
 
 ##Notes
+* Excellent Testing Coverage and Motivation
+* Excellent Branching, Building, Code Review, and Tooling
+* Excellent ADD
+* Good code changes
 
 #Final Software Product
 
@@ -80,3 +85,6 @@ Total: ****
 | Responsiveness to Feedback |      |
 
 ##Notes
+* Asked for more feedback and replied critically to most feedback given
+* Clear and well motivated architecture
+* High code quality
