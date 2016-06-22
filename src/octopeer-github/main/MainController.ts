@@ -235,6 +235,10 @@ class MainController implements OptionsObserver {
         return this.database[user][prUrl];
     }
 
+    /**
+     * Get the current tab via the Chrome API.
+     * @param callback this callback is called with a chrome.tabs.Tab that represents the current tab.
+     */
     private getCurrentTab(callback: (tab: Tab) => void) {
         chrome.tabs.query({"active": true, "currentWindow": true}, (tabs: Tab[]) => {
             callback(tabs[0]);
