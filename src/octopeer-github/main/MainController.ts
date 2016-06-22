@@ -82,11 +82,7 @@ class MainController implements OptionsObserver {
      * There is usually only one active tab, so no need to iterate in the callback.
      */
     private rehookOnFocusChange() {
-        chrome.tabs.onActivated.addListener((activeInfo) => {
-            chrome.tabs.query({"active": true, "windowId": activeInfo.windowId}, (tabs: Tab[]) => {
-                this.testAndSend(tabs[0]);
-            });
-        });
+        chrome.tabs.onActivated.addListener(() => this.getCurrentTab((tab) => this.testAndSend(tab)));
     }
 
     /**
