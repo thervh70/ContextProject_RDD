@@ -102,6 +102,12 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
                 "element_type": data.elementID.getElementID(),
                 "created_at": data.created_at,
             };
+        } if (eventData.type === "KeystrokeEvent") {
+            const data = <KeystrokeEvent>eventData.data;
+            if (data.keystroke === " ") {
+                data.keystroke = "Space";
+            }
+            return data;
         } else {
             return this.processRounding(eventData.data);
         }
