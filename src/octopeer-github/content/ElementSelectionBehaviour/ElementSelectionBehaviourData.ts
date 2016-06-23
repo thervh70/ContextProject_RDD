@@ -245,7 +245,7 @@ const elementSelectionBehaviourDataList: ElementSelectionBehaviourData[] = [
             const line_number = parseInt($(eventObject.currentTarget).attr("data-line-number"), 10);
             return EventFactory.semantic(ElementID.DIFF_LINE_NUMBER, eventID, commit_hash, filename, line_number);
         },
-        selector: ".blob-num-addition, .blob-num-deletion, .blob-num-context",
+        selector: ".blob-num-addition:not(.empty-cell), .blob-num-deletion:not(.empty-cell), .blob-num-context:not(.empty-cell)",
     },
     {
         elementID: ElementID.DIFF_LINE_OF_CODE,
@@ -257,6 +257,6 @@ const elementSelectionBehaviourDataList: ElementSelectionBehaviourData[] = [
             const line_number = parseInt($(eventObject.currentTarget).children(".add-line-comment").attr("data-line"), 10);
             return EventFactory.semantic(ElementID.DIFF_LINE_OF_CODE, eventID, commit_hash, filename, line_number);
         },
-        selector: ".blob-code-addition, .blob-code-deletion, .blob-code-context",
+        selector: ".blob-code-addition:not(.empty-cell), .blob-code-deletion:not(.empty-cell), .blob-code-context:not(.empty-cell)",
     },
 ];
