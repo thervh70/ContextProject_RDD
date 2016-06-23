@@ -37,9 +37,7 @@ class MainController implements OptionsObserver {
      * Else the extension is set to off.
      */
     public notify() {
-        chrome.tabs.query({"active": true, "currentWindow": true}, (tabs: Tab[]) => {
-            this.testAndSend(tabs[0]);
-        });
+        this.getCurrentTab((tab) => this.testAndSend(tab));
         if (!Options.get(Options.LOGGING)) {
             Status.off();
         }
@@ -63,7 +61,7 @@ class MainController implements OptionsObserver {
     private initAllCurrentTabs() {
         chrome.tabs.query({}, (tabs) => {
             for (let tab of tabs) {
-                this.testAndSend(tab, false);
+                this.testAndSend(tab);
             }
         });
     }
@@ -74,7 +72,7 @@ class MainController implements OptionsObserver {
     private rehookOnUpdate() {
         chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
             if (changeInfo.status && changeInfo.status === "complete") {
-                this.testAndSend(tab, true);
+                this.testAndSend(tab);
             }
         });
     }
@@ -84,11 +82,7 @@ class MainController implements OptionsObserver {
      * There is usually only one active tab, so no need to iterate in the callback.
      */
     private rehookOnFocusChange() {
-        chrome.tabs.onActivated.addListener((activeInfo) => {
-            chrome.tabs.query({"active": true, "windowId": activeInfo.windowId}, (tabs: Tab[]) => {
-                this.testAndSend(tabs[0]);
-            });
-        });
+        chrome.tabs.onActivated.addListener(() => this.getCurrentTab((tab) => this.testAndSend(tab)));
     }
 
     /**
@@ -175,20 +169,22 @@ class MainController implements OptionsObserver {
      * I named it alike to a "test-and-set" operation that comes from concurrent programming.
      *     This (atomic) operation only sets a variable if a condition holds.
      * @param tab           the Tab to check for
-     * @param isActiveTab   if `tab` is not the active tab, this method will not update the Status.
      */
-    private testAndSend(tab: Tab, isActiveTab = true) {
+    private testAndSend(tab: Tab) {
         if (tab === undefined || tab.url === undefined) {
-            this.setNewStatus(false, isActiveTab);
+            this.setNewStatus(false, false);
             return;
         }
+        this.getCurrentTab((currentTab: Tab) => {
+            const isActiveTab = tab.id === currentTab.id;
 
-        let isPullRequest = URLHandler.isPullRequestUrl(tab.url);
-        if (isPullRequest) {
-            this.previousPrUrl = tab.url;
-            this.sendMessageToContentScript(tab, Options.get(Options.LOGGING));
-        }
-        this.setNewStatus(isPullRequest, isActiveTab);
+            let isPullRequest = URLHandler.isPullRequestUrl(tab.url);
+            if (isPullRequest) {
+                this.previousPrUrl = tab.url;
+                this.sendMessageToContentScript(tab, Options.get(Options.LOGGING));
+            }
+            this.setNewStatus(isPullRequest, isActiveTab);
+        });
     }
 
     /**
@@ -238,6 +234,16 @@ class MainController implements OptionsObserver {
             this.database[user][prUrl] = new RESTApiDatabaseAdapter(MainController.DATABASE_URL, prUrl, user);
         }
         return this.database[user][prUrl];
+    }
+
+    /**
+     * Get the current tab via the Chrome API.
+     * @param callback this callback is called with a chrome.tabs.Tab that represents the current tab.
+     */
+    private getCurrentTab(callback: (tab: Tab) => void) {
+        chrome.tabs.query({"active": true, "currentWindow": true}, (tabs: Tab[]) => {
+            callback(tabs[0]);
+        });
     }
 
 }
