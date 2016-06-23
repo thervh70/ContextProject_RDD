@@ -217,7 +217,9 @@ class MainController implements OptionsObserver {
             }
             let str = result.message || `will be refreshed because content script is not loaded (${tab.url})`;
             Logger.debug(`[Tab] ${str}`);
-            Status.set(result.status);
+            if (result.error) {
+                Status.set(StatusCode.ERROR);
+            }
         });
     }
 
