@@ -176,7 +176,7 @@ class MainController implements OptionsObserver {
             return;
         }
         this.getCurrentTab((currentTab: Tab) => {
-            const isActiveTab = tab.id === currentTab.id;
+            const isActiveTab = currentTab === undefined ? false : tab.id === currentTab.id;
 
             let isPullRequest = URLHandler.isPullRequestUrl(tab.url);
             if (isPullRequest) {
