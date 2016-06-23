@@ -13,7 +13,7 @@ abstract class DiffElementSelectionBehaviourFunctions {
      */
     public static getLineNumberFromDiffLine(line: JQuery) {
         if (line.hasClass("blob-code-context") || line.hasClass("blob-num-context")) {
-            return parseInt(line.parent().find(".blob-num:nth-of-type(2)").attr("data-line-number"), 10);
+            return parseInt($(line.parent().find(".blob-num")[1]).attr("data-line-number"), 10);
         } else {
             return parseInt(line.parent().find(".blob-num:not(.empty-cell)").attr("data-line-number"), 10);
         }
