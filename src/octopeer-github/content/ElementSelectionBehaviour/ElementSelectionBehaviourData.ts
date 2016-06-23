@@ -242,7 +242,7 @@ const elementSelectionBehaviourDataList: ElementSelectionBehaviourData[] = [
         processEvent: (eventObject: JQueryEventObject, eventID: EventID) => {
             const commit_hash = DiffElementSelectionBehaviourFunctions.getCommitHashFromDiffLine($(eventObject.currentTarget));
             const filename = DiffElementSelectionBehaviourFunctions.getFilenameFromDiffLine($(eventObject.currentTarget));
-            const line_number = parseInt($(eventObject.currentTarget).attr("data-line-number"), 10);
+            const line_number = DiffElementSelectionBehaviourFunctions.getLineNumberFromDiffLine($(eventObject.currentTarget));
             return EventFactory.semantic(ElementID.DIFF_LINE_NUMBER, eventID, commit_hash, filename, line_number);
         },
         selector: ".blob-num-addition:not(.empty-cell), .blob-num-deletion:not(.empty-cell), .blob-num-context:not(.empty-cell)",
@@ -254,7 +254,7 @@ const elementSelectionBehaviourDataList: ElementSelectionBehaviourData[] = [
         processEvent: (eventObject: JQueryEventObject, eventID: EventID) => {
             const commit_hash = DiffElementSelectionBehaviourFunctions.getCommitHashFromDiffLine($(eventObject.currentTarget));
             const filename = DiffElementSelectionBehaviourFunctions.getFilenameFromDiffLine($(eventObject.currentTarget));
-            const line_number = parseInt($(eventObject.currentTarget).children(".add-line-comment").attr("data-line"), 10);
+            const line_number = DiffElementSelectionBehaviourFunctions.getLineNumberFromDiffLine($(eventObject.currentTarget));
             return EventFactory.semantic(ElementID.DIFF_LINE_OF_CODE, eventID, commit_hash, filename, line_number);
         },
         selector: ".blob-code-addition:not(.empty-cell), .blob-code-deletion:not(.empty-cell), .blob-code-context:not(.empty-cell)",
