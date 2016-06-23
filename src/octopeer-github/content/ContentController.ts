@@ -77,7 +77,7 @@ class ContentController {
     private processMessageFromBackgroundPage() {
         return (request: any, sender: any, sendResponse: Function) => {
             if (request.hookToDom === undefined) {
-                sendResponse({message: `did nothing (${location.href})`, error: true});
+                sendResponse({error: true, message: `did nothing (${location.href})`});
                 return;
             }
             try {
@@ -89,7 +89,7 @@ class ContentController {
                     sendResponse({message: `unhooked from DOM (${location.href})`});
                 }
             } catch (e) {
-                sendResponse({message: `has errored (${location.href})\n[ERR] ${e}`, error: true});
+                sendResponse({error: true, message: `has errored (${location.href})\n[ERR] ${e}`});
                 console.error(e);
                 return;
             }
