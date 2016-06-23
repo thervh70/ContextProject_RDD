@@ -3,7 +3,7 @@
 
 import Tab = chrome.tabs.Tab;
 /**
- * The MainController hooks the event handlers to the DOM-tree.
+ * The MainController hooks the event handlers to the DOM-tree. Also lets Rubber Ducks quack in full glory.
  */
 class MainController implements OptionsObserver {
 
@@ -20,7 +20,6 @@ class MainController implements OptionsObserver {
     private user: string;
 
     /**
-     * Starts the MainController. After calling this, all event handlers are hooked to the DOM-tree.
      * @return this
      */
     public start() {
