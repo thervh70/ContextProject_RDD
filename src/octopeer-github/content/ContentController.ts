@@ -123,36 +123,6 @@ class ContentController {
     }
 
     /**
-     * Unhooks the semantic trackers from DOM, based on the EEBs previously saved in an array.
-     */
-    private unhookSemanticFromDOM() {
-        for (let elementEventBinding of this.elementEventBindings) {
-            elementEventBinding.removeDOMEvent();
-        }
-        this.elementEventBindings = [];
-    }
-
-    /**
-     * Makes sure that START_WATCHING_PR and STOP_WATCHING_PR are no longer logged to the database.
-     */
-    private unhookFocusAndBlurFromDom(database: DatabaseAdaptable) {
-        $(window).off("focus blur unload");
-        if (!document.hidden && URLHandler.isPullRequestUrl(window.location.href)) {
-            database.post(EventFactory.semantic(ElementID.NO_ELEMENT, EventID.STOP_WATCHING_PR), EMPTY_CALLBACK, EMPTY_CALLBACK);
-        }
-    }
-
-    /**
-     * Unhooks the raw data trackers from DOM, based on the EventTrackers previously saved in an array.
-     */
-    private unhookTrackersFromDOM() {
-        for (let eventTracker of this.eventTrackers) {
-            eventTracker.removeDOMEvent();
-        }
-        this.eventTrackers = [];
-    }
-
-    /**
      * Hook the product of ElementBindings and ElementSelectors to the DOM-tree.
      * @param database   the database that should be used when logging.
      */
@@ -187,6 +157,16 @@ class ContentController {
     }
 
     /**
+     * Unhooks the semantic trackers from DOM, based on the EEBs previously saved in an array.
+     */
+    private unhookSemanticFromDOM() {
+        for (let elementEventBinding of this.elementEventBindings) {
+            elementEventBinding.removeDOMEvent();
+        }
+        this.elementEventBindings = [];
+    }
+
+    /**
      * Makes sure that START_WATCHING_PR and STOP_WATCHING_PR are logged to the database.
      */
     private hookFocusAndBlurToDom(database: DatabaseAdaptable) {
@@ -215,6 +195,16 @@ class ContentController {
     }
 
     /**
+     * Makes sure that START_WATCHING_PR and STOP_WATCHING_PR are no longer logged to the database.
+     */
+    private unhookFocusAndBlurFromDom(database: DatabaseAdaptable) {
+        $(window).off("focus blur unload");
+        if (!document.hidden && URLHandler.isPullRequestUrl(window.location.href)) {
+            database.post(EventFactory.semantic(ElementID.NO_ELEMENT, EventID.STOP_WATCHING_PR), EMPTY_CALLBACK, EMPTY_CALLBACK);
+        }
+    }
+
+    /**
      * Hook the different rawdata trackers to DOM.
      * @param database   the database that should be used when logging.
      */
@@ -237,16 +227,13 @@ class ContentController {
     }
 
     /**
-     * Custom JQuery event finishScroll. Gets triggered when there hasn't been a scroll event for 500ms.
+     * Unhooks the raw data trackers from DOM, based on the EventTrackers previously saved in an array.
      */
-    private setUpFinishScrollEvent() {
-        let scrollTimer: number;
-        $(window).scroll(() => {
-            clearTimeout(scrollTimer);
-            scrollTimer = setTimeout(() => {
-                $(window).trigger("scroll:finish");
-            }, 1000);
-        });
+    private unhookTrackersFromDOM() {
+        for (let eventTracker of this.eventTrackers) {
+            eventTracker.removeDOMEvent();
+        }
+        this.eventTrackers = [];
     }
 
     /**
@@ -273,5 +260,18 @@ class ContentController {
      */
     private unhookMutationObserverFromDOM() {
         this.mutationObserver.disconnect();
+    }
+
+    /**
+     * Custom JQuery event finishScroll. Gets triggered when there hasn't been a scroll event for 500ms.
+     */
+    private setUpFinishScrollEvent() {
+        let scrollTimer: number;
+        $(window).scroll(() => {
+            clearTimeout(scrollTimer);
+            scrollTimer = setTimeout(() => {
+                $(window).trigger("scroll:finish");
+            }, 1000);
+        });
     }
 }
