@@ -1,5 +1,6 @@
 /// <reference path="../main/Options/DoNotWatchOptions.ts"/>
 /// <reference path="../main/Database/ConsoleLogDatabaseAdapter.ts"/>
+/// <reference path="../main/Status.ts"/>
 /// <reference path="../main/URLHandler.ts"/>
 /// <reference path="ElementEventBinding/ElementEventBinding.ts"/>
 
@@ -77,19 +78,19 @@ class ContentController {
     private processMessageFromBackgroundPage() {
         return (request: any, sender: any, sendResponse: Function) => {
             if (request.hookToDom === undefined) {
-                sendResponse(`did nothing (${location.href})`);
+                sendResponse({message: `did nothing (${location.href})`, status: StatusCode.ERROR});
                 return;
             }
             try {
                 if (request.hookToDom) {
                     this.hookToDOM(this.messageSendDatabaseAdapter);
-                    sendResponse(`hooked to DOM (${location.href})`);
+                    sendResponse({message: `hooked to DOM (${location.href})`, status: StatusCode.RUNNING});
                 } else {
                     this.unhookFromDOM(this.messageSendDatabaseAdapter);
-                    sendResponse(`unhooked from DOM (${location.href})`);
+                    sendResponse({message: `unhooked from DOM (${location.href})`, status: StatusCode.STANDBY});
                 }
             } catch (e) {
-                sendResponse(`has errored (${location.href})\n[ERR] ${e}`);
+                sendResponse({message: `has errored (${location.href})\n[ERR] ${e}`, status: StatusCode.ERROR});
                 console.error(e);
                 return;
             }
