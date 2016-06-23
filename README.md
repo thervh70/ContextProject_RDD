@@ -39,7 +39,7 @@
 - [Semantic Database Elements](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/SemanticDatabaseElements.pdf)
 - [Test Report](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Test_Report.pdf)
 - [Performance Testing Report](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/research/Research_Performance.pdf)
-- [Final Report (Draft version)](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Final_Report.pdf)
+- [Final Report (final)](https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Final_Report.pdf)
 
 
 All documents can in general be found in the doc folder.
