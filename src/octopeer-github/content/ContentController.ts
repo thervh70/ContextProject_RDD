@@ -77,19 +77,19 @@ class ContentController {
     private processMessageFromBackgroundPage() {
         return (request: any, sender: any, sendResponse: Function) => {
             if (request.hookToDom === undefined) {
-                sendResponse(`did nothing (${location.href})`);
+                sendResponse({error: true, message: `did nothing (${location.href})`});
                 return;
             }
             try {
                 if (request.hookToDom) {
                     this.hookToDOM(this.messageSendDatabaseAdapter);
-                    sendResponse(`hooked to DOM (${location.href})`);
+                    sendResponse({message: `hooked to DOM (${location.href})`});
                 } else {
                     this.unhookFromDOM(this.messageSendDatabaseAdapter);
-                    sendResponse(`unhooked from DOM (${location.href})`);
+                    sendResponse({message: `unhooked from DOM (${location.href})`});
                 }
             } catch (e) {
-                sendResponse(`has errored (${location.href})\n[ERR] ${e}`);
+                sendResponse({error: true, message: `has errored (${location.href})\n[ERR] ${e}`});
                 console.error(e);
                 return;
             }
