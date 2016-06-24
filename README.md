@@ -93,5 +93,8 @@ The extension is now loaded in Chrome.
  - For every new dependency, run `typings install --ambient --save <package-name>`
  - The type definitons should now automatically be included via the TypeScript configuration files
 
+### Visualisation plugin
+Our [SonarQube plugin](https://github.com/thervh70/ContextProject_RDD_SonarQube) can be used supplementary to this project for a yet basic visualisation of the collected data.
+
 ### Acknowledgments
 We would like to thank [PixelKit](http://pixelkit.com/) for allowing us to use and modify the lightbulb icon. It was released with the [CC Attribution 4.0](http://creativecommons.org/licenses/by/4.0/) licencse.
