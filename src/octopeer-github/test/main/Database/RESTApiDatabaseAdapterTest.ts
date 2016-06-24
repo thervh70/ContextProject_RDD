@@ -168,4 +168,13 @@ describe("A RESTApiDatabaseAdapter", function() {
             viewport_y: 13,
         }));
     });
+
+    it("has to rewrite space keystrokes to `Space`", function() {
+        adapter.post(EventFactory.keyDown(" "), EMPTY_CALLBACK, EMPTY_CALLBACK);
+        let expected = (<any>jasmine.Ajax.requests.mostRecent()).params;
+
+        expect(JSON.parse(expected)).toEqual(jasmine.objectContaining({
+            keystroke: "Space",
+        }));
+    });
 });

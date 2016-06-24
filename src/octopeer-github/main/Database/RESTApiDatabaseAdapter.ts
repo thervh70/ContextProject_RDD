@@ -95,15 +95,22 @@ class RESTApiDatabaseAdapter implements DatabaseAdaptable {
      * @returns {any} the JSON-compatible formatted data that is going to be posted to the database.
      */
     private processEventObject(eventData: EventObject): any {
-        if (eventData.type === "SemanticEvent") {
-            const data = <SemanticEvent>eventData.data;
-            return {
-                "event_type": data.eventID.getEventID(),
-                "element_type": data.elementID.getElementID(),
-                "created_at": data.created_at,
-            };
-        } else {
-            return this.processRounding(eventData.data);
+        switch (eventData.type) {
+            case "SemanticEvent":
+                const semanticData = <SemanticEvent>eventData.data;
+                return {
+                    "event_type": semanticData.eventID.getEventID(),
+                    "element_type": semanticData.elementID.getElementID(),
+                    "created_at": semanticData.created_at,
+                };
+            case "KeystrokeEvent":
+                const keystrokeData = <KeystrokeEvent>eventData.data;
+                if (keystrokeData.keystroke === " ") {
+                    keystrokeData.keystroke = "Space";
+                }
+                return keystrokeData;
+            default:
+                return this.processRounding(eventData.data);
         }
     }
 
