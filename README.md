@@ -16,6 +16,7 @@
   <td><a href="https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Sprint_Backlog6.pdf">6</a></td>
   <td><a href="https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Sprint_Backlog7.pdf">7</a></td>
   <td><a href="https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Sprint_Backlog8.pdf">8</a></td>
+  <td><a href="https://github.com/thervh70/ContextProject_RDD/blob/master/doc/Sprint_BacklogSonarQuack.pdf">SonarQuack</a></td>
 </tr><tr></tr><!-- extra row because the second row is grey --><tr>
 <td><li> Sprint retrospectives: </li></td>
   <td><a href="https://github.com/thervh70/ContextProject_RDD/blob/master/doc/SprintRetrospective-1.pdf">1</a></td>
