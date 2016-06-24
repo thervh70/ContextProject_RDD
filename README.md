@@ -89,6 +89,9 @@ You've now activated TSLint.
 
 The extension is now loaded in Chrome.
 
+### Visualisation plugin
+Our [SonarQube plugin](https://github.com/thervh70/ContextProject_RDD_SonarQube) can be used supplementary to this project for a yet basic visualisation of the collected data.
+
 ### Adding new type definitions for dependencies
  - For every new dependency, run `typings install --ambient --save <package-name>`
  - The type definitons should now automatically be included via the TypeScript configuration files
