@@ -8,7 +8,7 @@ import Tab = chrome.tabs.Tab;
 class MainController implements OptionsObserver {
 
     /** The URL where the database is located. */
-    public static get DATABASE_URL() { return "http://146.185.128.124"; }
+    public static get DATABASE_URL() { return "http://octopeer.st.ewi.tudelft.nl"; }
 
     /** A map from user to {map from pull request url to DatabaseAdaptable}. */
     private database: { [user: string]: { [prUrl: string]: DatabaseAdaptable; }; } = {};
