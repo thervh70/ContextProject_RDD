@@ -18,6 +18,7 @@ if [ ! -d "build/libs" ]; then
     mkdir build/libs
 fi
 
+cp -u -r license.md build
 cp -u -r resources/* build/resources
 mv build/resources/manifest.json build/manifest.json
 cp -u -r analytics/src/* build/analytics
