@@ -95,3 +95,5 @@ The extension is now loaded in Chrome.
 
 ### Acknowledgments
 We would like to thank [PixelKit](http://pixelkit.com/) for allowing us to use and modify the lightbulb icon. It was released with the [CC Attribution 4.0](http://creativecommons.org/licenses/by/4.0/) licencse.
+
+This software product is licensed with the [BSD 3-clause license](https://github.com/thervh70/ContextProject_RDD/blob/master/license.md).

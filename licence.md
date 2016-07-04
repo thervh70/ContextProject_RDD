@@ -1,4 +1,6 @@
-Copyright (c) 1998, by Youri Arkesteijn, Mitchell Dingjan, Robin van Heukelum, Mathias Meuleman, and Maarten Sijm at Delft University of Technology.
+This software product is licensed with the BSD 3-clause license.
+
+Copyright (c) 2016, by Youri Arkesteijn, Mitchell Dingjan, Robin van Heukelum, Mathias Meuleman, and Maarten Sijm at Delft University of Technology.
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
