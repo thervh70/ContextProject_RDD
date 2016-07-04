@@ -32,5 +32,3 @@ echo "Transpiling TypeScript..."
 npm run-script tsc > /dev/null
 cursor_up
 echo "Transpiled TypeScript"
-
-echo "Copied dependencies"
