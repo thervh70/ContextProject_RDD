@@ -5,8 +5,11 @@ function cursor_up {
 }
 
 if [ "$1" == "clean" ]; then
-    rm -R build/*
+    rm -R build
 	echo "Cleaned build directory"
+fi
+if [ ! -d "build" ]; then
+    mkdir build
 fi
 if [ ! -d "build/resources" ]; then
     mkdir build/resources
@@ -29,5 +32,3 @@ echo "Transpiling TypeScript..."
 npm run-script tsc > /dev/null
 cursor_up
 echo "Transpiled TypeScript"
-
-echo "Copied dependencies"
