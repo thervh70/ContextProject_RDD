@@ -6,7 +6,7 @@
     "type": "git",
     "url": "https://github.com/thervh70/ContextProject_RDD"
   },
-  "license": "none",
+  "license": "BSD",
   "scripts": {
     "coverage": "remap-istanbul -i coverage/coverage-final.json -o coverage/html -t html",
     "coveralls": "remap-istanbul -i coverage/coverage-final.json -t text-lcov | coveralls",
