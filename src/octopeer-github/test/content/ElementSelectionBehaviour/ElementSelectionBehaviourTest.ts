@@ -68,15 +68,15 @@ let filesChangedSelectors: ElementIDNumberPair[] = [
     [ElementID.EDIT_COMMENT, 1],
     [ElementID.EDIT_PR_NAME, 1],
     [ElementID.SAVE_PR_NAME, 0],
-    [ElementID.DATE, 5],
+    [ElementID.DATE, 7],
     [ElementID.OTHER_CONTRIBUTOR, 0],
     [ElementID.PR_CREATOR, 1],
     [ElementID.PR_PARTICIPANT, 1],
     [ElementID.COMMITS_TAB, 1],
     [ElementID.CONVERSATION_TAB, 1],
     [ElementID.FILES_CHANGED_TAB, 1],
-    [ElementID.DIFF_LINE_NUMBER, 16],
-    [ElementID.DIFF_LINE_OF_CODE, 16],
+    [ElementID.DIFF_LINE_NUMBER, 43],
+    [ElementID.DIFF_LINE_OF_CODE, 43],
 ];
 
 let conversationOtherContributor: ElementIDNumberPair[] = [

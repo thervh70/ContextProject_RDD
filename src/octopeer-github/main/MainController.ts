@@ -8,7 +8,7 @@ import Tab = chrome.tabs.Tab;
 class MainController implements OptionsObserver {
 
     /** The URL where the database is located. */
-    public static get DATABASE_URL() { return "http://146.185.128.124"; }
+    public static get DATABASE_URL() { return "http://octopeer.st.ewi.tudelft.nl"; }
 
     /** A map from user to {map from pull request url to DatabaseAdaptable}. */
     private database: { [user: string]: { [prUrl: string]: DatabaseAdaptable; }; } = {};
@@ -159,6 +159,7 @@ class MainController implements OptionsObserver {
         const failure = function() {
             Logger.warn("Log to database of following object failed:");
             Logger.warn(message);
+            Status.error();
         };
         this.getDatabase(this.user, prUrl).post(message, success, failure);
     }
@@ -206,15 +207,19 @@ class MainController implements OptionsObserver {
      * @param tab The tab to send this message to.
      * @param hookToDom true if the tab should hook to DOM, false if the tab should unhook from DOM.
      */
-    private sendMessageToContentScript(tab: Tab, hookToDom: boolean) {
+    private sendMessageToContentScript(tab: Tab, hookToDom = false) {
         chrome.tabs.sendMessage(tab.id, {
             hookToDom: hookToDom,
         }, function (result) {
             if (!result) {
                 chrome.tabs.reload(tab.id);
+                result = {};
             }
-            let str = result || `will be refreshed because content script is not loaded (${tab.url})`;
+            let str = result.message || `will be refreshed because content script is not loaded (${tab.url})`;
             Logger.debug(`[Tab] ${str}`);
+            if (result.error) {
+                Status.set(StatusCode.ERROR);
+            }
         });
     }
 
